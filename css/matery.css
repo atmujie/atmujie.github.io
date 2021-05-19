@@ -268,7 +268,7 @@ mark {
 }
 
 .bg-color {
-    background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+    background-image: linear-gradient(to right, #66ccff 0%, #01579b 100%);
 }
 
 .text-color {
@@ -284,7 +284,7 @@ mark {
     position: fixed;
     bottom: 0;
     z-index: 300;
-    background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+    background: linear-gradient(to right, #4cbfc 0%, #0f9d58 100%);
     opacity: 0.8;
 }
 
@@ -1168,6 +1168,11 @@ article .article-tags .chip {
     }
 }
 
+.reprint__type{
+   display: inline-block;
+   width: 100%;
+   overflow: hidden;
+}
 #artDetail .reprint {
     margin: 15px 0 0.4rem;
     padding: 0.5rem 0.8rem;
