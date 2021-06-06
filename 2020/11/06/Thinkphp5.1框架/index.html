@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -302,8 +303,12 @@
 </blockquote>
 <blockquote>
 <p>刚下载完成时有访问示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/public/index.php/index/index/hello</span><br><span class="line">//http://127.0.0.1/public  http://域名</span><br><span class="line">//index.php  入口文件</span><br><span class="line">//index/index  第一个是模块，第二个是控制器</span><br><span class="line">//hello 操作，在实际的php文件类中</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-url"><code class="language-url">http://127.0.0.1/public/index.php/index/index/hello
+//http://127.0.0.1/public  http://域名
+//index.php  入口文件
+//index/index  第一个是模块，第二个是控制器
+//hello 操作，在实际的php文件类中
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注意：</p>
 <p><strong>控制单元文件名与其中类名必须一致，不知道为什么</strong></p>
 </blockquote>
@@ -317,19 +322,21 @@
 <p><strong>3、在controller目录下创建控制器文件，这里可随意命名，我命名为Atmujie</strong></p>
 <p><strong>4、在Atmujie.php中创建类，类名必须也为Atmujie（类名要和文件名一致），（tp使用大驼峰命名法/帕斯卡命名规范）并定义命名空间</strong></p>
 <p>​        <strong>app\mujie\controller</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">mujie</span>\<span class="title">controller</span>;</span><br><span class="line"><span class="comment">//具体查看php手册命名空间部分</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token keyword">namespace</span> <span class="token package">app<span class="token punctuation">\</span>mujie<span class="token punctuation">\</span>controller</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//具体查看php手册命名空间部分</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><img src="image-20210430171335875.png" alt="image-20210430171335875"></p>
 </blockquote>
 <ul>
 <li><p>访问</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/public/index.php/mujie/Atmujie/cnm  【可选部分：/who/thinkphp】</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-url"><code class="language-url">http://127.0.0.1/public/index.php/mujie/Atmujie/cnm  【可选部分：/who/thinkphp】
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>前面按url解析规则定位到我们建立的模块，后面可选为传参</strong></p>
 <p>未开启伪静态时，为了方便理解，我们这样做：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/public/index.php?s=mujie/atmujie/cnm?who=thinkphp</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-url"><code class="language-url">http://127.0.0.1/public/index.php?s=mujie/atmujie/cnm?who=thinkphp
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>这样我会更容易理解，按自己习惯即可</strong></p>
 <p><img src="image-20210430172050817.png" alt="image-20210430172050817"></p>
 <p><strong>别问为什么时cnm，换你卡一天也这样</strong></p>
@@ -360,7 +367,17 @@
 <li><p>模块和控制器隐藏</p>
 <blockquote>
 <p>由于默认是采用多模块的支持，所以多个模块的情况下必须在URL地址中标识当前模块，如果只有一个模块的话，可以在入口文件中进行模块绑定：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// [ 应用入口文件 ]</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">think</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载基础文件</span></span><br><span class="line"><span class="keyword">require</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/../thinkphp/base.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行应用并响应（绑定当前访问到index模块）</span></span><br><span class="line">Container::get(<span class="string">&#x27;app&#x27;</span>)-&gt;bind(<span class="string">&#x27;index&#x27;</span>)-&gt;run()-&gt;send();</span><br></pre></td></tr></table></figure></blockquote>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token comment" spellcheck="true">// [ 应用入口文件 ]</span>
+<span class="token keyword">namespace</span> <span class="token package">think</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 加载基础文件</span>
+<span class="token keyword">require</span> <span class="token constant">__DIR__</span> <span class="token punctuation">.</span> <span class="token string">'/../thinkphp/base.php'</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 执行应用并响应（绑定当前访问到index模块）</span>
+Container<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">'index'</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
 </li>
 <li><p>单一模块</p>
 <blockquote>
@@ -909,6 +926,8 @@
 
 <!-- 代码语言 -->
 
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
 
 <!-- 代码块复制 -->
 
@@ -924,6 +943,29 @@
 code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
 </style>
 
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">

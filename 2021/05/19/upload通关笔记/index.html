@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -415,8 +416,9 @@
 <p><img src="image-20210515182822261.png" alt="image-20210515182822261"></p>
 <p>这样就可以造成一个含有.php的路径</p>
 <p><img src="image-20210515183055922.png" alt="image-20210515183055922"></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file_ext</span> 截取文件的后缀名进行检查</span><br><span class="line"><span class="variable">$img_path</span> 设置路径时定义了保存的命名方式</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-php"><code class="language-php"><span class="token variable">$file_ext</span> 截取文件的后缀名进行检查
+<span class="token variable">$img_path</span> 设置路径时定义了保存的命名方式
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>只要我们在$_GET处使用%00截断，就可以得到一个php后缀的文件</p>
 <p>而白名单的检测仍是jpg文件</p>
 <p><img src="image-20210515185040744.png" alt="image-20210515185040744"></p>
@@ -444,8 +446,8 @@
 <p>准备一张任意的图片，一个一句话木马文件</p>
 <p>打开cmd</p>
 <p>输入：</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">copy</span> <span class="number">1</span>.jpg/b+shell.php myshell.jpg</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-cmd"><code class="language-cmd">copy 1.jpg/b+shell.php myshell.jpg
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>图片马有制作失败的可能，这是由于图片本身的问题，为了尽可能的规避问题，除了可以将一句话文件改为无法显示的jpg外，可以寻炸能够制作木马的图片，图片内存越小，成功率越高</strong></p>
 <p><strong>php文件首行最好添加一些无用字符，防止copy后出现未知错误</strong></p>
 <p><img src="image-20210516100647057.png" alt="image-20210516100647057"></p>
@@ -973,6 +975,8 @@
 
 <!-- 代码语言 -->
 
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
 
 <!-- 代码块复制 -->
 
@@ -988,6 +992,29 @@
 code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
 </style>
 
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">

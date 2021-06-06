@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -477,8 +478,9 @@
 <p>exec 译为：执行</p>
 <p>在运行的容器中执行命令</p>
 <p>例如：</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> -d centos</span></span><br><span class="line">docker exec -it centos(id)</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-docker"><code class="language-docker">docker run <span class="token punctuation">-</span>d centos
+docker exec <span class="token punctuation">-</span>it centos(id)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <ul>
 <li>**-d :**分离模式: 在后台运行</li>
 <li>**-i :**即使没有附加也保持STDIN 打开</li>
@@ -570,8 +572,18 @@
 </blockquote>
 </li>
 </ul>
-<h4 id="脚本示例"><a href="#脚本示例" class="headerlink" title="脚本示例:"></a>脚本示例:</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="keyword">MAINTAINER</span> atmujie</span><br><span class="line"><span class="keyword">env</span> mypath /bin/bash</span><br><span class="line"><span class="keyword">workdir</span><span class="bash"> <span class="variable">$mypath</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">run</span><span class="bash"> yum -y install vim</span></span><br><span class="line"><span class="keyword">run</span><span class="bash"> yun -y install net-tools</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">expose</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">cmd</span><span class="bash"> <span class="built_in">echo</span> &amp;mypath</span></span><br></pre></td></tr></table></figure>
+<h4 id="脚本示例"><a href="#脚本示例" class="headerlink" title="脚本示例:"></a>脚本示例:</h4><pre class="line-numbers language-dockerfile"><code class="language-dockerfile">FROM centos
+MAINTAINER atmujie
+env mypath /bin/bash
+workdir $mypath
 
+run yum -y install vim
+run yun -y install net-tools
+
+expose 80
+
+cmd echo &mypath
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="docker-build-命令运行dockerfile构建镜像"><a href="#docker-build-命令运行dockerfile构建镜像" class="headerlink" title="docker build 命令运行dockerfile构建镜像"></a>docker build 命令运行dockerfile构建镜像</h4><blockquote>
 <p>语法：docker build 选项【一般用 -f】 dockerfile文件路径 【其他命令】 构建成功的镜像名：版本 .</p>
 <p>选项：</p>
@@ -630,45 +642,69 @@
 <li><p>WORKDIR</p>
 <blockquote>
 <p>定义镜像的工作目录，一般默认为/bin/bash</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR &lt;工作目录路径&gt;</span><br></pre></td></tr></table></figure></blockquote>
+<pre><code>WORKDIR &lt;工作目录路径&gt;
+</code></pre>
+</blockquote>
 </li>
 <li><p>VOLUME  译为：行李</p>
 <blockquote>
 <p>挂载卷，在主机设置备份</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">VOLUME [&quot;&lt;路径1&gt;&quot;, &quot;&lt;路径2&gt;&quot;...]</span><br><span class="line">VOLUME &lt;路径&gt;</span><br></pre></td></tr></table></figure></blockquote>
+<pre><code>VOLUME [&quot;&lt;路径1&gt;&quot;, &quot;&lt;路径2&gt;&quot;...]
+VOLUME &lt;路径&gt;
+</code></pre>
+</blockquote>
 </li>
 <li><p>EXPOSE  译为：暴露</p>
 <blockquote>
 <p>指定暴露的端口 与-p 作用相同</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE &lt;端口1&gt; [&lt;端口2&gt;...]</span><br></pre></td></tr></table></figure></blockquote>
+<pre><code>EXPOSE &lt;端口1&gt; [&lt;端口2&gt;...]
+</code></pre>
+</blockquote>
 </li>
 <li><p>CMD</p>
 <blockquote>
 <p>指定容器启动时要运行的命令 ，可被替代【替换】</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CMD &lt;shell 命令&gt; </span><br><span class="line">CMD [&quot;&lt;可执行文件或命令&gt;&quot;,&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...] </span><br><span class="line">CMD [&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...]  # 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数</span><br></pre></td></tr></table></figure></blockquote>
+<pre><code>CMD &lt;shell 命令&gt; 
+CMD [&quot;&lt;可执行文件或命令&gt;&quot;,&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...] 
+CMD [&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...]  # 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数
+</code></pre>
+</blockquote>
 </li>
 <li><p>ENTRYPOINT 译为：进入点，入口点</p>
 <blockquote>
 <p>指定容器启动时要运行的命令 ，存在多个时只有最后一个会生效，可以追加命令【追加】</p>
 <p>可以搭配 CMD 命令使用：一般是变参才会使用 CMD ，这里的 CMD 等于是在给 ENTRYPOINT 传参</p>
 <p>语法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENTRYPOINT [&quot;&lt;executeable&gt;&quot;,&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...] //executeable 可执行的 param 参数</span><br></pre></td></tr></table></figure></blockquote>
+<pre><code>ENTRYPOINT [&quot;&lt;executeable&gt;&quot;,&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...] //executeable 可执行的 param 参数
+</code></pre>
+</blockquote>
 </li>
 <li><p>UNBUILD 译为：取消生成</p>
 <blockquote>
 <p>当继承一个DockerFile时，运行该指令。触发指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONBUILD &lt;其它指令&gt;</span><br></pre></td></tr></table></figure></blockquote>
+<pre><code>ONBUILD &lt;其它指令&gt;
+</code></pre>
+</blockquote>
 </li>
 <li><p>COPY</p>
 <blockquote>
 <p>类似ADD，将我们的文件拷贝到镜像中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;源路径1&gt;...  &lt;目标路径&gt;</span><br><span class="line">COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;源路径1&gt;&quot;,...  &quot;&lt;目标路径&gt;&quot;]</span><br><span class="line">#&lt;源路径&gt;：源文件或者源目录，这里可以是通配符表达式，其通配符规则要满足 Go 的 filepath.Match 规则</span><br><span class="line">#&lt;目标路径&gt;：容器内的指定路径，该路径不用事先建好，路径不存在的话，会自动创建。</span><br><span class="line">COPY hom* /mydir/</span><br><span class="line">COPY hom?.txt /mydir/</span><br></pre></td></tr></table></figure></blockquote>
+<pre><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;源路径1&gt;...  &lt;目标路径&gt;
+COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;源路径1&gt;&quot;,...  &quot;&lt;目标路径&gt;&quot;]
+#&lt;源路径&gt;：源文件或者源目录，这里可以是通配符表达式，其通配符规则要满足 Go 的 filepath.Match 规则
+#&lt;目标路径&gt;：容器内的指定路径，该路径不用事先建好，路径不存在的话，会自动创建。
+COPY hom* /mydir/
+COPY hom?.txt /mydir/
+</code></pre>
+</blockquote>
 </li>
 <li><p>ENV</p>
 <blockquote>
 <p>构建的时候设置环境变量</p>
 <p>语法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENV &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure></blockquote>
+<pre><code>ENV &lt;key&gt; &lt;value&gt;
+</code></pre>
+</blockquote>
 </li>
 <li><p>注意：</p>
 <blockquote>
@@ -678,8 +714,16 @@
 <p>&lt;命令行命令&gt; 等同于在终端操作的shell命令</p>
 <p>Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大。</p>
 <p>FROM centos</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install wget</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> wget -O redis.tar.gz <span class="string">&quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot;</span></span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> tar -xvf redis.tar.gz</span></span><br><span class="line">以上执行会创建 <span class="number">3</span> 层镜像。可简化为以下格式：</span><br><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install wget \</span></span><br><span class="line"><span class="bash">    &amp;&amp; wget -O redis.tar.gz <span class="string">&quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot;</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; tar -xvf redis.tar.gz</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">FROM centos
+RUN yum install wget
+RUN wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz"
+RUN tar -xvf redis.tar.gz
+以上执行会创建 3 层镜像。可简化为以下格式：
+FROM centos
+RUN yum install wget \
+    && wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz" \
+    && tar -xvf redis.tar.gz
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如上，以 <strong>&amp;&amp;</strong> 符号连接命令，这样执行后，只会创建 1 层镜像。</p>
 <p>docker build 命令最后一个 <strong>.</strong> 是上下文路径</p>
 <p>是指 docker 在构建镜像，有时候想要使用到本机的文件（比如复制），docker build 命令得知这个路径后，会将路径下的所有内容打包。</p>
@@ -1184,6 +1228,8 @@
 
 <!-- 代码语言 -->
 
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
 
 <!-- 代码块复制 -->
 
@@ -1199,6 +1245,29 @@
 code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
 </style>
 
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
