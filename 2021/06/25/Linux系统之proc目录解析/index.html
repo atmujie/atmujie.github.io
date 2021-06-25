@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="HCTF2018-admin赛题复现, Atmujie">
+    <meta name="keywords" content="Linux系统之proc目录解析, Atmujie">
     <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>HCTF2018-admin赛题复现 | Atmujie</title>
+    <title>Linux系统之proc目录解析 | Atmujie</title>
     <link rel="icon" type="image/png" href="/weblogo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -138,12 +138,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">HCTF2018-admin赛题复现</h1>
+                    <h1 class="description center-align post-title">Linux系统之proc目录解析</h1>
                 </div>
             </div>
         </div>
@@ -260,8 +260,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CTF/">
-                                <span class="chip bg-color">CTF</span>
+                            <a href="/tags/%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">系统</span>
                             </a>
                         
                     </div>
@@ -276,7 +276,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-21
+                    2021-06-25
                 </div>
                 
 
@@ -292,66 +292,65 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="HCTF-2018-admin"><a href="#HCTF-2018-admin" class="headerlink" title="[HCTF 2018]admin"></a>[HCTF 2018]admin</h1><p>本文参考链接：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44677409/article/details/100733581">https://blog.csdn.net/weixin_44677409/article/details/100733581</a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是一道几乎被做烂的题，BUUCTF中达到了3400解</p>
-<p>但我觉得它的审计部分很经典，解多单纯的只是因为非预期</p>
-<p><img src="image-20210622110336407.png" alt="image-20210622110336407"></p>
-<p>刚打开时，我以为这事一道二次注入的问题，结果注了好久都进不去</p>
-<p>直到我在改密处找到了源码的地址</p>
-<p><img src="image-20210622110405786.png" alt="image-20210622110405786"></p>
-<h2 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h2><p>dump下源码后，发现他几乎给了我们整个网站</p>
-<p><img src="image-20210622110504155.png" alt="image-20210622110504155"></p>
-<p>以python为基础的代码审计</p>
-<p>能怎么办，看呗，结果看了半个小时只找到几个疑似点</p>
-<p>然后看了wp，我让深深怀疑这种题为什么会有3500解</p>
-<p>wp给出了三种思路</p>
-<h3 id="编码伪造"><a href="#编码伪造" class="headerlink" title="编码伪造"></a>编码伪造</h3><p>这大概是最容易看出，也是最好想到的操作</p>
-<p><img src="image-20210622111115273.png" alt="image-20210622111115273"></p>
-<p>仔细看代码，会发现题目在注册，登录，改密中都对username进行了这个操作</p>
-<p>追踪过去，看看这个函数具体是什么</p>
-<p><img src="image-20210622113613608.png" alt="image-20210622113613608"></p>
-<p>将输入的username交给了nodeprep.prepare函数处理，看看这个函数是什么</p>
-<p>往上看，可以直到此函数在这个库中</p>
-<p><img src="image-20210622114043329.png" alt="image-20210622114043329"></p>
-<p>在这里可以看到版本的信息，这里是10版，而官网已经到了21.2.0，版本差距极大</p>
-<p><img src="image-20210622141214771.png" alt="image-20210622141214771"></p>
-<p>查看一下官方文档的说明，发现该库已经被弃用</p>
-<p><img src="image-20210622142626990.png" alt="image-20210622142626990"></p>
-<p>时间太过久远，源码找不到，也不想下了（需要python2）</p>
-<p>这里直接粘贴参加链接的</p>
-<p><img src="https://img-blog.csdnimg.cn/20190911131601586.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NzQwOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>简单说，这里的机制让我们注册，登录，改密时都是以小写的用户名进行，即使我们注册大写</p>
-<p>这个函数的编码过程在大写字母上还存在一层，<code>ᴬᴰᴹᴵᴺ</code>，函数会把它转化为ADMIN</p>
-<p>假如我们注册ᴬᴰᴹᴵᴺ用户，然后在用ᴬᴰᴹᴵᴺ用户登录，因为在login函数里使用了一次nodeprep.prepare函数，因此我们登录上去看到的用户名为ADMIN，此时我们再修改密码，又调用了一次nodeprep.prepare函数将name转换为admin，然后我们就可以改掉admin的密码，最后利用admin账号登录即可拿到flag。<br><img src="image-20210622145320708.png" alt="image-20210622145320708"></p>
-<pre class="line-numbers language-flag"><code class="language-flag">flag{c66a73bf-6a5f-4772-ba1f-00fa5d5e7f20}
+                <h1 id="linux系统之proc目录"><a href="#linux系统之proc目录" class="headerlink" title="linux系统之proc目录"></a>linux系统之proc目录</h1><p><strong>在谈proc目录之前，我觉得有必要提一下一个常见的概念</strong></p>
+<h1 id="id-uid-pid-ppid"><a href="#id-uid-pid-ppid" class="headerlink" title="id , uid , pid , ppid"></a>id , uid , pid , ppid</h1><h2 id="id"><a href="#id" class="headerlink" title="id"></a>id</h2><p>id是最常见的名词，是对所有id的一个统称，这个没什么好谈的</p>
+<h2 id="uid"><a href="#uid" class="headerlink" title="uid"></a>uid</h2><p>uid在linux系统中，表示用户的id，即我们登录的用户，包括root用户，他们的“身份标识”便是uid</p>
+<h2 id="pid"><a href="#pid" class="headerlink" title="pid"></a>pid</h2><p>pid是在proc目录的相关知识中最重要的一个概念，linux系统中用它表示进程的id,每个正在运行的进程都有一个独一无二的pid</p>
+<h2 id="ppid"><a href="#ppid" class="headerlink" title="ppid"></a>ppid</h2><p>ppid在实际中应用很少，定义我直接复制，这里不想多谈</p>
+<p>详情见：<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/750271241282834652.html">https://zhidao.baidu.com/question/750271241282834652.html</a></p>
+<ul>
+<li>PPID Product Part Identification 产品料号识别码，便于产品追踪，并含有部分信息，一般的使用形式是产品包装上贴的一维码或二维码</li>
+<li>计算机中代表当前进程的父进程ID;Payload protocol identifier,在S1AP通信中标识此服务ID</li>
+</ul>
+<h1 id="用途和功能"><a href="#用途和功能" class="headerlink" title="用途和功能"></a>用途和功能</h1><p>介绍完pid的概念，我们来看看proc目录具体有什么，做什么</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>proc目录是由linux系统提供的一种文件系统，用来在运行时访问内核内部数据结构、改变内核设置的机制</p>
+<p>proc只存在于内容中，而不进入外存</p>
+<p>proc是用于访问、控制linux内核数据的一个接口</p>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>proc主要用于查询linux系统的内核数据：进程信息</p>
+<p>它可以告诉我们每个进程的具体运行情况</p>
+<p>在ctf中，可以用它来读取一些信息</p>
+<h1 id="proc的目录结构"><a href="#proc的目录结构" class="headerlink" title="proc的目录结构"></a>proc的目录结构</h1><p><img src="image-20210625203556795.png" alt="image-20210625203556795"></p>
+<p>如图，图中数字构成的目录便是进程的uid，有多少目录，就表示当前有多少进程在运行</p>
+<h2 id="proc-pid"><a href="#proc-pid" class="headerlink" title="proc/$pid"></a>proc/$pid</h2><p>通过<code>/proc/$pid/</code>来获取指定进程的信息，例如内存映射、CPU绑定信息等等。</p>
+<h2 id="self"><a href="#self" class="headerlink" title="self"></a>self</h2><p>在proc中，想读取到信息，知道进程对应的pid是前提，但一般情况下我们无法得知进程的uid</p>
+<p>self目标便是linux为了方便使用而设置的一个line（链接）目录，它可以让我们简单的查看当前正在运行的进程信息</p>
+<p><img src="image-20210625203808386.png" alt="image-20210625203808386"></p>
+<p>为了容易理解，接下来的部分全部用self来说明</p>
+<h1 id="进程相关的目录于文件详解"><a href="#进程相关的目录于文件详解" class="headerlink" title="进程相关的目录于文件详解"></a>进程相关的目录于文件详解</h1><h2 id="cmdline"><a href="#cmdline" class="headerlink" title="cmdline"></a>cmdline</h2><p>cmdline 说明了当前进程具体执行的命令</p>
+<p><img src="image-20210625204241242.png" alt="image-20210625204241242"></p>
+<h2 id="目录-cwd"><a href="#目录-cwd" class="headerlink" title="目录 cwd"></a>目录 cwd</h2><p>cwd目录表示了当前进程所在的具体位置，即路径，是一个指向路径的符号链接</p>
+<p><img src="image-20210625204556261.png" alt="image-20210625204556261"></p>
+<p>这里用1进程容易理解</p>
+<p><img src="image-20210625204642630.png" alt="image-20210625204642630"></p>
+<p>1进程，即根目录进程，cwd</p>
+<p>在当前进程文件夹下ls cwd ，可以达到cd 【指向目录】命令的同样的效果</p>
+<p><img src="image-20210625204844039.png" alt="image-20210625204844039"></p>
+<h2 id="目录-fd"><a href="#目录-fd" class="headerlink" title="目录 fd"></a>目录 fd</h2><p>fd目录包含着<strong>当前进程打开的每一个文件</strong>的描述符，并可以通过描述符查看对应文件的具体内容</p>
+<p><img src="image-20210625205245377.png" alt="image-20210625205245377"></p>
+<p>图中 数字即为描述符，指向是具体打开的文件目录</p>
+<h3 id="查看具体内容"><a href="#查看具体内容" class="headerlink" title="查看具体内容"></a>查看具体内容</h3><pre class="line-numbers language-linux"><code class="language-linux">cat /proc/self/fd/14
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="flask-session-伪造"><a href="#flask-session-伪造" class="headerlink" title="flask session 伪造"></a>flask session 伪造</h2><p>flask中session是存储在客户端cookie中的，也就是存储在本地。flask仅仅对数据进行了签名。众所周知的是，签名的作用是防篡改，而无法防止被读取。而flask并没有提供加密操作，所以其session的全部内容都是可以在客户端读取的，这就可能造成一些安全问题。</p>
-<p>这里直接读取cookie处的session，拿p师傅的脚本解密</p>
-<p><img src="image-20210622152837055.png" alt="image-20210622152837055"></p>
-<pre class="line-numbers language-session"><code class="language-session">{'_fresh': True, '_id': b'de1a76fa41b201f9691b499189fc182a9ada3c2670f72a06694707d999c69a4877e2c0bece2a6598d30bdfa836af05959fee422f1574fbb1e1f2484f2cac79c3', 'csrf_token': b'7e73a86d3a5d5bf8e0c46793afe6bdf67f0af005', 'image': b'KsAf', 'name': 'admin', 'user_id': '1'}
+<p><img src="image-20210625210025442.png" alt="image-20210625210025442"></p>
+<p>截不全了，就这样吧</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>在proc目录下，对目录和文件的查看需使用对应的命令，目录是ls，文件为cat,more,和操作其他目录相同</p>
+<p>如</p>
+<pre class="line-numbers language-linux"><code class="language-linux">ls -l fd/14
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这里我已经以admin身份登录了，所以拿到了admin的session</p>
-<p><img src="image-20210622153430038.png" alt="image-20210622153430038"></p>
-<p>这里将session中的name小写，和username比较，相同则登录，那么我们就可以将name字段改为admin，然后加密</p>
-<p>加密脚本也用现成的</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/noraj/flask-session-cookie-manager">https://github.com/noraj/flask-session-cookie-manager</a></p>
-<p><img src="image-20210622160918389.png" alt="image-20210622160918389"></p>
-<pre class="line-numbers language-session"><code class="language-session">.eJw9kEGPgjAQRv_KZs4chLoXEw8SoFmSDsEUyPRiWEWhUDcBDVrjf9-um3idl7y8bx6wO47N1MLqMl4bD3bdAVYP-PiGFWRy26MuBxGFRmmyqIsbShGg3g5o2y6TtCC5X6ApjZAnJmzYqUoNJMteycSgjhlauqlK-EoWjGSiFf9aKrmxKPcsk9giLxboblkkHBd3pVNNJvaR5zfBBUNNTFT5kozqSLeup_gk58QontFu7hQIm_F4DU8P9tN43F1--ub8noBBwUQQL9Hk9i8Lq9RkvJjJ5gHa3pLLRZP2bh5TOmyV3syYr1-6ztSn5m0iliR0-ifn2jgA9cF0Z_DgOjXj62_g-_D8BYRPbTo.YNGaow.2-AM-dVZnD6rMuQ9wuD6tx2USOM
+<p><img src="image-20210625210201286.png" alt="image-20210625210201286"></p>
+<pre class="line-numbers language-linux"><code class="language-linux">more fd/14
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="image-20210622161022002.png" alt="image-20210622161022002"></p>
-<p>成功</p>
-<h2 id="条件竞争"><a href="#条件竞争" class="headerlink" title="条件竞争"></a>条件竞争</h2><p>思路大概没问题，但….没有人将它复现成功（起码我没找到）</p>
-<p>直接贴思路</p>
-<p>参考链接：</p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f92311564ad0">https://www.jianshu.com/p/f92311564ad0</a></p>
-<p>仔细观察源码，可以发现login函数和change函数都在没有完全check身份的情况下，执行了session有关的赋值</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/11525934-ca19be16b307ed43.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/721/format/webp" alt="img"></p>
-<p>我们可以这样设想，一个进程以正常账号一直依次进行登录、改密码操作，另一个进程同时一直依次进行注销、以admin用户名加进程1更改的新密码进行登录。就有可能出现当进程1进行到改密码函数时，进程2进行到登录操作，这个时候进程1需要从session中取出name，而进程2此时把session[‘name’]改成了admin。</p>
-<p>所以就可以编写脚本进行条件竞争，条件竞争结束的标志为进程2登录操作成功，即重定向到<code>/index</code>。</p>
-<h2 id="非预期：username覆盖"><a href="#非预期：username覆盖" class="headerlink" title="非预期：username覆盖"></a>非预期：username覆盖</h2><p>注测用户名admin%20 便可以覆盖原来的admin用户</p>
-<p>然后登录即可拿到flag</p>
-<p>非预期就挺无趣的，但前三种解法值得学习</p>
+<p>如上图，不重复粘贴了</p>
+<h2 id="目录-exe"><a href="#目录-exe" class="headerlink" title="目录 exe"></a>目录 exe</h2><p>exe目录告诉我们该进程 运行（可执行）文件 的具体路径（完成路径）</p>
+<p><img src="image-20210625210430932.png" alt="image-20210625210430932"></p>
+<p>与cwd不同，cwd专指目标<strong>指定进程环境</strong>的<strong>运行目录</strong></p>
+<p>而exe为<strong>指定进程</strong>的<strong>可执行文件</strong>的<strong>完整路径</strong></p>
+<p>看看对比</p>
+<p><img src="image-20210625210631411.png" alt="image-20210625210631411"></p>
+<h2 id="environ"><a href="#environ" class="headerlink" title="environ"></a>environ</h2><p>environ文件说明了当前进程运行的具体环境，即<strong>环境变量</strong>列表</p>
+<p>变量彼此间用空字符（NULL）隔开，变量用大写字母表示，其值用小写字母表示。可以通过查看<strong>environ目录</strong>来获取<strong>指定进程</strong>的<strong>环境变量</strong>信息：</p>
+<pre class="line-numbers language-linux"><code class="language-linux">cat /proc/self/environ
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20210625211104917.png" alt="image-20210625211104917"></p>
 
             </div>
             <hr/>
@@ -377,7 +376,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://atmujie.github.io/2021/06/21/HCTF2018-admin%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/">http://atmujie.github.io/2021/06/21/HCTF2018-admin%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/</a>
+                    <a href="http://atmujie.github.io/2021/06/25/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8Bproc%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/">http://atmujie.github.io/2021/06/25/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8Bproc%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -415,8 +414,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CTF/">
-                                    <span class="chip bg-color">CTF</span>
+                                <a href="/tags/%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">系统</span>
                                 </a>
                             
                         </div>
@@ -456,9 +455,9 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'http://atmujie.github.io/2021/06/21/HCTF2018-admin%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/';
-        this.page.identifier = '/2021/06/21/HCTF2018-admin%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/';
-        this.page.title = 'HCTF2018-admin赛题复现';
+        this.page.url = 'http://atmujie.github.io/2021/06/25/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8Bproc%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/';
+        this.page.identifier = '/2021/06/25/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8Bproc%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/';
+        this.page.title = 'Linux系统之proc目录解析';
     };
     let disqus_shortname = '';
 
@@ -747,9 +746,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/06/25/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8Bproc%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/">
                     <div class="card-image">
@@ -767,9 +767,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -778,6 +778,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -796,13 +797,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/08/SSTI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+                <a href="/2021/06/21/HCTF2018-admin%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="SSTI学习记录">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="HCTF2018-admin赛题复现">
                         
-                        <span class="card-title">SSTI学习记录</span>
+                        <span class="card-title">HCTF2018-admin赛题复现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -813,7 +814,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-21
                             </span>
                         <span class="publish-author">
                             
