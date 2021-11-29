@@ -382,10 +382,12 @@
 <p>总结一下就是，hosts并不能记录存活主机，它在CTF的作用是比赛时涉及内网了给个提示</p>
 <p>在渗透测试中，建立内网通道后扫描到了子域名时，也可以在本机配置hosts用来访问内网中该子域名的资产</p>
 </blockquote>
-<p><strong>查看存活主机正确的做法是getshell后执行ifconfig命令</strong></p>
+<p><strong>查看正在使用的服务器存活主机正确的做法是getshell后执行ifconfig命令</strong></p>
 <p><strong>或者建立内网通道扫描存活主机</strong></p>
 <p><img src="image-20211125213738545.png" alt="image-20211125213738545"></p>
 <p>可以看到docker启动后多了一个ipv6的地址，这个地址相对于其他服务器，就属于内网了</p>
+<p>使用docker inspect  8b2753a5f15e | grep “IP” 查看</p>
+<p><img src="image-20211129183321910.png" alt="image-20211129183321910"></p>
 <h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p><strong>从废话回归主题，这次我用了整整一天搞懂了内网渗透的过程并成功搞定了我自己的电脑，虽然有些地方我觉得自己挺憨的，但还是很开心，我希望我可以将这部分说明白</strong></p>
 <p>首先关于内网渗透方面在狼组安全文档中有很详细的说明</p>
 <p>参考链接：<code>https://wiki.wgpsec.org/knowledge/hw/border-info.html</code></p>
