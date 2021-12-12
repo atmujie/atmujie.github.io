@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>xss测试</title>
+      <link href="/2021/12/12/xss%E6%B5%8B%E8%AF%95/"/>
+      <url>/2021/12/12/xss%E6%B5%8B%E8%AF%95/</url>
+      
+        <content type="html"><![CDATA[<pre class="line-numbers language-xml-dtd"><code class="language-xml-dtd"><?xml version="1.0"?><!DOCTYPE message [<!ELEMENT message (#PCDATA)><!ENTITY aaa "135601360123502401401250">]><h1>&aaa;</h1><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Web安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>菜鸟随笔-内网渗透</title>
       <link href="/2021/11/25/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"/>
       <url>/2021/11/25/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/</url>
