@@ -1,0 +1,1592 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="负基础学习SDN, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>负基础学习SDN | Atmujie</title>
+    <link rel="icon" type="image/png" href="/weblogo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/friends">
+          
+          <i class="fas fa-address-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Friends</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/BlogLink">
+          
+          <i class="fas fa-address-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>BlogLink</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/friends " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-address-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Friends</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/BlogLink " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-address-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>BlogLink</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">负基础学习SDN</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">网络</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-03-22
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="SDN概述"><a href="#SDN概述" class="headerlink" title="SDN概述"></a>SDN概述</h2><p>有一说一，我刚听SDN还挺懵的，b站搜视频看了一个小时，勉强看懂，以下是我对SDN技术的理解</p>
+<blockquote>
+<p>学网工的同学或者说有接触过计网的同学，在做实验课的时候应该有这样的体验</p>
+<p>以华为的eNSP为例</p>
+<p>我想用交换机，我就要拖个交换机到拓扑图，想用路由器就要拖个路由器，这是目前我们的一个“死规矩”</p>
+<p>所以在网络设备的选择上，我们并不那么自由</p>
+<p>企业也是一样，缺路由器买路由器，缺交换器买交换机，不能买偏了</p>
+<p>而这些设备具体的功能，厂商说了算</p>
+</blockquote>
+<p>网工的同学应该体会最深，当我们命令不会查文档时，还得按设备型号去找，华为的文档多到离谱</p>
+<p><img src="image-20220322154721721.png" alt="image-20220322154721721"></p>
+<p>看着都头大</p>
+<blockquote>
+<p>说的更直观点,以防火墙为例</p>
+<p>现在的防火墙硬件设备，每个都是厂商自己设定好的，无论是防护机制或者类型</p>
+<p>使用者没有修改的余地</p>
+</blockquote>
+<h3 id="原有网络设备结构"><a href="#原有网络设备结构" class="headerlink" title="原有网络设备结构"></a>原有网络设备结构</h3><p>现在的设备，都是讲控制和数据集成到一起的，“我想配置AR1就进AR1,配置AR2就去AR2”，如图</p>
+<p><img src="image-20220322155219775.png" alt="image-20220322155219775"></p>
+<h3 id="SDN的目的"><a href="#SDN的目的" class="headerlink" title="SDN的目的"></a>SDN的目的</h3><p>SDN的目的就是为了解决上述的问题，提高网络的自由度。</p>
+<p>让用户像开发网站一样，自定义设备的功能</p>
+<p><strong>SDN实现控制平面和数据平面的分离</strong>，从上面的图到下图</p>
+<p><img src="image-20220322155523349.png" alt="image-20220322155523349"></p>
+<p>将原来控制数据集合的模式，独立出数据平面和控制平面，<strong>让用户通过编写SDN应用的方式自定义设备的具体功能</strong></p>
+<p>方式就是让设备只保留最基础的功能，如路由转发等，然后加上北向API，使设备可以接入编程语言</p>
+<p><img src="image-20220322155834876.png" alt="image-20220322155834876"></p>
+<p>就像数据库划分了数据层-数据库管理系统-应用层一样</p>
+<p>通过划分”设备数据层-设备管理系统(SDN)-具体应用(SDN应用)”的方式，让设备具有了可编程能力</p>
+<blockquote>
+<p>或者说网络设备就是一台win11电脑，SND就好比这台电脑上的C语言环境。</p>
+<p>程序员想让这台电脑里运行什么网站或者应用，只需要用C语言去开发就可以</p>
+<p>换回SDN,网络管理员想让设备有什么功能，拿起SDN编程就可以</p>
+</blockquote>
+<p>这就是SDN的应用本质</p>
+<h3 id="SDN控制器的比较"><a href="#SDN控制器的比较" class="headerlink" title="SDN控制器的比较"></a>SDN控制器的比较</h3><p>SDN控制器现在有很多，就像编程语言分C、java、python…. 一样</p>
+<p>下图抄自<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ea411F7mV?p=1">bilibili</a></p>
+<p><img src="image-20220322153458121.png" alt="image-20220322153458121"></p>
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>SDN的三个核心思想，即解耦、抽象、可编程。</p>
+<h4 id="解耦"><a href="#解耦" class="headerlink" title="解耦"></a>解耦</h4><p>解耦即控制平面与数据平面的分离</p>
+<p><img src="image-20220329171831280.png" alt="image-20220329171831280"></p>
+<h4 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h4><p>抽象指抽象路由交换的行为，比如转发抽象</p>
+<p><img src="image-20220329171941589.png" alt="image-20220329171941589"></p>
+<p>使我们可以通过流表控制网络设备</p>
+<h4 id="可编程"><a href="#可编程" class="headerlink" title="可编程"></a>可编程</h4><p>可编程在解耦的基础上提供具体的接口，使我们可以用编程语言去控制</p>
+<p><img src="image-20220329172146226.png" alt="image-20220329172146226"></p>
+<p>其中东西向接口还在研发</p>
+<h3 id="总述："><a href="#总述：" class="headerlink" title="总述："></a>总述：</h3><p>上述概括了SDN的核心思想，但事实不同理论，就像OSI参考模型实现终于成了TCP/IP一样，SDN也有形成了不同的发展路线：</p>
+<p> <strong>首先，</strong>采用OpenFlow标准，转控分离、集中控制，主张硬件标准化，控制上移到由软件实现的控制器上，打破原有网络的封闭状态，受到初创公司和学院科研单位的欢迎，可以看作为革命型或狭义SDN。这也是我们主要学习的路线</p>
+<p> <strong>其次，</strong>设备提供商感受到压力，希望在市场继续保持优势，另一方面，运营商即想拥抱新理念，也想保护现有的投资，这样希望针对现有网络进行平滑的过渡，所以采取大多不动设备上的控制智能，控制器(只能说是一种伪控制器)与转发设备间的接口采用<strong>NETCONF/SNMP协议</strong>，提出更为广泛的SDN架构，可以看作演进型或广义SDN。这是现在普遍被使用的路线</p>
+<p> <strong>最后，</strong>还有一种发展路线，它以现有IP网络为基础设施，在其上建立叠加的逻辑网络，实现网络资源的虚拟化，本质上属于软件定义的虚拟网络。这一思路被称为Overlay方案。</p>
+<p><img src="ODL-SDN-fig-4.png" alt="img"></p>
+<p>学习路径：</p>
+<p><img src="ODL-SDN-fig-8.png" alt="img"></p>
+<p>摘自：<a target="_blank" rel="noopener" href="https://www.sdnlab.com/17870.html">码农学ODL之SDN入门篇</a></p>
+<h2 id="SDN运行原理"><a href="#SDN运行原理" class="headerlink" title="SDN运行原理"></a>SDN运行原理</h2><h3 id="四个平面两个接口"><a href="#四个平面两个接口" class="headerlink" title="四个平面两个接口"></a>四个平面两个接口</h3><blockquote>
+<p>四个平面即数据平面，控制平面和应用平面、管理平面</p>
+</blockquote>
+<p><img src="format,f_auto.jpeg" alt="img"></p>
+<ul>
+<li>数据平面：网络硬件设置</li>
+<li>控制平面：SDN控制器</li>
+<li>应用平面：基于SDN的网络应用</li>
+</ul>
+<p><img src="image-20220329105152031.png" alt="image-20220329105152031"></p>
+<p>数据平面连接控制平面的接口称为南向接口、控制平面和应用平面之间称为北向接口</p>
+<p><img src="image-20220324205742395.png" alt="image-20220324205742395"></p>
+<p>整个运行的过程是上图的一个完整闭环</p>
+<h3 id="流表"><a href="#流表" class="headerlink" title="流表"></a>流表</h3><p>SDN以”流表”的形式控制网络设备，由应用平面定义具体的操作，再交由控制器转化为”流表“，最后再设备处理</p>
+<blockquote>
+<p>数据流：行为相同的数据包</p>
+</blockquote>
+<p>南向接口就负责流表的传递，其中使用的协议为OpenFlow</p>
+<p>OpenFlow协议的刘表大体分为三部分</p>
+<p><img src="image-20220324210039980.png" alt="image-20220324210039980"></p>
+<p>即：匹配域、计数器、指令</p>
+<blockquote>
+<p>匹配域包含网络中的数据信息，如IP,端口，VLAN，设备根据匹配域的内容，确定指令作用的位置</p>
+<p>指令是具体的操作，在匹配域确定位置后，由指令决定设备行为(如丢弃、转发、更改VLAN、设置优先级、开销等)</p>
+</blockquote>
+<p>指令的具体操作由应用层使用编程语言定义</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>​    <strong>SDN运行过程 —— 应用平面定义操作，通过北向接口交由控制器处理，然后控制器交给具体设备，由南向接口中的具体协议转为流表，设备跟据流表更改自身配置</strong></p>
+<p>​    <strong>同时这个过程也可以由设备发往应用平面，完成闭环</strong></p>
+<p><img src="image-20220324211012828.png" alt="image-20220324211012828"></p>
+<h2 id="OpenFlow协议"><a href="#OpenFlow协议" class="headerlink" title="OpenFlow协议"></a>OpenFlow协议</h2><h3 id="OpenFlow概述"><a href="#OpenFlow概述" class="headerlink" title="OpenFlow概述"></a>OpenFlow概述</h3><p>OpenFlow协议是实现SDN的首选，主流的南向接口之一，用于实现SDN控制器和SDN交换机之间的通信</p>
+<p>通信的方式是流表</p>
+<p>OpenFlow最初是为了给研究人员提供一个开放的平台，所以鼓励厂商在产品中支持OpenFlow。研究人员就可以在真实网络中验证新网络协议、架构和算法原型</p>
+<p>是一个通用转发抽象模型</p>
+<blockquote>
+<p>目前OpenFlow最高版本是1.5，不过业界常用1.0和1.3</p>
+<p>OpenFlow协议并不是7层参考模型的标准协议</p>
+</blockquote>
+<h3 id="控制器流表"><a href="#控制器流表" class="headerlink" title="控制器流表"></a>控制器流表</h3><pre class="line-numbers language-mn"><code class="language-mn">mininet> dpctl dump-flows
+*** s1 ------------------------------------------------------------------------
+NXST_FLOW reply (xid=0x4):
+ cookie=0x0, duration=41.893s, table=0, n_packets=1, n_bytes=42, idle_timeout=60, idle_age=41, priority=65535,arp,in_port=2,vlan_tci=0x0000,dl_src=c6:4b:9d:ba:82:1c,dl_dst=8a:d0:ce:3c:47:1c,arp_spa=10.0.0.2,arp_tpa=10.0.0.1,arp_op=2 actions=output:1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20220407174415192.png" alt="image-20220407174415192"></p>
+<p>如上是SDN流表的实例，以逗号为分割</p>
+<blockquote>
+<p>in_port</p>
+</blockquote>
+<p>匹配流量进入的端口，比如上图<code>in_port=2</code>，指匹配2号端口进入的数据</p>
+<blockquote>
+<p>actions</p>
+</blockquote>
+<p>表示执行的动作，如图<code>actions=output:1</code>就是说符合匹配条件的数据从1号端口发出</p>
+<p>同样，drop就是丢弃，等等，根据具体流表查看，一般位于流表最后</p>
+<p><img src="image-20220409153836106.png" alt="image-20220409153836106"></p>
+<h3 id="基于OpenFlow协议的交互过程"><a href="#基于OpenFlow协议的交互过程" class="headerlink" title="基于OpenFlow协议的交互过程"></a>基于OpenFlow协议的交互过程</h3><p><img src="image-20220409155001356.png" alt="image-20220409155001356"></p>
+<ul>
+<li><p>Hello消息：控制器和SDN交换机通信的第一个报文，用于协商OpenFlow协议的具体版本，交换机和控制器任意一方都可以发起</p>
+<blockquote>
+<p>双方互相发送hello消息，在hello消息头中的version字段以16进制(1.0就是0x01)各自发送支持的协议版本号</p>
+<p>收到hello报文后，以双方报文中的较小版本号为基准建立安全通道<br>如果协商不一致，发送Error消息后断开</p>
+</blockquote>
+</li>
+<li><p>Featrue_request： OpenFlow协议版本确定后，控制器向交换机发送Featrue_request报文，确定交换机特性（端口数，支持流表数等）</p>
+<p>  <img src="image-20220409155758433.png" alt="image-20220409155758433"></p>
+</li>
+<li><p>Feartrue_reply: 交接机收到Featrue_request报文后，以Featrue_reply报文回复控制器自已的信息</p>
+</li>
+<li><p>set_config：控制器收到交换机信息后，下发set_config包，对交换机进行简单的配置</p>
+<blockquote>
+<p>set_config有两个属性，直接贴图</p>
+<p><img src="image-20220409161741842.png" alt="image-20220409161741842"></p>
+</blockquote>
+</li>
+<li><p>Packet-in: 当交换机收到未知的数据包时，向控制器发送Packet-in消息询问</p>
+<blockquote>
+<p>1、流表没有处理该数据包的能力</p>
+<p>2、流表指示的动作就是发送到控制器</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Flow-Mod消息"><a href="#Flow-Mod消息" class="headerlink" title="Flow-Mod消息"></a>Flow-Mod消息</h3><p>当控制器收到交换机的Packet-in消息需要下发流表时，控制器就会向交换机发送Flow-Mod消息</p>
+<blockquote>
+<p>Flow-Mod消息携带流表下发交换器，可以对流表进行操作</p>
+</blockquote>
+<p><img src="image-20220409162246558.png" alt="image-20220409162246558"></p>
+<p>还有其他的消息报文，不过最主要的、贯通整个通信过程的就是上述的消息报文</p>
+<h3 id="流表匹配详解"><a href="#流表匹配详解" class="headerlink" title="流表匹配详解"></a>流表匹配详解</h3><p>上图是OpenFlow1.0流表结构，取自未来网络</p>
+<h4 id="头域"><a href="#头域" class="headerlink" title="头域"></a>头域</h4><p>Header Fields 称为头域，用来表示具体的匹配信息，支持OSI模型1到4层的绝大部分数据包类似，一共12个匹配项，称12元组</p>
+<p><img src="image-20220409163518889.png" alt="image-20220409163518889"></p>
+<p>只要有至少一种被匹配，就可以进行动作</p>
+<h4 id="计数器"><a href="#计数器" class="headerlink" title="计数器"></a>计数器</h4><p>计数器记录匹配的次数信息，计数器被更新，说明该流表被匹配</p>
+<h4 id="动作"><a href="#动作" class="headerlink" title="动作"></a>动作</h4><blockquote>
+<p>动作分为必备动作和可选动作</p>
+<p>必备动作只有转发和丢弃</p>
+<p>可选动作按具体厂商为准，五花八门</p>
+</blockquote>
+<p><img src="image-20220409164440588.png" alt="image-20220409164440588"></p>
+<h3 id="1-3版本流表详解"><a href="#1-3版本流表详解" class="headerlink" title="1.3版本流表详解"></a>1.3版本流表详解</h3><p>作为一个较新的技术，OpenFlow协议现在在不断的演进</p>
+<p><img src="image-20220409192111191.png" alt="image-20220409192111191"></p>
+<p>但目前主流的版本，是1.0和1.3，所以1.3的流表结构也需要学习</p>
+<p><img src="image-20220409192232499.png" alt="image-20220409192232499"></p>
+<p>1.3的匹配域，从1.0的12元组增长到了39个特征，同时额外增加了三个流表项——优先级：priority; 超时时间——Timeouts； 标识令牌——Cookies</p>
+<h4 id="Meter表"><a href="#Meter表" class="headerlink" title="Meter表"></a>Meter表</h4><p>以下多摘自<a target="_blank" rel="noopener" href="https://blog.51cto.com/u_15127593/2738418">参考文章</a></p>
+<p>Meter表是1.3新增的一种表，一共有四个字段</p>
+<p><img src="image-20220410072551354.png" alt="image-20220410072551354"></p>
+<p>command字段是表示该meter表的操作，是增加、修改或者删除 meter表。</p>
+<p>flags字段能够表示的信息很多，一个16位的字节，能够表示：</p>
+<ul>
+<li><p>meter表限速的单位。默认单位是 kb/s</p>
+</li>
+<li><p>更换成 packet/s 的算法</p>
+</li>
+<li><p>是否开启burst</p>
+</li>
+<li><p>是否统计</p>
+</li>
+</ul>
+<p>meter_id 这个字段是meter表的身份id，在交换机中是唯一的。memter_id的定义是从1开始的，最大值是根据交换机能够支持的最大数值而定。</p>
+<p>band字段是一个速度band数组。它可以包含多个数量的计量带，并且每一个计量带都可以重复。同一时间只有一个计量带生效，如果数据包的速度超过所有的计量带，那么配置的速度最高的计量带会被使用。</p>
+<p>band 中有四个属性</p>
+<p><img src="image-20220410073024346.png" alt="image-20220410073024346"></p>
+<ul>
+<li>type: type字段是指高出限速值的数据包的处理方式。主要有丢弃和设置优先丢弃。<ul>
+<li> drop:计量带OFPMBT_DROP定义了一个简单的速度限制器，会丢弃掉超过该值的数据包</li>
+<li>remark:OFPMBT_DSCP_REMARK 字段定义了一个简单的DiffServ 策略，当超过定义值的数据包到来时，其ip头部中的丢弃字段DSCP会被标记。这样该ip数据包就会优先被丢弃。（ip数据报字段中服务类型称DS）</li>
+<li>experimenter:该类型应该是被用于创新实验使用的，可以自定义超出定义值的数据包处理方式。</li>
+</ul>
+</li>
+<li>len: len字段表示的该band的数据包的长度</li>
+<li>rate字段表示可能作用于数据包的值即限速的值。rate字段的单位是kb每秒，除非在flags字段包含了OFPMF_PKTPS，这时rate的单位是 packet/s</li>
+<li>brust_size字段只有在flags字段包含了OFPMC_BURST才会被使用。它主要用于在使用meter表时突发的大量数据包或者字节时。burst的单位是kb，当flags包含OFPMF_PKTPS时，burst的单位为 packet</li>
+</ul>
+<blockquote>
+<p>meter表的限速原理就是通过读取tare字段的值，将速度超过规定值的包直接丢弃，达到限速的效果</p>
+<p>例如：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 定义一个流表，数据从端口1进，端口2出</span>
+in_port<span class="token operator">=</span>1, actions<span class="token operator">=</span>output:2
+<span class="token comment" spellcheck="true"># 定义一个meter表，将速度超过10M的包丢弃</span>
+meter<span class="token operator">=</span>1,type<span class="token operator">=</span>drop,rate<span class="token operator">=</span>10000
+<span class="token comment" spellcheck="true"># 修改流表使之使用meter表</span>
+in_port<span class="token operator">=</span>1, actions<span class="token operator">=</span>meter:1,output:2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<h2 id="Mininet"><a href="#Mininet" class="headerlink" title="Mininet"></a>Mininet</h2><p>关于mininet，我的建议是最好肝<a target="_blank" rel="noopener" href="https://github.com/mininet/mininet/wiki/Introduction-to-Mininet">官方文档</a>，又快又省事</p>
+<p>mininet是一个基于Linux的进程虚拟化网络仿真工具</p>
+<p>可以仿真主机、交换机、控制器，交换机支持OpenFlow协议</p>
+<p>可以用于SDN的配置实验</p>
+<h3 id="Mininet安装"><a href="#Mininet安装" class="headerlink" title="Mininet安装"></a>Mininet安装</h3><blockquote>
+<p>虚拟机安装</p>
+</blockquote>
+<p>去官网<code>http://mininet.org/download/</code>直接下载镜像，然后导入vmware使用</p>
+<blockquote>
+<p>Linux本地安装</p>
+</blockquote>
+<p><code>git clone http://github.com/mininet/mininet.git</code>下载安装包</p>
+<p>然后进入util目标执行脚本<code>install.sh</code></p>
+<pre class="line-numbers language-bash"><code class="language-bash">./install.sh -n3V 2.5.0
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>文件包安装</p>
+</blockquote>
+<p><code>apt-get install mininet/precise-backports</code>安装</p>
+<p>最后使用<code> mn --test pingall</code>测试是否安装成功</p>
+<h3 id="Mininet目录"><a href="#Mininet目录" class="headerlink" title="Mininet目录"></a>Mininet目录</h3><p><img src="image-20220404212517282.png" alt="image-20220404212517282"></p>
+<ul>
+<li><code>bin/mn</code> ——不必多说，学过Linux都知道。就是执行文件的位置</li>
+<li><code>util</code>  ——放置辅助文件，包括安装脚本、文档辅助生成</li>
+<li><code>mininet</code> ——mininet的核心代码都在该文件夹内<ul>
+<li><code>__init__.py</code>文件用于将Python代码导入控制文件</li>
+<li><code>clean.py</code>文件提供两个函数：sh(cmd)调用shell来执行cmd，cleanup()用于清理残余进程或临时文件</li>
+<li>test子文件夹用于存放测试的例子</li>
+</ul>
+</li>
+<li><code>custom</code> ——放置用户自定义的Python文件，如自定义的拓扑等。</li>
+<li><code>examples</code> ——含有很多使用案例，包括miniedit可视化</li>
+</ul>
+<p><img src="image-20220404220915365.png" alt="image-20220404220915365"></p>
+<h3 id="Mininet命令"><a href="#Mininet命令" class="headerlink" title="Mininet命令"></a>Mininet命令</h3><p>Mininet命令可以分为三大类，负责构建网络topo的网络构建命令、负责虚拟设备间交互的内部交互命令，和用来交互Linux的其他命令</p>
+<h4 id="网络构建命令"><a href="#网络构建命令" class="headerlink" title="网络构建命令"></a>网络构建命令</h4><p>创建一个最小化网络无需任何参数，只需执行<code>sudo mn</code>即可，mininet会默认创建一个交换机和两个主机的连通</p>
+<p><img src="image-20220405092836921.png" alt="image-20220405092836921"></p>
+<h5 id="topo-创建一个指定的topo，一共四种形式"><a href="#topo-创建一个指定的topo，一共四种形式" class="headerlink" title="--topo: 创建一个指定的topo，一共四种形式"></a><code>--topo</code>: 创建一个指定的topo，一共四种形式</h5><ul>
+<li><p><code>single</code>(单一)： 单一拓扑，网络中只有一个交换机，主机可自定义，语法举例：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">mn --topo<span class="token operator">=</span>single,5 <span class="token comment" spellcheck="true"># 一个交换机连接5个主机</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>  <img src="image-20220405093719573.png" alt="image-20220405093719573"></p>
+</li>
+<li><p>linear(线性的)： 线性拓扑,网络中有N个交换机，每个交换机连接M个主机，举例</p>
+<pre class="line-numbers language-bash"><code class="language-bash">mn --topo<span class="token operator">=</span>linear,5,2 <span class="token comment" spellcheck="true"># 5个交换机，各连2个主机</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>  <img src="image-20220405094816980.png" alt="image-20220405094816980"></p>
+</li>
+<li><p>tree(树): 树形拓扑，交换机主机按定义的广度和深度树形排列</p>
+<pre class="line-numbers language-bash"><code class="language-bash">mn --topo<span class="token operator">=</span>tree,depth<span class="token operator">=</span>3,fanout<span class="token operator">=</span>4 <span class="token comment" spellcheck="true"># 创建一个树形topo，深度为3，广度为4</span>
+<span class="token comment" spellcheck="true"># depth 深度 fanout 广度</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>  <img src="image-20220405094218357.png" alt="image-20220405094218357"></p>
+</li>
+<li><p>reversed反向拓扑和单一拓扑相同，turse环形拓扑大家都没说我也懒得查</p>
+</li>
+</ul>
+<h5 id="custom使用脚本文件，用于创建自定义拓扑"><a href="#custom使用脚本文件，用于创建自定义拓扑" class="headerlink" title="--custom使用脚本文件，用于创建自定义拓扑"></a><code>--custom</code>使用脚本文件，用于创建自定义拓扑</h5><p>一般配合–topo使用</p>
+<pre class="line-numbers language-bash"><code class="language-bash">mn --custom topo2.py --topo mytopo <span class="token comment" spellcheck="true"># 使用topo2.py文件创建拓扑</span>
+<span class="token comment" spellcheck="true"># topo2.py 是具体的脚本文件 mytopo是文件中的类名</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>编写py文件也很简单，看一眼custom目录下自带的<code> topo-2sw-2host.py</code>自然明白，需要一定python功底</p>
+<blockquote>
+<p>注意，新版本可以随意的写主机交换机前缀，如a1交换机、b2交换机</p>
+<p>老版本则不行，交换机前缀必须统一，如s1、s2</p>
+<p>所以我们最好交换机统一用s，主机统一用h，控制器用c</p>
+</blockquote>
+<p><img src="image-20220405095514365.png" alt="image-20220405095514365"></p>
+<h5 id="switch：设置要使用的交换机"><a href="#switch：设置要使用的交换机" class="headerlink" title="--switch：设置要使用的交换机"></a><code>--switch</code>：设置要使用的交换机</h5><p>参数：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">lxbr：内核态交换机。
+user：用户态交换机。
+ovsk：OpenVSwitch交换机，默认使用此值。
+ovsbr：OpenVSwitch交换机。
+ivs：OpenVSwitch交换机。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>交换机分类3类：用户型、内核型和OVS型，其中内核型和OVS型的吞吐量比用户性大很多，因此一般采用后两种。</p>
+<p>举例：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">mn --switch ovsk
+<span class="token comment" spellcheck="true">#可以用 --test iperf 测试性能</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="controller-设置要使用的控制器"><a href="#controller-设置要使用的控制器" class="headerlink" title="--controller 设置要使用的控制器"></a><code>--controller</code> 设置要使用的控制器</h5><p>如果没有此参数则使用默认控制器</p>
+<pre class="line-numbers language-bash"><code class="language-bash">mn --controller<span class="token operator">=</span>remote,ip<span class="token operator">=</span><span class="token punctuation">[</span>contoller ip<span class="token punctuation">]</span>,port<span class="token operator">=</span><span class="token punctuation">[</span>contoller port<span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true"># ip 和 port 是要连接的远程控制器和端口</span>
+/* 
+* 有文章写 --controller<span class="token operator">=</span>remote,--ip<span class="token operator">=</span><span class="token punctuation">[</span>contoller ip<span class="token punctuation">]</span>,--port<span class="token operator">=</span><span class="token punctuation">[</span>contoller port<span class="token punctuation">]</span>
+* 晃点我半小时死活连不上控制器，吸取教训
+*/
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果–ip和–port省略的话，则默认使用本地ip地址，端口默认使用6653或6633端口号。</p>
+<h5 id="mac自动配置交换机的mac地址"><a href="#mac自动配置交换机的mac地址" class="headerlink" title="--mac自动配置交换机的mac地址"></a><code>--mac</code>自动配置交换机的mac地址</h5><p>让MAC地址易读，即设置交换机的MAC，主机MAC及IP地址从小到大排序，且设置简单唯一，不仅让机器容易获取，也容易让肉眼很容易识别其ID。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">mn --topo<span class="token operator">=</span>linear,2,2 --mac
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="内部交互命令"><a href="#内部交互命令" class="headerlink" title="内部交互命令"></a>内部交互命令</h4><p><img src="image-20220405090728374.png" alt="image-20220405090728374"></p>
+<blockquote>
+<p>sh：执行ovs系统的指令</p>
+</blockquote>
+<h4 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h4><p>执行sudo mn -c会进行清理配置操作，适合故障后恢复。</p>
+<p>执行exit会退出Mininet的cli，同时给出运行时间统计。</p>
+<p>py cmd 使用python来执行cmd。</p>
+<p>测试Mininet启动后立刻关闭的时间可以用 sudo mn –test none。</p>
+<h3 id="自定义mininet命令"><a href="#自定义mininet命令" class="headerlink" title="自定义mininet命令"></a>自定义mininet命令</h3><p>mininet是python的开源工具，所以我们可以自定义命令</p>
+<blockquote>
+<p>1、将命令方法写进net.py</p>
+</blockquote>
+<p>自定义第一步是在<code>net.py</code>文件中<code>Mininet</code>类写实现方法</p>
+<p>需要很强的python功底</p>
+<p><img src="image-20220407154753967.png" alt="image-20220407154753967"></p>
+<blockquote>
+<p>2、在cil.py中注册命令</p>
+</blockquote>
+<p><img src="image-20220407155015246.png" alt="image-20220407155015246"></p>
+<blockquote>
+<p>3、在/bin/mn 中添加命令</p>
+</blockquote>
+<p><img src="image-20220407155156484.png" alt="image-20220407155156484"></p>
+<p>添加到相对应的集合即可使用</p>
+<p><code>/bin/mn</code>也可以当作帮助文档使用</p>
+<blockquote>
+<p>4、重新编译Mininet</p>
+</blockquote>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">..</span><span class="token punctuation">..</span>./mininet/util/install.sh -n
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="SDN控制器——-OpenDaylight"><a href="#SDN控制器——-OpenDaylight" class="headerlink" title="SDN控制器—— OpenDaylight"></a>SDN控制器—— OpenDaylight</h2><p>总结一下前面的内容</p>
+<p>SDN，就是将传统网络的数据平面和控制平面分离</p>
+<p>控制平面交给各个控制器，并以类继承的方式发送给Web应用</p>
+<p>数据平面和控制平面通过OpenFlow和OVSDB协议完成交互</p>
+<blockquote>
+<p>其中：</p>
+<p>OpenFlow协议</p>
+<p>模拟真实网络的工具Mininet</p>
+<p>SDN使用的交换机OpenSwitch</p>
+<p>SDN使用的控制器ryu、Daylight等</p>
+<p>就是我们要学习的知识</p>
+</blockquote>
+<p>数据平面知识较为统一，但北向接口缺少标准，因不同的业务应用导致多样化，学习起来比较麻烦</p>
+<p>有趣的是，学术界的想法往往和产业界有所背离，在产业界的运营下，南向接口不仅仅局限在OpenFlow,也包括了NETCONF，SNMP协议</p>
+<p>最终，实现了如下图所示的SDN体系结构</p>
+<p><img src="ODL-SDN-fig-6.png" alt="img"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>集成的虚拟机镜像多香，建议直接镜像，头铁自己百度，懒得写</p>
+<p><img src="image-20220411172908795.png" alt="image-20220411172908795"></p>
+<p>应有尽有</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1m2KKQDj_etLceKS1fPkBlQ?pwd=5jgh">https://pan.baidu.com/s/1m2KKQDj_etLceKS1fPkBlQ?pwd=5jgh</a><br>提取码：5jgh<br>自己拿</p>
+<p>OpenDaylight现在已经发行了12个版本，版本以元素周期表命名，比如现在的最新版本就是Mg版</p>
+<blockquote>
+<p>运行karaf启动daylight</p>
+<p><img src="image-20220412115926139.png" alt="image-20220412115926139"></p>
+</blockquote>
+<h3 id="OpenDaylight控制器用到的技术"><a href="#OpenDaylight控制器用到的技术" class="headerlink" title="OpenDaylight控制器用到的技术"></a>OpenDaylight控制器用到的技术</h3><blockquote>
+<p>注：OpenDayLight简称ODL</p>
+</blockquote>
+<h4 id="OSGI——开放服务网关协议"><a href="#OSGI——开放服务网关协议" class="headerlink" title="OSGI——开放服务网关协议"></a>OSGI——开放服务网关协议</h4><p><a target="_blank" rel="noopener" href="http://www.uml.org.cn/j2ee/202104022.asp">参考文章</a></p>
+<p>OpenDaylight的起点技术，OSGI是一个面向java的动态模型系统</p>
+<p>核心部分是一个框架，其中定义了应用程序的生命周期模式和服务注册。</p>
+<p>基于OSGI框架定义了大量的OSGI服务：日志、配置管理，HTTP服务（运行Servlet）、XML解析、设备访问、软件包管理、许可管理、用户管理、IO连接、Jini和UPnP等。</p>
+<h4 id="Apache-Karaf"><a href="#Apache-Karaf" class="headerlink" title="Apache Karaf"></a>Apache Karaf</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_28904519/article/details/114773385">参考文章</a></p>
+<p>就好像Tomcat是最常用的javaweb中间件一样，OSGI模型也有中间件，就是Apache Karaf ,从而实现各应用共性的一些功能，并管理应用的部署。</p>
+<p>Karaf做到了对OSGI的集成，达到了开箱即用的效果</p>
+<p><img src="76e58671af06efc39b779280ddfb0f7d.png" alt="img"></p>
+<p>Karaf内置了一个SSHd server,可以远程访问控制台，这就是我们操作Daylight的方法，<code>http://ip:8181/index.html</code></p>
+<h4 id="YANG模型"><a href="#YANG模型" class="headerlink" title="YANG模型"></a>YANG模型</h4><blockquote>
+<p>先用大白话来说，好比现在的各种申请书，论文。都有模板，只需要改掉关键字就可以使用。</p>
+<p>网络也一样，因为现在的设备实在太多了，命令五花八门。为了让我们快速使用，厂商就推出了YANG模型</p>
+<p>YANG就好比写作业、申请的模板，通过调用YANG，就可以实现对不同设备的流表下发等操作</p>
+<p>以下是概念术语</p>
+</blockquote>
+<p>早在2003年，IETF成立了一个NETCONF工作组，提出一种基于XML的网络配置管理协议用于标准化配置，也就是NETCONF(Network Configuration Protocol)，因为该协议的配置功能非常强大，同时兼顾监控和故障管理，安全验证和访问控制，所以得到业界的一致认可，所以广泛采用netconfig来配置网络。</p>
+<p>NETCONF协议分为传输层、RPC层、操作层和内容层。其中，内容层是唯一没有标准化的层，于是一种新的建模语言YANG产生了，它的目标是对NETCONF数据模型、操作进行建模，覆盖NETCONF协议的操作层和内容层</p>
+<p>SDN中，设备会发送YANG模型给控制器，控制器根据收到的YANG模型，生成API接口</p>
+<blockquote>
+<p>OpenDaylight控制台界面如下</p>
+</blockquote>
+<p><img src="image-20220412175058305.png" alt="image-20220412175058305"></p>
+<p>Topology和Nodes就是对应的网络拓扑和节点信息。</p>
+<p>剩下三个都和Yang有关</p>
+<p>Yang UI 中有所有Yang模型的UI，可以可视化的去操作</p>
+<p><img src="image-20220412175700871.png" alt="image-20220412175700871"></p>
+<p>比如可以通过<code>opendaylight-inventory rve 2013-08-19</code>下发流表</p>
+<p>Yang Visuallzer和Yangman几乎没什么特别，也是对Yang模型的一些可视化操作</p>
+<p>更重点的是api文档，访问<code>http://ip:8181/apidoc/explorer/index.html</code></p>
+<p><img src="image-20220412180926352.png" alt="image-20220412180926352"></p>
+<p>通过api文档，开发时才可以找得到接口位置，以及各个Yang接口的详细信息</p>
+<p><img src="image-20220412181225038.png" alt="image-20220412181225038"></p>
+<h3 id="建立Mininet连接"><a href="#建立Mininet连接" class="headerlink" title="建立Mininet连接"></a>建立Mininet连接</h3><p>OpenDaylight于Mininet建立连接的方式和其他控制器相同</p>
+<p><strong>首先</strong>，在OpenDaylight安装完成后启动Apache Karaf ，运行<code>Carbon/bin</code>目录下的<code>./karaf</code>或者<code>./client -u karaf</code>即可</p>
+<p><img src="image-20220412225307331.png" alt="image-20220412225307331"></p>
+<p>这两者的不同在于karaf的启动方面(以下皆在<code>Carbon/bin</code>目录中)：</p>
+<ul>
+<li>前端启动并进入控制台【实例常规模式】: <code>./karaf</code></li>
+<li>前端启动但不进入控制台【服务模式】: <code>./karaf server</code></li>
+<li>后台启动【后台模式】： <code>./start</code></li>
+<li>连接本地\远程控制台执行单个命令：<code>./client -u karaf -p karaf -a 8101 hostname osgi:shutdown</code>仅连接不需要加后面的命令</li>
+</ul>
+<p>我个人喜欢用<code>./start</code>,毕竟只玩控制器不会用到太多karaf</p>
+<p>具体关于karaf中间件看这里：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_28904519/article/details/114773385">参考文章</a></p>
+<p><strong>其次</strong>，刚有说到OpenDaylight与其他控制器连接Mininet的方式相同，OpenDaylight开启之后，同样监听6633端口，除非你改了</p>
+<p>所以连接的方式就是开启mininet，控制器ip输好，端口6633即可</p>
+<p><img src="image-20220412230453738.png" alt="image-20220412230453738"></p>
+<p>此时karaf控制台Topolog页面只有一个交换机</p>
+<p><img src="image-20220412230758484.png" alt="image-20220412230758484"></p>
+<p>这是因为主机还没有进行联通，需要在mininet中<code>pingall</code>一下</p>
+<p><img src="image-20220412230908875.png" alt="image-20220412230908875"></p>
+<p>至此OpenDaylight控制器和Mininet正式连通</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="验证openflow1-3协议meter表限速效果"><a href="#验证openflow1-3协议meter表限速效果" class="headerlink" title="验证openflow1.3协议meter表限速效果"></a>验证openflow1.3协议meter表限速效果</h3><p>做了再补</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://atmujie.github.io/2022/03/22/%E8%B4%9F%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0SDN/">http://atmujie.github.io/2022/03/22/%E8%B4%9F%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0SDN/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">网络</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+        <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'http://atmujie.github.io/2022/03/22/%E8%B4%9F%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0SDN/';
+        this.page.identifier = '/2022/03/22/%E8%B4%9F%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0SDN/';
+        this.page.title = '负基础学习SDN';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'GHiPEgESACHszUJMqTqLWQtF-gzGzoHsz',
+        appKey: 'Lm6vLWBnRM3KIlhuo4tqDNDq',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/03/22/%E8%B4%9F%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0SDN/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="负基础学习SDN">
+                        
+                        <span class="card-title">负基础学习SDN</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/12/12/%E5%85%B3%E4%BA%8Ehexo%E5%8D%9A%E5%AE%A2matery%E4%B8%BB%E9%A2%98%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E6%A0%87%E7%AD%BE%E9%80%83%E9%80%B8%E9%97%AE%E9%A2%98/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="关于hexo博客matery主题代码块的标签逃逸问题">
+                        
+                        <span class="card-title">关于hexo博客matery主题代码块的标签逃逸问题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">Web安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn/" target="_blank">陇ICP备2022000869号</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/atmujie" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
