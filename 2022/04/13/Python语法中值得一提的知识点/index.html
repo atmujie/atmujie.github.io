@@ -670,6 +670,138 @@ type            <span class="token punctuation">:</span><span class="token punct
 <span class="token keyword">raise</span> MyError<span class="token punctuation">(</span><span class="token string">"综测总分不能大于100"</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="image-20220413081930827.png" alt="image-20220413081930827"></p>
+<h2 id="多重继承须知"><a href="#多重继承须知" class="headerlink" title="多重继承须知"></a>多重继承须知</h2><p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26442553/article/details/81775449">Python多继承与super使用详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-super.html">菜鸟教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.programiz.com/python-programming/methods/built-in/super">Learn to Code for Free——Python super()</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/functions.html#super">Python中文文档——class super</a></p>
+<p>继承有两种方法，super和类名.方法名，这两种方法又区别，尤其是在多重继承和链继承时</p>
+<h3 id="super详解"><a href="#super详解" class="headerlink" title="super详解"></a>super详解</h3><p>super方法是在类继承中最常见的方法，用于调用父类的方法</p>
+<p>他会返回一个代理对象，它会将方法调用委托给 <em>type</em> 的父类或兄弟类。</p>
+<p>人话就是可以让子类调用父类的方法，原理是返回一个代理对象，子类使用父类方法时，这个对象把调用请求委托给父类或者兄弟类，达到调用基类方法的目的</p>
+<blockquote>
+<p>语法</p>
+<p><code>super(type[classname],self[objecy-or-type]).方法</code></p>
+<p>其中python2.x必须写<code>super(type[classname],self).方法</code>,而python3可以简写为<code>super().方法</code></p>
+<p><em>object-or-type</em> 确定用于搜索的MRO【方法解析顺序】，一般是self。搜索会从 <em>type</em> 之后的类开始。</p>
+<p>举例来说，如果 <em>object-or-type</em> 的 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#class.__mro__"><code>__mro__</code></a> 为 <code>D -&gt; B -&gt; C -&gt; A -&gt; object</code> 并且 <em>type</em> 的值为 <code>B</code>，则 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/functions.html#super"><code>super()</code></a> 将会搜索 <code>C -&gt; A -&gt; object</code>。</p>
+</blockquote>
+<p><img src="image-20220418112218102.png" alt="image-20220418112218102"></p>
+<p>super一共有五个内置方法和三个属性（继承自object的不算），但都不常用</p>
+<blockquote>
+<p>之前我认为<code>super().__init__()</code>是调用了super类的<code>__init__</code>方法，后来一想不是这样，应该是调用了父类的<code>__init__</code>方法才对</p>
+</blockquote>
+<h3 id="方法解析顺序——MRO"><a href="#方法解析顺序——MRO" class="headerlink" title="方法解析顺序——MRO"></a>方法解析顺序——MRO</h3><p>方法解析顺序，英文简写MRO</p>
+<p>指在类继承【特别是多继承】时类中方法具体的解析顺序，使用super调用父类和直接使用父类名调用，这两者有区别</p>
+<blockquote>
+<p>父类名调用</p>
+</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"基类——A类执行"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">B</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"B类开始执行"</span><span class="token punctuation">)</span>
+        A<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"B类执行结束"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">C</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"C类执行开始"</span><span class="token punctuation">)</span>
+        A<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"C类执行结束"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">D</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"=========="</span><span class="token punctuation">)</span>
+        B<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"++++++++++++++"</span><span class="token punctuation">)</span>
+        C<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"=========="</span><span class="token punctuation">)</span>
+D<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上，构建了一个菱形的继承关系，首先是直接父类名.方法名的调用</p>
+<p><img src="image-20220418115641878.png" alt="image-20220418115641878"></p>
+<p>通过结果可以得知是一个线性的调用关系:<code>D-&gt;B-&gt;A;D-&gt;C-&gt;A</code>,直接了当，但是A类被调用了两次</p>
+<blockquote>
+<p>super调用</p>
+</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"基类——A类执行"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">B</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"B类开始执行"</span><span class="token punctuation">)</span>
+        super<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"B类执行结束"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">C</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"C类执行开始"</span><span class="token punctuation">)</span>
+        super<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"C类执行结束"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">D</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"=========="</span><span class="token punctuation">)</span>
+        super<span class="token punctuation">(</span>D<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"=========="</span><span class="token punctuation">)</span>
+D<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20220418115854106.png" alt="image-20220418115854106"></p>
+<p>结果是<code>D-&gt;B-&gt;C-&gt;A</code>，A类被调用了一次，好似一个深度优先遍历，一个广度优先遍历</p>
+<p>所以在有终点基类的菱形或者类菱形继承结构中，使用super可以防止终点基类重复调用</p>
+<p><img src="image-20220418121218525.png" alt="image-20220418121218525"></p>
+<p>如图，这就是所谓的类菱形继承关系</p>
+<p>但是，super并不万能，当继承结构变成</p>
+<p><img src="image-20220418121625904.png" alt="image-20220418121625904"></p>
+<p>这种树形继承关系时，就会出现问题</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"基类——A类执行"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">B</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"基类——B类执行"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">C</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"C类执行开始"</span><span class="token punctuation">)</span>
+        super<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"C类执行结束"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">D</span><span class="token punctuation">(</span>B<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"D类执行开始"</span><span class="token punctuation">)</span>
+        super<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"D类执行结束"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">E</span><span class="token punctuation">(</span>C<span class="token punctuation">,</span> D<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"=========="</span><span class="token punctuation">)</span>
+        super<span class="token punctuation">(</span>E<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"=========="</span><span class="token punctuation">)</span>
+
+E<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果是：<img src="image-20220418122413486.png" alt="image-20220418122413486"></p>
+<p>A、B两个基类只执行了B类，这显然是比重复继承更不能容忍的错误</p>
+<p>所以这种树结构多继承，要使用父类名.方法名的方式</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">E</span><span class="token punctuation">(</span>C<span class="token punctuation">,</span> D<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"=========="</span><span class="token punctuation">)</span>
+        C<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"++++++++++"</span><span class="token punctuation">)</span>
+        D<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"=========="</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20220418122830483.png" alt="image-20220418122830483"></p>
+<p>此时A、B两个基类均被执行</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>继承结构有唯一一个终点基类时，最好使用<code>super().方法名</code>调用</p>
+<p>继承结构不止一个终点基类时，使用<code>类名.方法名</code>的形式调用</p>
+<p>具体原理设计MRO，可以自己尝试，估计还涉及底层的数据结构，但我是挖不出来了</p>
 <h2 id="迭代器浅层原理"><a href="#迭代器浅层原理" class="headerlink" title="迭代器浅层原理"></a>迭代器浅层原理</h2><p>迭代器普遍的应用于for循环、遍历之中</p>
 <p>运行时，会首先在容器对象上调用iter()函数，iter()返回一个定义了<code>__next__()</code>方法的迭代器对象。</p>
 <p>此方法将逐一访问容器中的元素。 当元素用尽时，<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#iterator.__next__"><code>__next__()</code></a> 将引发 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/exceptions.html#StopIteration"><code>StopIteration</code></a> 异常来通知终止 <code>for</code> 循环。</p>
