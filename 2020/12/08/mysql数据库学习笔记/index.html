@@ -920,7 +920,7 @@
 <p><img src="C:\Users\MuJie\AppData\Roaming\Typora\typora-user-images\image-20220727175826489.png" alt="image-20220727175826489"></p>
 <h3 id="结果字段解释："><a href="#结果字段解释：" class="headerlink" title="结果字段解释："></a>结果字段解释：</h3><p>id: 只是id</p>
 <p>select_type: 查询类型，具体如下表</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\0823dd54564e92588bf2995aa7963451cdbf4e59.jpeg" alt="img"></p>
+<p><img src="0823dd54564e92588bf2995aa7963451cdbf4e59.jpeg" alt="img"></p>
 <p>type：表示搜索方式（索引）的好坏</p>
 <p>从高到低依次是</p>
 <pre class="line-numbers language-sql"><code class="language-sql">system: 
@@ -986,24 +986,24 @@ index_merge<span class="token punctuation">(</span>索引合并<span class="toke
 <p>但安装之后会遇到一些问题，有随机密码或者让输入密码都算可以的，我用的Ubuntu系统每次安装完都是无密码登录</p>
 <h4 id="无密码登录原因"><a href="#无密码登录原因" class="headerlink" title="无密码登录原因"></a>无密码登录原因</h4><p>其实非常简单</p>
 <p><strong>首先使用root登录mysql，可以忽略用户名，比如这样：</strong></p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729182429298.png" alt="image-20220729182429298"></p>
+<p><img src="image-20220729182429298.png" alt="image-20220729182429298"></p>
 <p><strong>其次Ubuntu安装mysql，root用户的密码默认为空</strong></p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729182718451.png" alt="image-20220729182718451"></p>
+<p><img src="image-20220729182718451.png" alt="image-20220729182718451"></p>
 <p>所以<strong>初次安装的无密码登录问题本质上只是没密码而已，设置个密码就行</strong></p>
 <p>设置好密码还是可以无密码登录才是真的有问题，只能具体问题具体解决</p>
 <p><strong>配置真正的 无需验证的无密码登录需要在mysql配置文件中写入<code>skip-grant-tables</code></strong></p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729183649763.png" alt="image-20220729183649763"></p>
+<p><img src="image-20220729183649763.png" alt="image-20220729183649763"></p>
 <blockquote>
 <p>初次安装产生的无密码登录问题的完美解决办法</p>
 </blockquote>
 <p>Ubuntu系统安装mysql后默认可以无密码登录，需要对其进行初始化</p>
 <p>步奏很简单，八字真言：改密、刷新、退出、重启</p>
 <p>root用户比较特殊，要使用<code>root@localhost</code>做为用户名</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729172949423.png" alt="image-20220729172949423"></p>
+<p><img src="image-20220729172949423.png" alt="image-20220729172949423"></p>
 <p><strong>注：mysql5.7版本passowrd()还能使用，<code>set password for root@localhost = password(&quot;密码&quot;);</code>同样可以达成初始化的目的</strong></p>
 <p>还有一个更好的办法：运行<code>mysql_secure_installation</code>[mysql安全设置命令]</p>
 <p>根据提示输入以下选项即可</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729173512733.png" alt="image-20220729173512733"></p>
+<p><img src="image-20220729173512733.png" alt="image-20220729173512733"></p>
 <p>一般来说使用安全配置命令<code>mysql_secure_installation</code>就可以完美完成初始化</p>
 <p>唯一例外的情况是有点mysql版本修改了更新密码命令但是<code>mysql_secure_installation</code>脚本仍然使用原来的命令</p>
 <p>就会导致<code>mysql_secure_installation</code>失效，此时才需要使用八字真言手动初始化。</p>
@@ -1012,21 +1012,21 @@ index_merge<span class="token punctuation">(</span>索引合并<span class="toke
 <h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">user</span> 用户名 identified <span class="token keyword">by</span> <span class="token string">"密码"</span><span class="token punctuation">;</span>
 <span class="token keyword">create</span> <span class="token keyword">user</span> Atmujie identified <span class="token keyword">by</span> <span class="token string">'atmujie'</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729174827464.png" alt="image-20220729174827464"></p>
+<p><img src="image-20220729174827464.png" alt="image-20220729174827464"></p>
 <h4 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h4><p>修改当前用户密码</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">set</span> password <span class="token operator">=</span> password<span class="token punctuation">(</span><span class="token string">"新密码"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729175048547.png" alt="image-20220729175048547"></p>
+<p><img src="image-20220729175048547.png" alt="image-20220729175048547"></p>
 <p>修改指定用户密码</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">set</span> password <span class="token keyword">for</span> 用户名 <span class="token operator">=</span> password<span class="token punctuation">(</span><span class="token string">"新密码"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729175224600.png" alt="image-20220729175224600"></p>
+<p><img src="image-20220729175224600.png" alt="image-20220729175224600"></p>
 <h4 id="重命名用户"><a href="#重命名用户" class="headerlink" title="重命名用户"></a>重命名用户</h4><pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">rename</span> <span class="token keyword">user</span> 用户名 <span class="token keyword">to</span> 新用户名<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729175457433.png" alt="image-20220729175457433"></p>
+<p><img src="image-20220729175457433.png" alt="image-20220729175457433"></p>
 <h4 id="查询用户权限"><a href="#查询用户权限" class="headerlink" title="查询用户权限"></a>查询用户权限</h4><pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">show</span> grants <span class="token keyword">for</span> 用户名<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729175803678.png" alt="image-20220729175803678"></p>
+<p><img src="image-20220729175803678.png" alt="image-20220729175803678"></p>
 <h2 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h2><blockquote>
 <p>吐槽几句</p>
 <p>数据库备份还是挺重要的，别看平时用不上，等学到docker建环境就成了学的不全=啥都不会</p>
@@ -1051,12 +1051,12 @@ mysqldump -u root -p mysql user > ./1.sql
 -h 可以省略 -p 默认为隐藏的输入模式
 导出是在命令行完成的
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729191004114.png" alt="image-20220729191004114"></p>
+<p><img src="image-20220729191004114.png" alt="image-20220729191004114"></p>
 <p>导入：</p>
 <pre class="line-numbers language-sql"><code class="language-sql">source xx<span class="token punctuation">.</span>sql
 导入是在mysql中完成的
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220729191416196.png" alt="image-20220729191416196"></p>
+<p><img src="image-20220729191416196.png" alt="image-20220729191416196"></p>
 </li>
 </ul>
 <h2 id="三大范式"><a href="#三大范式" class="headerlink" title="三大范式"></a>三大范式</h2><p>三大范式只是规范，实际开发视情况而定。就好比网络协议规范是ISO七层实际用的是TCP五层一样</p>
@@ -1064,22 +1064,22 @@ mysqldump -u root -p mysql user > ./1.sql
 <p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42278076/article/details/114112633">三大范式</a></p>
 <h3 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h3><p>字段不可分【原子性】</p>
 <p>借别人的例子解释</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg0NDA4OQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述"></p>
+<p><img src="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg0NDA4OQ==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述"></p>
 <p>这张表中家庭信息和学校信息可以再分，所以不符合第一范式    </p>
 <p>修改为：</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg0NDA4OQ==,size_16,color_FFFFFF,t_70-16591641702095.png" alt="在这里插入图片描述"></p>
+<p><img src="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg0NDA4OQ==,size_16,color_FFFFFF,t_70-16591641702095.png" alt="在这里插入图片描述"></p>
 <p>此时每个字段都不可再分，符合第一范式</p>
 <h3 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h3><p>第二范式的前提是满足第一范式</p>
 <p>第二范式就是让每张表都只描述一件事情</p>
 <p>借参考文章的图一用：</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220730145842003-16591643247788.png" alt="image-20220730145842003"></p>
+<p><img src="image-20220730145842003-16591643247788.png" alt="image-20220730145842003"></p>
 <p>订单和产品是两件事，所以按照第二范式，应该分成两张表</p>
 <h3 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h3><p>第三范式在一二范式的基础上，要求表中每一个字段都和主键直接相关</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220730150116480.png" alt="image-20220730150116480"></p>
+<p><img src="image-20220730150116480.png" alt="image-20220730150116480"></p>
 <p>第一张表中主键是学号，但学生的学号显然和班主任无关，所以需要拆成两个表</p>
 <h2 id="JAVA连接数据库"><a href="#JAVA连接数据库" class="headerlink" title="JAVA连接数据库"></a>JAVA连接数据库</h2><h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><p>JDBC是用来连接JAVA程序和数据库的驱动</p>
 <p>实质是在各个数据库系统和应用程序中加了一层架构</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\Three-tier-Architecture-for-Data-Access.gif" alt="Three-tier-Architecture-for-Data-Access"></p>
+<p><img src="Three-tier-Architecture-for-Data-Access.gif" alt="Three-tier-Architecture-for-Data-Access"></p>
 <h3 id="JDBC驱动"><a href="#JDBC驱动" class="headerlink" title="JDBC驱动"></a>JDBC驱动</h3><p>JDBC是JAVA为了规范化各种连接推出的，程序员只需学习JDBC API去实现程序，由各大数据库厂商推出自己的驱动程序和JDBC连接</p>
 <p>在JAVA层面，JDBC只用了两个包<code>java.sql</code>,<code>javax.sql</code>，这两个包java内置</p>
 <p>在数据库层面，还需要根据具体数据库，导入一个数据库厂商提供的驱动包</p>
@@ -1123,11 +1123,11 @@ mysqldump -u root -p mysql user > ./1.sql
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>注册mysql驱动，本该是<code>DriverManager.registerDriver(new com.mysql.jdbc.Driver());</code></p>
 <p>但由于Driver中只有一个匿名的静态方法，所以反射的效率更高</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220731212200996-16592737233161.png" alt="image-20220731212200996"></p>
+<p><img src="image-20220731212200996-16592737233161.png" alt="image-20220731212200996"></p>
 <pre class="line-numbers language-java"><code class="language-java">Connection connection <span class="token operator">=</span> DriverManager<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span>sqlUrl<span class="token punctuation">,</span> user<span class="token punctuation">,</span> password<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>连接一个mysql连接，此时connection直接代表数据库，数据库可以做的操作这个对象都可以做，比如设置自动提交、回滚等</p>
-<p><img src="D:\我的学习笔记\已经发布但正在修改的笔记\mysql数据库学习笔记\image-20220731212328427-16592738244093.png" alt="image-20220731212328427"></p>
+<p><img src="image-20220731212328427-16592738244093.png" alt="image-20220731212328427"></p>
 <pre class="line-numbers language-java"><code class="language-java"> Statement statement <span class="token operator">=</span> connection<span class="token punctuation">.</span><span class="token function">createStatement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Statement对象专注于执行sql的增删改查语句</p>

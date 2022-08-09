@@ -362,7 +362,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>先放张协议地图</p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\1863287-20200614212544808-1336141957.png" alt="img"></p>
+<p><img src="1863287-20200614212544808-1336141957.png" alt="img"></p>
 <p>网工说白了，学的就是这些东西</p>
 <h2 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h2><p>目前普遍使用的是由阿帕网演化的TCP/IP四层模型，用于学习的是ISO组织推出的OSI七层模型</p>
 <table>
@@ -478,7 +478,7 @@
 <blockquote>
 <p>E 2</p>
 </blockquote>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\clip_image002-165925928572813.jpg" alt="img"></p>
+<p><img src="clip_image002-165925928572813.jpg" alt="img"></p>
 <p><strong>报头长度18B</strong></p>
 <p>E2的数据报文结构如上，由 <code>目的MAC[D.MAC] </code> ，<code>源MAC[S.MAC]</code>，<code>类型[Type]</code>和<code>帧尾的FCS(帧校验序列)</code>组成</p>
 <p>TYPE: 类型 作用是标识上层(网络层)的协议</p>
@@ -490,7 +490,7 @@
 <blockquote>
 <p>IEEE 802.3</p>
 </blockquote>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\clip_image002-165925967342115-165925967547917.jpg" alt="img"></p>
+<p><img src="clip_image002-165925967342115-165925967547917.jpg" alt="img"></p>
 <p><strong>报头长度：26B</strong></p>
 <p>802.3结构如上所示，802.3将E2中的Type改为Length、LLC、SNAP三个字段</p>
 <p>Length: 表示该帧携带了多长的数据，值为数据长度</p>
@@ -541,7 +541,7 @@
 <h3 id="MAC地址的分配"><a href="#MAC地址的分配" class="headerlink" title="MAC地址的分配"></a>MAC地址的分配</h3><p>MAC地址6B,24字节，前12字节由IEEE通过OUI向厂商发放购买</p>
 <p>后12字节由厂商购买后自己决定</p>
 <p>由此让每个设备的MAC唯一</p>
-<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><h3 id="IP报文结构"><a href="#IP报文结构" class="headerlink" title="IP报文结构"></a>IP报文结构</h3><p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220803212455443.png" alt="image-20220803212455443"></p>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><h3 id="IP报文结构"><a href="#IP报文结构" class="headerlink" title="IP报文结构"></a>IP报文结构</h3><p><img src="image-20220803212455443.png" alt="image-20220803212455443"></p>
 <p><strong>第一行主要对报头进行识别：</strong></p>
 <blockquote>
 <p>1、Version: 版本，标识使用IPV4或者IPV6</p>
@@ -643,7 +643,7 @@
 IP：     1100 0000 . 1010 1000 . 0000 0001 . 0000 0001
 掩码：1111 1111 . 1111 1111 . 1111 1111 . 0000 0000
 </code></pre>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804112126096.png" alt="image-20220804112126096"></p>
+<p><img src="image-20220804112126096.png" alt="image-20220804112126096"></p>
 <p><strong>二进制中掩码对应为1的叫做网络位，对应为0的叫做主机位</strong></p>
 <table>
 <thead>
@@ -690,21 +690,21 @@ IP：     1100 0000 . 1010 1000 . 0000 0001 . 0000 0001
 <p>VLSM：可变长子网掩码</p>
 <p>顾名思义，子网掩码并非默认不变，而是可以增加或者减少</p>
 <p>增减子网掩码位数后网段和主机数目会产生变化，顾称子网划分</p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804113034513.png" alt="image-20220804113034513"></p>
+<p><img src="image-20220804113034513.png" alt="image-20220804113034513"></p>
 <p>如上图，C类网络掩码+1，网络位从原来的24到25，主机位从8到7</p>
 <p>网络位变成了<code>x.x.x.0</code>和<code>x.x.x.1</code></p>
 <p><code>111 1111 = 127</code>,所以这个网段被重新划分为两个子网，每个子网有0-127，共128-2个可用地址(主机位全0或全1不可用于单播)</p>
 <p>.0网段和.1网段网络位不同，是独立的网段，这就是子网划分</p>
 <p><strong>当掩码为32位时，只有网络位没有主机位，此时唯一标识一个主机 <code>192.168.1.1/32</code></strong></p>
 <p>注：增加掩码是划分子网，减少掩码是划分超网</p>
-<h3 id="ICMP协议实现ping"><a href="#ICMP协议实现ping" class="headerlink" title="ICMP协议实现ping"></a>ICMP协议实现ping</h3><p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\20200901161045966.png" alt="在这里插入图片描述"></p>
+<h3 id="ICMP协议实现ping"><a href="#ICMP协议实现ping" class="headerlink" title="ICMP协议实现ping"></a>ICMP协议实现ping</h3><p><img src="20200901161045966.png" alt="在这里插入图片描述"></p>
 <p>ICMP报文在正常的数据通信中，出现在IP报文的最后一个分片的IP首部之后，是IP层协议，被网络层和传输层使用</p>
 <p>ICMP报文的种类有两种，即<strong>ICMP差错报告报文和ICMP询问报文。</strong></p>
 <p>报文格式：</p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMTQxNzI2,size_16,color_FFFFFF,t_70#pic_center.png" alt="img"></p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804122416229.png" alt="image-20220804122416229"></p>
+<p><img src="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMTQxNzI2,size_16,color_FFFFFF,t_70#pic_center.png" alt="img"></p>
+<p><img src="image-20220804122416229.png" alt="image-20220804122416229"></p>
 <p>在ICMP协议中，8位类型Type和8位代码Code，决定ICMP报文类型</p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804123111289.png" alt="image-20220804123111289"></p>
+<p><img src="image-20220804123111289.png" alt="image-20220804123111289"></p>
 <p>在ping测试中，发送方发送type/code= 8/0 (echo request) 回应请求报文</p>
 <p>接收方收到后发送type/code=0/0 （echo reply） 回应应答报文</p>
 <p>ICMP报文详情不是IA知识，放在之后解释，具体参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43141726/article/details/108344724">ICMP报文详解</a></p>
@@ -750,10 +750,10 @@ IP：     1100 0000 . 1010 1000 . 0000 0001 . 0000 0001
 <li><p>通信结束后，A、B设备申请的高位端口被释放</p>
 </li>
 </ul>
-<h3 id="TCP协议报文"><a href="#TCP协议报文" class="headerlink" title="TCP协议报文"></a>TCP协议报文</h3><p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804140847085.png" alt="image-20220804140847085"></p>
+<h3 id="TCP协议报文"><a href="#TCP协议报文" class="headerlink" title="TCP协议报文"></a>TCP协议报文</h3><p><img src="image-20220804140847085.png" alt="image-20220804140847085"></p>
 <p>TCP：传输控制协议，面向连接的协议；可靠传输；基于已经建立好的连接；主要用于传输大文件</p>
 <p>传输的过程可概况为三次握手和四次挥手</p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804141129806.png" alt="image-20220804141129806"></p>
+<p><img src="image-20220804141129806.png" alt="image-20220804141129806"></p>
 <blockquote>
 <p>三次握手</p>
 </blockquote>
@@ -795,7 +795,7 @@ IP：     1100 0000 . 1010 1000 . 0000 0001 . 0000 0001
 </ul>
 <p>第五行Checksum是校验和</p>
 <p>UP是紧急指针：标识紧急数据，发送紧急数据不需要建立连接</p>
-<h3 id="UDP报文"><a href="#UDP报文" class="headerlink" title="UDP报文"></a>UDP报文</h3><p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\677c4f7c7cb74f5faaba84a33a258472.png" alt="img"></p>
+<h3 id="UDP报文"><a href="#UDP报文" class="headerlink" title="UDP报文"></a>UDP报文</h3><p><img src="677c4f7c7cb74f5faaba84a33a258472.png" alt="img"></p>
 <p>UDP：用户数据包协议，面向无连接的协议；不可靠的传输；面向实时性的业务以及对时间要求更高的流量</p>
 <p>比如直播</p>
 <blockquote>
@@ -813,8 +813,8 @@ IP：     1100 0000 . 1010 1000 . 0000 0001 . 0000 0001
 <h2 id="ARP地址解析协议"><a href="#ARP地址解析协议" class="headerlink" title="ARP地址解析协议"></a>ARP地址解析协议</h2><p>位于网络层和数据链路层之间的协议</p>
 <p>在已知IP地址的情况下，去请求MAC地址</p>
 <p>ARP报文格式如下：</p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\img.webp" alt="TCP/IP（三）：ARP报文格式详解"></p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804144352003.png" alt="image-20220804144352003"></p>
+<p><img src="img.webp" alt="TCP/IP（三）：ARP报文格式详解"></p>
+<p><img src="image-20220804144352003.png" alt="image-20220804144352003"></p>
 <blockquote>
 <p>硬件类型（2byte）：指明了发送方想知道的硬件接口类型，以太网的值为1；</p>
 <p>协议类型（2byte）：指明了发送方提供的高层协议类型，IP为 0800（16进制），表示 IPv4；</p>
@@ -841,7 +841,7 @@ IP：     1100 0000 . 1010 1000 . 0000 0001 . 0000 0001
 <h2 id="ENSP模拟器操作"><a href="#ENSP模拟器操作" class="headerlink" title="ENSP模拟器操作"></a>ENSP模拟器操作</h2><h3 id="认识网络设备"><a href="#认识网络设备" class="headerlink" title="认识网络设备"></a>认识网络设备</h3><blockquote>
 <p>交换器 【工作在二层或三层，三层交换机称为集线器】 </p>
 </blockquote>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\clip_image002-165959606289210.gif" alt="img"></p>
+<p><img src="clip_image002-165959606289210.gif" alt="img"></p>
 <p>作用：连接终端设备（电脑，摄像头，打印机，传真机）</p>
 <p>规格：常见的24/48</p>
 <p>蓝色接口：LAN口，连接终端设备-百兆 速率 1G</p>
@@ -850,7 +850,7 @@ IP：     1100 0000 . 1010 1000 . 0000 0001 . 0000 0001
 <blockquote>
 <p>路由器【工作在三层】</p>
 </blockquote>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\clip_image002.gif" alt="img"></p>
+<p><img src="clip_image002.gif" alt="img"></p>
 <p>黄色接口：连接内部网段(其他路由器或者交换机)的接口</p>
 <p>红色：console口，miniUSB口，都是进入设备进行配置的</p>
 <p>SD：硬盘-存放系统的-VRP</p>
@@ -860,7 +860,7 @@ IP：     1100 0000 . 1010 1000 . 0000 0001 . 0000 0001
 </blockquote>
 <p>CONSOLE线连接到电脑时，需要软件进行登录</p>
 <p>常用的有：PUTTY,MOBA,CRT,XSHELL</p>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\clip_image002-165961309440214.jpg" alt="img"></p>
+<p><img src="clip_image002-165961309440214.jpg" alt="img"></p>
 <p>COM口根据连接CONSOLE线进行选择</p>
 <p>波特率，大部分设备登录为9600</p>
 <h3 id="ENSP模拟器"><a href="#ENSP模拟器" class="headerlink" title="ENSP模拟器"></a>ENSP模拟器</h3><blockquote>
@@ -906,18 +906,18 @@ ip address 192.168.1.1 255.255.255.0
 authentication-mode password
 [密码]
 </code></pre>
-<h2 id="设置远程登录"><a href="#设置远程登录" class="headerlink" title="设置远程登录"></a>设置远程登录</h2><h3 id="用户等级"><a href="#用户等级" class="headerlink" title="用户等级"></a>用户等级</h3><p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\clip_image002-165961371710116-165961371783218.jpg" alt="img"></p>
+<h2 id="设置远程登录"><a href="#设置远程登录" class="headerlink" title="设置远程登录"></a>设置远程登录</h2><h3 id="用户等级"><a href="#用户等级" class="headerlink" title="用户等级"></a>用户等级</h3><p><img src="clip_image002-165961371710116-165961371783218.jpg" alt="img"></p>
 <h3 id="Telnet登录"><a href="#Telnet登录" class="headerlink" title="Telnet登录"></a>Telnet登录</h3><pre><code>user-interface vty 0 4
 authentication-mode password // 默认为 cipher(密文) 模式
 [密码]
 或者：set authentication password cipher [密码]
 </code></pre>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804195156505.png" alt="image-20220804195156505"></p>
+<p><img src="image-20220804195156505.png" alt="image-20220804195156505"></p>
 <p>设置好密码后，在终端使用telnet命令登录【前提要保证IP地址接口互通的情况下进行】</p>
 <pre class="line-numbers language-shell"><code class="language-shell">telnet ip
 [密码]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="D:\我的学习笔记\未发布到博客\网络工程datacom方向学习笔记\image-20220804200804760.png" alt="image-20220804200804760"></p>
+<p><img src="image-20220804200804760.png" alt="image-20220804200804760"></p>
 
             </div>
             <hr/>
