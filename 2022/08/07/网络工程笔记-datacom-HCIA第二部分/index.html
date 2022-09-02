@@ -1,0 +1,1955 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="网络工程笔记-datacom-HCIA第二部分, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>网络工程笔记-datacom-HCIA第二部分 | Atmujie</title>
+    <link rel="icon" type="image/png" href="/weblogo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/friends">
+          
+          <i class="fas fa-address-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Friends</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/BlogLink">
+          
+          <i class="fas fa-address-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>BlogLink</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/friends " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-address-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Friends</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/BlogLink " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-address-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>BlogLink</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">网络工程笔记-datacom-HCIA第二部分</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                <span class="chip bg-color">网络工程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-08-07
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>路由选路分两种，静态路由和动态路由</p>
+<ul>
+<li><p>静态路由：管理员手动配置的，速度快，占用小，复数设备配置复杂</p>
+</li>
+<li><p>动态路由：由路由协议自动获取的，速度慢，占用多，但是配置简单</p>
+<p>常见动态路由协议：<code>rip</code>,<code>ospf</code>,<code>bgp</code>,<code>isis</code></p>
+</li>
+</ul>
+<p>无论是静态或者动态，本质都是写路由表路由条目</p>
+<p>静态路由主要用于园区网络私网与外部互联网的互通</p>
+<p><img src="image-20220818191013099.png" alt="image-20220818191013099"></p>
+<p>配置缺省路由实现</p>
+<h3 id="缺省路由"><a href="#缺省路由" class="headerlink" title="缺省路由"></a>缺省路由</h3><p>即默认路由</p>
+<p><code>ip</code> 为<code>0.0.0.0</code> 掩码 <code>0</code>，根据路由选路原则【优先选择掩码长的路由条目】。所以只有当其他全部路由均不匹配时，才会匹配缺省路由，缺省路由就是一条默认值 </p>
+<h3 id="命令配置"><a href="#命令配置" class="headerlink" title="命令配置"></a>命令配置</h3><pre class="line-numbers language-vrp"><code class="language-vrp">ip route-static 目标网段 掩码 下一跳|出接口
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>由于路由表中只有掩码<code>32</code>的主机地址和掩码非<code>32</code>的网段地址，所以目的地址必须写为目的网段</li>
+<li>掩码：可以写点分十进制，例如<code>255.255.255.0</code>。也可以简写<code>24</code></li>
+<li>下一跳：对本路由器而言的下一个路由器的入接口IP</li>
+<li>出接口：本路由器的出接口</li>
+</ul>
+<p>下一跳和出接口在配置静态路由时二选一即可，但最好使用下一跳进行路由的配置</p>
+<p>【广播型接口不能用于出接口配置下一跳】</p>
+<pre class="line-numbers language-vrp"><code class="language-vrp">例子：
+[RTB]ip route-static 192.168.1.0 255.255.255.0 10.0.12.1 
+[RTB]ip route-static 192.168.1.0 255.255.255.0 Serial 1/0/0 
+[RTB]ip route-static 192.168.1.0 24 Serial 1/0/0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h2><p>动态路由是一系列协议的总和，可以从协议原理和应用场景两个方面进行分类</p>
+<h3 id="动态路由的分类"><a href="#动态路由的分类" class="headerlink" title="动态路由的分类"></a>动态路由的分类</h3><blockquote>
+<p>根据路由协议原理分类</p>
+</blockquote>
+<p>1、距离矢量路由协议</p>
+<p>​    代表：<code>rip</code>、<code>bgp</code>、<code>eigrp</code></p>
+<p>​    1）距离矢量路由协议通过传递整个路由表的形式获取路由</p>
+<ul>
+<li>传递路由器计算整张路由表后传递给邻居，邻居路由器将该表与自己的路由表合并，再次计算整张表传递给下一个        邻居</li>
+<li>收敛速度慢，资源开销大，容易出错，目前在局域网中不常用</li>
+</ul>
+<p>​    2）具有水平分割特点：某接口收到的一个路由，这条路由将不再从这个接口发出去（防环）</p>
+<p>2、链路状态路由协议</p>
+<p>​    代表：<code>ospf</code>、<code>isis</code></p>
+<p>​    1）链路状态路由协议不再传递整个路由表，而是传递LSA(链路状态通告信息link-state advertise)</p>
+<blockquote>
+<p>根据应用场景分类</p>
+</blockquote>
+<p>1、IGP：内部网关路由协议</p>
+<p>​    主要应用于局域网（企业网，园区网，家用网，物联网）</p>
+<p>​    代表协议：<code>rip </code> <code>eigrp </code> <code>ospf </code> <code>isis</code></p>
+<p>2、BGP：外部网关路由协议</p>
+<p>​    主要应用于全球网络</p>
+<p>​    代表协议：<code>BGP</code></p>
+<h3 id="OSPF-协议"><a href="#OSPF-协议" class="headerlink" title="OSPF 协议"></a>OSPF 协议</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p><code>ospf</code>：开放式最短路径优先路由协议，由IETF组织发布，是一个公有协议。</p>
+<p><code>ospf</code>是链路状态路由协议，运行<code>ospf</code>的路由器之间传递<code>LSA</code>而不是整张路由表。</p>
+<p><code>ospf</code>路由器收到LSA后，先发送给其他邻居之后才计算该LSA，因此收敛速度快。</p>
+<p><code>ospf</code> 运行工作原理为<code>SPF</code>算法</p>
+<ul>
+<li>运行了OSPF协议的路由器都会泛洪LSA，每台路由器会根据数据库中的LSA以自己为根计算一颗SPF树，再根据SPF树的结果计算路由表。</li>
+</ul>
+<h4 id="报文概述"><a href="#报文概述" class="headerlink" title="报文概述"></a>报文概述</h4><p><code>ospf</code>从发现邻居到传递LSA，一共会发送5种报文</p>
+<p>1、<code>helllo</code>    用于发现邻居、建立、维系邻居关系</p>
+<p>2、<code>DD</code>    数据库描述报文，是路由表的目录（摘要、大纲）</p>
+<p>3、<code>LSR</code>    链路状态请求报文：用于向邻居请求自己缺少的<code>LSA</code>信息</p>
+<p>4、<code>LSU</code>    链路状态更新报文：用于携带完整的<code>LSA</code>信息</p>
+<p>5、<code>LSACK</code>    链路状态确认报文：用于确认收到的<code>LSA</code>信息</p>
+<h4 id="邻居状态机"><a href="#邻居状态机" class="headerlink" title="邻居状态机"></a>邻居状态机</h4><p>1、down：最初的状态，表示接口没有宣告进ospf进程，一旦宣告就会脱离此状态</p>
+<p>2、init：初始化状态，接口被宣告进ospf进程，开始发送hello报文</p>
+<p>3、2-way：邻居状态，通过Hello报文确定了邻居关系，但还没有发送LSA</p>
+<p>4、exstart：开始发送DD交换LSA目录，并选举主从（DR/BDR）路由器</p>
+<p>5、exchange：交换信息的状态，该状态告知对端本地所需的LSA</p>
+<p>6、loading：加载状态，发送LSR，LSU，LSACK，专门学习对端的LSA的详细信息。</p>
+<p>7、full：邻接状态，邻居之间路由信息学习完毕，此时LSDB同步，所有LSA相同</p>
+<blockquote>
+<p>LSDB：链路状态数据库，用于保存LSA</p>
+<p>稳定状态：ospf一共有两个稳定状态</p>
+<ul>
+<li>2-way：当确定邻居关系但不需要交换LSA时，停留在2-way状态</li>
+<li>full：当邻居之间路由学习完毕后，停留在full状态</li>
+</ul>
+</blockquote>
+<h4 id="接口状态机"><a href="#接口状态机" class="headerlink" title="接口状态机"></a>接口状态机</h4><p>邻居状态机表示路由器之间路由交换的状态，接口状态机描述接口主次选举的状态</p>
+<p>1、down：接口没有宣告进OSPF</p>
+<p>2、waiting：当接口宣告进OSPF后，该接口立刻进入waiting状态。等待该网络中是否有其他接口参与接口状态选举。等待时间默认为20分钟</p>
+<p>3、DR：整个自治系统的主要接口</p>
+<p>4、BDR：整个自治系统的备份接口</p>
+<p>5、Drother：其他所有接口都是该状态</p>
+<blockquote>
+<p>选举原则</p>
+</blockquote>
+<p>1、如果一个接口宣告进OSPF,在waiting状态等待中没有其他接口参与选举，该接口自动成为DR</p>
+<p>2、如果多个接口同时参与选举，选举原则为：</p>
+<p>​    1)、查看接口的dr优先级(默认为1，最低为0，最高255)，0代表不参与选举直接成为drother，其他数字时，数值越大越            优先</p>
+<pre><code>修改dr优先级命令: ospf dr-priority 【优先级】
+例如：ospf dr-priority 255
+</code></pre>
+<p>​    2)、dr优先级一致时，比较两台路由器的<code>router-id</code>，（<code>router-id</code>大的成为DR）</p>
+<p>注意：一旦DR和BDR选举完成，其他路由器不可抢占。如果想要新加入的路由器接口选举为DR，需要重置现有的OSPF进程，让OSPF重新收敛，重新选举。</p>
+<pre><code>重置OSPF进程命令：reset ospf process
+</code></pre>
+<h4 id="router-id"><a href="#router-id" class="headerlink" title="router-id"></a>router-id</h4><p><code>router-id</code>在ospf中用于选举接口状态机，也可以用于标识一个设备</p>
+<blockquote>
+<p>配置<code>router-id</code></p>
+</blockquote>
+<pre><code>手动配置：ospf 1 router-id x.x.x.x
+</code></pre>
+<p>自动选举：</p>
+<ul>
+<li><p>router-id和路由器接口IP地址相关联，如果路由器没有配置接口IP地址，那么将无法自动选举router-id，显示为<code>0.0.0.0</code></p>
+</li>
+<li><p>如果没有手动配置router-id，那么路由器会使用路由器的全局router-id作为OSPF的router-id</p>
+<pre><code>查看全局router-id： display router id
+</code></pre>
+<p><img src="image-20220820070200090.png" alt="image-20220820070200090"></p>
+</li>
+<li><p>路由器会选举第一个UP的接口IP作为路由器全局router-id</p>
+</li>
+</ul>
+<blockquote>
+<p>文档解释和实际不同：</p>
+<ul>
+<li><p>如果没有手动配置，则选举路由器环回接口IP地址最大的作为OSPF的router-id</p>
+</li>
+<li><p>如果没有配置环回接口，会使用路由器最大的物理接口IP地址作为OSPF的router-id</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="image-20220820070440464.png" alt="image-20220820070440464"></p>
+<h4 id="ospf运行解释"><a href="#ospf运行解释" class="headerlink" title="ospf运行解释"></a>ospf运行解释</h4><p>当有接口被宣告进<code>ospf</code>进程时,该接口转为<code>waiting</code>状态，该接口所属的路由器会从该接口发送hello报文，若邻居同样将接口宣告进<code>ospf</code>,那么邻居就会收到hello报文，同时再从此接口发送一个hello报文</p>
+<p>于是两个宣告进ospf的接口均收到hello,邻居关系建立，邻居状态机转为<code>2-way</code></p>
+<p>两台路由器判断是否需要交换<code>LSA</code>，如果不需，则停留在<code>2-way</code>状态，并等待接口状态机的选举结果</p>
+<p>如果需要，则进入<code>exstart</code>状态，两台路由器互换<code>LSA</code>目录（<code>DD</code>）报文,并检查自己缺少的<code>LSA</code></p>
+<p>检查完毕后进入<code>exchange</code>状态，两台路由器互相发送<code>LSR</code>报文，告知对方自己所需的<code>LSA</code></p>
+<p>告知后进入<code>loading</code>状态，路由器互发<code>LSU</code>告诉详细的LSA和<code>LSACK</code>确认自己已经收到发来的LSA</p>
+<p>最后两台路由器LSDB一致，进入<code>full</code>状态</p>
+<p>而接口状态机需要在满<code>waiting</code>状态的20分钟后，选举<code>DR</code>和<code>BDR</code></p>
+<h4 id="OSPF配置"><a href="#OSPF配置" class="headerlink" title="OSPF配置"></a>OSPF配置</h4><pre><code>系统视图
+ospf 1 [router-id x.x.x.x]
+# 1指设置ospf进程号为1，router-id可选,通过此命令可以手动指定ospf使用的router-id
+
+ospf协议视图
+area 0 
+# 进入区域0【OSPF分为主干区域和非主干区域，主干区域为区域0，其他的都是非主干区域】
+# 非主干区域必须和主干区域直接相连，万不得以可以使用虚链路技术暂时连接
+
+area0区域视图
+network x.x.x.x y.y.y.y
+# x.x.x.x指具体的接口ip或者接口ip所在的网段，y.y.y.y指反掩码
+# 反掩码：反转二进制形式的掩码，将1变为0，0变为1
+例如：network 12.1.1.0 0.0.0.255
+      network 12.1.1.1 0.0.0.0
+</code></pre>
+<p><code>network</code>宣告的本质是将接口宣告进ospf进程，而不是宣告路由，最终的路由结果和<code>network</code>宣告的内容无关</p>
+<p>所以建议使用完整的接口ip地址和反掩码<code>0.0.0.0</code>进行宣告，而不是宣告一个网段</p>
+<p>基于这个原因，OSPF也可以直接宣告接口而不是<code>network</code></p>
+<pre><code>int g0/0/0
+ospf enable [ospf进程号] area [ospf区域]
+例如：ospf enable 1 are
+</code></pre>
+<h4 id="OSPF开销值的计算方法"><a href="#OSPF开销值的计算方法" class="headerlink" title="OSPF开销值的计算方法"></a>OSPF开销值的计算方法</h4><p>开销值作为加表原则，需要在路由条目中携带。每一个宣告进OSPF的路由器接口都会生成一个OSPF开销值</p>
+<blockquote>
+<p>接口开销值=参考带宽 / 接口带宽   带宽参考值为100M</p>
+</blockquote>
+<p> 举例：G0/0/0接口的开销值为：100M / 1000M=0.1  取整=1 （对于取整来说，计算结果大于0且小于2=1， 大于2小于3=2）</p>
+<p> 路由携带的开销值的计算是所有设备出接口开销值累加</p>
+<h2 id="交换原理"><a href="#交换原理" class="headerlink" title="交换原理"></a>交换原理</h2><blockquote>
+<p>交换与路由：</p>
+</blockquote>
+<p>交换是二层的概念，路由是三层的概念</p>
+<p>二层和三层的工作原理并不相同</p>
+<p>1、二层只处理二层数据帧，根据MAC进行转发，三层处理数据包，根据IP转发</p>
+<p>2、二层路由只解封装帧，三层路由解封装帧和IP报头，但是三层只处理IP报头，不处理帧</p>
+<p>所以，二层路由源MAC和目的MAC不会改变。三层路由源MAC为当前设备，目的MAC为下一设备，MAC地址随时都在改变</p>
+<p>最经典的场景是:</p>
+<ul>
+<li><p>当数据在同一网段时，只通过二层不通过三层，此时源MAC为自己，目的MAC为接收者。MAC和IP在传输过程中不变</p>
+</li>
+<li><p>当数据不在同一网段时，数据帧不会封装接收者MAC，而是以网关MAC为目的MAC。</p>
+<p>先将数据发送到网关，然后以网关IP为源IP，目标接收者IP为目的IP，进行三层路由转发</p>
+</li>
+</ul>
+<h3 id="交换机转发原理"><a href="#交换机转发原理" class="headerlink" title="交换机转发原理"></a>交换机转发原理</h3><p><img src="image-20220821145558421.png" alt="image-20220821145558421"></p>
+<p>交换机有三个动作：泛洪、转发、丢弃</p>
+<ul>
+<li>泛洪：向整个广播域发送数据帧。交换机收到广播数据帧或者MAC表中找不到对应MAC的出接口，就会泛洪。</li>
+<li>转发：交换机收到一个单播数据帧并在MAC地址表中找到了出接口，会直接把数据从出接口发送</li>
+<li>丢弃：数据帧想从接受的接口发送出去，则直接丢弃(防环)</li>
+</ul>
+<p>无论哪个动作，交换器都会先学习该数据帧的源MAC到自己的MAC地址表，然后才执行具体动作</p>
+<p><img src="image-20220821145709259.png" alt="image-20220821145709259"></p>
+<p>如果有如上的网络，主机A首次访问主机C</p>
+<p>1、主机A封装ICMP报文，查询自己的APR缓存表发现没有目的IP的MAC地址，于是暂停封装ICMP，改为封装ARP</p>
+<p>2、ARP广播报文到达交换机，因为是广播帧，所以交换机学习源MAC后直接泛洪</p>
+<p>3、主机C收到ARP，返回自己的MAC地址</p>
+<p>4、交换机收到主机C的ARP回应，先学习该数据帧的S.MAC然后查MAC表，转发给主机A</p>
+<p>5、主机A收到ARP回应报文，继续封装ICMP，并发送给主机C</p>
+<pre><code>查看MAC表：display mac-address
+</code></pre>
+<p>MAC表老化时间为300秒。即5分钟。静态MAC条目不老化</p>
+<h3 id="VLAN原理"><a href="#VLAN原理" class="headerlink" title="VLAN原理"></a>VLAN原理</h3><p>不同网段的数据包不能直接通信，属于三层的隔离，但是二层仍然可达，会造成资源的浪费</p>
+<p>VALN: 虚拟局域网技术，可以从二层隔离广播域</p>
+<blockquote>
+<p>没有配置VLAN的接口默认属于VLAN1</p>
+</blockquote>
+<h3 id="VLAN的工作原理"><a href="#VLAN的工作原理" class="headerlink" title="VLAN的工作原理"></a>VLAN的工作原理</h3><p><img src="image-20220821163759086.png" alt="image-20220821163759086"></p>
+<p>VLAN的原理就是在数据包二层封装的S.MAC和Type之间加了一个Tag字段标识VLAN</p>
+<p>同时对接口打上PVID</p>
+<ul>
+<li>TAG：区分VLAN</li>
+<li>PVID：标识接口属于那个VLAN</li>
+</ul>
+<h3 id="链路类型"><a href="#链路类型" class="headerlink" title="链路类型"></a>链路类型</h3><p>交换机链路类型有：<code>Access</code>、<code>Trunk</code>和华为特有的<code>Hybrid</code></p>
+<blockquote>
+<p>Access ：接入链路，只能通过一个VLAN</p>
+</blockquote>
+<p>原理：【进打出剥】</p>
+<p>1、接受数据时</p>
+<ul>
+<li>如果没有Tag，则根据接口的PVID打上Tag标签，vlan-id等同PVID</li>
+<li>如果有Tag，则查看Tag的vlan-id是否和自己的PVID相同，相同接受，不同丢弃</li>
+</ul>
+<p>2、发送数据时</p>
+<ul>
+<li>对比数据帧中的TAG包含的vlan-id和出接口的PVID是否相同，相同则剥离TAG发送，不同则丢弃</li>
+</ul>
+<p>数据帧在交换机中因为Vlan原理必然存在Tag标签，但路由器和PC不一定可以处理带TAG标签的数据，所以Access会在出接口直接剥离Tag</p>
+<p>将一个VLAN声明进一个接口是，接口的PVID自动设置为此VLAN的vlan-id。PVID是对接口而言的，vlan-id是对数据包而言的</p>
+<pre><code>配置命令
+
+# 创建vlan
+vlan x  创建一个vlan
+vlan batch x y 创建vlan x vlan y,如果是x to y则是xy范围内的所有vlan
+
+# 配置接口
+int gx/x/x  进入接口
+port link-type access  设置接口类型为access
+port default vlan x  设置接口属于vlan x
+</code></pre>
+<blockquote>
+<p>Trunk：干道链路，允许多个VLAN通过</p>
+</blockquote>
+<p>原理：</p>
+<p>1、接收数据时</p>
+<ul>
+<li>查看数据是否有TAG<ul>
+<li>若没有：打上Trunk接口自己的PVID接收(默认为1)</li>
+<li>若有：检查vlan-id是否允许通过，允许则接口，否则丢弃</li>
+</ul>
+</li>
+</ul>
+<p>2、发送数据时</p>
+<ul>
+<li>查看放行列表</li>
+<li>如果允许放行，查看数据包携带的vlan-id是否和接口PVID相同<ul>
+<li>相同：剥离Tag标签发送</li>
+<li>不相同：直接发送</li>
+</ul>
+</li>
+<li>不允许放行：丢弃</li>
+</ul>
+<pre><code>命令配置：
+interesting gx/x/x  进入接口
+port link-type trunk  设置接口类型为trunk
+port trunk allow-pass vlan x y  设置放行的vlan列表
+port trunk pvid vlan x  修改trunk的PVID为指定VLAN-id
+</code></pre>
+<blockquote>
+<p>Hybrid：华为特有，可以为access也可以为trunk</p>
+</blockquote>
+<p>华为交换机接口默认为Hybrid</p>
+<p>注：<code>description</code>命令用于备注</p>
+<p>Hybrid接口是华为自定义的接口，优点是自由度高，既可以做为<code>Access</code>使用也可以作为<code>Trunk</code>使用。</p>
+<p>但过高的自由度同时意味着容易出现问题———会破环<code>VLAN</code>本身隔离广播域的功能</p>
+<p>所以一般仍然使用传统的<code>Access</code>和<code>Trunk</code>接口，而不使用<code>Hybrid</code></p>
+<ul>
+<li><p>配置为Access</p>
+<pre><code>int g0/0/1  # 进入接口g0/0/1
+description link-to-pc1 # 设置备注
+port hybrid pvid vlan 10  # 对进入接口的数据打上vlan10的标签
+                        # 或者说设置接口pvid为vlan10
+port hybrid untagged vlan 10  # 对离开接口的数据剥离vlan10的标签
+配置为类Access时必须进打出剥Tag的Vlan-id一致
+就是说有pvi vlan 10就必须有untagged vlan 10
+</code></pre>
+<p><code>Hybrid</code>接口就行通过手动定义出入接口要执行的操作，达成<code>Access</code>、<code>Trunk</code>或者自定义接口功能的目的</p>
+</li>
+<li><p>配置为<code>trunk</code></p>
+<pre><code>int g0/0/0  # 进入接口
+port hybrid tagged vlan 10  # 允许接口通过vlan10的数据，不剥离tag
+</code></pre>
+<p>这样做就达成了类似<code>Trunk</code>接口的功能</p>
+<p>如果要自定义接口的功能，按这两种命令对tag进行相关操作即可</p>
+</li>
+<li><p><code>hybrid</code>接口和<code>trunk</code>一样会默认放行vlan1，所以如果对安全要求较高，需要<code>undo</code> 掉<code>vlan1</code></p>
+<pre><code>命令：undo port bybrid vlan 1
+</code></pre>
+</li>
+</ul>
+<h3 id="VLAN间路由"><a href="#VLAN间路由" class="headerlink" title="VLAN间路由"></a>VLAN间路由</h3><p><code>VLAN</code>技术本身存在局限，在隔离二层广播域的同时，也限制了<code>VLAN</code>间主机二层通信的功能</p>
+<p>所以需要通过三层的路由功能处理，有两种方案</p>
+<h4 id="单臂路由"><a href="#单臂路由" class="headerlink" title="单臂路由"></a>单臂路由</h4><p><img src="image-20220823204457822.png" alt="image-20220823204457822"></p>
+<p>上接路由器，可以实现三层的路由功能，用于连接路由器的接口为<code>Trunk</code>时</p>
+<ul>
+<li>数据通过<code>Trunk</code>离开不会剥离Tag，但路由器接口无法处理带有Tag的数据</li>
+<li>于是通过开启一个虚拟子接口，让子接口以二层的接口身份去处理Tag，路由器就得到了没有Tag的数据</li>
+<li>子接口相当于<code>Access</code>，所以有几个<code>Vlan</code>就要几个子接口</li>
+</ul>
+<blockquote>
+<p>命令配置</p>
+</blockquote>
+<pre><code>int g0/0/0.1  # 进入虚拟子接口——`.1`只是标识，没有其他意义
+dot1q termination vid 10  
+# 设置为dot1q模式【802.1q封装格式(注1)】
+# 设置vid[vlan-id]为10(注2)
+arp boradcast enable  # 开启arp广播(注3)
+</code></pre>
+<ul>
+<li>注1：Tag标签默认使用802.1q格式封装</li>
+<li>注2：表示该子接口处理vlan10的数据</li>
+<li>注3：实际上只是为了和思科设备做区分，可以理解为单臂路由的开关，必须配置</li>
+</ul>
+<p>三条命令，一条都不能少</p>
+<h4 id="开启三层交换器路由功能——Vlan-If"><a href="#开启三层交换器路由功能——Vlan-If" class="headerlink" title="开启三层交换器路由功能——Vlan-If"></a>开启三层交换器路由功能——<code>Vlan-If</code></h4><p>单臂路由有两个缺点</p>
+<p>1、每个vlan都需要配置一个虚拟接口，当vlan很多时，就会非常麻烦</p>
+<p>2、不时每个交换网络都有交换机</p>
+<p>所以第二种方法是通过三层交换机的路由功能解决问题</p>
+<ul>
+<li>华为三层交换机默认开启路由功能，只需要在虚拟接口vlanif配置网关即可</li>
+<li>二层交换机只有一个vlanif接口，用于管理设备</li>
+<li>每个vlan只能创建一个vlanif接口</li>
+</ul>
+<pre><code>int vlanif x  # 进入vlan x 的 vlanif接口
+ip address xxx.xxx.xxx.xxx  # 配置vlan x 的网关ip地址
+</code></pre>
+<p>此时该vlanif接口以及对应的ip地址会以直连路由的方式写入路由表，数据可通过三层寻址，进行vlan间路由</p>
+<p>三层交换无需trunk，再配置一个新vlan到接口，然后vlanif即可</p>
+<h2 id="STP——生成树协议"><a href="#STP——生成树协议" class="headerlink" title="STP——生成树协议"></a>STP——生成树协议</h2><p>无论二层或者三层，或多或少都会产生环路的问题，二层的环路影响尤其严重</p>
+<p>最典型的影响就是<code>广播风暴</code>和<code>Mac地址表震荡</code>两个问题</p>
+<ul>
+<li><p>广播风暴：</p>
+<p>广播报文未能找到目的ip,在环形交换机网络中不断泛洪的故障，直接导致交换机down机</p>
+</li>
+<li><p>MAC地址表震荡：</p>
+<p>一般伴随MAC地址表产生，基于交换机学习报文携带的源MAC的特性，MAC地址表条目随广播风暴不断震荡的故障</p>
+</li>
+</ul>
+<p>所以为了防止二层交换机的环路问题，所有交换机默认运行stp[生成树]协议</p>
+<p>stp协议有三种：</p>
+<ul>
+<li>stp: 最原始的stp协议</li>
+<li>rstp: 基于原始stp的改进</li>
+<li>mstp：基于rstp的再改进</li>
+</ul>
+<p>华为设备默认运行mstp协议</p>
+<h3 id="生成树协议原理"><a href="#生成树协议原理" class="headerlink" title="生成树协议原理"></a>生成树协议原理</h3><p>stp协议将网络中所有的交换机组成了树型：在逻辑上阻塞了一些次优链路，破环二层的环状网络并备份链路</p>
+<p>在stp协议中有以下角色：</p>
+<p>交换机：</p>
+<ul>
+<li>根交换机：整个stp协议网络中选举的老大，负责整个链路</li>
+<li>非根交换机：除根交换机之外的其他交换机</li>
+</ul>
+<p>端口：</p>
+<ul>
+<li>RP: 根端口，负责接收stp协议的BPDU报文，BPDU报文由根交换机始发</li>
+<li>DP: 指定端口，负责转发BPDU报文</li>
+<li>AP: 备份端口/阻塞端口，stp选举出的次优端口，只传输BPDU报文，不传输其他数据</li>
+</ul>
+<blockquote>
+<p>stp运行顺序</p>
+</blockquote>
+<p>在选举前所有交换机均为根交换机，所有端口均为阻塞端口</p>
+<p>1、在整个交换网络中选举一个根桥/根交换机</p>
+<p>2、每个非根交换机中选举出一个根端口接收BPUD报文</p>
+<p>3、每个网段选举一个指定端口发送处理后的BPDU报文</p>
+<p>4、阻塞所有非根、非指定端口</p>
+<h3 id="BPDU报文"><a href="#BPDU报文" class="headerlink" title="BPDU报文"></a>BPDU报文</h3><p>交换机桥ID，由桥优先级和设备MAC地址共同组成，越小越优先</p>
+<ul>
+<li><p>桥优先级 ：默认为32768，最小为0，配置桥优先级时需要配置为4096的整倍数</p>
+<pre><code>配置命令：
+stp priority 4096  # 设置桥优先级为0
+display bridge mac-address   # 查看桥MAC地址
+</code></pre>
+</li>
+</ul>
+<p><img src="image-20220828223617365.png" alt="image-20220828223617365"></p>
+<p>BPDU报文由根桥始发，包含以上字段</p>
+<ul>
+<li>Root ID: 即交换机的桥ID，在传输过程中不会改变，所以一般比较不出来</li>
+<li>RPC：即 <code>root path cost</code>根路径开销，指发出该BPDU的交换机到根交换机的开销值<ul>
+<li>根桥发出的BPDU报文RPC为0，每到一个非根交换机，该交换机就会加上自己接受BPDU报文的端口开销（默认2万）做为最终RPC</li>
+</ul>
+</li>
+<li>Bridge ID ：BID, 即上一个发出BPDU报文的桥ID</li>
+<li>Port ID ：PID，即上一个发出BPDU报文的端口ID</li>
+</ul>
+<h3 id="角色选举规则"><a href="#角色选举规则" class="headerlink" title="角色选举规则"></a>角色选举规则</h3><blockquote>
+<p>根桥/根交换机</p>
+</blockquote>
+<p>每个交换机在选举前均认为自己是根交换机，</p>
+<p>根桥的选举只看桥ID</p>
+<p>1、交换网络中所有交换机以自己为根桥，发送自己的BPDU并接收其他交换机的BPDU</p>
+<p>2、比较自己的桥ID和其他交换机<code>BPDU</code>报文中的<code>Root ID</code>字段</p>
+<ul>
+<li>比其他交换机<code>桥ID</code>小则继续认为自己是根桥，直到全部比较完毕</li>
+<li>比其他交换机<code>桥ID</code>大则直接认为自己是非根交换机，不在发送BPUD</li>
+</ul>
+<blockquote>
+<p>根端口RP:</p>
+</blockquote>
+<p>1、优选root id最小为RP，一般比较不出</p>
+<p>2、root id相同，优选RPC最小的为RP</p>
+<p>3、rpc也相同，优选上一跳桥ID(Sender BID)小的为RP</p>
+<p>4、BID 任然相同，优选上一跳端口ID（Sender PID）小的为RP</p>
+<p>5、前几条都无法比较，优选本交换机端口ID小的为RP</p>
+<blockquote>
+<p>指定端口DP:</p>
+</blockquote>
+<p>当交换机选举出根端口以后，将会为所有DP接口计算出一个未来需要发送的BPDU参数，这个参数包括了：</p>
+<ul>
+<li>ROOT ID</li>
+<li>RPC</li>
+<li>Sender BID</li>
+<li>Sender PID</li>
+</ul>
+<p>当一条链路上两个交换机的接口都会认为自己的DP接口，就会向外发送这个计算出来的BPDU，交换机在收到对端的BPDU之后会进行一个比较，【RP端口对端一定为DP】</p>
+<p>如果收到的BPDU比自己计算出来的BPDU优秀，那么自己的接口将成为AP端口，变成阻塞端口</p>
+<p>如果自己计算出的BPDU比收到的BPDU更优秀，那么自己的接口将成为DP端口，变成指定端口</p>
+<p>备注：以上选举办法适用于非根交换机。对于根桥来说，所有接口都属于DP接口。</p>
+<p>每条链路/网段上都需要一个指定端口</p>
+<h3 id="生成树接口状态机"><a href="#生成树接口状态机" class="headerlink" title="生成树接口状态机"></a>生成树接口状态机</h3><p>1、disable：关闭状态</p>
+<p>2、blocking：阻塞状态，开启stp，所有相关端口立刻进入该状态</p>
+<p>3、listening：侦听状态，一旦端口被选举为根端口或者指定端口，立即进入该状态</p>
+<p>4、learning：学习状态，根端口和指定端口持续接受BPDU报文更新状态，时间为15秒</p>
+<p>5、forwarding ：IP阶段学习</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><pre><code>修改stp模式： stp mode [stp|rstp|mstp]
+修改桥优先级：stp priority [x] -- x指优先级，是4096的倍数
+查看当前的生成树状态：display stp brief
+</code></pre>
+<h3 id="stp故障"><a href="#stp故障" class="headerlink" title="stp故障"></a>stp故障</h3><h4 id="根桥故障"><a href="#根桥故障" class="headerlink" title="根桥故障"></a>根桥故障</h4><p>非根桥将等待原有的BPDU报文老化（20s）,然后重新选举根桥(30s)</p>
+<p>即50秒后恢复链路</p>
+<h4 id="直连链路故障"><a href="#直连链路故障" class="headerlink" title="直连链路故障"></a>直连链路故障</h4><p>故障交换机立即将预备端口转为根端口,现有BPDU立刻老化，stp重新选举端口</p>
+<p>即30s后恢复链路</p>
+<h4 id="非直连链路"><a href="#非直连链路" class="headerlink" title="非直连链路"></a>非直连链路</h4><p>非直连链路故障时交换机无法立刻检测到</p>
+<p>所以stp网络仍然正常发送BPDU</p>
+<p>故障交换机无法收到BPDU,所以进入20秒老化时间</p>
+<p>故障交换机邻居没有在收到有故障交换机发来的BPDU,端口从AP变为DP</p>
+<p>然后进行新一轮端口选举</p>
+<p>所以在20s+30s后网络恢复</p>
+<p><img src="image-20220828234309556.png" alt="image-20220828234309556"></p>
+<h2 id="DHCP——动态IP分配协议"><a href="#DHCP——动态IP分配协议" class="headerlink" title="DHCP——动态IP分配协议"></a>DHCP——动态IP分配协议</h2><h3 id="DHCP报文类型"><a href="#DHCP报文类型" class="headerlink" title="DHCP报文类型"></a>DHCP报文类型</h3><table>
+<thead>
+<tr>
+<th align="center">报文类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">DHCP DISCOVER</td>
+<td align="center">DHCP发现报文，由客户端发送，用于寻找DHCP服务器</td>
+</tr>
+<tr>
+<td align="center">DHCP OFFER</td>
+<td align="center">DHCP提供报文，用于响应DISCOVER，携带了各种配置信息</td>
+</tr>
+<tr>
+<td align="center">DHCP REQUEST</td>
+<td align="center">客户端请求确认配置，或者延长租期</td>
+</tr>
+<tr>
+<td align="center">DHCP ACK</td>
+<td align="center">服务器对REQUEST报文的确认回应</td>
+</tr>
+<tr>
+<td align="center">DHCP NAK</td>
+<td align="center">服务器对REQUEST报文的拒绝回应</td>
+</tr>
+<tr>
+<td align="center">DHCP RELEASE</td>
+<td align="center">用于客户端释放地址时通知服务器</td>
+</tr>
+</tbody></table>
+<h3 id="DHCP配置"><a href="#DHCP配置" class="headerlink" title="DHCP配置"></a>DHCP配置</h3><h4 id="接口模式"><a href="#接口模式" class="headerlink" title="接口模式"></a>接口模式</h4><p>以接口IP地址为DHCP地址池网关，以接口IP所在网段为地址池向该接口广播域中的设备分配IP地址</p>
+<p>优点：无需创建地址池、中继，配置简单</p>
+<p>缺点：扩展性低，适用范围少</p>
+<blockquote>
+<p>命令配置</p>
+</blockquote>
+<pre><code>dhcp enable  # 开启dhcp服务
+int [gx/x/x]  # 进入目标接口
+dhcp select interface  # 开启dhcp接口模式
+dhcp server dns-list 1.1.1.1 2.2.2.2  # 配置dns列表
+
+查询命令：
+display ip pool interface [Gx/x/x]  # 查看接口ip地址池使用情况
+</code></pre>
+<h4 id="全局模式"><a href="#全局模式" class="headerlink" title="全局模式"></a>全局模式</h4><p>dhcp服务器不一定直连业务网段，甚至不一定只分配一个网段。</p>
+<p>一般企业会将DHCP统合到一个DHCP服务器上去，此时接口DHCP明显不再适用</p>
+<p>全局DHCP不依赖接口IP创建地址池，而是改为手动创建地址池</p>
+<p>全局DHCP可以不和业务网络在同一个广播域甚至不直连、不在同一网段</p>
+<ul>
+<li>不在同一网段需要在业务网段网关开启DHCP中继</li>
+</ul>
+<p>优点：扩展性高，要求少</p>
+<p>缺点：配置复杂</p>
+<blockquote>
+<p>配置命令</p>
+</blockquote>
+<pre><code>dhcp enable  # 开启DNCP服务
+
+# 创建地址池
+ip pool [名称]  # 创建ip地址池
+gateway-list 192.168.1.1  # 设置网关
+network 192.168.1.0 mask 255.255.255.0  # 指定该地址池包含的网段
+dns-list 1.1.1.1  # 设置dns服务的地址
+
+# 开启全局DHCP
+int g0/0/0  # 进入一个接口
+dhcp select global  # 设置DHCP服务为全局模式
+
+# 跨网段DHCP
+- 如果DHCP服务器和业务网络不在同一网段，则需要以下配置
+int g0/0/0  # 进入业务网段的网关所在接口
+dhcp select relay  # 设置dhcp为中继模式
+dhcp relay server-ip x.x.x.x  # 指定dhcp服务器所在具体ip地址
+
+# 查询命令
+display ip pool name [名称] used  # 查看地址池使用情况
+</code></pre>
+<h3 id="其他DCHP常用命令"><a href="#其他DCHP常用命令" class="headerlink" title="其他DCHP常用命令"></a>其他DCHP常用命令</h3><pre><code>PC端命令
+ipconfig  # 查看ip信息
+ipconfig /release  # 释放IP地址
+ipconfig /renew  # 重新获取IP地址
+
+IP地址池命令
+ip pool [名称]  # 进入地址池
+static-bind ip-address 192.168.1.100 mac-address xxx-xxx-xxx
+#  将地址池中的一个ip和一个mac绑定，该ip只会分配给绑定的mac地址
+excluded-ip-address 192.168.1.1 192.168.1.10
+#  排除一部分ip地址，不参与DHCP协议分配
+lease day 8 设置租期，可以是天或者小时
+</code></pre>
+<h2 id="链路聚合技术"><a href="#链路聚合技术" class="headerlink" title="链路聚合技术"></a>链路聚合技术</h2><p>注：这里指二层链路聚合技术</p>
+<p>在重要的网段中只有一条链路往往存在风险，但一条主其他备用有显得浪费。所以链路聚合技术产生</p>
+<p>通过链路聚合技术，可以让所有链路均为主链路【聚合的多条链路在逻辑上被认为是一条链路】</p>
+<p>华为设备最多可以聚合八条链路</p>
+<p>链路聚合模式有两种，手动聚合链路和协议聚合链路(LACP)，由于LACP协议会使一条链路称为备份，产生了浪费，所以华为默认使用手动聚合模式</p>
+<blockquote>
+<p>无论是那种链路聚合，都是创建一个虚拟的Eth-Trunk接口，然后通过在Eth-Trunk接口中添加接口的方式聚合链路</p>
+</blockquote>
+<h3 id="手动链路聚合"><a href="#手动链路聚合" class="headerlink" title="手动链路聚合"></a>手动链路聚合</h3><pre><code>interface Eth-Trunk 0  # 进入e-trunk接口【逻辑聚合接口】
+mode manual    load-balance    # 设置为手动聚合模式
+trunkport g0/0/0 0/0/4    # 绑定接口
+load-balance xxx  # 设置负载分担模式，使用？查看具体模式信息
+</code></pre>
+<h3 id="LACP"><a href="#LACP" class="headerlink" title="LACP"></a>LACP</h3><pre><code>interface Eth-Trunk 0    # 进入e-trunk接口
+mode lacp-static    # 设置为LACP协议模式
+trunkport xxxxx      # 绑定接口
+</code></pre>
+<h2 id="访问控制列表——ACL"><a href="#访问控制列表——ACL" class="headerlink" title="访问控制列表——ACL"></a>访问控制列表——ACL</h2><p>ACL——访问控制列表，通过定义规则来控制流量。分为三类：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>编号范围</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本ACL</td>
+<td>2000-2999</td>
+<td>源IP地址等</td>
+</tr>
+<tr>
+<td>高级ACL</td>
+<td>3000-3999</td>
+<td>源目IP,源目端口等</td>
+</tr>
+<tr>
+<td>二层ACL</td>
+<td>4000-4999</td>
+<td>源目MAC,以太帧协议等</td>
+</tr>
+</tbody></table>
+<h3 id="基本ACL"><a href="#基本ACL" class="headerlink" title="基本ACL"></a>基本ACL</h3><p>只能匹配源IP地址，匹配条目有限，所以不常用于流量控制，而是用于NAT抓取地址等</p>
+<blockquote>
+<p>语法</p>
+</blockquote>
+<pre><code>acl 2000  # 创建一个ACL，编号为2000
+    rule 5     deny source 192.168.1.1 0
+    规则编号 行为    匹配源    具体网址或者网段
+    rule 10    permit source 192.168.2.1 0
+</code></pre>
+<ul>
+<li><p>rule x：规则编号，ACL匹配时从低位编号匹配到高位编号，同一目的唯一匹配</p>
+<p>编号间默认跳数为5，这是方便以后添加或者修改ACL列表</p>
+</li>
+<li><p>deny | permit：行为，deny指丢弃，permit指允许通过</p>
+</li>
+</ul>
+<h3 id="高级ACL"><a href="#高级ACL" class="headerlink" title="高级ACL"></a>高级ACL</h3><p>在基本acl的基础上增加了许多的扩展选项，从单一匹配源IP地址变成了匹配五元组：</p>
+<p>​    协议，源IP，源端口，目的IP，目的端口</p>
+<blockquote>
+<p>语法</p>
+</blockquote>
+<pre><code>acl 3000  # 创建一个ACL,编号为3000
+    rule 5     deny ip     source 192.168.1.0 0.0.0.255 source-port eq xx /
+    规则编号 行为    协议      源IP                        源端口                        
+    destination x.x.x.x x.x.x.x destination-port eq xx
+    目的IP                     目的端口
+</code></pre>
+<ul>
+<li><p>ip： 协议字段，当匹配全部协议时使用IP</p>
+<p><img src="image-20220902150842039.png" alt="image-20220902150842039"></p>
+</li>
+<li><p>eq：等于，除此之外还有大于<code>gt</code>小于<code>lt</code>，在两者之间<code>range</code></p>
+<p>​    <img src="image-20220902150959942.png" alt="image-20220902150959942"></p>
+</li>
+</ul>
+<p>高级</p>
+<p>ACL访问控制列表还可以控制ACL条目的生效时间</p>
+<pre><code>time-range     workday     8:00 to 18:00             workday
+定义时间列表 定义列表名称  设置其实时间和结束时间      设置哪几天执行
+rule 5 permit time-range workday   # 设置改条目生效时间为变量workday
+</code></pre>
+<h3 id="ACL使用"><a href="#ACL使用" class="headerlink" title="ACL使用"></a>ACL使用</h3><p>ACL可以配合路由策略使用，比如：</p>
+<pre><code>acl 2000  # 定义一条ACL
+    xxx
+int g0/0/0
+    traffic-filter inbound acl 2000
+</code></pre>
+<h2 id="NAT——网络地址转换"><a href="#NAT——网络地址转换" class="headerlink" title="NAT——网络地址转换"></a>NAT——网络地址转换</h2><p>IPV4地址数量不足，只有40多亿，NAT技术就是为了让IP地址足够使用</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>内网访问公网的地址交由NAT服务器，将源IP转换为公网地址，同时NAT进行记录</p>
+<p>公网地址回包再次经过NAT，将源IP转回内网访问者的IP地址</p>
+<p>NAT分四种</p>
+<ul>
+<li>静态NAT</li>
+<li>动态NAT</li>
+<li>NAPT</li>
+<li>Easy ip</li>
+</ul>
+<blockquote>
+<p>nat技术要配合静态路由使用，通过一条缺省路由将去往公网的数据发往nat服务器，同时设置回指路由，让从公网进来的流量可以正确发往内网主机</p>
+</blockquote>
+<h3 id="静态NAT"><a href="#静态NAT" class="headerlink" title="静态NAT"></a>静态NAT</h3><p>静态NAT作用是建立公网地址和私网地址一对一的映射关系，一个公网地址有且只和一个私网地址对应</p>
+<p>所以静态NAT比较浪费公网IP，不推荐实际使用，只能用于学习</p>
+<blockquote>
+<p>配置命令</p>
+</blockquote>
+<pre class="line-numbers language-\"><code class="language-\">nat static global 60.30.0.3 inside 192.168.1.1
+静态nat     公网地址          绑定    私网地址
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="动态NAT"><a href="#动态NAT" class="headerlink" title="动态NAT"></a>动态NAT</h3><p>动态NAT在静态NAT的基础上做了改进，不在是一个内网ip占用一个公网IP，而是定义一个公网IP地址池给所有acl匹配到的内网IP使用，使用时占用，使用结束释放</p>
+<p>优点是内网ip和公网ip不在是一对一的绑定关系</p>
+<p>缺点是一个公网地址只能在同一时间被一个内网地址使用，还是比较费公网ip</p>
+<blockquote>
+<p>配置命令</p>
+</blockquote>
+<pre><code># acl匹配内网地址
+acl 2000：
+    rule x permit ...
+    
+# 设置公网地址池/地址组
+nat address-group     1     x.x.x.x x.x.x.x
+nat公网地址组      编号    公网地址范围
+
+# 开启动态nat
+int g0/0/0
+    nat outbound 2000      address-group 1     no-pat
+    抓取acl2000匹配的路由  使用地址组，编号1    不转换端口
+</code></pre>
+<h3 id="NAPT"><a href="#NAPT" class="headerlink" title="NAPT"></a>NAPT</h3><p>动态NAT的完全形态，或者说动态NAT更像是为了教学从它身上拆出去的</p>
+<p>NAPT不但转换源IP，同时转化端口，一个内网IP只占用一个公网IP的一个端口</p>
+<p>所以在NAPT模式下一个公网IP地址可以支撑65535个内网IP地址的转换，真正做到了节约公网地址的目的</p>
+<p>配置和动态NAT一样，但不加no-pat参数</p>
+<pre><code>nat outbound 2000 address-group 1
+</code></pre>
+<p>所以说动态NAT更像是从NAPT中拿出来教学用的</p>
+<h3 id="Easy-IP"><a href="#Easy-IP" class="headerlink" title="Easy-IP"></a>Easy-IP</h3><p>不是每个企业都有好几个公网地址，有的企业就只有一个，所以nat地址池其实并不是必须的，当企业规模比较小的时候</p>
+<p>Easy-ip就是NAPT的简化版，直接使用接口公网IP地址进行转化，大幅减少了配置，也是小型企业最常用的</p>
+<blockquote>
+<p>命令</p>
+</blockquote>
+<pre><code>int g0/0/0
+    nat outbound 2000
+</code></pre>
+<p>就这一条，其他的啥都不用</p>
+<h3 id="NAT服务器：端口映射"><a href="#NAT服务器：端口映射" class="headerlink" title="NAT服务器：端口映射"></a>NAT服务器：端口映射</h3><p>类似公司官网这种公司的门面，一般是要放在公网让用户访问的，所以给官网服务器绑定一个公网ip就很重要</p>
+<p>现在普通遍使用的方法是将内网具体端口的服务映射到公网地址的一个端口，所以又称为端口映射</p>
+<blockquote>
+<p>命令</p>
+</blockquote>
+<pre><code>int g0/0/0
+    nat server protocol tcp  global x.x.x.x 23  inside x.x.x.x 23
+    nat服务器    协议            公网地址      端口  绑定  内网地址 端口
+</code></pre>
+<p>绑定后该端口有且只能被绑定的内网ip使用</p>
+<h3 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h3><pre><code>查看内网地址和公网地址的绑定情况：
+display nat session all
+</code></pre>
+<h2 id="HDLC与PPP"><a href="#HDLC与PPP" class="headerlink" title="HDLC与PPP"></a>HDLC与PPP</h2><p>因为我们的学习都是从以太网开始的，所以数据链路层默认MAC寻址，对应<code>E2</code>结构和<code>IEEE 802.3</code>结构，使用网线连接</p>
+<p>但除此之外，数据链路层还有两种封装格式，<code>HDLC</code>和<code>PPP</code>，这两种都是串行链路的封装协议</p>
+<h3 id="串行链路"><a href="#串行链路" class="headerlink" title="串行链路"></a>串行链路</h3><p>常见的链路使用网线连接，优点是速度快，缺点是稳定性和安全性不佳</p>
+<p>所以在对安全要求比较高的链路，会使用串行连接</p>
+<p>串行链路使用串口连接，又称<code>Serial</code>接口</p>
+<p>有两种传输方式：</p>
+<ul>
+<li>同步传输：一个数据发送结束才发送下一个数据</li>
+<li>异步传输：不等待数据发送结束，多线程的传输数据</li>
+</ul>
+<h3 id="HDLC-高级数据链路控制"><a href="#HDLC-高级数据链路控制" class="headerlink" title="HDLC 高级数据链路控制"></a>HDLC 高级数据链路控制</h3><p>IA无需了解，只需知道将串行链路切换为HDLC协议的命令</p>
+<pre><code>int serial 1/0/0
+    link-protocol hdlc
+</code></pre>
+<p>华为设备串行链路默认使用ppp协议</p>
+<h3 id="ppp——点对点协议"><a href="#ppp——点对点协议" class="headerlink" title="ppp——点对点协议"></a>ppp——点对点协议</h3><p>ppp协议通过给接口“打点”的方式进行传输，所以无需MAC，也不要求链路两端在同一网段</p>
+<p>ppp协议链路会对对端发送路由信息，使链路两端直连</p>
+<p>ppp的访问是加密的，有两种认证方式</p>
+<h3 id="PAP"><a href="#PAP" class="headerlink" title="PAP"></a>PAP</h3><p>PAP认证模式由被认证方发送明文的用户名和密码到认证方，认证方验证后返回成果/失败报文。</p>
+<p>经历两次握手，由于是明文发送，所以不安全</p>
+<p><img src="image-20220902180133283.png" alt="image-20220902180133283"></p>
+<blockquote>
+<p>命令</p>
+</blockquote>
+<pre><code># 认证方需要存在一个以上的用户：
+local-user    [用户名] password cipher [密码]
+local-user     [用户名] service-type ppp  # 设置该用户用于ppp认证
+
+int s1/0/0
+    link-protocol ppp  # 设置串行链路使用ppp协议
+    ppp authentication-mode pap  # 设置认证模式pap
+    注：哪个设备做了这条配置，哪个就是认证方
+    
+# 被认证方
+int s1/0/0
+    link-protocol ppp
+    ppp pap local-user [用户名] password cipher [密码]
+    指明自己是被认证方，向对端提供用户名和密码进行认证
+</code></pre>
+<h3 id="CHAP"><a href="#CHAP" class="headerlink" title="CHAP"></a>CHAP</h3><p>CHAP认证模式由认证方发起，认证方发现对端存在连接是，主动发送Challenge信息，被认证方通过Challenge加密密码信息后发送给认证方，最后认证方返回成功/失败报文</p>
+<p>经历三次握手，但比PAP认证模式更加安全</p>
+<p><img src="image-20220902180154407.png" alt="image-20220902180154407"></p>
+<pre><code># 认证方需要存在一个以上的用户：
+local-user    [用户名] password cipher [密码]
+local-user     [用户名] service-type ppp  # 设置该用户用于ppp认证
+
+int s1/0/0
+    link-protocol ppp  # 设置串行链路使用ppp协议
+    ppp authentication-mode chap  # 设置认证模式pap
+    注：哪个设备做了这条配置，哪个就是认证方
+    
+# 被认证方
+int s1/0/0
+    link-protocol ppp
+    ppp chap user [用户名]
+    ppp chap password cipher [密码]
+    指明自己是被认证方，向对端提供用户名和密码进行认证
+</code></pre>
+<p>chap的配置大致就是把pap换成了chap而已</p>
+<h2 id="PPPOE"><a href="#PPPOE" class="headerlink" title="PPPOE"></a>PPPOE</h2><p>传统网络速度快安全性不高也不能认证，串行链路安全性高但传输速度极慢【3M】</p>
+<p>PPPOE就是综合了两者的优点，兼顾了安全性和速度，多用于计费连接和拨号上网</p>
+<h3 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h3><p><img src="image-20220902181837852.png" alt="image-20220902181837852"></p>
+<p>PPPOE报文使用<code>Ethernet</code>格式封装</p>
+<h3 id="配置命令"><a href="#配置命令" class="headerlink" title="配置命令"></a>配置命令</h3><p>没学懂，暂空，学明白了补</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://atmujie.github.io/2022/08/07/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0-datacom-HCIA%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/">http://atmujie.github.io/2022/08/07/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0-datacom-HCIA%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                    <span class="chip bg-color">网络工程</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+        <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'http://atmujie.github.io/2022/08/07/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0-datacom-HCIA%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/';
+        this.page.identifier = '/2022/08/07/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0-datacom-HCIA%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/';
+        this.page.title = '网络工程笔记-datacom-HCIA第二部分';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'GHiPEgESACHszUJMqTqLWQtF-gzGzoHsz',
+        appKey: 'Lm6vLWBnRM3KIlhuo4tqDNDq',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/08/07/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0-datacom-HCIA%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="网络工程笔记-datacom-HCIA第二部分">
+                        
+                        <span class="card-title">网络工程笔记-datacom-HCIA第二部分</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">网络工程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/07/31/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8Bdatacom%E6%96%B9%E5%90%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-HCIA/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="网络工程datacom方向学习笔记-HCIA">
+                        
+                        <span class="card-title">网络工程datacom方向学习笔记-HCIA</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">网络工程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn/" target="_blank">陇ICP备2022000869号</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/atmujie" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
