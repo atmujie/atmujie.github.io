@@ -1123,7 +1123,79 @@ int s1/0/0
 <p>PPPOE就是综合了两者的优点，兼顾了安全性和速度，多用于计费连接和拨号上网</p>
 <h3 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h3><p><img src="image-20220902181837852.png" alt="image-20220902181837852"></p>
 <p>PPPOE报文使用<code>Ethernet</code>格式封装</p>
-<h3 id="配置命令"><a href="#配置命令" class="headerlink" title="配置命令"></a>配置命令</h3><p>没学懂，暂空，学明白了补</p>
+<h3 id="配置命令"><a href="#配置命令" class="headerlink" title="配置命令"></a>配置命令</h3><p>PPPOE在网络中有以下功能</p>
+<p>1、传统ppp协议的认证功能</p>
+<p>2、拨号上网【内网客户端请求外网PPPOE服务器获取IP，通过ppp认证后，PPPOE服务器向内网PPPOE客户端发送一个公网IP，PPPOE客户端通过该公网IP使用nat访问外网】</p>
+<p>按照功能，PPPOE配置如下：</p>
+<blockquote>
+<p>topo:</p>
+</blockquote>
+<p><img src="image-20220904150914783.png" alt="image-20220904150914783"></p>
+<blockquote>
+<p>命令</p>
+</blockquote>
+<pre><code># PPPOE-SERVER PPPOE服务端
+
+## 设置ppp认证用户
+aaa  # 进入aaa认证视图
+ local-user pppoe password cipher pppoe  # 创建用户
+ local-user pppoe service-type ppp  # 指定该用户用于ppp认证
+
+## 设置地址池
+[pppoe在拨号成功后会分配客户端公网ip,所以需要地址池]
+ip pool PPPOE  # 开启地址池，名称PPPOE
+ network 60.30.1.0 mask 255.255.255.0  # 设置公网地址段 
+ dns-list 1.1.1.1   # 设置dns列表
+
+## 对直连客户端的接口配置PPPOE服务
+[PPPOE服务端的配置需要开启一个虚拟面板接口
+ 因为PPP用于串行链路，但是PPPOE连接的是以太网链路
+ 所以PPPOE的配置需要开启一个虚拟接口]
+interface Virtual-Template 1  # 进入虚拟面板接口1
+ ppp authentication-mode chap  # 设置PPP认证模式为chap
+ remote address pool PPPOE  # 认证成功为按ip pool PPPOE的配置返回公网地址
+ ip address 60.30.1.1 255.255.255.0  # 设置虚拟接口IP地址
+
+## 将虚拟面板和物理接口绑定
+interface GigabitEthernet0/0/0
+ pppoe-server bind Virtual-Template 1  # 绑定虚拟面板接口到g0/0/0
+</code></pre>
+<p>PPPOE服务端配置完毕</p>
+<p>PPPOE客户端配置如下</p>
+<pre><code># PPPOE-CLIENT PPPOE客户端
+
+## 设置拨号规则
+dialer-rule  # 进入拨号规则配置
+ dialer-rule 1 ip permit  # 拨号规则1，允许所有ip拨号
+
+## 创建用于nat的acl
+acl number 2000  
+ rule 5 permit 
+
+## 创建一个拨号接口
+[同理，PPPOE客户端也不是串行链路，所以需要一个虚拟接口]
+interface Dialer 1  # 进入虚拟的拨号接口Dialer 1
+ [ppp协议基本配置]
+ link-protocol ppp  # 设置链路协议ppp
+ ppp chap user pppoe  # 设置认证用户名
+ ppp chap password cipher pppoe  # 设置认证密码
+ [PPPOE拨号配置]
+ ip address ppp-negotiate  # ip地址由对端ppp分配
+ dialer user mujie  # 本机拨号用户为mujie【毫无用处，但是要配】
+ dialer bundle 1  # 绑定拨号规则1
+ dialer-group 1  # 设置为拨号组1
+ nat outbound 2000  # 设置nat
+ [访问外网就要nat,pppoe也一样]
+ 
+ ## 绑定到物理接口
+ [ip由pppoe获取，物理接口无需配置ip]
+ interface GigabitEthernet0/0/1
+  pppoe-client dial-bundle-number 1   # 绑定到拨号接口，接口号为1
+</code></pre>
+<p>PPPOE客户端配置完毕</p>
+<p>查看接口ip地址，Dialer接口获取到公网ip即为配置成功</p>
+<p><img src="image-20220904154638653.png" alt="image-20220904154638653"></p>
+<p>想通外网还需要配置静态和缺省，这里不做赘述</p>
 
             </div>
             <hr/>
