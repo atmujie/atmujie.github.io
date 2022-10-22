@@ -633,6 +633,17 @@ port trunk pvid vlan x  修改trunk的PVID为指定VLAN-id
 <p>华为交换机接口默认为Hybrid</p>
 <p>注：<code>description</code>命令用于备注</p>
 <p>Hybrid接口是华为自定义的接口，优点是自由度高，既可以做为<code>Access</code>使用也可以作为<code>Trunk</code>使用。</p>
+<p>Hybrid原理：</p>
+<ul>
+<li>Hybrid接口维护两个列表<ul>
+<li>tagged：直接转发此列表中的vlan数据不剥离标签</li>
+<li>untagged：转发此列表中的vlan数据并且剥离标签</li>
+</ul>
+</li>
+<li>只要vlan在其中一个列表中，就允许通过，但动作不同</li>
+<li>同一个vlan只能出现在一个列表中（在tagged中就不会在untagged，反之亦然）</li>
+<li>如果手动定义了Hybrid接口的pvid，那么一定要将pvid对应的vlan加入untagged或者tagged列表，否则无法通信（access、trunk两种接口，发送数据包时必须剥离与接口pvid相同的vlan数据，而Hybrid根据UT或者TG两个列表决定）</li>
+</ul>
 <p>但过高的自由度同时意味着容易出现问题———会破环<code>VLAN</code>本身隔离广播域的功能</p>
 <p>所以一般仍然使用传统的<code>Access</code>和<code>Trunk</code>接口，而不使用<code>Hybrid</code></p>
 <ul>
@@ -748,13 +759,19 @@ display bridge mac-address   # 查看桥MAC地址
 <p><img src="image-20220828223617365.png" alt="image-20220828223617365"></p>
 <p>BPDU报文由根桥始发，包含以上字段</p>
 <ul>
-<li>Root ID: 即交换机的桥ID，在传输过程中不会改变，所以一般比较不出来</li>
-<li>RPC：即 <code>root path cost</code>根路径开销，指发出该BPDU的交换机到根交换机的开销值<ul>
-<li>根桥发出的BPDU报文RPC为0，每到一个非根交换机，该交换机就会加上自己接受BPDU报文的端口开销（默认2万）做为最终RPC</li>
+<li><p>Root ID: 即交换机的桥ID，在传输过程中不会改变，所以一般比较不出来</p>
+</li>
+<li><p>RPC：即 <code>root path cost</code>根路径开销，指发出该BPDU的交换机到根交换机的开销值</p>
+<ul>
+<li><p>根桥发出的BPDU报文RPC为0，每到一个非根交换机，该交换机就会加上自己接受BPDU报文的端口开销（默认2万）做为最终RPC</p>
+<p>【也就是说，RPC开销是BPDU入端口开销，而不处理出端口开销】</p>
+</li>
 </ul>
 </li>
-<li>Bridge ID ：BID, 即上一个发出BPDU报文的桥ID</li>
-<li>Port ID ：PID，即上一个发出BPDU报文的端口ID</li>
+<li><p>Bridge ID ：BID, 即上一个发出BPDU报文的桥ID</p>
+</li>
+<li><p>Port ID ：PID，即上一个发出BPDU报文的端口ID</p>
+</li>
 </ul>
 <h3 id="角色选举规则"><a href="#角色选举规则" class="headerlink" title="角色选举规则"></a>角色选举规则</h3><blockquote>
 <p>根桥/根交换机</p>
@@ -810,7 +827,12 @@ display bridge mac-address   # 查看桥MAC地址
 <p>然后进行新一轮端口选举</p>
 <p>所以在20s+30s后网络恢复</p>
 <p><img src="image-20220828234309556.png" alt="image-20220828234309556"></p>
-<h2 id="DHCP——动态IP分配协议"><a href="#DHCP——动态IP分配协议" class="headerlink" title="DHCP——动态IP分配协议"></a>DHCP——动态IP分配协议</h2><h3 id="DHCP报文类型"><a href="#DHCP报文类型" class="headerlink" title="DHCP报文类型"></a>DHCP报文类型</h3><table>
+<h2 id="DHCP——动态IP分配协议"><a href="#DHCP——动态IP分配协议" class="headerlink" title="DHCP——动态IP分配协议"></a>DHCP——动态IP分配协议</h2><p>DHCP用于动态分配IP地址，使用UDP协议的67/68端口</p>
+<ul>
+<li>67端口：DHCP服务器使用67端口提供服务</li>
+<li>68端口：DHCP客户端使用68端口访问DHCP服务器</li>
+</ul>
+<h3 id="DHCP报文类型"><a href="#DHCP报文类型" class="headerlink" title="DHCP报文类型"></a>DHCP报文类型</h3><table>
 <thead>
 <tr>
 <th align="center">报文类型</th>
@@ -1055,8 +1077,17 @@ int g0/0/0
 <pre><code>int g0/0/0
     nat server protocol tcp  global x.x.x.x 23  inside x.x.x.x 23
     nat服务器    协议            公网地址      端口  绑定  内网地址 端口
+    
+如果不写协议，就是将整个内网地址映射到公网地址
+    nat server global x.x.x.x inside x.x.x.x
+    这样做是不安全的，所以不推荐
 </code></pre>
 <p>绑定后该端口有且只能被绑定的内网ip使用</p>
+<ul>
+<li>注意：指定ip地址的方式并不能使用接口ip地址</li>
+<li>如果需要使用接口的公网ip做<code>nat server</code>，那么需要使用以下命令</li>
+<li><code>nat server protocol tcp global current-interface 80 inside x.x.x.x 80 </code></li>
+</ul>
 <h3 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h3><pre><code>查看内网地址和公网地址的绑定情况：
 display nat session all
 </code></pre>
@@ -1075,16 +1106,34 @@ display nat session all
     link-protocol hdlc
 </code></pre>
 <p>华为设备串行链路默认使用ppp协议</p>
-<h3 id="ppp——点对点协议"><a href="#ppp——点对点协议" class="headerlink" title="ppp——点对点协议"></a>ppp——点对点协议</h3><p>ppp协议通过给接口“打点”的方式进行传输，所以无需MAC，也不要求链路两端在同一网段</p>
+<h3 id="ppp——点对点协议"><a href="#ppp——点对点协议" class="headerlink" title="ppp——点对点协议"></a>ppp——点对点协议</h3><p>ppp协议通过给接口“打点”的方式进行传输，所以无MAC，也不要求链路两端在同一网段</p>
 <p>ppp协议链路会对对端发送路由信息，使链路两端直连</p>
 <p>ppp的访问是加密的，有两种认证方式</p>
-<h3 id="PAP"><a href="#PAP" class="headerlink" title="PAP"></a>PAP</h3><p>PAP认证模式由被认证方发送明文的用户名和密码到认证方，认证方验证后返回成果/失败报文。</p>
+<h3 id="PPP协议的运行原则"><a href="#PPP协议的运行原则" class="headerlink" title="PPP协议的运行原则"></a>PPP协议的运行原则</h3><p>PPP协议分为三个部分，<code>LCP</code>，<code>认证</code>和<code>NCP</code></p>
+<p>LCP-链路控制协议用于协商数据链路层的参数，并声明是否需要认证</p>
+<p><code>认证</code>分为<code>PAP</code>和<code>CHAP</code>，只有LCP声明需要认证才会进行协商</p>
+<p>NCP-网络控制协议，用于各种网络层参数的协商，最常见的时IPCP协议，用来协商IP地址</p>
+<blockquote>
+<p>在PPP协议的认证协商中，一旦协商没有通过，PPP的协商过程回到LCP协商重新开始</p>
+<p>或者链路断开，认证失败，管理员关闭连接等情况发生时，无论在什么阶段，都回到LCP重新开始协商</p>
+</blockquote>
+<p><img src="image-20221010182951934.png" alt="image-20221010182951934"></p>
+<h3 id="PPP报文格式"><a href="#PPP报文格式" class="headerlink" title="PPP报文格式"></a>PPP报文格式</h3><p><img src="image-20221010183435147.png" alt="image-20221010183435147"></p>
+<blockquote>
+<p>Information字段中包含Protocol指定协议的内容，最大长度等于MRU</p>
+<p>PPP协议的MRU相当于E2协议中的MTU</p>
+</blockquote>
+<h3 id="PPP协议——LCP协商"><a href="#PPP协议——LCP协商" class="headerlink" title="PPP协议——LCP协商"></a>PPP协议——LCP协商</h3><p>LCP协商由任意一方发起，发送自己的接口参数，常见的有<code>MRU</code>，<code>认证类型Auth_Type</code>，<code>魔术字</code></p>
+<p>​    <img src="image-20221010184357369.png" alt="image-20221010184357369"></p>
+<p>协议按最低配置来：一个MRU1500一个MRU2000，PPP链路使用MRU1500</p>
+<p>如果对端参数不合法，LCP会发送Configure-Nak报文让对端修改参数</p>
+<p>直到参数合法，发送<code>Configure-Ack</code>报文</p>
+<h3 id="PPP协议-认证"><a href="#PPP协议-认证" class="headerlink" title="PPP协议-认证"></a>PPP协议-认证</h3><p>如果LCP协商没有声明需要认证，直接进入NCP协商，不进行认证协商</p>
+<h4 id="PAP"><a href="#PAP" class="headerlink" title="PAP"></a>PAP</h4><p>如果LCP协商声明认证方式PAP</p>
+<p>PAP认证模式由被认证方发送明文的用户名和密码到认证方，认证方验证后返回成果/失败报文。</p>
 <p>经历两次握手，由于是明文发送，所以不安全</p>
 <p><img src="image-20220902180133283.png" alt="image-20220902180133283"></p>
-<blockquote>
-<p>命令</p>
-</blockquote>
-<pre><code># 认证方需要存在一个以上的用户：
+<h4 id="PAP认证配置"><a href="#PAP认证配置" class="headerlink" title="PAP认证配置"></a>PAP认证配置</h4><pre><code># 认证方需要存在一个以上的用户：
 local-user    [用户名] password cipher [密码]
 local-user     [用户名] service-type ppp  # 设置该用户用于ppp认证
 
@@ -1099,10 +1148,12 @@ int s1/0/0
     ppp pap local-user [用户名] password cipher [密码]
     指明自己是被认证方，向对端提供用户名和密码进行认证
 </code></pre>
-<h3 id="CHAP"><a href="#CHAP" class="headerlink" title="CHAP"></a>CHAP</h3><p>CHAP认证模式由认证方发起，认证方发现对端存在连接是，主动发送Challenge信息，被认证方通过Challenge加密密码信息后发送给认证方，最后认证方返回成功/失败报文</p>
+<h4 id="CHAP"><a href="#CHAP" class="headerlink" title="CHAP"></a>CHAP</h4><p>如果LCP协商声明使用了CHAP认证</p>
+<p>CHAP认证模式由认证方发起，认证方发现对端存在连接时，主动发送Challenge信息，被认证方通过Challenge加密密码信息后发送给认证方，最后认证方返回成功/失败报文</p>
 <p>经历三次握手，但比PAP认证模式更加安全</p>
 <p><img src="image-20220902180154407.png" alt="image-20220902180154407"></p>
-<pre><code># 认证方需要存在一个以上的用户：
+<p><img src="image-20221010185203503.png" alt="image-20221010185203503"></p>
+<h4 id="CHAP认证配置"><a href="#CHAP认证配置" class="headerlink" title="CHAP认证配置"></a>CHAP认证配置</h4><pre><code># 认证方需要存在一个以上的用户：
 local-user    [用户名] password cipher [密码]
 local-user     [用户名] service-type ppp  # 设置该用户用于ppp认证
 
@@ -1119,10 +1170,45 @@ int s1/0/0
     指明自己是被认证方，向对端提供用户名和密码进行认证
 </code></pre>
 <p>chap的配置大致就是把pap换成了chap而已</p>
-<h2 id="PPPOE"><a href="#PPPOE" class="headerlink" title="PPPOE"></a>PPPOE</h2><p>传统网络速度快安全性不高也不能认证，串行链路安全性高但传输速度极慢【3M】</p>
+<h3 id="PPP协议——NCP协商"><a href="#PPP协议——NCP协商" class="headerlink" title="PPP协议——NCP协商"></a>PPP协议——NCP协商</h3><p>当LCP协商完成并通过认证后，进入NCP协商</p>
+<p>PPPOE拨号上网分配公网IP地址的功能也基于NCP协商</p>
+<p>这里以协商IP地址的IPCP为例</p>
+<p><img src="image-20221010185516405.png" alt="image-20221010185516405"></p>
+<p>大体和LCP一致，由任意一端发起，发送自己的IP地址信息</p>
+<p>对端觉得IP可用则发送<code>Configure-Ack</code>，否则发送<code>Configure-Nak</code></p>
+<p><code>Configure-Nak</code>会告知对端“我希望你的配置是什么”</p>
+<p>NCP协商完成后，PPP链路建立成功</p>
+<h2 id="PPPOE"><a href="#PPPOE" class="headerlink" title="PPPOE"></a>PPPOE</h2><p>PPPOE又称ADSL</p>
+<p>传统网络速度快安全性不高也不能认证，串行链路安全性高但传输速度极慢【3M】</p>
 <p>PPPOE就是综合了两者的优点，兼顾了安全性和速度，多用于计费连接和拨号上网</p>
-<h3 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h3><p><img src="image-20220902181837852.png" alt="image-20220902181837852"></p>
+<p>PPPOE是E2协议和PPP协议的集合体</p>
+<blockquote>
+<p>PPPOE下行带宽高上行带宽低</p>
+</blockquote>
+<h3 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h3><p><img src="image-20221010191935335.png" alt="image-20221010191935335"></p>
 <p>PPPOE报文使用<code>Ethernet</code>格式封装</p>
+<ul>
+<li>Eth-Type=0x8863表示封装的是PPPOE发现阶段的报文</li>
+<li>Eth-Tpye=0x8864表示封装的是PPPOE会话阶段的报文</li>
+</ul>
+<h3 id="PPPOE原理"><a href="#PPPOE原理" class="headerlink" title="PPPOE原理"></a>PPPOE原理</h3><p>PPPOE的协商分为三个阶段：PPPOE发现，PPPOE会话，PPPOE终结</p>
+<ul>
+<li>PPPOE的发现：用户协商，创建PPPOE虚拟链路</li>
+<li>PPPOE会话：PPP协商（LCP、认证、NCP）</li>
+<li>PPPOE终结：用户下线，客户端断开或者服务器断开连接</li>
+</ul>
+<h4 id="PPPOE发现"><a href="#PPPOE发现" class="headerlink" title="PPPOE发现"></a>PPPOE发现</h4><p>1、客户端广播PADI报文请求服务器</p>
+<p>​    <img src="image-20221010192211959.png" alt="image-20221010192211959"></p>
+<p>2、PPPOE服务器发送PADO响应请求</p>
+<p><img src="image-20221010192244805.png" alt="image-20221010192244805"></p>
+<p>3、客户端选择最优的服务器发送单播PADR</p>
+<p><img src="image-20221010192355925.png" alt="image-20221010192355925"></p>
+<p>4、服务端发送PADS，分配客户端Session id，确定会话</p>
+<p><img src="image-20221010192459355.png" alt="image-20221010192459355"></p>
+<h4 id="PPPOE会话"><a href="#PPPOE会话" class="headerlink" title="PPPOE会话"></a>PPPOE会话</h4><p>PPPOE会话建立成功后，客户端和服务端进行PPP协商，同时通过NCP下发IP地址</p>
+<p>整个PPPOE会话阶段SessionID不会改变</p>
+<h4 id="PPPOE终结"><a href="#PPPOE终结" class="headerlink" title="PPPOE终结"></a>PPPOE终结</h4><p>当客户端或者服务端某一方想要关闭连接时，向对端发送PADT报文</p>
+<p>只要收到PADT报文，PPPOE会话结束（通过SessionID标识）</p>
 <h3 id="配置命令"><a href="#配置命令" class="headerlink" title="配置命令"></a>配置命令</h3><p>PPPOE在网络中有以下功能</p>
 <p>1、传统ppp协议的认证功能</p>
 <p>2、拨号上网【内网客户端请求外网PPPOE服务器获取IP，通过ppp认证后，PPPOE服务器向内网PPPOE客户端发送一个公网IP，PPPOE客户端通过该公网IP使用nat访问外网】</p>
@@ -1196,6 +1282,261 @@ interface Dialer 1  # 进入虚拟的拨号接口Dialer 1
 <p>查看接口ip地址，Dialer接口获取到公网ip即为配置成功</p>
 <p><img src="image-20220904154638653.png" alt="image-20220904154638653"></p>
 <p>想通外网还需要配置静态和缺省，这里不做赘述</p>
+<h3 id="PPPOE的题外话"><a href="#PPPOE的题外话" class="headerlink" title="PPPOE的题外话"></a>PPPOE的题外话</h3><p>网络可以分为局域网和广域网</p>
+<p>概念上不必多说，在使用的协议和运用原理上，广域网和局域网也是有区别的</p>
+<p>PPPOE就是一个广域网技术</p>
+<p>局域网用LAN表示，广域网用WAN表示</p>
+<p><img src="image-20221010194936105.png" alt="image-20221010194936105"></p>
+<p>早期局域网和广域网在网络层以上是一样的，在数据链路层有区别</p>
+<ul>
+<li>局域网使用IEEE802.3封装</li>
+<li>广域网使用PPP、HDLC等协议</li>
+</ul>
+<p>现在的广域网技术有所不同，但不是IA的知识点</p>
+<h2 id="WLAN-技术"><a href="#WLAN-技术" class="headerlink" title="WLAN 技术"></a>WLAN 技术</h2><h3 id="WLAN概述"><a href="#WLAN概述" class="headerlink" title="WLAN概述"></a>WLAN概述</h3><p>WLAN（无线局域网），他的产物就是WIFI</p>
+<h4 id="WLAN协议规定"><a href="#WLAN协议规定" class="headerlink" title="WLAN协议规定"></a>WLAN协议规定</h4><p>WLAN技术使用<code>IEEE802.11</code>系列协议，根据具体版本使用具体的协议</p>
+<p>WLAN版本与协议的对应关系如下</p>
+<p><img src="image-20221020171321288.png" alt="image-20221020171321288"></p>
+<p><code>802.11a、802.11g、802.11ax</code>等协议，都是随着WLAN技术版本的演进而对<code>802.11</code>协议做出的扩展</p>
+<h4 id="WLAN组网架构"><a href="#WLAN组网架构" class="headerlink" title="WLAN组网架构"></a>WLAN组网架构</h4><p>WLAN组网分为胖AP（FAT AP）和瘦AP(FIT AP)两种架构模式</p>
+<p><img src="image-20221020211238067.png" alt="image-20221020211238067"></p>
+<ul>
+<li>FAT AP：使AP设备自治，各个AP之间相互独立<ul>
+<li>功能单一，成本低</li>
+<li>部署简单，适用于家庭以及小型网络</li>
+</ul>
+</li>
+<li>FIT AP：通过一个AC设备对无线局域网内的AP设备进行统一管理<ul>
+<li>部署时需要一定的技术水平</li>
+<li>当AP很多时方便管理，适用于中大型网络</li>
+</ul>
+</li>
+</ul>
+<p>除此之外，由于酒店、公寓等有大量独立AP需求的情况，又提出了敏捷分布式AP</p>
+<p><img src="image-20221020221634569.png" alt="image-20221020221634569"></p>
+<ul>
+<li>敏捷分布式架构，将AP分为敏分AP和中心AP，由AC管理中心AP，中心AP管理敏分AP</li>
+<li>用于房间密集，AC端口不够用的场景</li>
+</ul>
+<blockquote>
+<p>有线侧组网概念，AC的连接方式</p>
+</blockquote>
+<ul>
+<li><p>直连式：将AC直接加入有线网络中，使每个数据都经过AC设备</p>
+<ul>
+<li>直连式网络实施简单，但由于AC无法处理大量数据，影响带宽，不推荐使用</li>
+</ul>
+<p><img src="image-20221020211847207.png" alt="image-20221020211847207"></p>
+</li>
+<li><p>旁挂式：将AC单独挂载在AP上行网络的直连网络中，不在直接与AP相连。</p>
+<ul>
+<li>组网一般都使用旁挂式网络</li>
+</ul>
+<p><img src="image-20221020212018604.png" alt="image-20221020212018604"></p>
+</li>
+</ul>
+<h4 id="CAPWAP协议"><a href="#CAPWAP协议" class="headerlink" title="CAPWAP协议"></a>CAPWAP协议</h4><p>AC通过与AP建立<code>CAPWAP</code>隧道对<code>AP</code>设备进行管理</p>
+<p><img src="image-20221020212813681.png" alt="image-20221020212813681"></p>
+<p>CAPWAP协议传输两种数据</p>
+<ul>
+<li>控制数据：控制AP配置的数据流量，使用UDP 5246端口</li>
+<li>业务数据：网络中的业务流量，使用UDP 5247端口</li>
+</ul>
+<p>控制数据必须由<code>CAPWAP</code>隧道进行传输，业务数据可传可不传，由管理员自行配置</p>
+<h4 id="无线电磁波频率"><a href="#无线电磁波频率" class="headerlink" title="无线电磁波频率"></a>无线电磁波频率</h4><p><img src="image-20221020212850106.png" alt="image-20221020212850106"></p>
+<p>无线电磁波的频率在3HZ到300GHZ之间，又称射频电波</p>
+<p>WLAN就通过无线电磁波传输数据</p>
+<p>按规定，只有2.4GHZ和5GHZ可以用于民用网络，其他的频段都有其他用途</p>
+<p><img src="image-20221020213420586.png" alt="image-20221020213420586"></p>
+<p>WLAN可用频段的具体范围如图：</p>
+<p><img src="image-20221020213125247.png" alt="image-20221020213125247"></p>
+<h4 id="无线信道"><a href="#无线信道" class="headerlink" title="无线信道"></a>无线信道</h4><p>2.4GHZ的电磁波频段被划分为14个有重叠的，宽度是22MHZ的信道</p>
+<p>而5GHZ的信道可以融合，产生一个更宽的信道</p>
+<p><img src="image-20221020213641942.png" alt="image-20221020213641942"></p>
+<p>如果两个信道之间有重叠，那么通过信道的数据就会发生干扰。所以在AP覆盖范围的交叠区域，需要避免出现有重叠的信道</p>
+<p><img src="clip_image002-16662732440345.jpg" alt="img"></p>
+<p>如上图所示，AP1和AP2之间有重叠的区域，此时AP1和AP2使用的信道需要避免重叠</p>
+<p>如果覆盖区域没有重叠，则不用刻意使用不重叠的信道</p>
+<h4 id="无线测组网相关概念"><a href="#无线测组网相关概念" class="headerlink" title="无线测组网相关概念"></a>无线测组网相关概念</h4><p><img src="image-20221020214455216.png" alt="image-20221020214455216"></p>
+<ul>
+<li>BSS：一个AP设备的覆盖范围</li>
+<li>BSSID：一个无线网络的身份标识，用AP设备的MAC地址表示</li>
+<li>SSID：一个无线网络的身份标识，可以代表BSSID，两者的区别类似域名和IP地址的区别，SSID好记</li>
+<li>ESS： 由使用相同SSID的BSS组成的，更大范围的虚拟BSS</li>
+</ul>
+<p><img src="image-20221020215158840.png" alt="image-20221020215158840"></p>
+<ul>
+<li><p>vap：早期的AP设备，一个AP一个BSS。如果需要在同一空间放置多个BSS就需要放置多个AP，废钱</p>
+<p>为了解决这个问题，现在的AP设备通过创建虚拟的AP来创建多个BSS，这些虚拟AP就叫做VAP</p>
+</li>
+<li><p>VAP提供和物理实体AP一致的功能</p>
+</li>
+<li><p>每个VAP都对应一个BSS，这样一个AP就可以提供多个无线网络</p>
+</li>
+</ul>
+<h3 id="WLAN技术配置"><a href="#WLAN技术配置" class="headerlink" title="WLAN技术配置"></a>WLAN技术配置</h3><p>WLAN的配置分为三步，AP上线、业务下发、客户端接入</p>
+<p><img src="image-20221022152006592.png" alt="image-20221022152006592"></p>
+<h4 id="AP上线"><a href="#AP上线" class="headerlink" title="AP上线"></a>AP上线</h4><p>AP上线就是AP和AC建立<code>CAPWAP</code>的过程，可以分为五步</p>
+<p>1、AP通过DHCP服务器获取IP地址</p>
+<ul>
+<li>登录AP静态配置IP地址</li>
+<li>通过DHCP给AP分配IP地址【可以直接使用AC作为DHCP服务器，也可以用专用的DHCP服务器】</li>
+</ul>
+<p>2、AP发现AC并建立<code>WAPCAP</code>隧道</p>
+<ul>
+<li>静态发现方式：AP上预先配置AC的静态IP地址列表</li>
+<li>动态发现方式：DHCP(AP 发送Discovery Request报文)、DNS、广播三种方式寻找AC<ul>
+<li>通过DHCP找到AC后，DHCP Office报文会携带一个<code>option 43</code>字段，这个字段里存有AC的IP地址</li>
+<li>所以如果DHCP服务器不是AC本身，则需要在DHCP服务器手动指定一个<code>option 43</code>字段</li>
+<li>通过DHCP的方式寻找AC，AP会同步获取IP和AC的IP地址</li>
+</ul>
+</li>
+<li>WAPCAP隧道包括数据隧道和控制隧道</li>
+</ul>
+<p>3、AP接入AC</p>
+<ul>
+<li>隧道建立后，AP会向AC发送一个<code>Join Request</code>报文，AC收到后会判断是否允许AP接入</li>
+<li>在AC上有三种判断方式（认证方式）<ul>
+<li>MAC认证：判断请求AP的MAC地址管理员是否已经手动绑定在AC组中</li>
+<li>序列号（SN）认证：需要管理员手动将SN加入AC组中</li>
+<li>不认证：AP请求就直接通过</li>
+</ul>
+</li>
+</ul>
+<p>4、AC检查AP是否需要版本升级，如果需要则进行升级操作</p>
+<p>5、AP与AC维持<code>WAPCAP</code>隧道</p>
+<ul>
+<li>AP与AC互相发送Echo报文检测<code>WAPCAP</code>隧道状态</li>
+</ul>
+<blockquote>
+<p>命令配置</p>
+</blockquote>
+<p><img src="image-20221021231900659.png" alt="image-20221021231900659"></p>
+<pre><code>1、配置各个vlan,并让网络互通
+    - 注意连接AP的交换机端口pvid,在这个topo中需要设为管理vlan
+    
+2、配置dhcp
+    - 这里管理网段配置在AC上,业务网段另配DHCP
+    
+3、CAPWAP隧道绑定管理vlan
+ capwap source interface Vlanif 100
+     
+4、创建AP组【可不创建，直接使用默认组default】
+ wlan
+    ap-group name [mujie(组名)]
+</code></pre>
+<p>5、绑定AP</p>
+<blockquote>
+<p> ap auth-mode 【模式】</p>
+<ul>
+<li>mac-auth  手动指定mac地址绑定</li>
+<li>no-auth   自动绑定，不做任何认证</li>
+<li>sn-auth   手动指定SN绑定 </li>
+</ul>
+<pre><code>dis ap all 命令可以在AC中查看AP的绑定情况
+</code></pre>
+</blockquote>
+<ul>
+<li>mac绑定模式</li>
+</ul>
+<pre><code># 设置为mac绑定
+[AC-wlan-view]ap auth-mode mac-auth 
+# 指定ap的id,绑定mac地址
+[AC-wlan-view]ap-id 0 ap-mac 00e0-fcd8-6de0
+# 指定AP名称
+[AC-wlan-ap-0]ap-name mujie
+# 指定AP属于哪个组
+[AC-wlan-ap-0]ap-group mujie
+</code></pre>
+<p><img src="image-20221022191647635.png" alt="image-20221022191647635"></p>
+<ul>
+<li>sn绑定模式和mac差不多，使用<code>ap-id 0 ap-sn xxxx</code></li>
+<li>无认证，无认证会自动将ap分配给默认组，AP名和组名需要手动修改</li>
+</ul>
+<pre><code># 设置为无认证模式
+[AC-wlan-view]ap auth-mode no-auth
+等待一会，使用dis ap all查看是否上线成功
+# 修改ap名和ap所属组
+[AC-wlan-view]ap-id 0  # 进入id为0的ap
+[AC-wlan-ap-0]ap-name AP2  # 设置ap名为AP2
+[AC-wlan-ap-0]ap-group mujie  # 设置ap属于mujie组
+改模拟器的ap名会down,所以最好不改名,默认以mac地址为名
+</code></pre>
+<p><img src="image-20221022192744787.png" alt="image-20221022192744787"></p>
+<h4 id="业务下发"><a href="#业务下发" class="headerlink" title="业务下发"></a>业务下发</h4><p>业务下发就是在AC上做预先配置，规定AP的行为</p>
+<ul>
+<li>AC向AP发送Configuration Update Request请求消息，AP回应Configuration Update Response消息，AC再将业务的配置信息发送给AP</li>
+</ul>
+<p>配置步骤如下：</p>
+<p>1、配置射频模板</p>
+<p><img src="image-20221021232351730.png" alt="image-20221021232351730"></p>
+<pre><code>#  配置域管理模板
+regulatory-domain-profile name mujie
+     # 配置国家码（每个国家的射频不一样，中国是CN） 
+     country-code CN 
+#  绑定到AP组
+[AC-wlan-view]ap-group name mujie
+[AC-wlan-ap-group-mujie]regulatory-domain-profile mujie
+</code></pre>
+<p>2、配置虚拟AP并绑定到AP组</p>
+<p><img src="image-20221021232444152.png" alt="image-20221021232444152"></p>
+<pre><code># 创建SSID模板
+[AC-wlan-view]ssid-profile name mujie
+[AC-wlan-ssid-prof-mujie]ssid mujie  # 设置SSID
+
+# 创建安全模板
+[AC-wlan-view]security-profile name mujie
+[AC-wlan-sec-prof-mujie]security wpa-wpa2    psk    pass-phrase 12345678 aes
+                              [安全策略][认证方式][设置密码] [wifi密码][加密方式]
+
+# 创建虚拟ap(vap)
+[AC-wlan-view]vap-profile name mujie
+# 设置转发方式
+[AC-wlan-vap-prof-mujie]forward-mode direct-forward 
+# 设置业务vlan
+[AC-wlan-vap-prof-mujie]service-vlan vlan-id 101
+# 绑定安全模板和ssid模板
+[AC-wlan-vap-prof-mujie]security-profile mujie
+[AC-wlan-vap-prof-mujie]ssid-profile mujie
+
+# 将vap模板加入ap组
+[AC-wlan-view]ap-group name mujie
+[AC-wlan-ap-group-mujie]vap-profile mujie wlan 1   radio all 
+                      [vap模板]        [wlan编号] [频段]
+</code></pre>
+<p>转发方式有隧道转发和直接转发</p>
+<ul>
+<li>direct-forward  ：不经过<code>CAPWAP</code>隧道直接转发</li>
+<li>tunnel：通过<code>CAPWAP</code>隧道集中转发 </li>
+</ul>
+<p>频段有两个设置方法</p>
+<ul>
+<li>Radio ID：输出对应的频段id<ul>
+<li>0：2.4GHZ</li>
+<li>1：5GHZ</li>
+</ul>
+</li>
+<li>all：允许全部频段</li>
+</ul>
+<p><img src="image-20221022195356228.png" alt="image-20221022195356228"></p>
+<p>亮起圈就是配置成功</p>
+<h4 id="客户端接入"><a href="#客户端接入" class="headerlink" title="客户端接入"></a>客户端接入</h4><p>1、扫描：扫描周围的无线信号</p>
+<ul>
+<li>通过向周围发送扫描帧寻找AP</li>
+<li>可以指定SSID，也可以空SSID</li>
+</ul>
+<p>2、链路认证：连接wifi时输的密码</p>
+<p>3、关联：客户端发起服务协商，确定使用的速率和信道等信息</p>
+<p>4、接入认证：对用户进行区分（校园网，连上之后还得登录）</p>
+<p>认证方式：</p>
+<p><img src="image-20221021233841244.png" alt="image-20221021233841244"></p>
+<p>5、DHCP：通过DHCO获取IP地址</p>
+<blockquote>
+<p>配置方法：</p>
+<p>客户端输密码直接连接，密码是安全模板中配置的密码</p>
+<p>客户端最终获取到业务DHCP的IP地址</p>
+</blockquote>
+<p><img src="image-20221022195459653.png" alt="image-20221022195459653"></p>
 
             </div>
             <hr/>
