@@ -1,0 +1,1808 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="datacom-HCIP阶段, Atmujie">
+    <meta name="description" content="有一美人兮，见之不忘，一日不见兮，思之如狂；">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>datacom-HCIP阶段 | Atmujie</title>
+    <link rel="icon" type="image/png" href="/weblogo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Atmujie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/friends">
+          
+          <i class="fas fa-address-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Friends</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/BlogLink">
+          
+          <i class="fas fa-address-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>BlogLink</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Atmujie</div>
+        <div class="logo-desc">
+            
+            有一美人兮，见之不忘，一日不见兮，思之如狂；
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/friends " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-address-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Friends</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/BlogLink " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-address-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>BlogLink</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">datacom-HCIP阶段</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                <span class="chip bg-color">网络工程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-10
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Datacom-HCIP笔记"><a href="#Datacom-HCIP笔记" class="headerlink" title="Datacom HCIP笔记"></a>Datacom HCIP笔记</h2><h2 id="交换机的高级特性"><a href="#交换机的高级特性" class="headerlink" title="交换机的高级特性"></a>交换机的高级特性</h2><h3 id="Mux-vlan技术"><a href="#Mux-vlan技术" class="headerlink" title="Mux-vlan技术"></a>Mux-vlan技术</h3><p>当一个企业有如下需求：</p>
+<p>1、一个部门一个vlan，访客单独一个vlan</p>
+<p>2、所有部门和访客都可以访问共享资源</p>
+<p>3、部门之前相互隔离，访客与出共享资源外的所有区域隔离</p>
+<p>此时就需要使用mux-vlan技术，Mux-vlan技术是vlan技术的高级用法</p>
+<blockquote>
+<p>思科中管mux-vlan叫做<code>private vlan</code>【私有vlan】</p>
+</blockquote>
+<h4 id="Mux-vlan角色"><a href="#Mux-vlan角色" class="headerlink" title="Mux-vlan角色"></a>Mux-vlan角色</h4><ul>
+<li>主vlan:<ul>
+<li>一个Mux-vlan网络只有一个主vlan</li>
+<li>开启Mux-vlan功能的vlan自动成为主vlan</li>
+<li>主vlan可以被Mux-vlan中的所有vlan访问</li>
+</ul>
+</li>
+<li>隔离型子vlan:<ul>
+<li>一个Mux-vlan网络只有一个隔离子vlan</li>
+<li>隔离型子vlan和除主vlan外的其他vlan不通</li>
+<li>隔离子vlan内也不互通</li>
+</ul>
+</li>
+<li>互通型子vlan：<ul>
+<li>一个Mux-vlan网络可以有多个互通子vlan</li>
+<li>互通子vlan和除主vlan外的其他vlan不通</li>
+<li>互通子vlan内部可以互通</li>
+</ul>
+</li>
+</ul>
+<h4 id="Mux-vlan配置"><a href="#Mux-vlan配置" class="headerlink" title="Mux-vlan配置"></a>Mux-vlan配置</h4><p><img src="image-20221014220555598.png" alt="image-20221014220555598"></p>
+<p>1、创建vlan</p>
+<pre><code>vlan batch 10 100 200
+</code></pre>
+<p>2、配置接口，划分vlan（略）</p>
+<p>3、配置<code>Mux-vlan</code></p>
+<pre><code>vlan 10  # 进入vlan视图
+     mux-vlan  # 开启mux-vlan 【谁开启，谁就是主vlan】
+     subordinate separate 100  # 设置隔离型vlan
+     subordinate group 200  # 设置互通型vlan
+</code></pre>
+<p>4、在所有相关接口上开启Mux-vlan功能（不开则配置无效）</p>
+<pre><code>interface GigabitEthernet0/0/1
+     port mux-vlan enable  # 开启Mux-vlan
+</code></pre>
+<h4 id="Mux-vlan其他相关命令"><a href="#Mux-vlan其他相关命令" class="headerlink" title="Mux-vlan其他相关命令"></a>Mux-vlan其他相关命令</h4><p>1、查看Mux-vlan转发表</p>
+<pre><code>display mux-vlan 
+</code></pre>
+<p><img src="image-20221014213932061.png" alt="image-20221014213932061"></p>
+<p>如果接口启用了mux-vlan功能，交换机使用mux-vlan作为控制表项</p>
+<p>如果有一个相关接口没有启用mux-vlan功能，交换机使用<code>port vlan</code>作为控制表项</p>
+<p><img src="image-20221014214139531.png" alt="image-20221014214139531"></p>
+<h3 id="端口隔离"><a href="#端口隔离" class="headerlink" title="端口隔离"></a>端口隔离</h3><p>实现流过滤，在三层可以通过acl，但二层并不方便</p>
+<p>端口隔离技术可以实现二层的简单过滤</p>
+<p><img src="image-20221014220530868.png" alt="image-20221014220530868"></p>
+<h4 id="端口组的应用与配置"><a href="#端口组的应用与配置" class="headerlink" title="端口组的应用与配置"></a>端口组的应用与配置</h4><p>在配置交换机端口时，往往有很多端口的配置是重复的，这时一个个敲就很麻烦</p>
+<p>通过将多个端口划分进组的方式，可以一次配置多个端口</p>
+<pre><code>port-group 1  # 开启端口组1
+    group-member GigabitEthernet 0/0/1 to GigabitEthernet 0/0/4
+    # 将g0/0/1到g0/0/4口划入端口组
+    p l a  # 简写，port link-type access
+    p d v 10  # 简写,port default vlan 10
+</code></pre>
+<p><img src="image-20221014215611035.png" alt="image-20221014215611035"></p>
+<p>此时在组里的配置将同时应用在所有组内的端口上</p>
+<h4 id="端口隔离配置"><a href="#端口隔离配置" class="headerlink" title="端口隔离配置"></a>端口隔离配置</h4><pre><code>interface GigabitEthernet0/0/1  # 进入0/0/1口
+    port-isolate enable group 1  # 开启端口隔离，设置隔离组为1
+    port-isolate enable group 2  # 开启端口隔离，设置隔离组为2
+</code></pre>
+<blockquote>
+<p>原理：</p>
+<p>在端口配置隔离组</p>
+<p>如果数据包的入端口和出端口属于同一隔离组，那么交换机将丢弃该数据包</p>
+<ul>
+<li>即相同隔离组端口下的主机不同互通</li>
+<li>不同隔离组端口下的主机可以互通</li>
+<li>一个端口可以配置多个隔离组</li>
+</ul>
+</blockquote>
+<h3 id="ARP代理"><a href="#ARP代理" class="headerlink" title="ARP代理"></a>ARP代理</h3><p>如果有需求：两个主机之间二层隔离，但是要求可以互通，此时就需要使用ARP代理</p>
+<h4 id="ARP代理的分类"><a href="#ARP代理的分类" class="headerlink" title="ARP代理的分类"></a>ARP代理的分类</h4><p>ARP代理按使用的场景，可以分为三类</p>
+<ul>
+<li>同一网段终端被路由器隔离的场景：路由式ARP代理 <code>enable</code></li>
+<li>相同VLAN内，同网段终端被交换机二层隔离的场景：VLAN内ARP代理<code>inner-sub-vlan-proxy</code></li>
+<li>不同VLAN间，同网段终端在聚合VLAN中的场景：VLAN间的ARP代理<code>inter-sub-vlan-proxy</code></li>
+</ul>
+<p><img src="image-20221028101454718.png" alt="image-20221028101454718"></p>
+<h4 id="路由式ARP代理"><a href="#路由式ARP代理" class="headerlink" title="路由式ARP代理"></a>路由式ARP代理</h4><p><img src="image-20221014230024650.png" alt="image-20221014230024650"></p>
+<p>如上：PC9和PC10在同一网段，要求他们互通且不能配置路由</p>
+<p>此时ARP报文需要跨网段，但路由器隔离广播域，ARP报文不可达</p>
+<p>【上图没有配置给PC网关】</p>
+<h4 id="ARP代理配置"><a href="#ARP代理配置" class="headerlink" title="ARP代理配置"></a>ARP代理配置</h4><p>ARP代理的实质就是通过三层转发二层ARP报文</p>
+<pre><code>interface GigabitEthernet0/0/0
+    arp-proxy enable  # 开启arp代理
+</code></pre>
+<p>当开启ARP代理后，G0/0/0端口收到ARP请求报文，将查找路由表进入三层转发</p>
+<p>以路由表找到的出接口为源，PC10为目的，以路由器的身份发送ARP请求</p>
+<p>收到响应包后，又以ARP代理端口为源发回PC9</p>
+<p><img src="image-20221014231453354.png" alt="image-20221014231453354"></p>
+<h4 id="VLAN内ARP代理"><a href="#VLAN内ARP代理" class="headerlink" title="VLAN内ARP代理"></a>VLAN内ARP代理</h4><p><img src="image-20221028101114873.png" alt="image-20221028101114873"></p>
+<p>如图，PC1和PC2被交换机连接，但交换机做了<strong>端口隔离</strong>，此时如果需要PC1和PC2二层互通，就需要ARP代理</p>
+<p>配置方式：</p>
+<pre><code>int vlanif 30  # 进入网关vlanif端口
+    arp-proxy inner-sub-vlan-proxy enable  # 开启VLAN内ARP代理
+</code></pre>
+<h4 id="VLAN间的ARP代理"><a href="#VLAN间的ARP代理" class="headerlink" title="VLAN间的ARP代理"></a>VLAN间的ARP代理</h4><p>VLAN间的ARP代理对标聚合VLAN技术</p>
+<h3 id="聚合VLAN（super-vlan）"><a href="#聚合VLAN（super-vlan）" class="headerlink" title="聚合VLAN（super-vlan）"></a>聚合VLAN（super-vlan）</h3><p>传统的vlan划分每个vlan都需要一个网段，由于子网划分的特性，传统vlan每划一个vlan，就浪费两个地址</p>
+<p>在一些对安全性要求很严格的企业往往会划分很多vlan</p>
+<p>此时传统的vlan划分方式会导致ip地址数不足</p>
+<p>聚合VLAN技术就是为了解决传统vlan划分浪费ip的问题</p>
+<h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h4><p>聚合vlan技术通过定义一个主vlan，下挂多个子vlan的方式实现</p>
+<p>子vlan所有终端都设置在同一网段</p>
+<p>在主vlan配置网关，让主vlanif接口是所有子vlan的网关</p>
+<blockquote>
+<p>由于vlan隔离二层，相同网段通信不会进入三层，此时子vlan之间无法互通</p>
+<p>又因为不同网段通信进入三层，所以子vlan和外界可以通信</p>
+</blockquote>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>由于子vlan用于二层，主vlan负责三层，所以有以下注意事项</p>
+<ul>
+<li>子vlan只能绑定在物理端口上，不能开启三层路由（vlanif）</li>
+<li>主vlan只负责三层路由（vlanif），不能绑定在物理端口上作为二层使用</li>
+</ul>
+<h4 id="聚合vlan配置"><a href="#聚合vlan配置" class="headerlink" title="聚合vlan配置"></a>聚合vlan配置</h4><p><img src="image-20221028103616583.png" alt="image-20221028103616583"></p>
+<pre><code>[Huawei]vlan 30  # 进入vlan30
+[Huawei-vlan30]aggregate-vlan  # 开启聚合vlan 
+[Huawei-vlan30]access-vlan 10 20  # 设置下属子vlan
+</code></pre>
+<p>和<code>mux-vlan</code>一样，谁开启了功能，谁就是主vlan</p>
+<h4 id="聚合VLAN的ARP代理"><a href="#聚合VLAN的ARP代理" class="headerlink" title="聚合VLAN的ARP代理"></a>聚合VLAN的ARP代理</h4><p>vlan隔离二层，同网段不走三层，所以聚合vlan中的子vlan在不另外配置三层的情况下是无法互通的</p>
+<p>如果有需求让子vlan之间二层互通，就需要使用ARP代理（VLAN间的ARP代理）</p>
+<p>让主vlan的vlanif代理子vlan的arp请求</p>
+<p>配置命令：</p>
+<pre><code>[Huawei]int Vlanif 30  # 进入vlanif接口
+[Huawei-Vlanif30]arp-proxy inter-sub-vlan-proxy enable   # 开启VLAN间ARP代理
+</code></pre>
+<h3 id="QinQ技术"><a href="#QinQ技术" class="headerlink" title="QinQ技术"></a>QinQ技术</h3><h4 id="QinQ概述"><a href="#QinQ概述" class="headerlink" title="QinQ概述"></a>QinQ概述</h4><p><code>QinQ</code>，即<code>802.1q in 802.1q</code></p>
+<p>QinQ内部数据透明传输</p>
+<p>字面意思，就是一个VLAN TAG套一个VLAN TAG，是一种二层的VPN技术，可以让私网的VLAN透穿公网，从一个局域网广播域到另一个广播域</p>
+<p><img src="image-20221028113128958.png" alt="image-20221028113128958"></p>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p><img src="image-20221028113659117.png" alt="image-20221028113659117"></p>
+<p>如果，公司使用交换机和运营商交换机连接，并且公司两个分部属于同一vlan，同一网段</p>
+<p>此时如果想让公司两个分部之间实现二层互访，就需要配置qinq隧道</p>
+<blockquote>
+<p>QinQ隧道在运营商交换机(公网设备)入口给数据打上vlan</p>
+<ul>
+<li><p>vlan-tag是入口打的，不是出口打的。但是隧道是出口到对端入口的</p>
+</li>
+<li><p>绝大多数都是入口对数据进行操作，出口才是真正的隧道</p>
+</li>
+</ul>
+<p>在运营商网络中交换时，运营商交换机只看自己打的vlan，而不理会公司内网的vlan</p>
+<p>当数据传输到QinQ隧道另一端时，运营商交换机将自己的vlan剥离，将数据还给另一端内网</p>
+</blockquote>
+<h4 id="QinQ配置"><a href="#QinQ配置" class="headerlink" title="QinQ配置"></a>QinQ配置</h4><blockquote>
+<p>基本配置</p>
+</blockquote>
+<p>公司1分部1内网交换机 and 公司1分部2内网交换机</p>
+<pre><code>[Huawei]v 10
+[Huawei]int g0/0/1
+[Huawei-GigabitEthernet0/0/1]p l a
+[Huawei-GigabitEthernet0/0/1]p d v 10
+[Huawei-GigabitEthernet0/0/1]int g0/0/2
+[Huawei-GigabitEthernet0/0/2]p l t
+[Huawei-GigabitEthernet0/0/2]p t  a  v 10
+</code></pre>
+<blockquote>
+<p>建立QinQ隧道</p>
+</blockquote>
+<p>交换机配置端口类型有四种</p>
+<pre><code>[LSW5-GigabitEthernet0/0/2]port link-type ?
+  access        Access port
+  dot1q-tunnel  QinQ port
+  hybrid        Hybrid port
+  trunk         Trunk port
+</code></pre>
+<p>其中<code>dot1q-tunnel</code>就是<code>QinQ</code>隧道</p>
+<pre><code>LSW5:
+[LSW5]v 100 
+[LSW5]int g0/0/2
+[LSW5-GigabitEthernet0/0/2]port link-type dot1q-tunnel  # 设置端口模式为dot1q隧道
+[LSW5-GigabitEthernet0/0/2]port default vlan 100  # 设置默认为vlan100
+QinQ隧道出入口要进行相同的配置
+</code></pre>
+<p>转发规则：</p>
+<ul>
+<li>进QinQ隧道：进QinQ隧道的数据包通通再打一层默认vlan的标签（不改变原来的标签）</li>
+<li>出QinQ隧道：出QinQ隧道的数据包规则和access一样，剥离vlan标签（剥离的是进隧道打的标签，不剥原来的）</li>
+</ul>
+<p>这样一个vlan帧就从一个局域网到了另一个局域网</p>
+<h4 id="灵活QinQ"><a href="#灵活QinQ" class="headerlink" title="灵活QinQ"></a>灵活QinQ</h4><h3 id="端口安全"><a href="#端口安全" class="headerlink" title="端口安全"></a>端口安全</h3><p>交换机会主动学习数据包源MAC地址的特性会被非法利用</p>
+<ul>
+<li>MAC泛洪攻击：攻击者发送大量源MAC不同的数据帧，导致交换机无法正常转发数据帧，从而将数据帧全部泛洪</li>
+<li>MAC欺骗攻击：攻击者伪造网关或其他终端的MAC地址，让交换机将去往该MAC的数据帧发给错误的端口</li>
+</ul>
+<p>为了解决这个问题，交换机提出了端口安全的概念</p>
+<h4 id="端口安全开启命令"><a href="#端口安全开启命令" class="headerlink" title="端口安全开启命令"></a>端口安全开启命令</h4><pre><code>[Huawei]int g0/0/1
+[Huawei-GigabitEthernet0/0/1]port-security enable 
+</code></pre>
+<h4 id="安全MAC转发表"><a href="#安全MAC转发表" class="headerlink" title="安全MAC转发表"></a>安全MAC转发表</h4><p>当一个端口开启了端口安全后，原来的MAC地址表就会变成安全MAC转发表</p>
+<p><img src="image-20221028121241670.png" alt="image-20221028121241670"></p>
+<p>默认情况下：</p>
+<ul>
+<li>该端口只允许学习一个MAC地址</li>
+<li>学习到的MAC地址表项不会老化【前提：设备不重启，端口不down】</li>
+</ul>
+<p>使用以下命令修改：</p>
+<pre><code># 设置该端口允许学习的MAC表项条数
+[Huawei-GigabitEthernet0/0/1]port-security max-mac-num 10
+
+# 设置老化时间
+[Huawei-GigabitEthernet0/0/1]port-security aging-time 5 type ?
+  absolute    Absolute time  # 绝对老化
+  inactivity  Inactivity time  # 相对老化
+[Huawei-GigabitEthernet0/0/1]port-security aging-time 5 type inactivity 
+    设置老化时间为5分钟，老化模式为相对老化
+</code></pre>
+<p>老化时间有两个模式：</p>
+<ul>
+<li>绝对老化：从第一次学习到一个MAC开始计时，到指定老化时间一定老化，中途再次学习到该MAC不会刷新老化时间</li>
+<li>相对老化：从第一次学习到一个MAC开始计时，中途再次学习到该MAC，老化时间重新计时</li>
+</ul>
+<h4 id="MAC地址静态绑定"><a href="#MAC地址静态绑定" class="headerlink" title="MAC地址静态绑定"></a>MAC地址静态绑定</h4><p>静态绑定的MAC表项不会随着交换机重启而丢失</p>
+<p>绑定方式有两种：</p>
+<pre><code># 绑定单个MAC地址
+[Huawei-GigabitEthernet0/0/1]port-security mac-address sticky  HH-HH-HH
+# 绑定全部MAC地址（MAC地址粘滞绑定）
+[Huawei-GigabitEthernet0/0/1]port-security mac-address sticky
+</code></pre>
+<ul>
+<li>单一绑定：手动MAC绑定到接口</li>
+<li>粘滞绑定：交换机自动将此端口学习到的MAC全部静态绑定，直到MAC地址数达到设定的最大值</li>
+</ul>
+<h4 id="端口惩罚动作"><a href="#端口惩罚动作" class="headerlink" title="端口惩罚动作"></a>端口惩罚动作</h4><p>如果端口MAC地址数达到设定的最大值，那么之后再有其他MAC经过就会执行惩罚动作，有三个动作</p>
+<pre><code>[Huawei-GigabitEthernet0/0/1]port-security protect-action ?
+  protect   Discard packets  # 丢弃数据
+  restrict  Discard packets and warning  # 丢弃数据并发送告警
+  shutdown  Shutdown  # shutdown端口
+</code></pre>
+<p>默认动作是<code>restrict</code></p>
+<h2 id="RSTP-amp-amp-MSTP"><a href="#RSTP-amp-amp-MSTP" class="headerlink" title="RSTP&amp;&amp;MSTP"></a>RSTP&amp;&amp;MSTP</h2><h3 id="快速生成树协议（RSTP）"><a href="#快速生成树协议（RSTP）" class="headerlink" title="快速生成树协议（RSTP）"></a>快速生成树协议（RSTP）</h3><p>由于传统的STP协议存在收敛速度慢的问题，所以推出了RSTP（快速生成树协议）</p>
+<p>RSTP的配置与传统STP完全一致，但是机制不同</p>
+<blockquote>
+<p>传统的STP协议为了避免在拓扑还没有稳定下来就开启数据的转发导致环路问题</p>
+<p>规定了两个15s的等待时间</p>
+<p>Listening -&gt; Learning :等待整个拓扑STP角色选举完毕</p>
+<p>Learning -&gt; Forwarding：等待整个拓扑mac地址表学习完毕</p>
+<p>如今的网络设备处理能力得到了极大的增强，自然不需要等待15秒之久，stp淘汰</p>
+</blockquote>
+<p>RSTP是基于传统STP的改进，相比于STP关注端口状态，RSTP更关注端口的角色</p>
+<h4 id="RSTP改进点"><a href="#RSTP改进点" class="headerlink" title="RSTP改进点"></a>RSTP改进点</h4><blockquote>
+<p>端口角色</p>
+</blockquote>
+<p>RSTP将阻塞端口<code>AP</code>分为了两种端口角色</p>
+<p><strong>注：任何生成树，都是先选端口角色，然后再到达对应的转发状态</strong></p>
+<ul>
+<li><p>代替端口（Alternate）：代替端口作为设备根端口<code>RP</code>的的备份，当设备上的根端口连接链路断开时代替端口立即成为根端口，无需进行状态跃迁</p>
+<ul>
+<li>代替端口提供从设备到根的备用路径</li>
+</ul>
+<p><img src="image-20221104201116236.png" alt="image-20221104201116236"></p>
+</li>
+<li><p>备份端口（Backup）：备份端口是设备指定端口<code>DP</code>的备份，当设备指定端口出现故障时，备份端口立即成为指定端口而无需进行状态跃迁</p>
+<ul>
+<li><p>备份是自己连自己造成的阻塞，一般不会出现。</p>
+<p>常见的情况有：两条线连接同一个集线器成环；一条线连接设备的两个端口成环</p>
+</li>
+</ul>
+<p><img src="image-20221104201631727.png" alt="image-20221104201631727"></p>
+</li>
+</ul>
+<blockquote>
+<p>端口状态</p>
+</blockquote>
+<p>RSTP更加关注端口的角色，所以将STP五种状态降为三种</p>
+<p><img src="image-20221104201951269.png" alt="image-20221104201951269"></p>
+<ul>
+<li>Discarding：不转发流量也不学习MAC地址的端口</li>
+<li>Learning：不转发用户流量但是正在学习MAC地址的端口（这是一个过程）</li>
+<li>Forwarding：即转发用户流量又学习MAC地址的端口</li>
+</ul>
+<p>由于P/A机制存在，RSTP的状态跃迁是秒级收敛的，如果P/A机制失效，则仍然进行传统STP的30秒收敛</p>
+<blockquote>
+<p>BPDU报文</p>
+</blockquote>
+<p><img src="image-20221104202451853.png" alt="image-20221104202451853"></p>
+<p>RSTP对BPDU报文的利用更加高效</p>
+<ul>
+<li>改进后的配置BPDU称为RST - BPDU</li>
+<li>RST - BPDU由于改变了Type字段，传统的STP不兼容RSTP</li>
+</ul>
+<p>拓扑中不再只有根桥才会发送配置BPDU，拓扑稳定后，无论根桥设备是否传来BPDU，非根桥都会按照Hello Time的时间间隔(2s)发送配置BPDU</p>
+<p>如果一个端口在三个Hello Time周期（Hello time * 3 = 6s）内没收到配置BPDU，就认为该设备于邻居断开，于是发送自己的BPDU</p>
+<h4 id="P-A机制"><a href="#P-A机制" class="headerlink" title="P/A机制"></a>P/A机制</h4><p>P/A机制是实现RSTP快速收敛而无需等待的关键，P/A带来了来回确认机制和同步变量机制，不再需要等待计时器超时来保障无环路。</p>
+<p>P/A机制前提：</p>
+<ul>
+<li>DP端口处于Discarding状态</li>
+<li>该DP端口所在链路是p2p全双工链路</li>
+</ul>
+<p>P/A机制选举过程</p>
+<ul>
+<li><p>初始状态，链路两端均认为自己是DP，并且端口处于<code>Discarding</code>状态</p>
+</li>
+<li><p>各设备随机发送BPDU PA置位报文(P、A字段均为1)，选举链路两端的DP和RP/AP</p>
+<p>（收到的BPDU没有其他端口已经收到的好，则认为是AP；比其他端口收到的好，则认为是RP）</p>
+</li>
+<li><p>选举为RP/AP的设备会将自身所有的非边缘端口进行sync同步置位，将这些端口的状态设置为discarding</p>
+<ul>
+<li>sync机制：同步变量机制，也就是将非边缘端口堵塞。</li>
+</ul>
+</li>
+<li><p>接着P/A机制向下游逐跳重复此过程，终止于存在DP和AP的链路上。</p>
+<ul>
+<li>当设备P/A后发现本端接口为RP，但是此设备已经有接口变更为RP，那么此接口转为AP，环路中P/A机制结束</li>
+</ul>
+</li>
+</ul>
+<p>P/A机制实现了STP秒级收敛</p>
+<h4 id="边缘端口"><a href="#边缘端口" class="headerlink" title="边缘端口"></a>边缘端口</h4><p>由于STP协议的特性，一旦网络中topo发生变化，STP就需要重新进行角色选举</p>
+<p>所以当网络主接入一台不参与STP的设备时(终端、路由器等)，该设备连接的端口同样需要角色选举</p>
+<blockquote>
+<p>由于P/A机制，运行STP的端口发送BPDU给不运行STP的设备，并等待回复</p>
+<p>但不运行STP的设备明显不能回复，所以交换机端口等待三个Hello Time周期后将自己变为DP</p>
+</blockquote>
+<p>边缘端口不参与STP计算，直接成为<code>DP</code></p>
+<pre><code>[Huawei-GigabitEthernet0/0/1]stp edged-port enable  # 设备为边缘端口 
+</code></pre>
+<h4 id="拓扑变更机制"><a href="#拓扑变更机制" class="headerlink" title="拓扑变更机制"></a>拓扑变更机制</h4><p>一旦有非边缘端口迁移到<code>Forwarding</code>状态，RSTP视为拓扑变更</p>
+<p>将进行以下操作</p>
+<ul>
+<li>为本设备所有的非边缘端口启动一个<code>TC While Time</code>，该计时器是<code>Hello Time</code>的两倍（4s）<ul>
+<li>在一个<code>TC While Time</code>内，清空端口上学习的MAC地址</li>
+<li>在一个<code>TC While Time</code>内，由非边缘端口向外发送RST BPDU，其中TC置位</li>
+</ul>
+</li>
+<li>其他设备收到TC置位的RST BPDU后，清空出接收端口外所有端口的MAC地址，自己同样启动一个<code>TC While Time</code>,重复上述操作</li>
+</ul>
+<h3 id="保护功能"><a href="#保护功能" class="headerlink" title="保护功能"></a>保护功能</h3><h4 id="BPDU保护"><a href="#BPDU保护" class="headerlink" title="BPDU保护"></a>BPDU保护</h4><p>设置为边缘端口的接口，一旦收到BDPU，就会自动将端口更改为非边缘端口并重新进行生成树的计算</p>
+<p>所以如果有人伪造RST BPDU攻击设备，就会引发网路震荡</p>
+<p>启动BPDU保护后，如果边缘端口收到BPDU会立即置为<code>error down</code>状态并通知网管系统，但不会更改为非边缘端口</p>
+<pre><code>[Huawei]stp bpdu-protection 
+</code></pre>
+<h4 id="根保护"><a href="#根保护" class="headerlink" title="根保护"></a>根保护</h4><p>根保护确保根桥不会因为一些网络问题而改变，比如收到恶意攻击者伪造的更优BPDU</p>
+<p>根保护功能只有指定端口可以开启</p>
+<p>开启根保护功能的端口收到更优BPDU时进入<code>Discarding</code>状态并不再转发报文，如果在两倍<code>Forward Delay</code>时间里一直没有收到优先级更高的配置BPDU，指定端口恢复正常转发状态</p>
+<pre><code>[Huawei-GigabitEthernet0/0/1]stp root-protection 
+</code></pre>
+<p>配置根保护的端口不能配置环路保护</p>
+<h4 id="环路保护"><a href="#环路保护" class="headerlink" title="环路保护"></a>环路保护</h4><p>如果链路上单向链路故障，替代端口认为链路故障变为根端口，此时网络中没有了阻塞端口，网络发生环路</p>
+<p>开启环路保护功能后，如果根端口或指定端口长时间收不到BPDU时，向网管发送信息并进入<code>Discarding</code>状态，角色切换为指定端口，直到故障恢复</p>
+<pre><code>[Huawei-GigabitEthernet0/0/1]stp loop-protection 
+</code></pre>
+<h4 id="防止TC-BPDU置位攻击"><a href="#防止TC-BPDU置位攻击" class="headerlink" title="防止TC-BPDU置位攻击"></a>防止TC-BPDU置位攻击</h4><p>根据RSTP特性，当拓扑发生改变时，设备发送TC置位的BPDU使链路重新学习</p>
+<p>但如果有攻击者伪造TC置位报文，就会导致设备频繁删除MAC地址表</p>
+<p>启用防TC置位攻击功能后，可以配置单位时间内设备处理TC置位报文的次数</p>
+<p><img src="image-20221104220500756.png" alt="image-20221104220500756"></p>
+<h3 id="多生成树协议（MSTP）"><a href="#多生成树协议（MSTP）" class="headerlink" title="多生成树协议（MSTP）"></a>多生成树协议（MSTP）</h3><p>STP的原理是选一个最差的端口将其阻塞。这意味这网络中有链路被浪费</p>
+<p>为了解决浪费问题，提出了MSTP</p>
+<p>方法就是再一个环路中运行多个生成树，每个生成树阻塞不同的链路</p>
+<blockquote>
+<p>MSTP    将一个或者多个vlan映射到一个<code>instance</code>实例，再基于此实例计算生成树，同一实例的vlan使用同一生成树</p>
+</blockquote>
+<p>配置</p>
+<pre><code>stp region-configuration  # 进入MSTP域
+ region-name STP  # 设置域名
+ revision-level 12  # 设置域等级
+ instance 1 vlan 10 30  # 将vlan 10 20 划入实例1
+ instance 2 vlan 20  # 将vlan 20 划入实例2
+ active region-configuration  # 提交此配置
+ 
+stp instance 1 root primary  # 设置此交换机为实例1的主根
+stp instance 2 root secondary  # 设置此交换机为实例2的备用根
+</code></pre>
+<ul>
+<li>MSTP中同属一个域的实例在同一个MSTP网络中，对单域MSTP网络来说，所有MSTP交换机必须在同一个域中</li>
+<li>域名和域等级唯一标识一个MSTP域</li>
+<li>默认的，同一型号的设备拥有相同的域名和域等级</li>
+</ul>
+<p>由于同一型号的设备默认拥有相同的域名和域等级，所以<code>region-name</code>和<code>region-level</code>两个参数一般可以不用配置</p>
+<p>但为了便于后期维护，最好配置一个值</p>
+<p>当域设置错误时，接口状态为<code>MAST</code></p>
+<h2 id="堆叠和集群"><a href="#堆叠和集群" class="headerlink" title="堆叠和集群"></a>堆叠和集群</h2><p>堆叠（iStack）【华三中称为（IRF）】和集群（CSS），同MSTP、VRRP、链路聚合等技术一样，都是用于提高网络可靠性的技术</p>
+<p>做法是将复数设备堆叠为一台逻辑设备使用，堆叠后在堆叠系统中任意设备都有系统内所有设备的接口以及资源</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>盒式交换机的堆叠称为堆叠，最多可以支持8台设备</p>
+<p>框式交换机的堆叠称为集群，有且只能有两个框式交换机集群</p>
+<p>堆叠和集群除了应用的对象和配置命令有所区别，原理都一样</p>
+<h4 id="堆叠系统的角色"><a href="#堆叠系统的角色" class="headerlink" title="堆叠系统的角色"></a>堆叠系统的角色</h4><p>堆叠系统中一共有三个角色</p>
+<p>1、主交换机（Master）：管理整个堆叠系统的交换机，堆叠中只能有一台主交换机</p>
+<p>2、备交换机（Standby）：主交换机的备用，当主交换机故障时变为主交换机，堆叠中只有一台备交换机</p>
+<p>3、从交换机（Slave）：除主备交换机外的所有交换机都是从交换机</p>
+<p>​                                        备交换机故障时由主交换机在从交换机中重新选举备交换机</p>
+<h4 id="堆叠ID"><a href="#堆叠ID" class="headerlink" title="堆叠ID"></a>堆叠ID</h4><p>堆叠ID（Slot ID）是堆叠系统中成员交换机的槽位号，堆叠ID唯一确定堆叠系统中的一台成员交换机</p>
+<ul>
+<li>在<code>G1/0/2</code>这个端口编号中，1就是交换机的槽位号，2是端口编号</li>
+</ul>
+<h4 id="堆叠优先级"><a href="#堆叠优先级" class="headerlink" title="堆叠优先级"></a>堆叠优先级</h4><p>堆叠优先级用于选举堆叠系统中成员交换机的角色</p>
+<p>堆叠选举原则：</p>
+<ol>
+<li><p>堆叠系统中先启动的设备为主设备</p>
+</li>
+<li><p>如果系统中设备已经启动，则优先级值大的为主设备</p>
+</li>
+<li><p>如果优先级值相同，则MAC地址小的为主设备</p>
+</li>
+</ol>
+<p><img src="image-20221204163150670.png" alt="image-20221204163150670"></p>
+<p><strong>【初次启动堆叠系统最好先做好各成员交换机堆叠配置，然后连接堆叠线缆】</strong></p>
+<p>如果先连接线缆再配置，按原则1，先配好堆叠并且启动的会称为主交换机。优先级无效</p>
+<h3 id="堆叠系统建立"><a href="#堆叠系统建立" class="headerlink" title="堆叠系统建立"></a>堆叠系统建立</h3><ol>
+<li>物理连接：根据网络需求，选择适当的连接方式和连接拓扑，组建堆叠网络。</li>
+<li>主交换机选举：成员交换机之间相互发送堆叠竞争报文，并根据选举原则，选出堆叠系统主交换机。</li>
+<li>拓扑收集和备交换机选举：主交换机收集所有成员交换机的拓扑信息，向所有成员交换机分配堆叠ID，之后选出堆叠系统备交换机。</li>
+<li>稳定运行：主交换机将整个堆叠系统的拓扑信息同步给所有成员交换机，成员交换机同步主交换机的系统软件和配置文件，之后进入稳定运行状态。</li>
+</ol>
+<p>成员交换机同步主交换机系统时会重启</p>
+<p>设备堆叠ID缺省为0。堆叠时由堆叠主对设备的堆叠ID进行管理，当堆叠系统有新成员加入时，如果新成员与已有成员堆叠ID冲突，则堆叠主从0～最大的堆叠ID进行遍历，找到第一个空闲的ID分配给该新成员。</p>
+<ul>
+<li>因此如果不手动指定堆叠ID，由于启动顺序等原因，最终堆叠系统中各成员的堆叠ID是随机的</li>
+</ul>
+<p>堆叠ID和优先级都应在启动堆叠系统前配置好，主交换机自动分配对运维不友好</p>
+<h4 id="物理连接的方式"><a href="#物理连接的方式" class="headerlink" title="物理连接的方式"></a>物理连接的方式</h4><p>堆叠系统可以通过两种接口连接：</p>
+<ol>
+<li><p>专用的堆叠口以及堆叠线缆连接</p>
+<p>支持堆叠的设备一般会有两个堆叠口和配套的堆叠线缆，专用的堆叠口也称堆叠卡</p>
+</li>
+<li><p>逻辑堆叠口绑定业务口（网线接口）连接</p>
+<p>如果没有堆叠线缆，可以手动创建逻辑堆叠口，然后绑定业务口进行堆叠</p>
+<ul>
+<li>有且只能创建两个逻辑堆叠口</li>
+<li>一个逻辑堆叠口可以绑定多个业务接口</li>
+</ul>
+</li>
+</ol>
+<p>无论是堆叠卡还是逻辑接口，一个设备有且只能有两个堆叠接口</p>
+<p>连接时，堆叠设备之间要交叉连接，即设备A堆叠1口连接设备B堆叠2口</p>
+<h4 id="物理连接拓扑结构"><a href="#物理连接拓扑结构" class="headerlink" title="物理连接拓扑结构"></a>物理连接拓扑结构</h4><table>
+<thead>
+<tr>
+<th align="center">连接拓扑</th>
+<th align="center">优点</th>
+<th align="center">缺点</th>
+<th align="center">适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">链形连接</td>
+<td align="center">首尾不需要有物理连接，适合长距离堆叠。</td>
+<td align="center">可靠性低：其中一条堆叠链路出现故障，就会造成堆叠分裂。堆叠链路带宽利用率低：整个堆叠系统只有一条路径。</td>
+<td align="center">堆叠成员交换机距离较远时，组建环形连接比较困难，可以使用链形连接。</td>
+</tr>
+<tr>
+<td align="center">环形连接</td>
+<td align="center">可靠性高：其中一条堆叠链路出现故障，环形拓扑变成链形拓扑，不影响堆叠系统正常工作。堆叠链路带宽利用率高：数据能够按照最短路径转发。</td>
+<td align="center">首尾需要有物理连接，不适合长距离堆叠。</td>
+<td align="center">堆叠成员交换机距离较近时，从可靠性和堆叠链路利用率上考虑，建议使用环形连接。</td>
+</tr>
+</tbody></table>
+<h3 id="堆叠系统的管理"><a href="#堆叠系统的管理" class="headerlink" title="堆叠系统的管理"></a>堆叠系统的管理</h3><p>由于堆叠的本质就是将多个设备在逻辑上作为一台设备使用，并且使用成员交换机的所有资源</p>
+<p>不管通过哪台成员交换机登录到堆叠系统，实际登录的都是主交换机。以此管理整个堆叠系统</p>
+<h3 id="跨设备的链路聚合与流量优先转发"><a href="#跨设备的链路聚合与流量优先转发" class="headerlink" title="跨设备的链路聚合与流量优先转发"></a>跨设备的链路聚合与流量优先转发</h3><p>由于堆叠系统中的设备在逻辑上一台设备，自然可以通过<code>Eth-Trunk</code>口和其他设备之间链路聚合</p>
+<p><img src="image-20221204164105681.png" alt="image-20221204164105681"></p>
+<p>由于链路聚合有负载分担的特性，有时流量会形成次优路径通过堆叠口传输数据，所以需要启动流量优先转发</p>
+<p>即从本设备进入的流量，优先从本设备相应的接口转发出去。如果本设备无出接口或者出接口全部故障，才会从其它成员交换机的接口转发出去。</p>
+<p><img src="fig_dc_cfg_istack_101002.png" alt="img"></p>
+<p>具体怎么配置，华为没说</p>
+<h3 id="堆叠成员的加入和退出"><a href="#堆叠成员的加入和退出" class="headerlink" title="堆叠成员的加入和退出"></a>堆叠成员的加入和退出</h3><p>堆叠成员加入分为新成员交换机带电加入和不带电加入</p>
+<p>新成员交换机加入堆叠系统时，建议使用不带电加入</p>
+<h4 id="不带电加入"><a href="#不带电加入" class="headerlink" title="不带电加入"></a>不带电加入</h4><ol>
+<li>新加入的交换机连线上电启动后，由于选举原则1(启动顺序)，会选举为从交换机，堆叠系统中原有主备从角色不变。</li>
+<li>主交换机更新堆叠拓扑信息，并同步到其他交换机，然后向新交换机分配堆叠ID（如果没有手动配置堆叠ID）</li>
+<li>新加入的交换机同步堆叠系统，重启，进入稳定运行状态</li>
+</ol>
+<h4 id="带电加入"><a href="#带电加入" class="headerlink" title="带电加入"></a>带电加入</h4><p>带电加入也称为堆叠合并，指两个堆叠系统合并为一个堆叠系统</p>
+<ol>
+<li>两个堆叠系统的主交换机竞争，选举出一个更优的主交换机。</li>
+<li>竞争失败的堆叠系统所有成员交换机重启，加载新的系统</li>
+<li>新主交换机更新拓扑，同步到所有成员交换机</li>
+</ol>
+<p>通常不建议带点加入，因为可能导致正在运行业务的设备重启，导致业务中断</p>
+<h4 id="堆叠成员退出"><a href="#堆叠成员退出" class="headerlink" title="堆叠成员退出"></a>堆叠成员退出</h4><p>根据交换机角色不同，对堆叠系统的影响不同</p>
+<p>1、主交换机退出</p>
+<ul>
+<li>备份交换机升为主交换机，重新计算拓扑同步到其他交换机</li>
+<li>指定新的备交换机</li>
+</ul>
+<p>2、备交换机退出</p>
+<ul>
+<li>主交换机重新计算拓扑同步到其他交换机</li>
+<li>主交换机指定新的备交换机</li>
+</ul>
+<p>3、从交换机退出</p>
+<ul>
+<li>主交换机重新计算拓扑同步到其他交换机</li>
+</ul>
+<h3 id="堆叠的分裂和多主检测"><a href="#堆叠的分裂和多主检测" class="headerlink" title="堆叠的分裂和多主检测"></a>堆叠的分裂和多主检测</h3><h4 id="堆叠分裂"><a href="#堆叠分裂" class="headerlink" title="堆叠分裂"></a>堆叠分裂</h4><p>不正常的成员交换机退出，称为堆叠分裂，指稳定运行的堆叠系统中带电移出部分成员交换机，或者堆叠线缆多点故障导致一个堆叠系统变成多个堆叠系统。</p>
+<p>根据原堆叠系统主备交换机分裂后所处位置的不同，堆叠分裂可分为以下两类：</p>
+<ol>
+<li>原主备交换机被分裂到同一个堆叠系统中<ul>
+<li>将移出的成员交换机的拓扑信息删除，并将新的拓扑信息同步给其他成员交换机</li>
+<li>出的成员交换机检测到堆叠协议报文超时，将自行复位，重新进行选举</li>
+</ul>
+</li>
+<li>原主备交换机被分裂到不同的堆叠系统中<ul>
+<li>原主交换机所在堆叠系统重新指定备交换机，重新计算拓扑信息并同步给其他成员交换机</li>
+<li>原备交换机所在堆叠系统将发生备升主，原备交换机升级为主交换机，重新计算堆叠拓扑并同步到其他成员交换机，并指定新的备交换机。</li>
+</ul>
+</li>
+</ol>
+<p>由于堆叠系统中所有成员交换机都使用同一个IP地址和MAC地址（堆叠系统MAC），一个堆叠分裂后，可能产生多个具有相同IP地址和MAC地址的堆叠系统。从而导致网络故障。</p>
+<h4 id="MAD多主检测"><a href="#MAD多主检测" class="headerlink" title="MAD多主检测"></a>MAD多主检测</h4><p>MAD(多主检测) 的目的是为了在发生堆叠分裂时最大程度的减少损失</p>
+<p>链路故障导致堆叠系统分裂后，MAD可以实现堆叠分裂的检测、冲突处理和故障恢复，降低堆叠分裂对业务的影响。</p>
+<p>MAD有两种检测方式</p>
+<p><strong>1、直连检测</strong></p>
+<p>堆叠系统分裂后，分裂后的两台交换机以1s为周期通过检测链路发送MAD报文进行多主冲突处理</p>
+<ul>
+<li><p>通过中间设备直连：</p>
+<p><img src="image-20221204193336309.png" alt="image-20221204193336309"></p>
+<p>通过一台交换机作为中转连接所有成员交换机，优点是节省线路和接口，缺点是多费一台交换机</p>
+</li>
+<li><p>Full-mesh(全互联)方式直连：</p>
+<p><img src="image-20221204193832818.png" alt="image-20221204193832818"></p>
+<p>直接通过业务口使成员交换机全互联，优点是省钱，缺点是费接口</p>
+</li>
+</ul>
+<p>直连检测的两种方式没有直接区别，设备少或设备之间距离近优先考虑全互联，设备多或设备之间距离远有点考虑中间设备互联</p>
+<p><strong>2、代理检测</strong></p>
+<p>代理检测方式是在堆叠系统Eth-Trunk上启用代理检测，在代理设备上启用MAD检测功能。此种检测方式要求堆叠系统中的所有成员交换机都与代理设备连接，并将这些链路加入同一个Eth-Trunk内。</p>
+<p>与直连检测方式相比，代理检测方式无需占用额外的接口，Eth-Trunk接口可同时运行MAD代理检测和其他业务【就是说两个堆叠系统之间可以相互代理】。</p>
+<p>在代理检测方式中，堆叠系统正常运行时，堆叠成员交换机以30s为周期通过检测链路发送MAD报文。</p>
+<p>堆叠成员交换机对在正常工作状态下收到的MAD报文不做任何处理；堆叠分裂后，分裂后的两台交换机以1s为周期通过检测链路发送MAD报文进行多主冲突处理。</p>
+<ul>
+<li><p>单机代理</p>
+<p><img src="image-20221204194342072.png" alt="image-20221204194342072"></p>
+<p>使用一台设备通过Eth-Trunk口进行代理检测</p>
+</li>
+<li><p>两套堆叠系统互为代理</p>
+<p><img src="image-20221204194431471.png" alt="image-20221204194431471"></p>
+</li>
+</ul>
+<h4 id="MAD多主检测原理"><a href="#MAD多主检测原理" class="headerlink" title="MAD多主检测原理"></a>MAD多主检测原理</h4><p>堆叠分裂后，MAD冲突处理机制会使分裂后的堆叠系统处于Detect状态或Recovery状态。</p>
+<p>Detect状态表示堆叠正常工作状态，Recovery状态表示堆叠禁用状态。</p>
+<p>MAD冲突处理机制如下：</p>
+<ol>
+<li><p>MAD分裂检测机制会检测到网络中存在多个处于Detect状态的堆叠系统，这些堆叠系统之间相互竞争</p>
+</li>
+<li><p>竞争成功的堆叠系统保持Detect状态，竞争失败的堆叠系统会转入Recovery状态</p>
+</li>
+<li><p>在Recovery状态堆叠系统的所有成员交换机上，关闭除保留端口以外的其它所有物理端口，以保证该堆叠系统不再转发业务报文。</p>
+</li>
+</ol>
+<h3 id="堆叠升级"><a href="#堆叠升级" class="headerlink" title="堆叠升级"></a>堆叠升级</h3><p>堆叠升级主要就是平滑升级值得一提，其他的就是该咋升级就咋升级</p>
+<p><img src="image-20221204195631445.png" alt="image-20221204195631445"></p>
+<p>将成员交换机分为两个区域，从交换机在backup区，主交换机在active区</p>
+<p>先升级backup，让active转发业务流量，然后升级active，让backup转发业务流量</p>
+<p>平滑升级分三个阶段：</p>
+<ol>
+<li>主交换机下发命令触发整个堆叠系统进入平滑升级状态，backup区各个成员交换机以新的系统软件进行启动。</li>
+<li>backup区以新版本建立一个独立的堆叠系统，并通知active区进入升级阶段，主控权由active区的主交换机转移到backup区的主交换机，backup区负责流量传输，active区进入升级过程。</li>
+<li>active区以新系统软件重新启动并加入backup区的堆叠系统，backup区的主交换机根据最终堆叠建立的结果发布升级的结果。</li>
+</ol>
+<h3 id="堆叠的配置"><a href="#堆叠的配置" class="headerlink" title="堆叠的配置"></a>堆叠的配置</h3><p>1、修改设备的堆叠id（华三默认为1）</p>
+<p>2、配置设备的堆叠优先级，优先级（值）越大越优先</p>
+<p>3、配置逻辑堆叠接口（有专门的堆叠口则不用配置，堆叠口必须是1口连接2口【交叉相连】）</p>
+<p>​    【配置前需要先关闭对应的物理接口】</p>
+<p>4、保存配置、重启设备</p>
+<p>5、连接堆叠线缆【配置堆叠时最好先配置完毕再连线、否则堆叠主设备可能选举不正确(堆叠选举原则)】</p>
+<p>华三交换机配置：</p>
+<pre class="line-numbers language-hcl"><code class="language-hcl"># 关闭要绑定到逻辑堆叠口的物理接口
+int te1/0/49
+sh 
+int te1/0/50
+sh
+qui
+
+irf member 1 renumber 2  # 设置堆叠ID
+irf member 2 priority 1  # 设置堆叠优先级（因为设置的ID还没启动，所以还是修改1的优先级）
+
+irf-port 1/1  # 创建堆叠接口1/1,第一个1是堆叠ID
+ # 绑定物理接口
+ port group interface Ten-GigabitEthernet1/0/49  
+irf-port 1/2  # 创建堆叠接口1/2
+ port group interface Ten-GigabitEthernet1/0/50
+
+# 开启设置好的物理接口
+int te1/0/49
+un sh
+int te1/0/50
+un sh
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>华为交换机配置</p>
+<pre><code>由于华为ensp模拟器无法做堆叠，只能先把命令贴上来
+大体上还是和华三一致，只不过一个叫做irf,一个叫做stack
+stack slot 0 renumber 1  # 设置堆叠ID，缺省情况下，华为设备的堆叠ID为0
+stack slot 0 priority 2  # 设置堆叠优先级
+
+interface stack-port 0/1  # 创建堆叠接口
+    port interface g0/0/24 enable  # 绑定物理接口
+    
+其他命令
+slave switchover  # 执行堆叠主备倒换
+stack timer mac-address switch-delay 60  # 堆叠系统MAC切换时间
+undostack timer mac-address switch-delay  # 立即切换MAC
+reset stack configuration  # 清楚堆叠所有配置
+</code></pre>
+<h4 id="配置MAD多主检测"><a href="#配置MAD多主检测" class="headerlink" title="配置MAD多主检测"></a>配置MAD多主检测</h4><p>直连检测与单设备代理检测</p>
+<p><img src="image-20221205093538470.png" alt="image-20221205093538470"></p>
+<p>堆叠系统代理检测</p>
+<p><img src="image-20221205093549175.png" alt="image-20221205093549175"></p>
+<h3 id="集群的配置"><a href="#集群的配置" class="headerlink" title="集群的配置"></a>集群的配置</h3><p>集群是框式交换机的堆叠，所以其思想和堆叠一致，不过是盒式交换机换成了框式交换机</p>
+<p>角色从<code>主备从</code>变为一主一备</p>
+<pre><code>set css [id] [new-id]  # 配置集群ID,缺省情况下，交换机的集群ID都为1
+set css priority 1  # 配置集群优先级,缺省集群优先级为1
+
+interface css-port 1  # 创建集群逻辑接口
+    port interface g0/0/1 enable  # 绑定物理接口
+    
+css enable  # 交换机使能集群功能，缺省情况下，交换机的集群功能未使能    
+set css mode &#123;lpu | css-card&#125;  # 设备的集群连接方式,缺省情况下设备的集群连接方式与设备型号相关
+</code></pre>
+<h2 id="防火墙基础"><a href="#防火墙基础" class="headerlink" title="防火墙基础"></a>防火墙基础</h2><h3 id="安全域与安全策略"><a href="#安全域与安全策略" class="headerlink" title="安全域与安全策略"></a>安全域与安全策略</h3><h3 id="防火墙NAT与NAT-SERVER配置"><a href="#防火墙NAT与NAT-SERVER配置" class="headerlink" title="防火墙NAT与NAT SERVER配置"></a>防火墙NAT与NAT SERVER配置</h3><h2 id="防火墙高可靠性"><a href="#防火墙高可靠性" class="headerlink" title="防火墙高可靠性"></a>防火墙高可靠性</h2><h3 id="链路状态检测"><a href="#链路状态检测" class="headerlink" title="链路状态检测"></a>链路状态检测</h3><h4 id="IP-Link"><a href="#IP-Link" class="headerlink" title="IP-Link"></a>IP-Link</h4><h4 id="BFD"><a href="#BFD" class="headerlink" title="BFD"></a>BFD</h4><h3 id="双机热备"><a href="#双机热备" class="headerlink" title="双机热备"></a>双机热备</h3><h2 id="BGP协议"><a href="#BGP协议" class="headerlink" title="BGP协议"></a>BGP协议</h2><h2 id="IPSec-VPN-隧道加密技术"><a href="#IPSec-VPN-隧道加密技术" class="headerlink" title="IPSec VPN 隧道加密技术"></a>IPSec VPN 隧道加密技术</h2><h2 id="MPLS-多协议标签交换"><a href="#MPLS-多协议标签交换" class="headerlink" title="MPLS 多协议标签交换"></a>MPLS 多协议标签交换</h2><h2 id="OSPF-多区域"><a href="#OSPF-多区域" class="headerlink" title="OSPF 多区域"></a>OSPF 多区域</h2><h2 id="IS-IS"><a href="#IS-IS" class="headerlink" title="IS-IS"></a>IS-IS</h2>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Atmujie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://atmujie.github.io/2022/10/10/datacom-HCIP%E9%98%B6%E6%AE%B5/">http://atmujie.github.io/2022/10/10/datacom-HCIP%E9%98%B6%E6%AE%B5/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Atmujie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                    <span class="chip bg-color">网络工程</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+        <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'http://atmujie.github.io/2022/10/10/datacom-HCIP%E9%98%B6%E6%AE%B5/';
+        this.page.identifier = '/2022/10/10/datacom-HCIP%E9%98%B6%E6%AE%B5/';
+        this.page.title = 'datacom-HCIP阶段';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'GHiPEgESACHszUJMqTqLWQtF-gzGzoHsz',
+        appKey: 'Lm6vLWBnRM3KIlhuo4tqDNDq',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/10/10/datacom-HCIP%E9%98%B6%E6%AE%B5/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="datacom-HCIP阶段">
+                        
+                        <span class="card-title">datacom-HCIP阶段</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">网络工程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/08/07/Mybatis%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Mybatis框架笔记">
+                        
+                        <span class="card-title">Mybatis框架笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Atmujie
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+<!-- 代码块功能依赖 -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script> -->
+
+<!-- 代码语言 -->
+<!--  -->
+<!-- <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script> -->
+<!--  -->
+
+<!-- 代码块复制 -->
+<!-- 
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+ -->
+
+<!-- 代码块收缩 -->
+<!--  -->
+
+<!-- 代码块折行 -->
+<!-- 
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+ -->
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Atmujie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn/" target="_blank">陇ICP备2022000869号</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/atmujie" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
