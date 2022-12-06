@@ -364,7 +364,7 @@
                 <h2 id="Datacom-HCIP笔记"><a href="#Datacom-HCIP笔记" class="headerlink" title="Datacom HCIP笔记"></a>Datacom HCIP笔记</h2><h2 id="交换机的高级特性"><a href="#交换机的高级特性" class="headerlink" title="交换机的高级特性"></a>交换机的高级特性</h2><h3 id="Mux-vlan技术"><a href="#Mux-vlan技术" class="headerlink" title="Mux-vlan技术"></a>Mux-vlan技术</h3><p>当一个企业有如下需求：</p>
 <p>1、一个部门一个vlan，访客单独一个vlan</p>
 <p>2、所有部门和访客都可以访问共享资源</p>
-<p>3、部门之前相互隔离，访客与出共享资源外的所有区域隔离</p>
+<p>3、部门之前相互隔离，访客与除共享资源外的所有区域隔离</p>
 <p>此时就需要使用mux-vlan技术，Mux-vlan技术是vlan技术的高级用法</p>
 <blockquote>
 <p>思科中管mux-vlan叫做<code>private vlan</code>【私有vlan】</p>
@@ -403,7 +403,9 @@
 <p>4、在所有相关接口上开启Mux-vlan功能（不开则配置无效）</p>
 <pre><code>interface GigabitEthernet0/0/1
      port mux-vlan enable  # 开启Mux-vlan
+truck口不需要也不被允许开启MUX-VLAN
 </code></pre>
+<p>如果一个MUX-VLAN系统中有多台交换机，则每台交换机都需要进行MUX-VLAN的配置</p>
 <h4 id="Mux-vlan其他相关命令"><a href="#Mux-vlan其他相关命令" class="headerlink" title="Mux-vlan其他相关命令"></a>Mux-vlan其他相关命令</h4><p>1、查看Mux-vlan转发表</p>
 <pre><code>display mux-vlan 
 </code></pre>
@@ -411,39 +413,21 @@
 <p>如果接口启用了mux-vlan功能，交换机使用mux-vlan作为控制表项</p>
 <p>如果有一个相关接口没有启用mux-vlan功能，交换机使用<code>port vlan</code>作为控制表项</p>
 <p><img src="image-20221014214139531.png" alt="image-20221014214139531"></p>
-<h3 id="端口隔离"><a href="#端口隔离" class="headerlink" title="端口隔离"></a>端口隔离</h3><p>实现流过滤，在三层可以通过acl，但二层并不方便</p>
-<p>端口隔离技术可以实现二层的简单过滤</p>
-<p><img src="image-20221014220530868.png" alt="image-20221014220530868"></p>
-<h4 id="端口组的应用与配置"><a href="#端口组的应用与配置" class="headerlink" title="端口组的应用与配置"></a>端口组的应用与配置</h4><p>在配置交换机端口时，往往有很多端口的配置是重复的，这时一个个敲就很麻烦</p>
-<p>通过将多个端口划分进组的方式，可以一次配置多个端口</p>
-<pre><code>port-group 1  # 开启端口组1
-    group-member GigabitEthernet 0/0/1 to GigabitEthernet 0/0/4
-    # 将g0/0/1到g0/0/4口划入端口组
-    p l a  # 简写，port link-type access
-    p d v 10  # 简写,port default vlan 10
-</code></pre>
-<p><img src="image-20221014215611035.png" alt="image-20221014215611035"></p>
-<p>此时在组里的配置将同时应用在所有组内的端口上</p>
-<h4 id="端口隔离配置"><a href="#端口隔离配置" class="headerlink" title="端口隔离配置"></a>端口隔离配置</h4><pre><code>interface GigabitEthernet0/0/1  # 进入0/0/1口
-    port-isolate enable group 1  # 开启端口隔离，设置隔离组为1
-    port-isolate enable group 2  # 开启端口隔离，设置隔离组为2
-</code></pre>
-<blockquote>
-<p>原理：</p>
-<p>在端口配置隔离组</p>
-<p>如果数据包的入端口和出端口属于同一隔离组，那么交换机将丢弃该数据包</p>
-<ul>
-<li>即相同隔离组端口下的主机不同互通</li>
-<li>不同隔离组端口下的主机可以互通</li>
-<li>一个端口可以配置多个隔离组</li>
-</ul>
-</blockquote>
 <h3 id="ARP代理"><a href="#ARP代理" class="headerlink" title="ARP代理"></a>ARP代理</h3><p>如果有需求：两个主机之间二层隔离，但是要求可以互通，此时就需要使用ARP代理</p>
 <h4 id="ARP代理的分类"><a href="#ARP代理的分类" class="headerlink" title="ARP代理的分类"></a>ARP代理的分类</h4><p>ARP代理按使用的场景，可以分为三类</p>
 <ul>
-<li>同一网段终端被路由器隔离的场景：路由式ARP代理 <code>enable</code></li>
-<li>相同VLAN内，同网段终端被交换机二层隔离的场景：VLAN内ARP代理<code>inner-sub-vlan-proxy</code></li>
-<li>不同VLAN间，同网段终端在聚合VLAN中的场景：VLAN间的ARP代理<code>inter-sub-vlan-proxy</code></li>
+<li><p>同一网段终端被路由器隔离的场景：路由式ARP代理 <code>enable</code></p>
+</li>
+<li><p>相同VLAN内，同网段终端被交换机二层隔离的场景：VLAN内ARP代理<code>inner-sub-vlan-proxy</code></p>
+<ul>
+<li>VLAN内ARP代理常配合端口隔离使用</li>
+</ul>
+</li>
+<li><p>不同VLAN间，同网段终端在聚合VLAN中的场景：VLAN间的ARP代理<code>inter-sub-vlan-proxy</code></p>
+<ul>
+<li>VLAN间的ARP代理常在VLAN聚合中使用</li>
+</ul>
+</li>
 </ul>
 <p><img src="image-20221028101454718.png" alt="image-20221028101454718"></p>
 <h4 id="路由式ARP代理"><a href="#路由式ARP代理" class="headerlink" title="路由式ARP代理"></a>路由式ARP代理</h4><p><img src="image-20221014230024650.png" alt="image-20221014230024650"></p>
@@ -460,11 +444,14 @@
 <p><img src="image-20221014231453354.png" alt="image-20221014231453354"></p>
 <h4 id="VLAN内ARP代理"><a href="#VLAN内ARP代理" class="headerlink" title="VLAN内ARP代理"></a>VLAN内ARP代理</h4><p><img src="image-20221028101114873.png" alt="image-20221028101114873"></p>
 <p>如图，PC1和PC2被交换机连接，但交换机做了<strong>端口隔离</strong>，此时如果需要PC1和PC2二层互通，就需要ARP代理</p>
+<blockquote>
+<p>端口隔离在以太网交换安全部分</p>
+</blockquote>
 <p>配置方式：</p>
 <pre><code>int vlanif 30  # 进入网关vlanif端口
     arp-proxy inner-sub-vlan-proxy enable  # 开启VLAN内ARP代理
 </code></pre>
-<h4 id="VLAN间的ARP代理"><a href="#VLAN间的ARP代理" class="headerlink" title="VLAN间的ARP代理"></a>VLAN间的ARP代理</h4><p>VLAN间的ARP代理对标聚合VLAN技术</p>
+<p>配和端口隔离技术，同网段二层无法直接通信，只能通过网关代理，此时网关就可以对数据进行监控和处理，增大以太网络安全性</p>
 <h3 id="聚合VLAN（super-vlan）"><a href="#聚合VLAN（super-vlan）" class="headerlink" title="聚合VLAN（super-vlan）"></a>聚合VLAN（super-vlan）</h3><p>传统的vlan划分每个vlan都需要一个网段，由于子网划分的特性，传统vlan每划一个vlan，就浪费两个地址</p>
 <p>在一些对安全性要求很严格的企业往往会划分很多vlan</p>
 <p>此时传统的vlan划分方式会导致ip地址数不足</p>
@@ -487,6 +474,7 @@
 [Huawei-vlan30]access-vlan 10 20  # 设置下属子vlan
 </code></pre>
 <p>和<code>mux-vlan</code>一样，谁开启了功能，谁就是主vlan</p>
+<p>跨交换机的VLAN聚合按正常VLAN配置即可，可以不在trunk链路中放行super vlan</p>
 <h4 id="聚合VLAN的ARP代理"><a href="#聚合VLAN的ARP代理" class="headerlink" title="聚合VLAN的ARP代理"></a>聚合VLAN的ARP代理</h4><p>vlan隔离二层，同网段不走三层，所以聚合vlan中的子vlan在不另外配置三层的情况下是无法互通的</p>
 <p>如果有需求让子vlan之间二层互通，就需要使用ARP代理（VLAN间的ARP代理）</p>
 <p>让主vlan的vlanif代理子vlan的arp请求</p>
@@ -548,27 +536,146 @@ QinQ隧道出入口要进行相同的配置
 <li>出QinQ隧道：出QinQ隧道的数据包规则和access一样，剥离vlan标签（剥离的是进隧道打的标签，不剥原来的）</li>
 </ul>
 <p>这样一个vlan帧就从一个局域网到了另一个局域网</p>
-<h4 id="灵活QinQ"><a href="#灵活QinQ" class="headerlink" title="灵活QinQ"></a>灵活QinQ</h4><h3 id="端口安全"><a href="#端口安全" class="headerlink" title="端口安全"></a>端口安全</h3><p>交换机会主动学习数据包源MAC地址的特性会被非法利用</p>
+<h4 id="灵活QinQ"><a href="#灵活QinQ" class="headerlink" title="灵活QinQ"></a>灵活QinQ</h4><p>对隧道来说，无论是什么vlan的数据经过，都会在外层套上一个固定的vlan</p>
+<p>在site有多个时，这样做会出现问题：本来site1发往site2的vlan10数据，被同属QinQ网络的site3 vlan10接收</p>
+<p>灵活QinQ可以解决这个问题，争对不同的站点打上不同的外层vlan</p>
+<p><img src="image-20221205165518629.png" alt="image-20221205165518629"></p>
+<p>配置：</p>
+<pre><code>LSW5:
+[LSW5]v 100 
+[LSW5]int g0/0/2
+[LSW5-GigabitEthernet0/0/2]qinq vlan-translation enable  # 开启灵活QinQ
+[LSW5-GigabitEthernet0/0/2]port hybrid untagged vlan 100 200  # 设置hybrid口,剥离vlan 100 200
+[LSW5-GigabitEthernet0/0/2]port vlan-stacking vlan 10 stack-vlan 100 # 给vlan10套上vlan100
+[LSW5-GigabitEthernet0/0/2]port vlan-stacking vlan 20 stack-vlan 200 # 给vlan20套上vlan200
+QinQ隧道出入口要进行相同的配置
+</code></pre>
+<h2 id="以太网交换安全"><a href="#以太网交换安全" class="headerlink" title="以太网交换安全"></a>以太网交换安全</h2><h3 id="端口隔离"><a href="#端口隔离" class="headerlink" title="端口隔离"></a>端口隔离</h3><p>端口隔离的目的是让同一个VLAN中的设备仍然可以隔离广播域</p>
+<p>类似Mux-VLAN的隔离型子VLAN，但与之不同，端口隔离并不会影响三层数据交换，Mux-VLAN目前无法三层转发</p>
+<p>从实现流过滤的角度看，三层可以通过acl，二层流过滤并不方便，端口隔离可以实现二层的简单过滤</p>
+<p><img src="image-20221206113905735.png" alt="image-20221206113905735"></p>
+<h4 id="端口组的应用与配置"><a href="#端口组的应用与配置" class="headerlink" title="端口组的应用与配置"></a>端口组的应用与配置</h4><p>在配置交换机端口时，往往有很多端口的配置是重复的，这时一个个敲就很麻烦</p>
+<p>可以通过将多个端口划分进组的方式，一次配置多个端口</p>
+<pre><code>port-group 1  # 开启端口组1
+    group-member GigabitEthernet 0/0/1 to GigabitEthernet 0/0/4  # 将g0/0/1到g0/0/4口划入端口组
+    p l a  # 简写，port link-type access
+    p d v 10  # 简写,port default vlan 10
+</code></pre>
+<p><img src="image-20221014215611035.png" alt="image-20221014215611035"></p>
+<p>此时在组里的配置将同时应用在端口组内的所有接口上</p>
+<h4 id="端口隔离模式"><a href="#端口隔离模式" class="headerlink" title="端口隔离模式"></a>端口隔离模式</h4><ol>
+<li>L2模式：同一VLAN二层隔离但三层可以通信</li>
+<li>ALL模式：同一VLAN二层和三层都无法通信</li>
+</ol>
+<p>注意是同一VLAN，不同VLAN还是按VLAN间通信的规则处理</p>
+<pre><code>[Huawei]port-isolate mode ?
+  all  All
+  l2   L2 only
+</code></pre>
+<p>默认是L2模式</p>
+<h4 id="端口隔离的配置"><a href="#端口隔离的配置" class="headerlink" title="端口隔离的配置"></a>端口隔离的配置</h4><p><img src="image-20221014220530868.png" alt="image-20221014220530868"></p>
+<p><strong>双向端口隔离配置</strong></p>
+<p>双向端口隔离实现同一隔离组的内复数端口间的相互隔离</p>
+<p>1、在端口配置隔离组后</p>
+<p>2、如果数据包的入端口和出端口属于同一隔离组，那么交换机将丢弃该数据包</p>
+<ul>
+<li>相同隔离组端口下的主机不同互通</li>
+<li>不同隔离组端口下的主机可以互通</li>
+<li>一个端口可以配置多个隔离组</li>
+</ul>
+<pre><code>interface GigabitEthernet0/0/1  # 进入0/0/1口
+    port-isolate enable group 1  # 开启端口隔离，设置隔离组为1
+    port-isolate enable group 2  # 开启端口隔离，设置隔离组为2
+</code></pre>
+<p><strong>单向端口隔离</strong></p>
+<p>单向端口隔离实现不同隔离组间的端口隔离</p>
+<pre><code>int g0/0/1
+    am isolate GigabitEthernet 0/0/2
+    设置当前接口和指定接口的隔离，即当前接口不能访问指定接口
+</code></pre>
+<p>指定端口任然可以访问当前端口，但是由于没有回应报文，多数情况任然无法通信</p>
+<h3 id="MAC地址表安全"><a href="#MAC地址表安全" class="headerlink" title="MAC地址表安全"></a>MAC地址表安全</h3><h4 id="MAC地址表的类型"><a href="#MAC地址表的类型" class="headerlink" title="MAC地址表的类型"></a>MAC地址表的类型</h4><p>MAC地址表项分为三类：</p>
+<p><img src="image-20221206142626942.png" alt="image-20221206142626942"></p>
+<ol>
+<li>动态MAC表项（dynamic）<ul>
+<li>动态MAC表项是交换机自己学习的MAC地址表项</li>
+<li>动态MAC表项存在老化时间，在系统复位、接口热插拔后丢失</li>
+</ul>
+</li>
+<li>静态MAC表项（Static）<ul>
+<li>静态MAC表项是由管理员手动下发的表项</li>
+<li>静态MAC表项不老化，在系统复位、接口热插拔后也不会丢失</li>
+<li>静态MAC表项绑定接口后，其他接口收到源MAC为该静态MAC的数据将会丢弃</li>
+</ul>
+</li>
+<li>黑洞MAC表项（Blackhole）<ul>
+<li>黑洞MAC表项是由管理员手动下发的表项</li>
+<li>黑洞MAC表项不老化，在系统复位、接口热插拔后也不会丢失</li>
+<li>配置黑洞MAC表项后，源或目的MAC为该黑洞MAC的数据将会丢弃</li>
+</ul>
+</li>
+</ol>
+<pre><code>dispaly mac-address  # 查看MAC转发表
+</code></pre>
+<h4 id="MAC地址静态绑定"><a href="#MAC地址静态绑定" class="headerlink" title="MAC地址静态绑定"></a>MAC地址静态绑定</h4><p>由于交换机会主动学习收到数据的源MAC地址更新动态的MAC地址表项，导致如果有人非法伪造MAC地址，就会造成MAC地址欺骗攻击</p>
+<p>MAC欺骗攻击：攻击者伪造网关或其他终端的MAC地址，让交换机将去往该MAC的数据帧发给错误的端口</p>
+<p>这种情况就可以使用MAC地址静态绑定防范</p>
+<p>绑定方式：</p>
+<pre><code># 绑定MAC地址
+mac-address static 5489-98d0-3d34 GigabitEthernet 0/0/1 vlan 1 
+绑定MAC地址5489-98d0-3d34到g0/0/1,VLAN为1
+</code></pre>
+<p>对个人主机而言，静态MAC绑定非常麻烦并且没有价值，所以无需配置</p>
+<p>对与服务器连接的二层端口而言，服务器位置固定且一般极具攻击价值，所以最好配置MAC地址静态绑定</p>
+<h4 id="黑洞MAC地址表项"><a href="#黑洞MAC地址表项" class="headerlink" title="黑洞MAC地址表项"></a>黑洞MAC地址表项</h4><pre><code>mac-address blackhole 5489-98d0-3d34 &#123;vlan 1&#125;
+设置5489-98d0-3d34为黑洞MAC
+可选：指定vlan
+</code></pre>
+<p>黑洞MAC地址表项其实就是黑名单，丢弃源或目的MAC为该黑洞MAC的所有数据</p>
+<h4 id="限制MAC地址学习功能"><a href="#限制MAC地址学习功能" class="headerlink" title="限制MAC地址学习功能"></a>限制MAC地址学习功能</h4><p>还是由于交换机会主动学习收到数据的源MAC地址更新动态的MAC地址表项，如果有人不断变换自己的MAC地址向交换机发送数据，就会导致MAC地址泛洪攻击</p>
+<p>MAC泛洪攻击：攻击者发送大量源MAC不同的数据帧，导致交换机无法正常转发数据帧，从而将数据帧全部泛洪</p>
+<p>为了解决这个问题，可以有管理员手动限制或者关闭MAC地址的学习功能</p>
+<blockquote>
+<p>限制MAC地址表的学习功能</p>
+</blockquote>
+<p><img src="image-20221206143447401.png" alt="image-20221206143447401"></p>
+<p>MAC地址表安全的问题在于限制后只是进行告警，这样的后果就是查找麻烦，而且动作太少</p>
+<p>比如拿集线器连接网口，扩展上网的设备，此时虽然交换机上学习的MAC多了，但MAC地址表安全只是告警却不禁止。如果网络中没有网管系统，网络管理员一人维护几百设备，除非正好登录了这个设备，否则连告警信息都看不到</p>
+<p>所以一般不使用MAC地址表安全相关功能限制MAC地址学习数量</p>
+<blockquote>
+<p>关闭MAC地址学习功能</p>
+</blockquote>
+<p><img src="image-20221206143558286.png" alt="image-20221206143558286"></p>
+<p>限制或禁止MAC地址学习这个功能端口安全做的更好</p>
+<h3 id="端口安全"><a href="#端口安全" class="headerlink" title="端口安全"></a>端口安全</h3><blockquote>
+<p>端口安全可以看做MAC地址表安全的升级版</p>
+<p>端口安全相关措施和MAC地址表安全相关措施的思想一致，但是效果更好</p>
+</blockquote>
+<p>交换机会主动学习数据包源MAC地址的特性会被非法利用</p>
 <ul>
 <li>MAC泛洪攻击：攻击者发送大量源MAC不同的数据帧，导致交换机无法正常转发数据帧，从而将数据帧全部泛洪</li>
 <li>MAC欺骗攻击：攻击者伪造网关或其他终端的MAC地址，让交换机将去往该MAC的数据帧发给错误的端口</li>
 </ul>
-<p>为了解决这个问题，交换机提出了端口安全的概念</p>
-<h4 id="端口安全开启命令"><a href="#端口安全开启命令" class="headerlink" title="端口安全开启命令"></a>端口安全开启命令</h4><pre><code>[Huawei]int g0/0/1
+<p>MAC地址表安全可以解决上述问题，但是不够优秀。</p>
+<p>端口安全可以有效的解决上述问题</p>
+<h4 id="端口安全开启命令"><a href="#端口安全开启命令" class="headerlink" title="端口安全开启命令"></a>端口安全开启命令</h4><p>默认不开启端口安全</p>
+<pre><code>[Huawei]int g0/0/1
 [Huawei-GigabitEthernet0/0/1]port-security enable 
 </code></pre>
 <h4 id="安全MAC转发表"><a href="#安全MAC转发表" class="headerlink" title="安全MAC转发表"></a>安全MAC转发表</h4><p>当一个端口开启了端口安全后，原来的MAC地址表就会变成安全MAC转发表</p>
 <p><img src="image-20221028121241670.png" alt="image-20221028121241670"></p>
+<p>安全MAC地址表有【安全动态MAC地址表项】<code>security</code> 和【安全静态MAC地址表项】<code>sticky</code> </p>
+<p>这两者的表现形式和【普通动态/静态MAC地址表项】完全一致</p>
 <p>默认情况下：</p>
 <ul>
-<li>该端口只允许学习一个MAC地址</li>
-<li>学习到的MAC地址表项不会老化【前提：设备不重启，端口不down】</li>
+<li>开启端口安全的接口只允许学习一个MAC地址</li>
+<li>学习到的MAC地址表项不会老化（包括安全动态地址表项）【前提：设备不重启，端口不down】</li>
 </ul>
 <p>使用以下命令修改：</p>
 <pre><code># 设置该端口允许学习的MAC表项条数
 [Huawei-GigabitEthernet0/0/1]port-security max-mac-num 10
 
-# 设置老化时间
+# 设置老化时间（安全动态表项的老化时间）
 [Huawei-GigabitEthernet0/0/1]port-security aging-time 5 type ?
   absolute    Absolute time  # 绝对老化
   inactivity  Inactivity time  # 相对老化
@@ -580,7 +687,7 @@ QinQ隧道出入口要进行相同的配置
 <li>绝对老化：从第一次学习到一个MAC开始计时，到指定老化时间一定老化，中途再次学习到该MAC不会刷新老化时间</li>
 <li>相对老化：从第一次学习到一个MAC开始计时，中途再次学习到该MAC，老化时间重新计时</li>
 </ul>
-<h4 id="MAC地址静态绑定"><a href="#MAC地址静态绑定" class="headerlink" title="MAC地址静态绑定"></a>MAC地址静态绑定</h4><p>静态绑定的MAC表项不会随着交换机重启而丢失</p>
+<h4 id="安全MAC地址表静态绑定"><a href="#安全MAC地址表静态绑定" class="headerlink" title="安全MAC地址表静态绑定"></a>安全MAC地址表静态绑定</h4><p>和静态绑定的MAC表项一样，静态安全MAC地址表也不会随着交换机重启而丢失</p>
 <p>绑定方式有两种：</p>
 <pre><code># 绑定单个MAC地址
 [Huawei-GigabitEthernet0/0/1]port-security mac-address sticky  HH-HH-HH
@@ -589,7 +696,7 @@ QinQ隧道出入口要进行相同的配置
 </code></pre>
 <ul>
 <li>单一绑定：手动MAC绑定到接口</li>
-<li>粘滞绑定：交换机自动将此端口学习到的MAC全部静态绑定，直到MAC地址数达到设定的最大值</li>
+<li>粘滞绑定：交换机自动将此端口学习到的安全动态MAC全部静态绑定，直到MAC地址数达到设定的最大值</li>
 </ul>
 <h4 id="端口惩罚动作"><a href="#端口惩罚动作" class="headerlink" title="端口惩罚动作"></a>端口惩罚动作</h4><p>如果端口MAC地址数达到设定的最大值，那么之后再有其他MAC经过就会执行惩罚动作，有三个动作</p>
 <pre><code>[Huawei-GigabitEthernet0/0/1]port-security protect-action ?
@@ -597,7 +704,7 @@ QinQ隧道出入口要进行相同的配置
   restrict  Discard packets and warning  # 丢弃数据并发送告警
   shutdown  Shutdown  # shutdown端口
 </code></pre>
-<p>默认动作是<code>restrict</code></p>
+<p>默认动作是<code>restrict</code>: 丢弃数据并发送告警</p>
 <h2 id="RSTP-amp-amp-MSTP"><a href="#RSTP-amp-amp-MSTP" class="headerlink" title="RSTP&amp;&amp;MSTP"></a>RSTP&amp;&amp;MSTP</h2><h3 id="快速生成树协议（RSTP）"><a href="#快速生成树协议（RSTP）" class="headerlink" title="快速生成树协议（RSTP）"></a>快速生成树协议（RSTP）</h3><p>由于传统的STP协议存在收敛速度慢的问题，所以推出了RSTP（快速生成树协议）</p>
 <p>RSTP的配置与传统STP完全一致，但是机制不同</p>
 <blockquote>
