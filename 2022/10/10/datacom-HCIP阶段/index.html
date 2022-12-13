@@ -705,6 +705,229 @@ mac-address static 5489-98d0-3d34 GigabitEthernet 0/0/1 vlan 1
   shutdown  Shutdown  # shutdown端口
 </code></pre>
 <p>默认动作是<code>restrict</code>: 丢弃数据并发送告警</p>
+<h3 id="MAC地址表漂移的防止与检测"><a href="#MAC地址表漂移的防止与检测" class="headerlink" title="MAC地址表漂移的防止与检测"></a>MAC地址表漂移的防止与检测</h3><h4 id="MAC地址表漂移的原理"><a href="#MAC地址表漂移的原理" class="headerlink" title="MAC地址表漂移的原理"></a>MAC地址表漂移的原理</h4><p>MAC地址漂移指设备上一个接口学习到的MAC地址在同一VLAN中另一个接口上也学习到，后学习到的MAC地址表项覆盖原来的表项的现象。</p>
+<p>正常情况下，网络中不会在短时间内出现大量MAC地址漂移的情况。出现这种现象一般都意味着网络中出现环路，形成广播风暴。【频繁MAC地址表漂移往往是环路的附带产物】</p>
+<p>因此，可以利用MAC地址表漂移现象来监控网络中是否成环</p>
+<h4 id="防止MAC地址表漂移"><a href="#防止MAC地址表漂移" class="headerlink" title="防止MAC地址表漂移"></a>防止MAC地址表漂移</h4><p>网络中产生环路或者非法用户攻击网络都会导致MAC地址表漂移</p>
+<p>有两种解决办法</p>
+<p>1、修改接口上MAC地址学习优先级</p>
+<ul>
+<li>当不同接口学习到相同的MAC地址时，高优先级接口学到的表项可以覆盖低优先级学到的表项</li>
+</ul>
+<p>2、不允许相同优先级的同一MAC覆盖原有的表项</p>
+<ul>
+<li>优先级相同：后学到的表项不允许覆盖先学习的表项</li>
+<li>优先级不同：高优先级学到的表项可以覆盖低优先级学到的表项</li>
+</ul>
+<h4 id="MAC地址漂移检测"><a href="#MAC地址漂移检测" class="headerlink" title="MAC地址漂移检测"></a>MAC地址漂移检测</h4><p>当交换机开启MAC地址漂移检测后，交换机可以察觉到MAC地址表学习接口的变化</p>
+<p>如果察觉发生了MAC地址学习接口发生连续跳变现象，就认为发生了MAC地址表漂移</p>
+<p>按检测的范围，MAC地址表漂移检测可以分为两种：</p>
+<ol>
+<li><p>基于VLAN的MAC地址漂移检测</p>
+<p>可以检测指定VLAN下的所有MAC地址是否发生漂移</p>
+<p>可以指定发现漂移后的具体动作：</p>
+<ul>
+<li><p>发送告警信息：默认，只发送告警不做其他处理</p>
+</li>
+<li><p>接口阻断：根据设定的阻塞时间对接口进行阻断，并关闭接口收发报文的能力</p>
+<ul>
+<li>当指定<strong>block-mac</strong>参数时，将不阻断整个接口，而是按照发生漂移的MAC地址进行流量阻断。</li>
+</ul>
+</li>
+<li><p>MAC地址阻断：只阻塞发生漂移的MAC地址，接口下其他业务不受影响</p>
+</li>
+</ul>
+<p>全版本交换机都默认在全VLAN下开启了基于VLAN的MAC地址漂移检测</p>
+</li>
+<li><p>基于全局的VLAN地址漂移检测</p>
+<p>可以检测设备上所有MAC是否发生了漂移</p>
+<p>检测到漂移后只能发出告警</p>
+</li>
+</ol>
+<p>发现漂移后接口的动作</p>
+<ol>
+<li>error-down：将对应接口状态置为error-down，不再转发数据</li>
+<li>quit-vlan： 退出当前接口所属的VLAN</li>
+</ol>
+<h4 id="MAC地址漂移配置"><a href="#MAC地址漂移配置" class="headerlink" title="MAC地址漂移配置"></a>MAC地址漂移配置</h4><p><strong>MAC地址漂移检测配置</strong></p>
+<pre><code>vlan 10  # 进入VLAN
+loop-detect eth-loop ?
+  alarm-only  默认，仅发送告警
+  block-mac   可选，根据MAC地址阻断，不配置此选项就是根据接口阻断。
+  block-time  指定阻断时间。
+  retry-times 配置在block-time之后，指定接口永久阻断的重试次数
+例如：loop-detect eth-loop block-mac block-time 10 retry-times 5 
+                        根据MAC地址阻断 阻断时间10s,重试次数5次
+
+dis loop-detect eth-loop vlan [vlan-id]  # 查看MAC阻断信息
+reset loop-detect eth-loop vlan [id] &#123;all | interface| mac-address&#125;  # 清除指定vlan下的MAC或接口阻断
+</code></pre>
+<p>当系统检测到某VLAN内有MAC地址发生漂移且发生漂移的接口或MAC地址被永久阻断时，只能通过配置解除指定VLAN下的接口阻断或MAC地址阻断来恢复到正常状态。</p>
+<p><img src="image-20221207160658129.png" alt="image-20221207160658129"></p>
+<p><strong>防止MAC地址表漂移配置</strong></p>
+<pre><code>interface GigabitEthernet0/0/1
+ mac-learning priority 3  # 设置接口学习到MAC地址的优先级
+
+undo mac-learning priority 0 allow-flapping  # 不允许相同优先级的同一MAC覆盖原有的表项
+</code></pre>
+<p><strong>全局MAC地址漂移配置</strong></p>
+<pre><code>系统视图：
+mac-address flapping detection  # 开启全局MAC地址漂移检测
+# 在接口中配置动作,不做配置就只是告警
+[Huawei-GigabitEthernet0/0/1]mac-address flapping trigger ?
+  error-down  The interface was shutdown because of mac-flapping
+  quit-vlan   The interface quit vlan because of mac-flapping
+</code></pre>
+<h3 id="MACsec"><a href="#MACsec" class="headerlink" title="MACsec"></a>MACsec</h3><p><img src="image-20221207172334239.png" alt="image-20221207172334239"></p>
+<p>同IPsec是提供了三成数据的加密传输，MACsec提供了二层的加密传输，但目前不常用</p>
+<p>MACsec只有在对安全性要求非常高的网络中才有用武之地，一般的网络环境中并不需要MACsec</p>
+<blockquote>
+<p>原理</p>
+</blockquote>
+<p><img src="image-20221207172559570.png" alt="image-20221207172559570"></p>
+<p>大致同IPsec，看IPsec就能明白MACsec的做法</p>
+<p>配置：华为文档里我都没找到配置，略了，什么交换机支持了现查</p>
+<h3 id="交换机流量控制"><a href="#交换机流量控制" class="headerlink" title="交换机流量控制"></a>交换机流量控制</h3><p>当设备某个二层以太网接口收到广播、未知组播或者未知单播报文时，会向同一VLAN的所有接口发送这些报文</p>
+<p>如果这个泛洪的报文流量很大，就会对现有的业务造成冲击，影响其他业务</p>
+<blockquote>
+<p>注：上面的说法我不是很认可，但华为的ppt是如此说的</p>
+<p>这里我很认可华为产品文档的说法：网络拥塞会导致丢包，流量控制是一种防止网络拥塞导致丢包的技术</p>
+<p>如果本端发生拥塞</p>
+</blockquote>
+<p>为了解决这个问题，就需要对交换机的流量进行控制</p>
+<p>交换机流量控制可以分为流量抑制和风暴控制</p>
+<h4 id="流量抑制"><a href="#流量抑制" class="headerlink" title="流量抑制"></a>流量抑制</h4><p>流量抑制主要通过配置阈值来限制流量，当超过阈值时，设备会丢弃超额的流量</p>
+<p>简单说就是限速，超过规定速度的流量就直接丢掉让设备重发（并不是丢掉整个报文，而是丢掉超速的部分，从而让整体速度在阈值之下）</p>
+<p><img src="image-20221208115146747.png" alt="image-20221208115146747"></p>
+<p><strong>流量抑制的配置位置</strong></p>
+<p><img src="image-20221208115337681.png" alt="image-20221208115337681"></p>
+<p>一般来说配置在入接口准没错</p>
+<p>由于模拟器模拟不出大流量广播的场景，所以这里配置略</p>
+<p>以后需要配置了查产品文档</p>
+<h4 id="风暴控制"><a href="#风暴控制" class="headerlink" title="风暴控制"></a>风暴控制</h4><p>风暴控制和流量抑制的原理相同，都是规定一个阈值，处理超过阈值的数据</p>
+<p>但风暴控制的处理方式比流量抑制更加“极端”</p>
+<ul>
+<li>流量抑制：丢掉超过规定速度的部分流量，并不是丢掉整个报文</li>
+<li>风暴控制：只要超速，整个报文都丢掉，甚至关闭接口</li>
+</ul>
+<p>风暴控制有两个动作</p>
+<ol>
+<li>阻塞报文（Block）：阻塞超速的整个报文</li>
+<li>关闭接口（Error-down）：关闭收到超速现象的接口</li>
+</ol>
+<p><img src="image-20221208120616652.png" alt="image-20221208120616652"></p>
+<p>配置略</p>
+<h2 id="DHCP-Snooping"><a href="#DHCP-Snooping" class="headerlink" title="DHCP Snooping"></a>DHCP Snooping</h2><p>DHCP Snooping 是DHCP的安全防范技术，用于保证DHCP客户端可以顺利从DHCP得到ip地址</p>
+<p>由于DHCP在网络中的广泛应用，网络中也出现了很多针对DHCP的攻击，最常见的有四类：</p>
+<ol>
+<li><p>DHCP Server仿冒者攻击： </p>
+<p>DHCP Server 和 DHCP Client 之间没有认证机制，攻击者将自己伪造成DHCP服务器给其他网络设备分配IP地址和其他网络参数，如果伪造的DHCP服务器分配的IP地址是错误的，就会对网络造成很大的影响</p>
+<p>解决方法：DHCP Snooping 信任功能</p>
+</li>
+<li><p>DHCP Server 拒绝服务攻击（DHCP 饿死攻击）：</p>
+<p>攻击者不断更改MAC地址或CHADDR，向DHCP服务器请求IP地址，使IP地址池中的地址耗尽。导致其他终端设备无法获取IP地址</p>
+<p>解决方法：使能设备的DHCP Snooping功能后，配置设备接口允许接入的最大DHCP用户数，或者使用端口安全技术</p>
+</li>
+<li><p>DHCP 报文泛洪攻击：</p>
+<p>攻击者向DHCP服务器发送大量的DHCP Discover报文，导致服务器无法处理正常的DHCP请求，严重时可能导致服务器瘫痪</p>
+<p>解决方法：使能设备的DHCP Snooping功能时，同时使能设备对DHCP上送报文的速率检测</p>
+</li>
+<li><p>DHCP中间人攻击：</p>
+<p>DHCP仿冒者攻击升级版，一边将自己伪造成DHCP服务器让正常客户端将DHCP各类消息发送给自己，一边伪造成正常客户端将收到的DHCP各类消息转发给正常的DHCP服务器。让自己成为一个“代理”，从而获取所有DHCP信息</p>
+<p>解决方法：DHCP绑定表检查</p>
+</li>
+</ol>
+<p>DHCP Snooping 通过两种功能防止上述攻击</p>
+<h3 id="DHCP-Snooping-信任功能"><a href="#DHCP-Snooping-信任功能" class="headerlink" title="DHCP Snooping 信任功能"></a>DHCP Snooping 信任功能</h3><p>DHCP Snooping信任功能是通过将连接DHCP服务器的端口划入信任接口的方式防止DHCP中间人攻击和DHCP仿冒者攻击</p>
+<p>DHCP Snooping将接口划分为信任接口和非信任接口</p>
+<ul>
+<li>信任接口：正常转发收到的DHCP应答报文</li>
+<li>非信任接口：接收到DHCP服务器响应的DHCP应答报文（DHCP Ack、DHCP Nak和DHCP Offer）后，丢弃该报文</li>
+</ul>
+<p>默认的，除了设为信任接口的接口，其他接口都是非信任接口</p>
+<h4 id="配置信任功能"><a href="#配置信任功能" class="headerlink" title="配置信任功能"></a>配置信任功能</h4><p><img src="image-20221209162226282.png" alt="image-20221209162226282"></p>
+<p>AR1上配置好DHCP</p>
+<pre class="line-numbers language-ensp"><code class="language-ensp">LSW1:
+dhcp enable  # 开启dhcp
+dhcp snooping enable ipv4  # 使能dhcp snooping
+
+接口使能DHCP Snooping
+interface GigabitEthernet0/0/3  # 进入接口
+ dhcp snooping enable  # 使能DHCP snooping
+ dhcp snooping trusted  # 设置接口为dhcp snooping信任接口
+ 
+VLAN使能DHCP Snooping
+vlan 1  # 进入VLAN
+ dhcp snooping enable  # 使能DHCP snooping
+ # 设置vlan1中的g0/0/1口为dhcp snooping信任接口
+ dhcp snooping trusted interface GigabitEthernet0/0/1  
+ 
+查看命令
+display dhcp snooping global  # 查看全局DHCP Snooping的信息
+display dhcp snooping interface g0/0/1  # 查看接口下的DHCP Snooping信息。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="image-20221209163026273.png" alt="image-20221209163026273"></p>
+<h3 id="DHCP-Snooping-分析功能"><a href="#DHCP-Snooping-分析功能" class="headerlink" title="DHCP Snooping 分析功能"></a>DHCP Snooping 分析功能</h3><p>DHCP Snooping分析功能会根据DHCP ACK报文生成DHCP绑定表</p>
+<p>DHCP绑定表分两种：</p>
+<ul>
+<li>动态绑定表：使能了DHCP Snooping功能后自动生成</li>
+<li>静态绑定表：手动配置的</li>
+</ul>
+<p>DHCP绑定表记录了DHCP客户端IP地址与MAC、租期、收到ACK报文的接口等信息</p>
+<p>通过对报文和绑定表的匹配检查，可以有效防止DHCP攻击行为</p>
+<blockquote>
+<p>DHCP饿死攻击比较特殊</p>
+<p>由于DHCP分配IP时会根据MAC地址转换为<code>CHADDR</code>参数，如果<code>CHADDR</code>值不同，就认为是不同的终端设备</p>
+<p>但是DHCP Snooping绑定表没有记录CHADDR</p>
+<p>所以黑客通过伪造CHADDR值，可以绕过DHCP绑定表攻击服务器</p>
+<p>防范方法：配置DHCP Snooping ,使能检查CHADDR和MAC的匹配关系</p>
+</blockquote>
+<p>注意：DHCP Snooping功能只是生成了绑定表，并对收到的报文进行检查。但是检查到攻击之后的动作，是IPSG处理的</p>
+<h4 id="配置分析功能"><a href="#配置分析功能" class="headerlink" title="配置分析功能"></a>配置分析功能</h4><p>开启DHCP Snooping功能后，默认生成绑定表，无需其他配置</p>
+<pre class="line-numbers language-ensp"><code class="language-ensp">display dhcp snooping user-bind {vlan 1} # 查看DHCP Snooping绑定表信息。
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="image-20221209163345867.png" alt="image-20221209163345867"></p>
+<h3 id="IPSG（IP-Source-Guard）"><a href="#IPSG（IP-Source-Guard）" class="headerlink" title="IPSG（IP Source Guard）"></a>IPSG（IP Source Guard）</h3><p>IPSG：IP源校验</p>
+<p>IPSG是基于绑定表（DHCP Snooping 绑定表）检查二层接口收到的IP报文的安全验证技术</p>
+<p>配置了IPSG的设备中，只有匹配绑定表的报文才允许通过，不匹配的报文将会丢弃</p>
+<ul>
+<li>静态绑定表和动态Snooping绑定表都在IPSG的匹配范围内</li>
+</ul>
+<p>默认的，如果只配置了IPSG但是没有开启绑定表(DHCP Snooping)，设备将会拒绝除了DHCP报文外的所有报文</p>
+<blockquote>
+<p>IPSG只能检测IP报文，非IP报文：ARP、PPPOE等无法匹配</p>
+</blockquote>
+<h4 id="IPSG接口角色"><a href="#IPSG接口角色" class="headerlink" title="IPSG接口角色"></a>IPSG接口角色</h4><p>和DHCP Snooping一样，IPSG同样将接口分为信任接口和非信任接口</p>
+<p>在配置了DHCP Snooping的情况下，DHCP Snooping信任接口就是IPSG信任接口，DHCP Snooping非信任接口就是IPSG非信任接口</p>
+<ul>
+<li>IPSG信任接口：信任接口收到的报文不会经过IPSG检查</li>
+<li>IPSG非信任接口：<ul>
+<li>接口使能IPSG：通过接口的报文将会经过IPSG检查</li>
+<li>接口未使能IPSG：通过接口的报文不会经过IPSG检查</li>
+</ul>
+</li>
+</ul>
+<p><strong>如果在VLAN中使能IPSG功能，该VLAN中的所有接口均使能IPSG功能</strong></p>
+<h4 id="IPSG过滤方式"><a href="#IPSG过滤方式" class="headerlink" title="IPSG过滤方式"></a>IPSG过滤方式</h4><p><strong>IPSG检查绑定表中的MAC地址、IP地址、VLAN ID、入接口四项</strong></p>
+<p>匹配静态绑定表时：四项全部检查</p>
+<p>匹配动态绑定表时：缺省下四项全部检查，但管理员可以设置检查的组合</p>
+<h4 id="IPSG配置"><a href="#IPSG配置" class="headerlink" title="IPSG配置"></a>IPSG配置</h4><p>开启DHCP静态或者动态绑定表后，IPSG默认没有配置</p>
+<p>想要对被绑定表检查到的非法报文进行处理，就需要开启IPSG功能</p>
+<p>IPSG基于接口或者基于VLAN都可以配置，并且配置大体相同</p>
+<pre><code>进入接口或者试图后
+ip source check user-bind enable  # 使能IPSG
+ip source check user-bind check-item &#123;vlan | interface&#125; # 配置报文检查项
+注：如果是静态绑定表项，无法手动配置检查项，所以静态绑定表项的IPSG不需要配置此项
+
+ip source check user-bind alarm enable  # 使能接口检查告警功能
+ip source check user-bind alarm threshold 100  # 告警阈值，默认为100
+
+检查相关命令
+display ip source check user-bind &#123;interface XX | vlan XX&#125;  # 检查接口或者VLAN下IPSG的配置信息
+display nd snooping user-bind all [ verbose ]  # 查看ND Snooping动态绑定表信息
+#  带verbose参数可以查看到IPSG的状态。
+</code></pre>
+<p>​    </p>
 <h2 id="RSTP-amp-amp-MSTP"><a href="#RSTP-amp-amp-MSTP" class="headerlink" title="RSTP&amp;&amp;MSTP"></a>RSTP&amp;&amp;MSTP</h2><h3 id="快速生成树协议（RSTP）"><a href="#快速生成树协议（RSTP）" class="headerlink" title="快速生成树协议（RSTP）"></a>快速生成树协议（RSTP）</h3><p>由于传统的STP协议存在收敛速度慢的问题，所以推出了RSTP（快速生成树协议）</p>
 <p>RSTP的配置与传统STP完全一致，但是机制不同</p>
 <blockquote>
@@ -1084,6 +1307,104 @@ interface css-port 1  # 创建集群逻辑接口
 css enable  # 交换机使能集群功能，缺省情况下，交换机的集群功能未使能    
 set css mode &#123;lpu | css-card&#125;  # 设备的集群连接方式,缺省情况下设备的集群连接方式与设备型号相关
 </code></pre>
+<h2 id="OSPF高级技术"><a href="#OSPF高级技术" class="headerlink" title="OSPF高级技术"></a>OSPF高级技术</h2><h3 id="OSPF基础"><a href="#OSPF基础" class="headerlink" title="OSPF基础"></a>OSPF基础</h3><p><code>OSPF</code>是链路状态路由协议的一种，将<code>AS</code>（自治系统）划分为一个或多个逻辑区域</p>
+<p><code>OSPF</code>通过在广播域内泛洪<code>LSA</code>（链路状态通告）的形式发布路由，为了减少LSA在广播域内的交换，广播网络中的<code>OSPF</code>需要确立<code>DR/BDR</code></p>
+<p><code>P2P</code>链路为非广播型网络，所以不需要确定<code>DR/BDR</code></p>
+<h4 id="OSPF报文结构"><a href="#OSPF报文结构" class="headerlink" title="OSPF报文结构"></a>OSPF报文结构</h4><p><img src="image-20221213104500206.png" alt="image-20221213104500206"></p>
+<p><code>OSPF</code>报头结构如图所示，标识了<code>ROUTE-ID</code>和区域ID</p>
+<p>后面的<code>OSPF Packet data</code>就是具体的报文数据，如IA所学，有五种<code>hello|DD|LSR|LSU|LSACK</code></p>
+<h4 id="HELLO报文结构"><a href="#HELLO报文结构" class="headerlink" title="HELLO报文结构"></a>HELLO报文结构</h4><p><img src="image-20221213104836909.png" alt="image-20221213104836909"></p>
+<p><code>Network Mask</code>：子网掩码</p>
+<p><code>Hello Inter</code>：发送Hello报文的时间间隔，华为默认为10s、思科默认为15s</p>
+<p><code>Options</code>：选项，共有<code>E</code>|<code>MC</code>|<code>N/P</code>三种</p>
+<p><img src="image-20221213105204628.png" alt="image-20221213105204628"></p>
+<p><code>Route-Priority</code>：DR优先级，默认为1</p>
+<p><code>RouteDeadInterval</code>：邻居失效时间；如果在一个失效时间内都没有收到新的Hello，则认为邻居失效，默认为40s</p>
+<p><code>Designated Router</code>： DR接口地址（最初，广播域中每个接口都认为自己是DR，该字段是自己的接口地址）</p>
+<ul>
+<li>华为产品文档说最初是自己接口地址，但模拟器抓包结果全0，应该是文档更权威些</li>
+</ul>
+<p><code>Backup Designated Router</code>：BDR接口地址（最初状态为0.0.0.0）</p>
+<p><img src="image-20221213111057467.png" alt="image-20221213111057467"></p>
+<p><code>Neighbor</code>：邻居地址，没有邻居时该字段为空</p>
+<h4 id="OSPF报文交互过程"><a href="#OSPF报文交互过程" class="headerlink" title="OSPF报文交互过程"></a>OSPF报文交互过程</h4><p><strong>在广播网络中OSPF交互过程：</strong></p>
+<img src="fig_dc_vrp_feature_new_00630602.png" alt="img" style="zoom:150%;" />
+
+<p>可知DR/BDR通过<code>Hello</code>报文选举并维护</p>
+<p><strong>在点到点/点到多点网络中建立OSPF邻接关系</strong></p>
+<p>在点到点/点到多点网络中，邻接关系的建立过程和广播网络一样，唯一不同的是不需要选举DR和BDR，DD报文是组播发送的。</p>
+<p>NBMA网络略</p>
+<p>具体参考华为产品文档</p>
+<h3 id="LSA与LSDB"><a href="#LSA与LSDB" class="headerlink" title="LSA与LSDB"></a>LSA与LSDB</h3><p><code>LSA</code>(链路状态通告)，描述了路由器的链路状态信息（路由条目、开销、优先级、邻居信息）等</p>
+<p>设备上用于保存<code>LSA</code>的数据库，称为<code>LSDB</code>（链路状态数据库）</p>
+<p><code>OSPF</code>协议中一共有7种<code>LSA</code>，在HCIP阶段只学习6种，分别是：</p>
+<table>
+<thead>
+<tr>
+<th align="center">LSA类型</th>
+<th align="center">LSA作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Router-LSA（Type1）</td>
+<td align="center">每个设备都会产生，描述了设备的链路状态和开销，在所属的区域内传播。</td>
+</tr>
+<tr>
+<td align="center">Network-LSA（Type2）</td>
+<td align="center">由DR（Designated Router）产生，描述本网段的链路状态，在所属的区域内传播。</td>
+</tr>
+<tr>
+<td align="center">Network-summary-LSA（Type3）</td>
+<td align="center">由ABR产生，描述区域内某个网段的路由，并通告给发布或接收此LSA的非Totally STUB或NSSA区域。</td>
+</tr>
+<tr>
+<td align="center">ASBR-summary-LSA（Type4）</td>
+<td align="center">由ABR产生，描述到ASBR的路由，通告给除ASBR所在区域的其他相关区域。</td>
+</tr>
+<tr>
+<td align="center">AS-external-LSA（Type5）</td>
+<td align="center">由ASBR产生，描述到AS外部的路由，通告到所有的区域（除了STUB区域和NSSA区域）。</td>
+</tr>
+<tr>
+<td align="center">NSSA LSA（Type7）</td>
+<td align="center">由ASBR产生，描述到AS外部的路由，仅在NSSA区域内传播。</td>
+</tr>
+</tbody></table>
+<p><code>LSA</code>不只是传递路由，同时也传递拓扑</p>
+<ul>
+<li>广播网络：只有二类LSA发布拓扑信息</li>
+<li>点对点网络：一类和二类LSA发布拓扑信息</li>
+</ul>
+<blockquote>
+<p>如果将路由比作公交站牌子上的站名，那么拓扑就是地图</p>
+<p>只看站名，没有地图，找不到去目的地的路</p>
+<p>所以拓扑和路由在路由转发的过程中缺一不可</p>
+</blockquote>
+<p>在广播网络中，二类LSA由<code>DR</code>发送，一类LSA所有设备均可发送。</p>
+<p>由于DR设备有BDR/DRother的全部拓扑信息，所以广播网络中一类LSA无需发送拓扑信息，只需二类LSA发送拓扑信息就可以让区域内任意设备得到全部的网络拓扑</p>
+<p>三类LSA用于跨区域发布路由信息，不发布拓扑信息</p>
+<p>五类LSA用于发布外部网络（其他路由协议）的路由信息</p>
+<p>四类LSA用于告诉<code>OSPF</code>网络“外部”路由是由谁通告的</p>
+<p>将LSDB中的LSA通过SPF算法计算，就可以生成OSPF路由表，然后由设备择优写入主路由表</p>
+<h3 id="SPF计算"><a href="#SPF计算" class="headerlink" title="SPF计算"></a>SPF计算</h3><p>通过SPF算法，可以让同区域内任意设备，得到一颗以自己为起点。无环，可以到达区域内其他所有设备并且路径最优的树</p>
+<h3 id="OSPF多区域"><a href="#OSPF多区域" class="headerlink" title="OSPF多区域"></a>OSPF多区域</h3><p>由于同一区域内的所有设备都维护这一个相同的<code>LSDB</code>，当<code>OSPF</code>网络中存在大量设备时，过大的<code>LSDB</code>会给予设备很大的负担</p>
+<p>为了减少<code>LSDB</code>的规模，<code>OSPF</code>网络支持区域划分</p>
+<p>不同区域之间只传递三类及以上的<code>LSA</code>，而不传递一、二类<code>LSA</code>，这样避免了不同区域学到对方的拓扑信息，同时减少了<code>LSDB</code>规模</p>
+<p>由于SPF只能计算并生成同一区域内的最短路径树，无法跨区域计算（没有拓扑信息）</p>
+<p>所以三类及以上<code>LSA</code>在不同区域之间传递时有环路的可能</p>
+<p>为了避免环路，<code>OSPF</code>有下述规定</p>
+<ul>
+<li>区域0为骨干区域，其他区域都是非骨干区域</li>
+<li>非骨干区域只能将三类及以上LSA传递给骨干区域，并不会继续传递从骨干区域接收的LSA给其他区域</li>
+<li>骨干区域可以将三类及以上LSA传递给其他任意区域</li>
+<li>LSA传递方向不可逆（比如区域0和2相连，区域2不能将从区域0收到的LSA传回区域0）</li>
+</ul>
+<p>这就表示，<strong>非骨干区域必须和骨干区域之间相连</strong>，否则无法学习到其他区域的路由信息</p>
+<p>同时，也断绝了多区域间环路发生的可能</p>
+<blockquote>
+<p>由于骨干区域是多区域<code>OSPF</code>网络的核心并且对设备性能有很大的要求</p>
+<p>所以一般在核心层设备运行骨干区域，接入和汇聚部署在非骨干区域并进行合理的区域划分</p>
+</blockquote>
 <h2 id="防火墙基础"><a href="#防火墙基础" class="headerlink" title="防火墙基础"></a>防火墙基础</h2><h3 id="安全域与安全策略"><a href="#安全域与安全策略" class="headerlink" title="安全域与安全策略"></a>安全域与安全策略</h3><h3 id="防火墙NAT与NAT-SERVER配置"><a href="#防火墙NAT与NAT-SERVER配置" class="headerlink" title="防火墙NAT与NAT SERVER配置"></a>防火墙NAT与NAT SERVER配置</h3><h2 id="防火墙高可靠性"><a href="#防火墙高可靠性" class="headerlink" title="防火墙高可靠性"></a>防火墙高可靠性</h2><h3 id="链路状态检测"><a href="#链路状态检测" class="headerlink" title="链路状态检测"></a>链路状态检测</h3><h4 id="IP-Link"><a href="#IP-Link" class="headerlink" title="IP-Link"></a>IP-Link</h4><h4 id="BFD"><a href="#BFD" class="headerlink" title="BFD"></a>BFD</h4><h3 id="双机热备"><a href="#双机热备" class="headerlink" title="双机热备"></a>双机热备</h3><h2 id="BGP协议"><a href="#BGP协议" class="headerlink" title="BGP协议"></a>BGP协议</h2><h2 id="IPSec-VPN-隧道加密技术"><a href="#IPSec-VPN-隧道加密技术" class="headerlink" title="IPSec VPN 隧道加密技术"></a>IPSec VPN 隧道加密技术</h2><h2 id="MPLS-多协议标签交换"><a href="#MPLS-多协议标签交换" class="headerlink" title="MPLS 多协议标签交换"></a>MPLS 多协议标签交换</h2><h2 id="OSPF-多区域"><a href="#OSPF-多区域" class="headerlink" title="OSPF 多区域"></a>OSPF 多区域</h2><h2 id="IS-IS"><a href="#IS-IS" class="headerlink" title="IS-IS"></a>IS-IS</h2>
             </div>
             <hr/>

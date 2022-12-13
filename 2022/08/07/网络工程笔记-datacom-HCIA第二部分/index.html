@@ -430,9 +430,9 @@
 <h4 id="邻居状态机"><a href="#邻居状态机" class="headerlink" title="邻居状态机"></a>邻居状态机</h4><p>1、down：最初的状态，表示接口没有宣告进ospf进程，一旦宣告就会脱离此状态</p>
 <p>2、init：初始化状态，接口被宣告进ospf进程，开始发送hello报文</p>
 <p>3、2-way：邻居状态，通过Hello报文确定了邻居关系，但还没有发送LSA</p>
-<p>4、exstart：开始发送DD交换LSA目录，并选举主从（DR/BDR）路由器</p>
-<p>5、exchange：交换信息的状态，该状态告知对端本地所需的LSA</p>
-<p>6、loading：加载状态，发送LSR，LSU，LSACK，专门学习对端的LSA的详细信息。</p>
+<p>4、exstart：开始发送DD报文，通过DD报文选举主从路由器</p>
+<p>5、exchange：通过DD报文交换LSA目录信息</p>
+<p>6、loading：加载状态，通过LSR，LSU，LSACK报文同步LSDB【学习本端缺少的对端的LSA的详细信息】</p>
 <p>7、full：邻接状态，邻居之间路由信息学习完毕，此时LSDB同步，所有LSA相同</p>
 <blockquote>
 <p>LSDB：链路状态数据库，用于保存LSA</p>
@@ -444,7 +444,7 @@
 </blockquote>
 <h4 id="接口状态机"><a href="#接口状态机" class="headerlink" title="接口状态机"></a>接口状态机</h4><p>邻居状态机表示路由器之间路由交换的状态，接口状态机描述接口主次选举的状态</p>
 <p>1、down：接口没有宣告进OSPF</p>
-<p>2、waiting：当接口宣告进OSPF后，该接口立刻进入waiting状态。等待该网络中是否有其他接口参与接口状态选举。等待时间默认为20分钟</p>
+<p>2、waiting：当接口宣告进OSPF后，该接口立刻进入waiting状态。等待该网络中是否有其他接口参与接口状态选举。等待时间默认为40s。</p>
 <p>3、DR：整个自治系统的主要接口</p>
 <p>4、BDR：整个自治系统的备份接口</p>
 <p>5、Drother：其他所有接口都是该状态</p>
@@ -462,6 +462,9 @@
 <pre><code>重置OSPF进程命令：reset ospf process
 </code></pre>
 <h4 id="router-id"><a href="#router-id" class="headerlink" title="router-id"></a>router-id</h4><p><code>router-id</code>在ospf中用于选举接口状态机，也可以用于标识一个设备</p>
+<p><code>route-id</code>全写是和IPV4地址一致的点分十进制，配置时可以简写，设备会自动转换</p>
+<p>比如：256会自动转换为<code>0.0.1.0</code></p>
+<p><code>route-id</code>虽然和IP地址格式一致，但没有IP地址的作用，仅仅只是OSPF进程的一个标识</p>
 <blockquote>
 <p>配置<code>router-id</code></p>
 </blockquote>
@@ -490,13 +493,12 @@
 </blockquote>
 <p><img src="image-20220820070440464.png" alt="image-20220820070440464"></p>
 <h4 id="ospf运行解释"><a href="#ospf运行解释" class="headerlink" title="ospf运行解释"></a>ospf运行解释</h4><p>当有接口被宣告进<code>ospf</code>进程时,该接口转为<code>waiting</code>状态，该接口所属的路由器会从该接口发送hello报文，若邻居同样将接口宣告进<code>ospf</code>,那么邻居就会收到hello报文，同时再从此接口发送一个hello报文</p>
-<p>于是两个宣告进ospf的接口均收到hello,邻居关系建立，邻居状态机转为<code>2-way</code></p>
+<p>于是两个宣告进ospf的接口均收到hello，邻居关系建立（广播网络在这一步选举DR/BDR），邻居状态机转为<code>2-way</code></p>
 <p>两台路由器判断是否需要交换<code>LSA</code>，如果不需，则停留在<code>2-way</code>状态，并等待接口状态机的选举结果</p>
-<p>如果需要，则进入<code>exstart</code>状态，两台路由器互换<code>LSA</code>目录（<code>DD</code>）报文,并检查自己缺少的<code>LSA</code></p>
-<p>检查完毕后进入<code>exchange</code>状态，两台路由器互相发送<code>LSR</code>报文，告知对方自己所需的<code>LSA</code></p>
+<p>如果需要，则进入<code>exstart</code>状态，两台路由器互换<code>DD</code>报文，确定主从路由器（主从指谁先发LSA，与DR/BDR无关）</p>
+<p>主从确定后进入<code>exchange</code>状态，两台路由器互相发送<code>DD</code>报文（路由目录），并查询自己缺少的路由信息</p>
 <p>告知后进入<code>loading</code>状态，路由器互发<code>LSU</code>告诉详细的LSA和<code>LSACK</code>确认自己已经收到发来的LSA</p>
 <p>最后两台路由器LSDB一致，进入<code>full</code>状态</p>
-<p>而接口状态机需要在满<code>waiting</code>状态的20分钟后，选举<code>DR</code>和<code>BDR</code></p>
 <h4 id="OSPF配置"><a href="#OSPF配置" class="headerlink" title="OSPF配置"></a>OSPF配置</h4><pre><code>系统视图
 ospf 1 [router-id x.x.x.x]
 # 1指设置ospf进程号为1，router-id可选,通过此命令可以手动指定ospf使用的router-id
@@ -520,12 +522,17 @@ network x.x.x.x y.y.y.y
 ospf enable [ospf进程号] area [ospf区域]
 例如：ospf enable 1 are
 </code></pre>
+<p>有时组网要求业务网段不能出现协议报文，此时就需要将业务网段对应的端口设置为静默端口</p>
+<pre class="line-numbers language-ensp"><code class="language-ensp">silent-interface [静默端口号]
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="OSPF开销值的计算方法"><a href="#OSPF开销值的计算方法" class="headerlink" title="OSPF开销值的计算方法"></a>OSPF开销值的计算方法</h4><p>开销值作为加表原则，需要在路由条目中携带。每一个宣告进OSPF的路由器接口都会生成一个OSPF开销值</p>
 <blockquote>
 <p>接口开销值=参考带宽 / 接口带宽   带宽参考值为100M</p>
 </blockquote>
 <p> 举例：G0/0/0接口的开销值为：100M / 1000M=0.1  取整=1 （对于取整来说，计算结果大于0且小于2=1， 大于2小于3=2）</p>
 <p> 路由携带的开销值的计算是所有设备出接口开销值累加</p>
+<p>路由开销的总和是【流量出接口开销总计】或者【路由入接口开销总计】</p>
+<p>流量是数据实际转发的方向，路由是路由条目学习的方向，两者相反</p>
 <h2 id="交换原理"><a href="#交换原理" class="headerlink" title="交换原理"></a>交换原理</h2><blockquote>
 <p>交换与路由：</p>
 </blockquote>
@@ -1132,6 +1139,9 @@ display nat session all
 <h4 id="PAP"><a href="#PAP" class="headerlink" title="PAP"></a>PAP</h4><p>如果LCP协商声明认证方式PAP</p>
 <p>PAP认证模式由被认证方发送明文的用户名和密码到认证方，认证方验证后返回成果/失败报文。</p>
 <p>经历两次握手，由于是明文发送，所以不安全</p>
+<blockquote>
+<p>如果PPP两端的设备即作为认证方，又作为被认证方，就叫做PPP双向认证</p>
+</blockquote>
 <p><img src="image-20220902180133283.png" alt="image-20220902180133283"></p>
 <h4 id="PAP认证配置"><a href="#PAP认证配置" class="headerlink" title="PAP认证配置"></a>PAP认证配置</h4><pre><code># 认证方需要存在一个以上的用户：
 local-user    [用户名] password cipher [密码]
